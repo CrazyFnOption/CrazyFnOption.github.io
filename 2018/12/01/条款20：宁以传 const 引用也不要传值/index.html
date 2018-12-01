@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Super Coding" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Magical Beans" type="application/atom+xml">
 
 
 
@@ -93,7 +93,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款20：宁以传 const 引用也不要传值">
 <meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/条款20：宁以传 const 引用也不要传值/index.html">
-<meta property="og:site_name" content="Super Coding">
+<meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。 传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了  以上规则不适合某些特殊规则，比如内置类型以及 STL 的迭代器，对它们而言 ，传值往往是最恰当的。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-12-01T13:08:22.839Z">
@@ -135,7 +135,7 @@
 
 
 
-  <title>条款20：宁以传 const 引用也不要传值 | Super Coding</title>
+  <title>条款20：宁以传 const 引用也不要传值 | Magical Beans</title>
   
 
 
@@ -175,7 +175,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Super Coding</span>
+        <span class="site-title">Magical Beans</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -291,7 +291,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -441,6 +441,35 @@
 
     
 
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
     
 
     

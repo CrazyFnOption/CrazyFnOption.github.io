@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Super Coding" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Magical Beans" type="application/atom+xml">
 
 
 
@@ -93,7 +93,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款04：确定对象被使用前已先被初始化">
 <meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/条款04：确定对象被使用前已先被初始化/index.html">
-<meta property="og:site_name" content="Super Coding">
+<meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-12-01T13:08:22.838Z">
@@ -135,7 +135,7 @@
 
 
 
-  <title>条款04：确定对象被使用前已先被初始化 | Super Coding</title>
+  <title>条款04：确定对象被使用前已先被初始化 | Magical Beans</title>
   
 
 
@@ -175,7 +175,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Super Coding</span>
+        <span class="site-title">Magical Beans</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -291,7 +291,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -452,6 +452,35 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
       <div>
@@ -492,8 +521,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" rel="next" title="条款05：了解 C++默默编写并调用了哪些函数">
-                <i class="fa fa-chevron-left"></i> 条款05：了解 C++默默编写并调用了哪些函数
+              <a href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" rel="next" title="条款06：若不想使用编译器自动生成的函数，就应该明确拒绝">
+                <i class="fa fa-chevron-left"></i> 条款06：若不想使用编译器自动生成的函数，就应该明确拒绝
               </a>
             
           </div>
@@ -502,8 +531,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款03：尽可能使用 const/" rel="prev" title="条款03：尽可能使用 const">
-                条款03：尽可能使用 const <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" rel="prev" title="条款02：尽量以const,enum,inline 替换掉#define">
+                条款02：尽量以const,enum,inline 替换掉#define <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

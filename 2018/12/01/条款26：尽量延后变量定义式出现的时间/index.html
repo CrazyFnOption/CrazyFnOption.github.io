@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Super Coding" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Magical Beans" type="application/atom+xml">
 
 
 
@@ -93,7 +93,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款25：考虑写出一个不抛异常的 swap 函数">
 <meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/条款26：尽量延后变量定义式出现的时间/index.html">
-<meta property="og:site_name" content="Super Coding">
+<meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="其实该条款总结下来就是再讲一个东西，而这个东西分成两点：  如果类的赋值成本低于一组构造和析构成本，那么将对象的定义定义到循环体外部去，尤其是在循环次数很多的情况下。否则就是将定义循环体内部中去。  尽可能延后变量定义式出现的时间，最好达到需要什么才去定义什么，这样做可以增加程序的清晰度并改善程序效率。另外最好在程序定义的时候就直接构造（初始化）。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-12-01T13:08:22.840Z">
@@ -135,7 +135,7 @@
 
 
 
-  <title>条款25：考虑写出一个不抛异常的 swap 函数 | Super Coding</title>
+  <title>条款25：考虑写出一个不抛异常的 swap 函数 | Magical Beans</title>
   
 
 
@@ -175,7 +175,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Super Coding</span>
+        <span class="site-title">Magical Beans</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -291,7 +291,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -443,6 +443,35 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
       <div>
@@ -493,8 +522,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/" rel="prev" title="条款24：若所有参数需要类型转换的时候，请设置非成员函数">
-                条款24：若所有参数需要类型转换的时候，请设置非成员函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款22：将成员变量声明为 private/" rel="prev" title="条款22：将成员变量声明为 private">
+                条款22：将成员变量声明为 private <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Super Coding" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Magical Beans" type="application/atom+xml">
 
 
 
@@ -93,7 +93,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款06：若不想使用编译器自动生成的函数，就应该明确拒绝">
 <meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/index.html">
-<meta property="og:site_name" content="Super Coding">
+<meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。 把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。  继承一个基类，使用 private 继承方法，然后将这个">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-12-01T13:08:22.838Z">
@@ -135,7 +135,7 @@
 
 
 
-  <title>条款06：若不想使用编译器自动生成的函数，就应该明确拒绝 | Super Coding</title>
+  <title>条款06：若不想使用编译器自动生成的函数，就应该明确拒绝 | Magical Beans</title>
   
 
 
@@ -175,7 +175,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Super Coding</span>
+        <span class="site-title">Magical Beans</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -291,7 +291,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -444,6 +444,35 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
       <div>
@@ -484,8 +513,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" rel="next" title="条款07：为多态基类声明 virtual 析构函数">
-                <i class="fa fa-chevron-left"></i> 条款07：为多态基类声明 virtual 析构函数
+              <a href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" rel="next" title="条款05：了解 C++默默编写并调用了哪些函数">
+                <i class="fa fa-chevron-left"></i> 条款05：了解 C++默默编写并调用了哪些函数
               </a>
             
           </div>
@@ -494,8 +523,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" rel="prev" title="条款05：了解 C++默默编写并调用了哪些函数">
-                条款05：了解 C++默默编写并调用了哪些函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款04：确定对象被使用前已先被初始化/" rel="prev" title="条款04：确定对象被使用前已先被初始化">
+                条款04：确定对象被使用前已先被初始化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

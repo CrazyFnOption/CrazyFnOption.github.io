@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Super Coding" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Magical Beans" type="application/atom+xml">
 
 
 
@@ -93,7 +93,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款07：为多态基类声明 virtual 析构函数">
 <meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/条款07：为多态基类声明 virtual 析构函数/index.html">
-<meta property="og:site_name" content="Super Coding">
+<meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。 C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-12-01T13:08:22.839Z">
@@ -135,7 +135,7 @@
 
 
 
-  <title>条款07：为多态基类声明 virtual 析构函数 | Super Coding</title>
+  <title>条款07：为多态基类声明 virtual 析构函数 | Magical Beans</title>
   
 
 
@@ -175,7 +175,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Super Coding</span>
+        <span class="site-title">Magical Beans</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -291,7 +291,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -448,6 +448,35 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
       <div>
@@ -488,8 +517,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/条款08：别让异常逃离析构函数/" rel="next" title="条款08：别让异常逃离析构函数">
-                <i class="fa fa-chevron-left"></i> 条款08：别让异常逃离析构函数
+              <a href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" rel="next" title="条款09：绝不在构造和析构的过程中调用 virtual 函数">
+                <i class="fa fa-chevron-left"></i> 条款09：绝不在构造和析构的过程中调用 virtual 函数
               </a>
             
           </div>
@@ -498,8 +527,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" rel="prev" title="条款06：若不想使用编译器自动生成的函数，就应该明确拒绝">
-                条款06：若不想使用编译器自动生成的函数，就应该明确拒绝 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" rel="prev" title="条款05：了解 C++默默编写并调用了哪些函数">
+                条款05：了解 C++默默编写并调用了哪些函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

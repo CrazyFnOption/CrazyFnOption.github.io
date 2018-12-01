@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Super Coding" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Magical Beans" type="application/atom+xml">
 
 
 
@@ -90,13 +90,13 @@
 
 <meta name="description" content="Smart is the new sexy .">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Super Coding">
+<meta property="og:title" content="Magical Beans">
 <meta property="og:url" content="http://www.wsx1128.xyz/index.html">
-<meta property="og:site_name" content="Super Coding">
+<meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="Smart is the new sexy .">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Super Coding">
+<meta name="twitter:title" content="Magical Beans">
 <meta name="twitter:description" content="Smart is the new sexy .">
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <title>Super Coding</title>
+  <title>Magical Beans</title>
   
 
 
@@ -174,7 +174,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Super Coding</span>
+        <span class="site-title">Magical Beans</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -281,7 +281,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款13：以对象管理资源/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -290,7 +290,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -300,7 +300,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款11：在operator中处理自我赋值的情况/" itemprop="url">条款11：在 operator 中处理自我赋值的情况</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款13：以对象管理资源/" itemprop="url">条款13：以对象管理资源</a></h1>
         
 
         <div class="post-meta">
@@ -353,8 +353,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/条款11：在operator中处理自我赋值的情况/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款11：在operator中处理自我赋值的情况/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/条款13：以对象管理资源/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款13：以对象管理资源/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  343
+                  295
                 </span>
               
 
@@ -415,18 +415,12 @@
       
         
           
-            <h4 id="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况"><a href="#本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况" class="headerlink" title="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况"></a>本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况</h4><ol>
-<li><p>比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。</p>
+            <h4 id="系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。"><a href="#系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。" class="headerlink" title="系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。"></a>系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。</h4><ol>
+<li><p>使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数）</p>
 </li>
-<li><p>同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。</p>
+<li><p>获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。</p>
 </li>
-</ol>
-<p><img src="//www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png" alt=""></p>
-<p>就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。</p>
-<ol start="3">
-<li><p>还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。</p>
-</li>
-<li><p>或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。</p>
+<li><p>需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。</p>
 </li>
 </ol>
 
@@ -494,7 +488,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -696,6 +690,599 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" itemprop="url">一道STL的题解题目，需要以后花时间理解题目意思</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/题解/" itemprop="url" rel="index">
+                    <span itemprop="name">题解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  268
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="//www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/15334616821861.jpg" alt=""></p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">//#include&lt;function&gt;</span><br><span class="line"></span><br><span class="line">#define ll long long</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int fort = 1314;</span><br><span class="line"></span><br><span class="line">ll a[6];</span><br><span class="line"></span><br><span class="line">//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤</span><br><span class="line">int main()&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2];</span><br><span class="line">        a[3] = 5;</span><br><span class="line">        a[4] = 2;</span><br><span class="line">        a[5] = 0;</span><br><span class="line">        sort(a,  a + 6,</span><br><span class="line">        [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;);</span><br><span class="line">        priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq;</span><br><span class="line">        set&lt;ll&gt;s;</span><br><span class="line">        set&lt;ll&gt;ans;</span><br><span class="line">        pq.push(1);</span><br><span class="line">        s.insert(1);</span><br><span class="line">        for(int i = 0;;i++)&#123;</span><br><span class="line">            ll x = pq.top();</span><br><span class="line">            pq.pop();</span><br><span class="line">            if(i)&#123;</span><br><span class="line">                for(int k = 3;k &lt; 6;k++)&#123;</span><br><span class="line">                    ans.insert(x - a[k]);</span><br><span class="line">                    if(ans.size()==fort)</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">                if(ans.size()==fort)&#123;</span><br><span class="line">                    /*int ttt = 1;</span><br><span class="line">                    for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++)</span><br><span class="line">                        cout&lt;&lt;ttt++&lt;&lt;&apos; &apos;&lt;&lt;*it&lt;&lt;endl;*/</span><br><span class="line">                    auto it = ans.rbegin();</span><br><span class="line">                    cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            for(int j = 0;j&lt;3;j++)&#123;</span><br><span class="line">                ll x2=x*a[j];</span><br><span class="line">                if(!s.count(x2))&#123;</span><br><span class="line">                    s.insert(x2);</span><br><span class="line">                    pq.push(x2);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/一道有趣的题目——逆波兰计算器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/一道有趣的题目——逆波兰计算器/" itemprop="url">一道有趣的题目——逆波兰计算器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/题解/" itemprop="url" rel="index">
+                    <span itemprop="name">题解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/一道有趣的题目——逆波兰计算器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/一道有趣的题目——逆波兰计算器/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  765
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="//www.wsx1128.xyz/2018/12/01/一道有趣的题目——逆波兰计算器/15334382488561.jpg" alt=""></p>
+<p><strong>题解</strong><br>首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。<br>==注意以下几个地方==</p>
+<ol>
+<li>注意输入<code>cin&gt;&gt;t</code>以后，需要用<code>getchar()</code>来清空上一个步骤留下来的回车符号</li>
+<li>注意此处需要严格进行判断栈内是否为空。</li>
+<li>这里是将乘除求模的运算放在最右边，这样就可以有优先级存在了</li>
+<li>括号会提前进行一步运算，然后消除掉左括号，或者左边的所有运算式，进行一个结算。</li>
+<li>map这里存在的意义就在于 为判断进行提供条件。</li>
+<li>此道题目涉及字符串，栈，模拟的相应算法，需要有空的时候可以多看看。</li>
+</ol>
+<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">stack&lt;char&gt;ope;</span><br><span class="line">stack&lt;int&gt;num;</span><br><span class="line">string str;</span><br><span class="line">map&lt;char,int&gt;m;</span><br><span class="line"></span><br><span class="line">void init()&#123;</span><br><span class="line">    m[&apos;+&apos;]=m[&apos;-&apos;]=1;</span><br><span class="line">    m[&apos;*&apos;]=m[&apos;/&apos;]=m[&apos;%&apos;]=m[&apos;(&apos;]=m[&apos;)&apos;]=2;</span><br><span class="line">    while(!num.empty())</span><br><span class="line">        num.pop();</span><br><span class="line">    while(!ope.empty())</span><br><span class="line">        ope.pop();</span><br><span class="line">&#125;</span><br><span class="line">//此处为基本的运算规模。</span><br><span class="line">void op1(int &amp;a,int &amp;b,const char &amp;c)&#123;</span><br><span class="line">    if (c ==&apos;+&apos;)    a += b;</span><br><span class="line">    else if (c == &apos;-&apos;) a=b-a;</span><br><span class="line">    else if (c == &apos;*&apos;) a*=b;</span><br><span class="line">    else if (c == &apos;/&apos;) a=b/a;</span><br><span class="line">    else if (c == &apos;%&apos;) a=b%a;</span><br><span class="line">&#125;</span><br><span class="line">//此处就是控制出栈的运算，一般就是括号内部的计算了。算出每一个括号内部的运算式。</span><br><span class="line">void op2()&#123;</span><br><span class="line">    char ch = ope.top();</span><br><span class="line">    while (ch != &apos;(&apos;&amp;&amp;!ope.empty())&#123;</span><br><span class="line">        ope.pop();</span><br><span class="line">        int a = num.top();</span><br><span class="line">        num.pop();</span><br><span class="line">        int b = num.top();</span><br><span class="line">        num.pop();</span><br><span class="line">        op1(a,b,ch);</span><br><span class="line">        num.push(a);</span><br><span class="line">        if (!ope.empty())</span><br><span class="line">            ch = ope.top();</span><br><span class="line">    &#125;//这个下面要注意的判断条件中一定要加上判断是否为空。</span><br><span class="line"></span><br><span class="line">    if (!ope.empty()&amp;&amp;ope.top() ==&apos;(&apos;)</span><br><span class="line">        ope.pop();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    getchar();</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        getline(cin,str);</span><br><span class="line">        stringstream s(str);</span><br><span class="line">        init();</span><br><span class="line">        char tmp;</span><br><span class="line">        while (s&gt;&gt;tmp)&#123;</span><br><span class="line">            if(tmp&gt;=&apos;0&apos;&amp;&amp;tmp&lt;=&apos;9&apos;)&#123;</span><br><span class="line">                int x = 0;</span><br><span class="line">                do&#123;</span><br><span class="line">                    if (m[tmp]) break;</span><br><span class="line">                    x *= 10;</span><br><span class="line">                    x += tmp - &apos;0&apos;;//此处是将char转换成int</span><br><span class="line">                &#125;while(s&gt;&gt;tmp);</span><br><span class="line">                num.push(x);</span><br><span class="line">            &#125;</span><br><span class="line">            //注意这个地方的高明之处就在于碰见‘）’的返回，以及判断有没有‘（’，</span><br><span class="line">            比如连加的情况就把加减乘除的优先运算级给表示出来了。</span><br><span class="line">            //最后相当于将运算优先级高的全部放到了右边，然后有括号的就先解决括号，</span><br><span class="line">            及时左括号被提前弄没了也不要紧，存在有右括号就行，然后乘除永远放在加减的左边。</span><br><span class="line">            </span><br><span class="line">            if (tmp==&apos;)&apos;) op2();</span><br><span class="line">            else if (m[tmp]==1)&#123;</span><br><span class="line">                if (!ope.empty()&amp;&amp;ope.top()!=&apos;(&apos;)</span><br><span class="line">                    op2();</span><br><span class="line">                ope.push(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (m[tmp]) ope.push(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        int ans = num.top();</span><br><span class="line">        num.pop();</span><br><span class="line">        while (!num.empty()&amp;&amp;!ope.empty())&#123;</span><br><span class="line">            op1(ans,num.top(),ope.top());</span><br><span class="line">            ope.pop();</span><br><span class="line">            num.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/一道计算机几何算法相关题目/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/一道计算机几何算法相关题目/" itemprop="url">一道计算机几何算法相关题目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/题解/" itemprop="url" rel="index">
+                    <span itemprop="name">题解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/一道计算机几何算法相关题目/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/一道计算机几何算法相关题目/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  277
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>题目：</strong></p>
+<p><img src="//www.wsx1128.xyz/2018/12/01/一道计算机几何算法相关题目/15349459741854.jpg" alt=""></p>
+<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">double v,s,b;</span><br><span class="line">const double pi = acos(-1.0);</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123;</span><br><span class="line">        if (s&lt;b)&#123;</span><br><span class="line">            cout&lt;&lt;-1&lt;&lt;endl;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        double x = (v * v) / 9.8;</span><br><span class="line">        if ( x &lt; s ) &#123;</span><br><span class="line">            cout&lt;&lt;&quot;move &quot;&lt;&lt;fixed&lt;&lt;setprecision(2)&lt;&lt;s-x&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            double b = (s * 9.8) / (v * v);</span><br><span class="line">            //注意反函数的转换。</span><br><span class="line">            double a = asin(b) * 90 / pi;</span><br><span class="line">            //这里有一个进一的操作，因为此题不太会去四舍五入。</span><br><span class="line">            int a_ = a;</span><br><span class="line">            if (a-a_ &gt;= 0.5) a_++;</span><br><span class="line">            cout&lt;&lt;&quot;a &quot;&lt;&lt;a_&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>关于这道题目的相关要点</strong></p>
+<ol>
+<li><p>反函数相关要点。<br>注意 反函数最后输出的是 一个弧度值，根据相应数学的算法而言<br>记住 ==弧度值=角度*pi/180==</p>
+</li>
+<li><p>关于输出中进1的相关操作。<br>按照第几位，先换算成相应的整形数，最后再强转成int型 最后在判断是否大于0.5来考虑时候来加一。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/STL的简单总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -705,7 +1292,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -996,599 +1583,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" itemprop="url">一道STL的题解题目，需要以后花时间理解题目意思</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  268
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="//www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/15334616821861.jpg" alt=""></p>
-<p><strong>代码如下：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">//#include&lt;function&gt;</span><br><span class="line"></span><br><span class="line">#define ll long long</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int fort = 1314;</span><br><span class="line"></span><br><span class="line">ll a[6];</span><br><span class="line"></span><br><span class="line">//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤</span><br><span class="line">int main()&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2];</span><br><span class="line">        a[3] = 5;</span><br><span class="line">        a[4] = 2;</span><br><span class="line">        a[5] = 0;</span><br><span class="line">        sort(a,  a + 6,</span><br><span class="line">        [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;);</span><br><span class="line">        priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq;</span><br><span class="line">        set&lt;ll&gt;s;</span><br><span class="line">        set&lt;ll&gt;ans;</span><br><span class="line">        pq.push(1);</span><br><span class="line">        s.insert(1);</span><br><span class="line">        for(int i = 0;;i++)&#123;</span><br><span class="line">            ll x = pq.top();</span><br><span class="line">            pq.pop();</span><br><span class="line">            if(i)&#123;</span><br><span class="line">                for(int k = 3;k &lt; 6;k++)&#123;</span><br><span class="line">                    ans.insert(x - a[k]);</span><br><span class="line">                    if(ans.size()==fort)</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">                if(ans.size()==fort)&#123;</span><br><span class="line">                    /*int ttt = 1;</span><br><span class="line">                    for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++)</span><br><span class="line">                        cout&lt;&lt;ttt++&lt;&lt;&apos; &apos;&lt;&lt;*it&lt;&lt;endl;*/</span><br><span class="line">                    auto it = ans.rbegin();</span><br><span class="line">                    cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            for(int j = 0;j&lt;3;j++)&#123;</span><br><span class="line">                ll x2=x*a[j];</span><br><span class="line">                if(!s.count(x2))&#123;</span><br><span class="line">                    s.insert(x2);</span><br><span class="line">                    pq.push(x2);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/一道有趣的题目——逆波兰计算器/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/一道有趣的题目——逆波兰计算器/" itemprop="url">一道有趣的题目——逆波兰计算器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/一道有趣的题目——逆波兰计算器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/一道有趣的题目——逆波兰计算器/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  765
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="//www.wsx1128.xyz/2018/12/01/一道有趣的题目——逆波兰计算器/15334382488561.jpg" alt=""></p>
-<p><strong>题解</strong><br>首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。<br>==注意以下几个地方==</p>
-<ol>
-<li>注意输入<code>cin&gt;&gt;t</code>以后，需要用<code>getchar()</code>来清空上一个步骤留下来的回车符号</li>
-<li>注意此处需要严格进行判断栈内是否为空。</li>
-<li>这里是将乘除求模的运算放在最右边，这样就可以有优先级存在了</li>
-<li>括号会提前进行一步运算，然后消除掉左括号，或者左边的所有运算式，进行一个结算。</li>
-<li>map这里存在的意义就在于 为判断进行提供条件。</li>
-<li>此道题目涉及字符串，栈，模拟的相应算法，需要有空的时候可以多看看。</li>
-</ol>
-<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">stack&lt;char&gt;ope;</span><br><span class="line">stack&lt;int&gt;num;</span><br><span class="line">string str;</span><br><span class="line">map&lt;char,int&gt;m;</span><br><span class="line"></span><br><span class="line">void init()&#123;</span><br><span class="line">    m[&apos;+&apos;]=m[&apos;-&apos;]=1;</span><br><span class="line">    m[&apos;*&apos;]=m[&apos;/&apos;]=m[&apos;%&apos;]=m[&apos;(&apos;]=m[&apos;)&apos;]=2;</span><br><span class="line">    while(!num.empty())</span><br><span class="line">        num.pop();</span><br><span class="line">    while(!ope.empty())</span><br><span class="line">        ope.pop();</span><br><span class="line">&#125;</span><br><span class="line">//此处为基本的运算规模。</span><br><span class="line">void op1(int &amp;a,int &amp;b,const char &amp;c)&#123;</span><br><span class="line">    if (c ==&apos;+&apos;)    a += b;</span><br><span class="line">    else if (c == &apos;-&apos;) a=b-a;</span><br><span class="line">    else if (c == &apos;*&apos;) a*=b;</span><br><span class="line">    else if (c == &apos;/&apos;) a=b/a;</span><br><span class="line">    else if (c == &apos;%&apos;) a=b%a;</span><br><span class="line">&#125;</span><br><span class="line">//此处就是控制出栈的运算，一般就是括号内部的计算了。算出每一个括号内部的运算式。</span><br><span class="line">void op2()&#123;</span><br><span class="line">    char ch = ope.top();</span><br><span class="line">    while (ch != &apos;(&apos;&amp;&amp;!ope.empty())&#123;</span><br><span class="line">        ope.pop();</span><br><span class="line">        int a = num.top();</span><br><span class="line">        num.pop();</span><br><span class="line">        int b = num.top();</span><br><span class="line">        num.pop();</span><br><span class="line">        op1(a,b,ch);</span><br><span class="line">        num.push(a);</span><br><span class="line">        if (!ope.empty())</span><br><span class="line">            ch = ope.top();</span><br><span class="line">    &#125;//这个下面要注意的判断条件中一定要加上判断是否为空。</span><br><span class="line"></span><br><span class="line">    if (!ope.empty()&amp;&amp;ope.top() ==&apos;(&apos;)</span><br><span class="line">        ope.pop();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    getchar();</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        getline(cin,str);</span><br><span class="line">        stringstream s(str);</span><br><span class="line">        init();</span><br><span class="line">        char tmp;</span><br><span class="line">        while (s&gt;&gt;tmp)&#123;</span><br><span class="line">            if(tmp&gt;=&apos;0&apos;&amp;&amp;tmp&lt;=&apos;9&apos;)&#123;</span><br><span class="line">                int x = 0;</span><br><span class="line">                do&#123;</span><br><span class="line">                    if (m[tmp]) break;</span><br><span class="line">                    x *= 10;</span><br><span class="line">                    x += tmp - &apos;0&apos;;//此处是将char转换成int</span><br><span class="line">                &#125;while(s&gt;&gt;tmp);</span><br><span class="line">                num.push(x);</span><br><span class="line">            &#125;</span><br><span class="line">            //注意这个地方的高明之处就在于碰见‘）’的返回，以及判断有没有‘（’，</span><br><span class="line">            比如连加的情况就把加减乘除的优先运算级给表示出来了。</span><br><span class="line">            //最后相当于将运算优先级高的全部放到了右边，然后有括号的就先解决括号，</span><br><span class="line">            及时左括号被提前弄没了也不要紧，存在有右括号就行，然后乘除永远放在加减的左边。</span><br><span class="line">            </span><br><span class="line">            if (tmp==&apos;)&apos;) op2();</span><br><span class="line">            else if (m[tmp]==1)&#123;</span><br><span class="line">                if (!ope.empty()&amp;&amp;ope.top()!=&apos;(&apos;)</span><br><span class="line">                    op2();</span><br><span class="line">                ope.push(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (m[tmp]) ope.push(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        int ans = num.top();</span><br><span class="line">        num.pop();</span><br><span class="line">        while (!num.empty()&amp;&amp;!ope.empty())&#123;</span><br><span class="line">            op1(ans,num.top(),ope.top());</span><br><span class="line">            ope.pop();</span><br><span class="line">            num.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/一道计算机几何算法相关题目/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/一道计算机几何算法相关题目/" itemprop="url">一道计算机几何算法相关题目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/一道计算机几何算法相关题目/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/一道计算机几何算法相关题目/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  277
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>题目：</strong></p>
-<p><img src="//www.wsx1128.xyz/2018/12/01/一道计算机几何算法相关题目/15349459741854.jpg" alt=""></p>
-<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">double v,s,b;</span><br><span class="line">const double pi = acos(-1.0);</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123;</span><br><span class="line">        if (s&lt;b)&#123;</span><br><span class="line">            cout&lt;&lt;-1&lt;&lt;endl;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        double x = (v * v) / 9.8;</span><br><span class="line">        if ( x &lt; s ) &#123;</span><br><span class="line">            cout&lt;&lt;&quot;move &quot;&lt;&lt;fixed&lt;&lt;setprecision(2)&lt;&lt;s-x&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            double b = (s * 9.8) / (v * v);</span><br><span class="line">            //注意反函数的转换。</span><br><span class="line">            double a = asin(b) * 90 / pi;</span><br><span class="line">            //这里有一个进一的操作，因为此题不太会去四舍五入。</span><br><span class="line">            int a_ = a;</span><br><span class="line">            if (a-a_ &gt;= 0.5) a_++;</span><br><span class="line">            cout&lt;&lt;&quot;a &quot;&lt;&lt;a_&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>关于这道题目的相关要点</strong></p>
-<ol>
-<li><p>反函数相关要点。<br>注意 反函数最后输出的是 一个弧度值，根据相应数学的算法而言<br>记住 ==弧度值=角度*pi/180==</p>
-</li>
-<li><p>关于输出中进1的相关操作。<br>按照第几位，先换算成相应的整形数，最后再强转成int型 最后在判断是否大于0.5来考虑时候来加一。</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/二分法思想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1598,7 +1592,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -1814,7 +1808,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -2006,7 +2000,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -2208,7 +2202,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     

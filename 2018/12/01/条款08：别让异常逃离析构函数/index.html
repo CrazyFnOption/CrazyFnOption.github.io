@@ -81,7 +81,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Super Coding" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Magical Beans" type="application/atom+xml">
 
 
 
@@ -93,7 +93,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款08：别让异常逃离析构函数">
 <meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/条款08：别让异常逃离析构函数/index.html">
-<meta property="og:site_name" content="Super Coding">
+<meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="其实这一项条款没有领悟的很深刻，可以理解成不要再析构函数里面写捕获异常之类的代码。因为某些时候，如果在析构函数里面抓获异常导致程序终止的话，那么就可能造成对象不能完全被销毁  析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常的话，析构函数应该做的应该是捕捉任何异常，然后吞下他们（不传播）或者结束程序。  如果对象需要对摸个操作函数运行期间抛出的异常做出反应，那么 class 应该">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-12-01T13:08:22.839Z">
@@ -135,7 +135,7 @@
 
 
 
-  <title>条款08：别让异常逃离析构函数 | Super Coding</title>
+  <title>条款08：别让异常逃离析构函数 | Magical Beans</title>
   
 
 
@@ -175,7 +175,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Super Coding</span>
+        <span class="site-title">Magical Beans</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -291,7 +291,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
+      <meta itemprop="name" content="Magical Beans">
     </span>
 
     
@@ -443,6 +443,35 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
       <div>
@@ -483,8 +512,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" rel="next" title="条款09：绝不在构造和析构的过程中调用 virtual 函数">
-                <i class="fa fa-chevron-left"></i> 条款09：绝不在构造和析构的过程中调用 virtual 函数
+              <a href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" rel="next" title="条款10：令 operator= 返回一个 自身的返回">
+                <i class="fa fa-chevron-left"></i> 条款10：令 operator= 返回一个 自身的返回
               </a>
             
           </div>
@@ -493,8 +522,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" rel="prev" title="条款07：为多态基类声明 virtual 析构函数">
-                条款07：为多态基类声明 virtual 析构函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" rel="prev" title="条款09：绝不在构造和析构的过程中调用 virtual 函数">
+                条款09：绝不在构造和析构的过程中调用 virtual 函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
