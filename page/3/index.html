@@ -85,6 +85,16 @@
 
 
 
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "[object Object]"
+    });
+  daovoice('update');
+  </script>
+
+
+
 
 
 
@@ -281,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款08：别让异常逃离析构函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -300,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款08：别让异常逃离析构函数/" itemprop="url">条款08：别让异常逃离析构函数</a></h1>
         
 
         <div class="post-meta">
@@ -353,8 +363,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/条款08：别让异常逃离析构函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款08：别让异常逃离析构函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -376,7 +386,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  103
+                  268
                 </span>
               
 
@@ -415,7 +425,13 @@
       
         
           
-            <p>一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。</p>
+            <p>其实这一项条款没有领悟的很深刻，可以理解成不要再析构函数里面写捕获异常之类的代码。因为某些时候，如果在析构函数里面抓获异常导致程序终止的话，那么就可能造成对象不能完全被销毁</p>
+<ol>
+<li><p>析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常的话，析构函数应该做的应该是捕捉任何异常，然后吞下他们（不传播）或者结束程序。</p>
+</li>
+<li><p>如果对象需要对摸个操作函数运行期间抛出的异常做出反应，那么 class 应该提供一个普通函数（不应该在析构函数里面）执行该任务。但是该析构函数里面仍然要进行双保险的析构过程，可以在类的内部定义里面加上一个 bool 变量来判断到底有没有运行析构行为，相当于一般写程序的一个 flag。</p>
+</li>
+</ol>
 
           
         
@@ -680,7 +696,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款14：在资源管理类中小心拷贝行为/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款13：以对象管理资源/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -699,7 +715,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款14：在资源管理类中小心拷贝行为/" itemprop="url">条款14：在资源管理类中小心拷贝行为</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款13：以对象管理资源/" itemprop="url">条款13：以对象管理资源</a></h1>
         
 
         <div class="post-meta">
@@ -752,8 +768,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/条款14：在资源管理类中小心拷贝行为/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款14：在资源管理类中小心拷贝行为/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/条款13：以对象管理资源/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款13：以对象管理资源/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -775,7 +791,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  260
+                  295
                 </span>
               
 
@@ -814,210 +830,14 @@
       
         
           
-            <h4 id="一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略"><a href="#一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略" class="headerlink" title="一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略"></a>一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略</h4><ol>
-<li><p><strong>禁止复制</strong> 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。</p>
+            <h4 id="系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。"><a href="#系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。" class="headerlink" title="系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。"></a>系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。</h4><ol>
+<li><p>使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数）</p>
 </li>
-<li><p><strong>对底层数据的共享控制</strong> 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是释放内存、销毁对象。</p>
+<li><p>获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。</p>
 </li>
-<li><p><strong>转移底部资源的拥有权</strong> 移动操作，C++11 右值引用的移动过程。</p>
-</li>
-<li><p><strong>复制分为浅层复制以及深层复制</strong> 前者是复制其的指针或者引用，达到共享资源的目的，这个时候使用 share_ptr 来进行控制，后者赋值的是全部内存，最好是用 unique_ptr 来保管，但是复制操作得把每一个对象所指向的对象进行拷贝之后，放进 unique_ptr 中进行管理。</p>
+<li><p>需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。</p>
 </li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/" itemprop="url">条款15：在资源管理类中提供对原始资源的访问</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款15：在资源管理类中提供对原始资源的访问/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  243
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是</p>
-<p>在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。</p>
-<p>另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。</p>
-<p>上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。</p>
 
           
         
@@ -1479,7 +1299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1498,7 +1318,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="url">条款16：成对使用new和delete时需要采取相同的形式</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/" itemprop="url">条款15：在资源管理类中提供对原始资源的访问</a></h1>
         
 
         <div class="post-meta">
@@ -1551,8 +1371,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款15：在资源管理类中提供对原始资源的访问/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1574,7 +1394,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  72
+                  243
                 </span>
               
 
@@ -1613,15 +1433,10 @@
       
         
           
-            <p>其实我根本不知道这个为什么会成为一个单独的条款<br>鉴于此，所以就简单的讲两句话：</p>
-<ol>
-<li><p>new 一个数组，那么一定要 delete 一个数组</p>
-</li>
-<li><p>智能指针默认没有 delete 数组，所以需要自定义删除器。</p>
-</li>
-</ol>
-<p><img src="//www.wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/3.png" alt=""></p>
-<p><img src="//www.wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/4.png" alt=""></p>
+            <p>一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是</p>
+<p>在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。</p>
+<p>另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。</p>
+<p>上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。</p>
 
           
         
@@ -1879,7 +1694,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1898,7 +1713,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/" itemprop="url">条款17：以独立语句将new过得对象放入智能指针中</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="url">条款16：成对使用new和delete时需要采取相同的形式</a></h1>
         
 
         <div class="post-meta">
@@ -1951,8 +1766,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1974,7 +1789,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  122
+                  72
                 </span>
               
 
@@ -2013,12 +1828,16 @@
       
         
           
-            <p>编译器的编译次序是说不定的，就想下图的</p>
-<p><img src="//www.wsx1128.xyz/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/5.png" alt=""></p>
-<p>上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示：</p>
-<p><img src="//www.wsx1128.xyz/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/6.png" alt=""></p>
-<p>先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。</p>
-<h4 id="上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句"><a href="#上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句" class="headerlink" title="上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句"></a>上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句</h4>
+            <p>其实我根本不知道这个为什么会成为一个单独的条款<br>鉴于此，所以就简单的讲两句话：</p>
+<ol>
+<li><p>new 一个数组，那么一定要 delete 一个数组</p>
+</li>
+<li><p>智能指针默认没有 delete 数组，所以需要自定义删除器。</p>
+</li>
+</ol>
+<p><img src="//www.wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/3.png" alt=""></p>
+<p><img src="//www.wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/4.png" alt=""></p>
+
           
         
       
@@ -2263,6 +2082,202 @@
 <blockquote>
 <p>有的时候考虑过后，也许这个类就不需要凭空创造出，仅仅只是需要从其他类上面派生出来即可。</p>
 </blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款20：宁以传 const 引用也不要传值/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款20：宁以传 const 引用也不要传值/" itemprop="url">条款20：宁以传 const 引用也不要传值</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/条款20：宁以传 const 引用也不要传值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款20：宁以传 const 引用也不要传值/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  159
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="这个传值行为是继承与-C-语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。"><a href="#这个传值行为是继承与-C-语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。" class="headerlink" title="这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。"></a>这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。</h5><ul>
+<li><p>传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了</p>
+</li>
+<li><p>以上规则不适合某些特殊规则，比如内置类型以及 STL 的迭代器，对它们而言 ，传值往往是最恰当的。</p>
 </li>
 </ul>
 
