@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
         
 
         <div class="post-meta">
@@ -356,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  103
+                  430
                 </span>
               
 
@@ -395,7 +395,18 @@
       
         
           
-            <p>一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。</p>
+            <h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol>
+<li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p>
+</li>
+<li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p>
+</li>
+<li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p>
+</li>
+<li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p>
+</li>
+<li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p>
+</li>
+</ol>
 
           
         
@@ -943,7 +954,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/一道计算机几何算法相关题目/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -962,7 +973,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/一道计算机几何算法相关题目/" itemprop="url">一道计算机几何算法相关题目</a></h1>
+                <a class="post-title-link" href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/" itemprop="url">一道STL的题解题目，需要以后花时间理解题目意思。</a></h1>
         
 
         <div class="post-meta">
@@ -1028,7 +1039,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  277
+                  268
                 </span>
               
 
@@ -1067,17 +1078,9 @@
       
         
           
-            <p><strong>题目：</strong></p>
-<p><img src="//yoursite.com/2018/12/01/一道计算机几何算法相关题目/15346406177110/15349459741854.jpg" alt=""></p>
-<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">double v,s,b;</span><br><span class="line">const double pi = acos(-1.0);</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123;</span><br><span class="line">        if (s&lt;b)&#123;</span><br><span class="line">            cout&lt;&lt;-1&lt;&lt;endl;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        double x = (v * v) / 9.8;</span><br><span class="line">        if ( x &lt; s ) &#123;</span><br><span class="line">            cout&lt;&lt;&quot;move &quot;&lt;&lt;fixed&lt;&lt;setprecision(2)&lt;&lt;s-x&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            double b = (s * 9.8) / (v * v);</span><br><span class="line">            //注意反函数的转换。</span><br><span class="line">            double a = asin(b) * 90 / pi;</span><br><span class="line">            //这里有一个进一的操作，因为此题不太会去四舍五入。</span><br><span class="line">            int a_ = a;</span><br><span class="line">            if (a-a_ &gt;= 0.5) a_++;</span><br><span class="line">            cout&lt;&lt;&quot;a &quot;&lt;&lt;a_&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>关于这道题目的相关要点</strong></p>
-<ol>
-<li><p>反函数相关要点。<br>注意 反函数最后输出的是 一个弧度值，根据相应数学的算法而言<br>记住 ==弧度值=角度*pi/180==</p>
-</li>
-<li><p>关于输出中进1的相关操作。<br>按照第几位，先换算成相应的整形数，最后再强转成int型 最后在判断是否大于0.5来考虑时候来加一。</p>
-</li>
-</ol>
-
+            <p><img src="//yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/15334604782268/15334616821861.jpg" alt=""></p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">//#include&lt;function&gt;</span><br><span class="line"></span><br><span class="line">#define ll long long</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int fort = 1314;</span><br><span class="line"></span><br><span class="line">ll a[6];</span><br><span class="line"></span><br><span class="line">//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤</span><br><span class="line">int main()&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2];</span><br><span class="line">        a[3] = 5;</span><br><span class="line">        a[4] = 2;</span><br><span class="line">        a[5] = 0;</span><br><span class="line">        sort(a,  a + 6,</span><br><span class="line">        [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;);</span><br><span class="line">        priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq;</span><br><span class="line">        set&lt;ll&gt;s;</span><br><span class="line">        set&lt;ll&gt;ans;</span><br><span class="line">        pq.push(1);</span><br><span class="line">        s.insert(1);</span><br><span class="line">        for(int i = 0;;i++)&#123;</span><br><span class="line">            ll x = pq.top();</span><br><span class="line">            pq.pop();</span><br><span class="line">            if(i)&#123;</span><br><span class="line">                for(int k = 3;k &lt; 6;k++)&#123;</span><br><span class="line">                    ans.insert(x - a[k]);</span><br><span class="line">                    if(ans.size()==fort)</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">                if(ans.size()==fort)&#123;</span><br><span class="line">                    /*int ttt = 1;</span><br><span class="line">                    for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++)</span><br><span class="line">                        cout&lt;&lt;ttt++&lt;&lt;&apos; &apos;&lt;&lt;*it&lt;&lt;endl;*/</span><br><span class="line">                    auto it = ans.rbegin();</span><br><span class="line">                    cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            for(int j = 0;j&lt;3;j++)&#123;</span><br><span class="line">                ll x2=x*a[j];</span><br><span class="line">                if(!s.count(x2))&#123;</span><br><span class="line">                    s.insert(x2);</span><br><span class="line">                    pq.push(x2);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1324,7 +1327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/一道计算机几何算法相关题目/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1343,7 +1346,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/" itemprop="url">一道STL的题解题目，需要以后花时间理解题目意思。</a></h1>
+                <a class="post-title-link" href="/2018/12/01/一道计算机几何算法相关题目/" itemprop="url">一道计算机几何算法相关题目</a></h1>
         
 
         <div class="post-meta">
@@ -1409,7 +1412,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  268
+                  277
                 </span>
               
 
@@ -1448,9 +1451,17 @@
       
         
           
-            <p><img src="//yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/15334604782268/15334616821861.jpg" alt=""></p>
-<p><strong>代码如下：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">//#include&lt;function&gt;</span><br><span class="line"></span><br><span class="line">#define ll long long</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int fort = 1314;</span><br><span class="line"></span><br><span class="line">ll a[6];</span><br><span class="line"></span><br><span class="line">//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤</span><br><span class="line">int main()&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2];</span><br><span class="line">        a[3] = 5;</span><br><span class="line">        a[4] = 2;</span><br><span class="line">        a[5] = 0;</span><br><span class="line">        sort(a,  a + 6,</span><br><span class="line">        [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;);</span><br><span class="line">        priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq;</span><br><span class="line">        set&lt;ll&gt;s;</span><br><span class="line">        set&lt;ll&gt;ans;</span><br><span class="line">        pq.push(1);</span><br><span class="line">        s.insert(1);</span><br><span class="line">        for(int i = 0;;i++)&#123;</span><br><span class="line">            ll x = pq.top();</span><br><span class="line">            pq.pop();</span><br><span class="line">            if(i)&#123;</span><br><span class="line">                for(int k = 3;k &lt; 6;k++)&#123;</span><br><span class="line">                    ans.insert(x - a[k]);</span><br><span class="line">                    if(ans.size()==fort)</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">                if(ans.size()==fort)&#123;</span><br><span class="line">                    /*int ttt = 1;</span><br><span class="line">                    for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++)</span><br><span class="line">                        cout&lt;&lt;ttt++&lt;&lt;&apos; &apos;&lt;&lt;*it&lt;&lt;endl;*/</span><br><span class="line">                    auto it = ans.rbegin();</span><br><span class="line">                    cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            for(int j = 0;j&lt;3;j++)&#123;</span><br><span class="line">                ll x2=x*a[j];</span><br><span class="line">                if(!s.count(x2))&#123;</span><br><span class="line">                    s.insert(x2);</span><br><span class="line">                    pq.push(x2);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p><strong>题目：</strong></p>
+<p><img src="//yoursite.com/2018/12/01/一道计算机几何算法相关题目/15346406177110/15349459741854.jpg" alt=""></p>
+<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">double v,s,b;</span><br><span class="line">const double pi = acos(-1.0);</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123;</span><br><span class="line">        if (s&lt;b)&#123;</span><br><span class="line">            cout&lt;&lt;-1&lt;&lt;endl;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        double x = (v * v) / 9.8;</span><br><span class="line">        if ( x &lt; s ) &#123;</span><br><span class="line">            cout&lt;&lt;&quot;move &quot;&lt;&lt;fixed&lt;&lt;setprecision(2)&lt;&lt;s-x&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            double b = (s * 9.8) / (v * v);</span><br><span class="line">            //注意反函数的转换。</span><br><span class="line">            double a = asin(b) * 90 / pi;</span><br><span class="line">            //这里有一个进一的操作，因为此题不太会去四舍五入。</span><br><span class="line">            int a_ = a;</span><br><span class="line">            if (a-a_ &gt;= 0.5) a_++;</span><br><span class="line">            cout&lt;&lt;&quot;a &quot;&lt;&lt;a_&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>关于这道题目的相关要点</strong></p>
+<ol>
+<li><p>反函数相关要点。<br>注意 反函数最后输出的是 一个弧度值，根据相应数学的算法而言<br>记住 ==弧度值=角度*pi/180==</p>
+</li>
+<li><p>关于输出中进1的相关操作。<br>按照第几位，先换算成相应的整形数，最后再强转成int型 最后在判断是否大于0.5来考虑时候来加一。</p>
+</li>
+</ol>
+
           
         
       
