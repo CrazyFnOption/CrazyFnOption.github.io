@@ -96,12 +96,12 @@
 <meta property="og:site_name" content="Super Coding">
 <meta property="og:description" content="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。  同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/条款11：在%20operator%20中处理自我赋值的情况/media/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/01/条款11：在%20operator%20中处理自我赋值的情况/1.png">
 <meta property="og:updated_time" content="2018-12-01T13:08:22.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="条款11：在 operator 中处理自我赋值的情况">
 <meta name="twitter:description" content="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。  同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/01/条款11：在%20operator%20中处理自我赋值的情况/media/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/01/条款11：在%20operator%20中处理自我赋值的情况/1.png">
 
 
 
@@ -405,7 +405,7 @@
 <li><p>同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。</p>
 </li>
 </ol>
-<p><img src="media/1.png" alt=""></p>
+<p><img src="//yoursite.com/2018/12/01/条款11：在 operator 中处理自我赋值的情况/1.png" alt=""></p>
 <p>就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。</p>
 <ol start="3">
 <li><p>还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。</p>
@@ -472,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/ACM集训相关知识/" rel="next" title="ACM集训相关知识">
-                <i class="fa fa-chevron-left"></i> ACM集训相关知识
+              <a href="/2018/12/01/条款12：复制对象时勿忘其每一个成分/" rel="next" title="条款12：复制对象时勿忘其每一个成分">
+                <i class="fa fa-chevron-left"></i> 条款12：复制对象时勿忘其每一个成分
               </a>
             
           </div>
@@ -481,6 +481,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/01/条款13：以对象管理资源/" rel="prev" title="条款13：以对象管理资源">
+                条款13：以对象管理资源 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

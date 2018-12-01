@@ -96,12 +96,12 @@
 <meta property="og:site_name" content="Super Coding">
 <meta property="og:description" content="题目：  代码如下：1234567891011121314151617181920212223242526272829303132#include&amp;lt;iostream&amp;gt;#include&amp;lt;algorithm&amp;gt;#include&amp;lt;iomanip&amp;gt;#include&amp;lt;cmath&amp;gt;using namespace std;double v,s,b;const dou">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/一道计算机几何算法相关题目/media/15346406177110/15349459741854.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/01/一道计算机几何算法相关题目/15346406177110/15349459741854.jpg">
 <meta property="og:updated_time" content="2018-12-01T12:19:25.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一道计算机几何算法相关题目">
 <meta name="twitter:description" content="题目：  代码如下：1234567891011121314151617181920212223242526272829303132#include&amp;lt;iostream&amp;gt;#include&amp;lt;algorithm&amp;gt;#include&amp;lt;iomanip&amp;gt;#include&amp;lt;cmath&amp;gt;using namespace std;double v,s,b;const dou">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/01/一道计算机几何算法相关题目/media/15346406177110/15349459741854.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/01/一道计算机几何算法相关题目/15346406177110/15349459741854.jpg">
 
 
 
@@ -400,7 +400,7 @@
 
       
         <p><strong>题目：</strong></p>
-<p><img src="media/15346406177110/15349459741854.jpg" alt=""></p>
+<p><img src="//yoursite.com/2018/12/01/一道计算机几何算法相关题目/15346406177110/15349459741854.jpg" alt=""></p>
 <p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">double v,s,b;</span><br><span class="line">const double pi = acos(-1.0);</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123;</span><br><span class="line">        if (s&lt;b)&#123;</span><br><span class="line">            cout&lt;&lt;-1&lt;&lt;endl;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        double x = (v * v) / 9.8;</span><br><span class="line">        if ( x &lt; s ) &#123;</span><br><span class="line">            cout&lt;&lt;&quot;move &quot;&lt;&lt;fixed&lt;&lt;setprecision(2)&lt;&lt;s-x&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            double b = (s * 9.8) / (v * v);</span><br><span class="line">            //注意反函数的转换。</span><br><span class="line">            double a = asin(b) * 90 / pi;</span><br><span class="line">            //这里有一个进一的操作，因为此题不太会去四舍五入。</span><br><span class="line">            int a_ = a;</span><br><span class="line">            if (a-a_ &gt;= 0.5) a_++;</span><br><span class="line">            cout&lt;&lt;&quot;a &quot;&lt;&lt;a_&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>关于这道题目的相关要点</strong></p>
 <ol>
@@ -470,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/二分法思想/" rel="next" title="二分法思想">
-                <i class="fa fa-chevron-left"></i> 二分法思想
+              <a href="/2018/12/01/关于STL里面函数简单的应用/" rel="next" title="关于STL里面函数简单的应用">
+                <i class="fa fa-chevron-left"></i> 关于STL里面函数简单的应用
               </a>
             
           </div>
@@ -480,8 +480,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/关于STL里面函数简单的应用/" rel="prev" title="关于STL里面函数简单的应用">
-                关于STL里面函数简单的应用 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/一道有趣的题目——逆波兰计算器/" rel="prev" title="一道有趣的题目——逆波兰计算器">
+                一道有趣的题目——逆波兰计算器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

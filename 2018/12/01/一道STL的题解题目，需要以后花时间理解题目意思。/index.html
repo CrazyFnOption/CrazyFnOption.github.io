@@ -96,12 +96,12 @@
 <meta property="og:site_name" content="Super Coding">
 <meta property="og:description" content="代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&amp;lt;iostream&amp;gt;#include&amp;lt;set&amp;gt;#include&amp;lt;algorithm&amp;gt;#include&amp;lt;queu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/media/15334604782268/15334616821861.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/15334604782268/15334616821861.jpg">
 <meta property="og:updated_time" content="2018-12-01T12:19:25.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一道STL的题解题目，需要以后花时间理解题目意思。">
 <meta name="twitter:description" content="代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&amp;lt;iostream&amp;gt;#include&amp;lt;set&amp;gt;#include&amp;lt;algorithm&amp;gt;#include&amp;lt;queu">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/media/15334604782268/15334616821861.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/15334604782268/15334616821861.jpg">
 
 
 
@@ -399,7 +399,7 @@
       
 
       
-        <p><img src="media/15334604782268/15334616821861.jpg" alt=""></p>
+        <p><img src="//yoursite.com/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/15334604782268/15334616821861.jpg" alt=""></p>
 <p><strong>代码如下：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">//#include&lt;function&gt;</span><br><span class="line"></span><br><span class="line">#define ll long long</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int fort = 1314;</span><br><span class="line"></span><br><span class="line">ll a[6];</span><br><span class="line"></span><br><span class="line">//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤</span><br><span class="line">int main()&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2];</span><br><span class="line">        a[3] = 5;</span><br><span class="line">        a[4] = 2;</span><br><span class="line">        a[5] = 0;</span><br><span class="line">        sort(a,  a + 6,</span><br><span class="line">        [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;);</span><br><span class="line">        priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq;</span><br><span class="line">        set&lt;ll&gt;s;</span><br><span class="line">        set&lt;ll&gt;ans;</span><br><span class="line">        pq.push(1);</span><br><span class="line">        s.insert(1);</span><br><span class="line">        for(int i = 0;;i++)&#123;</span><br><span class="line">            ll x = pq.top();</span><br><span class="line">            pq.pop();</span><br><span class="line">            if(i)&#123;</span><br><span class="line">                for(int k = 3;k &lt; 6;k++)&#123;</span><br><span class="line">                    ans.insert(x - a[k]);</span><br><span class="line">                    if(ans.size()==fort)</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">                if(ans.size()==fort)&#123;</span><br><span class="line">                    /*int ttt = 1;</span><br><span class="line">                    for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++)</span><br><span class="line">                        cout&lt;&lt;ttt++&lt;&lt;&apos; &apos;&lt;&lt;*it&lt;&lt;endl;*/</span><br><span class="line">                    auto it = ans.rbegin();</span><br><span class="line">                    cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            for(int j = 0;j&lt;3;j++)&#123;</span><br><span class="line">                ll x2=x*a[j];</span><br><span class="line">                if(!s.count(x2))&#123;</span><br><span class="line">                    s.insert(x2);</span><br><span class="line">                    pq.push(x2);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
@@ -462,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/条款12：复制对象时勿忘其每一个成分/" rel="next" title="条款12：复制对象时勿忘其每一个成分">
-                <i class="fa fa-chevron-left"></i> 条款12：复制对象时勿忘其每一个成分
+              <a href="/2018/12/01/STL的简单总结（总结自己不是特别熟悉）/" rel="next" title="STL的简单总结（总结自己不是特别熟悉）">
+                <i class="fa fa-chevron-left"></i> STL的简单总结（总结自己不是特别熟悉）
               </a>
             
           </div>
@@ -472,8 +472,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" rel="prev" title="条款10：令 operator= 返回一个 自身的返回">
-                条款10：令 operator= 返回一个 自身的返回 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/ACM集训相关知识/" rel="prev" title="ACM集训相关知识">
+                ACM集训相关知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

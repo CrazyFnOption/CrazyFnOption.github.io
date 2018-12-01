@@ -96,12 +96,12 @@
 <meta property="og:site_name" content="Super Coding">
 <meta property="og:description" content="这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。下面直接分为两个方面进行诠释：  类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。  一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/media/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/2.png">
 <meta property="og:updated_time" content="2018-12-01T13:08:22.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="条款12：复制对象时勿忘其每一个成分">
 <meta name="twitter:description" content="这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。下面直接分为两个方面进行诠释：  类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。  一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/media/2.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/2.png">
 
 
 
@@ -403,7 +403,7 @@
 <ol>
 <li><p>类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。</p>
 </li>
-<li><p>一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图：<br><img src="media/2.png" alt=""></p>
+<li><p>一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图：<br><img src="//yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/2.png" alt=""></p>
 </li>
 <li><p>另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。</p>
 </li>
@@ -469,8 +469,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/条款13：以对象管理资源/" rel="next" title="条款13：以对象管理资源">
-                <i class="fa fa-chevron-left"></i> 条款13：以对象管理资源
+              <a href="/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/" rel="next" title="条款15：在资源管理类中提供对原始资源的访问">
+                <i class="fa fa-chevron-left"></i> 条款15：在资源管理类中提供对原始资源的访问
               </a>
             
           </div>
@@ -479,8 +479,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思。/" rel="prev" title="一道STL的题解题目，需要以后花时间理解题目意思。">
-                一道STL的题解题目，需要以后花时间理解题目意思。 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款11：在 operator 中处理自我赋值的情况/" rel="prev" title="条款11：在 operator 中处理自我赋值的情况">
+                条款11：在 operator 中处理自我赋值的情况 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
