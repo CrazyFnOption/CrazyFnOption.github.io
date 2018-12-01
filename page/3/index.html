@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/树相关题目总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -290,194 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/树相关题目总结/" itemprop="url">树相关题目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  855
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="复原二叉树"><a href="#复原二叉树" class="headerlink" title="复原二叉树"></a>复原二叉树</h2><p><img src="//yoursite.com/2018/12/01/树相关题目总结/15337238193909/15337273413710.jpg" alt=""></p>
-<p><strong>题解</strong><br>此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点）</p>
-<p><strong>代码如下：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">string pre;</span><br><span class="line">string in;</span><br><span class="line"></span><br><span class="line">void post(int root,int start,int end)</span><br><span class="line">&#123;</span><br><span class="line">	//递归打印这棵树的后序，递归出口为 start &gt; end</span><br><span class="line">    //注意这里不带等于号的原因就是要把叶子节点一样给输出来</span><br><span class="line"> 	if(start&gt;end) return;</span><br><span class="line"></span><br><span class="line"> 	int i=start;//i为 root所代表的值在中序中的下标</span><br><span class="line"></span><br><span class="line">    while(i&lt;end&amp;&amp;in[i]!=pre[root])</span><br><span class="line"> 	    i++;</span><br><span class="line"></span><br><span class="line">    int cnt=i-start;//左子树结点个数</span><br><span class="line">    //由于是先序排序，顺序永远都是根左右，</span><br><span class="line">    post(root+1,start,i-1);</span><br><span class="line">    //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点</span><br><span class="line"></span><br><span class="line">    post(root+1+cnt,i+1,end);</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;pre[root];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin&gt;&gt;pre&gt;&gt;in)&#123;</span><br><span class="line">        int len=pre.length();</span><br><span class="line">        post(0,0,len-1);</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"> 	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="关于树的一个简单DFS运用"><a href="#关于树的一个简单DFS运用" class="headerlink" title="关于树的一个简单DFS运用"></a>关于树的一个简单DFS运用</h2><p><img src="//yoursite.com/2018/12/01/树相关题目总结/15337238193909/15338198112868.jpg" alt=""></p>
-<p>题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。</p>
-<p>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 1e5+5;</span><br><span class="line"></span><br><span class="line">//此处实际上是充分利用了vector的特性</span><br><span class="line">//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支</span><br><span class="line">//所以用一个vector的数组，每个vector存储其对应的祖先</span><br><span class="line">//而一共有题目给出数量的vector</span><br><span class="line">vector&lt;int&gt;people[maxn];</span><br><span class="line">char sex[maxn*2];</span><br><span class="line"></span><br><span class="line">int ans;</span><br><span class="line">int top;</span><br><span class="line">int que[maxn];</span><br><span class="line"></span><br><span class="line">//这里e的值只是用来判断到底是该植入值还是该判断值</span><br><span class="line">//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了</span><br><span class="line">//后面一个人则需要做的是根据已有的对方祖先进行判断</span><br><span class="line">void dfs(int x,int s,int e)&#123;</span><br><span class="line">    if (s&gt;=5) return ;</span><br><span class="line">    if (e==0)&#123;</span><br><span class="line">        for (int i=0;i!=top;i++)&#123;</span><br><span class="line">            if (x==que[i])&#123;</span><br><span class="line">                ans=1;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else que[top++]=x;</span><br><span class="line">    for (int i=0;i!=people[x].size();i++)</span><br><span class="line">        dfs(people[x][i],s+1,e);</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//上面的递归搜索可以用来因为是从底层向上面进行搜索</span><br><span class="line">//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    char ch;</span><br><span class="line">    int x,fa,ma;</span><br><span class="line">    for (int i=0;i!=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;x;</span><br><span class="line">        getchar();</span><br><span class="line">        cin&gt;&gt;sex[x];</span><br><span class="line">        cin&gt;&gt;fa&gt;&gt;ma;</span><br><span class="line">        if (fa!=-1) people[x].push_back(fa);</span><br><span class="line">        if (ma!=-1) people[x].push_back(ma);</span><br><span class="line">        sex[fa]=&apos;M&apos;;</span><br><span class="line">        sex[ma]=&apos;F&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    int k;</span><br><span class="line">    cin&gt;&gt;k;</span><br><span class="line">    for (int i=0;i!=k;i++)&#123;</span><br><span class="line">        cin&gt;&gt;fa&gt;&gt;ma;</span><br><span class="line">        ans=0;</span><br><span class="line">        if (sex[fa]==sex[ma]) cout&lt;&lt;&quot;Never Mind&quot;&lt;&lt;endl;</span><br><span class="line">        else&#123;</span><br><span class="line">            top=0;</span><br><span class="line">            dfs(fa,0,1);</span><br><span class="line">            dfs(ma,0,0);</span><br><span class="line">            if (ans) cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;</span><br><span class="line">            else cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="关于树的应用"><a href="#关于树的应用" class="headerlink" title="关于树的应用"></a>关于树的应用</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款11：在 operator 中处理自我赋值的情况/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款11：在 operator 中处理自我赋值的情况/" itemprop="url">条款11：在 operator 中处理自我赋值的情况</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/" itemprop="url">条款16：成对使用 new 和 delete 时需要采取相同的形式</a></h1>
         
 
         <div class="post-meta">
@@ -543,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  343
+                  72
                 </span>
               
 
@@ -582,18 +395,392 @@
       
         
           
-            <h4 id="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况"><a href="#本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况" class="headerlink" title="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况"></a>本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况</h4><ol>
-<li><p>比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。</p>
+            <p>其实我根本不知道这个为什么会成为一个单独的条款<br>鉴于此，所以就简单的讲两句话：</p>
+<ol>
+<li><p>new 一个数组，那么一定要 delete 一个数组</p>
 </li>
-<li><p>同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。</p>
+<li><p>智能指针默认没有 delete 数组，所以需要自定义删除器。</p>
 </li>
 </ol>
-<p><img src="//yoursite.com/2018/12/01/条款11：在 operator 中处理自我赋值的情况/1.png" alt=""></p>
-<p>就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。</p>
-<ol start="3">
-<li><p>还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。</p>
+<p><img src="//yoursite.com/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/3.png" alt=""></p>
+<p><img src="//yoursite.com/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/4.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款14：在资源管理类中小心拷贝行为/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Super Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款14：在资源管理类中小心拷贝行为/" itemprop="url">条款14：在资源管理类中小心拷贝行为</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  260
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略"><a href="#一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略" class="headerlink" title="一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略"></a>一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略</h4><ol>
+<li><p><strong>禁止复制</strong> 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。</p>
 </li>
-<li><p>或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。</p>
+<li><p><strong>对底层数据的共享控制</strong> 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是释放内存、销毁对象。</p>
+</li>
+<li><p><strong>转移底部资源的拥有权</strong> 移动操作，C++11 右值引用的移动过程。</p>
+</li>
+<li><p><strong>复制分为浅层复制以及深层复制</strong> 前者是复制其的指针或者引用，达到共享资源的目的，这个时候使用 share_ptr 来进行控制，后者赋值的是全部内存，最好是用 unique_ptr 来保管，但是复制操作得把每一个对象所指向的对象进行拷贝之后，放进 unique_ptr 中进行管理。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Super Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" itemprop="url">条款05：了解 C++默默编写并调用了哪些函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  279
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。</p>
+<ol>
+<li><p>千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而且此类问题会造成很多方面上的无法适应问题。</p>
+</li>
+<li><p>另外这里额外需要注意的是 C++11上增加的移动语义，只有在拥有了拷贝构造函数和拷贝赋值运算符之后，编译器才会自动生成移动构造函数，和移动赋值运算符。</p>
+</li>
+<li><p>最后这个条款需要注意的就是编译器自动生成的函数具有普遍性，所以就不具有特异性，一些特殊的操作在合成版本上面可能会出现大问题。</p>
 </li>
 </ol>
 
@@ -840,7 +1027,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款04：确定对象被使用前已先被初始化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -859,7 +1046,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/" itemprop="url">条款16：成对使用 new 和 delete 时需要采取相同的形式</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款04：确定对象被使用前已先被初始化/" itemprop="url">条款04：确定对象被使用前已先被初始化</a></h1>
         
 
         <div class="post-meta">
@@ -925,7 +1112,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  72
+                  605
                 </span>
               
 
@@ -941,7 +1128,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -964,389 +1151,20 @@
       
         
           
-            <p>其实我根本不知道这个为什么会成为一个单独的条款<br>鉴于此，所以就简单的讲两句话：</p>
-<ol>
-<li><p>new 一个数组，那么一定要 delete 一个数组</p>
+            <h4 id="在-C-语言中对象的初始化可能会变得异常容易，但是在-C-中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用-C-part-of-C-会自动有一个初始化过程，但是在其他部分下面的-C-就不能保证初始化过程了。"><a href="#在-C-语言中对象的初始化可能会变得异常容易，但是在-C-中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用-C-part-of-C-会自动有一个初始化过程，但是在其他部分下面的-C-就不能保证初始化过程了。" class="headerlink" title="在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。"></a>在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。</h4><ol>
+<li><p>特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。</p>
 </li>
-<li><p>智能指针默认没有 delete 数组，所以需要自定义删除器。</p>
+<li><p>对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。</p>
 </li>
-</ol>
-<p><img src="//yoursite.com/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/3.png" alt=""></p>
-<p><img src="//yoursite.com/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/4.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款17：以独立语句将 new 过得对象放入智能指针中/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款17：以独立语句将 new 过得对象放入智能指针中/" itemprop="url">条款17：以独立语句将 new 过得对象放入智能指针中</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  122
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>编译器的编译次序是说不定的，就想下图的</p>
-<p><img src="//yoursite.com/2018/12/01/条款17：以独立语句将 new 过得对象放入智能指针中/5.png" alt=""></p>
-<p>上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示：</p>
-<p><img src="//yoursite.com/2018/12/01/条款17：以独立语句将 new 过得对象放入智能指针中/6.png" alt=""></p>
-<p>先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。</p>
-<h4 id="上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句"><a href="#上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句" class="headerlink" title="上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句"></a>上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句</h4>
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款12：复制对象时勿忘其每一个成分/" itemprop="url">条款12：复制对象时勿忘其每一个成分</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  313
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。<br>下面直接分为两个方面进行诠释：</p>
-<ol>
-<li><p>类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。</p>
+<li><p>C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。</p>
 </li>
-<li><p>一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图：<br><img src="//yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/2.png" alt=""></p>
+<li><p>关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。</p>
 </li>
-<li><p>另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。</p>
+<li><p>构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值</p>
 </li>
-<li><p>如果发现两个拷贝行为有类似的代码时，应该把这个相同的代码放到一个函数中区，然后由两个拷贝行为共同调用。</p>
+<li><p>对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。</p>
+</li>
+<li><p>最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。</p>
 </li>
 </ol>
 
@@ -1642,7 +1460,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1661,7 +1479,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/" itemprop="url">条款15：在资源管理类中提供对原始资源的访问</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款12：复制对象时勿忘其每一个成分/" itemprop="url">条款12：复制对象时勿忘其每一个成分</a></h1>
         
 
         <div class="post-meta">
@@ -1727,7 +1545,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  243
+                  313
                 </span>
               
 
@@ -1766,10 +1584,17 @@
       
         
           
-            <p>一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是</p>
-<p>在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。</p>
-<p>另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。</p>
-<p>上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。</p>
+            <p>这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。<br>下面直接分为两个方面进行诠释：</p>
+<ol>
+<li><p>类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。</p>
+</li>
+<li><p>一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图：<br><img src="//yoursite.com/2018/12/01/条款12：复制对象时勿忘其每一个成分/2.png" alt=""></p>
+</li>
+<li><p>另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。</p>
+</li>
+<li><p>如果发现两个拷贝行为有类似的代码时，应该把这个相同的代码放到一个函数中区，然后由两个拷贝行为共同调用。</p>
+</li>
+</ol>
 
           
         
@@ -1826,7 +1651,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款14：在资源管理类中小心拷贝行为/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/关于模拟与搜索的相应简单题目/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1845,7 +1670,208 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款14：在资源管理类中小心拷贝行为/" itemprop="url">条款14：在资源管理类中小心拷贝行为</a></h1>
+                <a class="post-title-link" href="/2018/12/01/关于模拟与搜索的相应简单题目/" itemprop="url">关于模拟与搜索的相应简单题目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/题解/" itemprop="url" rel="index">
+                    <span itemprop="name">题解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>题目</strong><br><img src="//yoursite.com/2018/12/01/关于模拟与搜索的相应简单题目/15338825486076/15338826192241.jpg" alt=""></p>
+<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    string w,v;</span><br><span class="line">    int x,y,m;</span><br><span class="line">    char ch;</span><br><span class="line">    while(cin&gt;&gt;w&gt;&gt;v)&#123;</span><br><span class="line">        string s;</span><br><span class="line">        int flag=0;</span><br><span class="line">        reverse(w.begin(),w.end());</span><br><span class="line">        reverse(v.begin(),v.end());</span><br><span class="line">        if (w.size()&gt;v.size())&#123;</span><br><span class="line">            m=w.size()-v.size();</span><br><span class="line">            for (int i=0;i!=v.size();i++)&#123;</span><br><span class="line">                x=w[i]-&apos;0&apos;;</span><br><span class="line">                y=v[i]-&apos;0&apos;;</span><br><span class="line">                x+=y;</span><br><span class="line">                if (flag)&#123;</span><br><span class="line">                    flag=0;</span><br><span class="line">                    x++;</span><br><span class="line">                &#125;</span><br><span class="line">                if (x&gt;=10)&#123;</span><br><span class="line">                    flag=1;</span><br><span class="line">                    x=x-10;</span><br><span class="line">                &#125;</span><br><span class="line">                ch=x+&apos;0&apos;;</span><br><span class="line">                s.push_back(ch);</span><br><span class="line">            &#125;</span><br><span class="line">            int i=v.size();</span><br><span class="line">            while (flag==1&amp;&amp;i&lt;=m)&#123;</span><br><span class="line">                flag=0;</span><br><span class="line">                x=w[i]-&apos;0&apos;;</span><br><span class="line">                x++;</span><br><span class="line">                if (x&gt;=10)&#123;</span><br><span class="line">                    flag=1;</span><br><span class="line">                    x=x-10;</span><br><span class="line">                &#125;</span><br><span class="line">                ch=x+&apos;0&apos;;</span><br><span class="line">                s.push_back(ch);</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            if (flag&amp;&amp;i==w.size())&#123;</span><br><span class="line">                s.push_back(&apos;1&apos;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            m=v.size()-w.size();</span><br><span class="line">            for (int i=0;i!=w.size();i++)&#123;</span><br><span class="line">                x=w[i]-&apos;0&apos;;</span><br><span class="line">                y=v[i]-&apos;0&apos;;</span><br><span class="line">                x+=y;</span><br><span class="line">                if (flag)&#123;</span><br><span class="line">                    flag=0;</span><br><span class="line">                    x++;</span><br><span class="line">                &#125;</span><br><span class="line">                if (x&gt;=10)&#123;</span><br><span class="line">                    flag=1;</span><br><span class="line">                    x=x-10;</span><br><span class="line">                &#125;</span><br><span class="line">                ch=x+&apos;0&apos;;</span><br><span class="line">                s.push_back(ch);</span><br><span class="line">            &#125;</span><br><span class="line">            int i=w.size();</span><br><span class="line">            while (flag&amp;&amp;i&lt;=m)&#123;</span><br><span class="line">                flag=0;</span><br><span class="line">                x=w[i]-&apos;0&apos;;</span><br><span class="line">                x++;</span><br><span class="line">                if (x&gt;=10)&#123;</span><br><span class="line">                    flag=1;</span><br><span class="line">                    x=x-10;</span><br><span class="line">                &#125;</span><br><span class="line">                ch=x+&apos;0&apos;;</span><br><span class="line">                s.push_back(ch);</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            if (flag&amp;&amp;i==v.size())&#123;</span><br><span class="line">                s.push_back(&apos;1&apos;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(s.begin(),s.end());</span><br><span class="line">        cout&lt;&lt;s&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>题解：</strong><br>其实这道题目属于一道相应简单的题目，就是要注意相应string与char之间的区别就行了。<br>另外 <code>int</code>转换<code>char</code>是加上‘0’<br><code>char</code>转换<code>int</code>是减去‘0’。</p>
+<h2 id="一道简单的dfs的题目"><a href="#一道简单的dfs的题目" class="headerlink" title="一道简单的dfs的题目"></a>一道简单的dfs的题目</h2><p><img src="//yoursite.com/2018/12/01/关于模拟与搜索的相应简单题目/15338825486076/15338976566985.jpg" alt=""></p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 105;</span><br><span class="line">char h[maxn][maxn];</span><br><span class="line">int n,m,cnt=0;</span><br><span class="line">void dfs(int i,int j)&#123;</span><br><span class="line">    if (i&lt;0||i&gt;=n||h[i][j]!=&apos;W&apos;) return ;</span><br><span class="line">    if (j&lt;0||j&gt;=m||h[i][j]!=&apos;W&apos;) return ;</span><br><span class="line">    if (h[i][j]==&apos;W&apos;)&#123;</span><br><span class="line">        h[i][j]=&apos;.&apos;;</span><br><span class="line">        dfs(i-1,j);</span><br><span class="line">        dfs(i-1,j-1);</span><br><span class="line">        dfs(i+1,j);</span><br><span class="line">        dfs(i+1,j+1);</span><br><span class="line">        dfs(i,j-1);</span><br><span class="line">        dfs(i-1,j+1);</span><br><span class="line">        dfs(i,j+1);</span><br><span class="line">        dfs(i+1,j-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int ans=0;</span><br><span class="line">    while(cin&gt;&gt;n&gt;&gt;m&amp;&amp;(n!=0&amp;&amp;m!=0))&#123;</span><br><span class="line">        for (int i=0;i!=n;i++)</span><br><span class="line">            for (int j=0;j!=m;j++)&#123;</span><br><span class="line">                cin&gt;&gt;h[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        for (int i=0;i!=n;i++)&#123;</span><br><span class="line">            for (int j=0;j!=m;j++)&#123;</span><br><span class="line">                if (h[i][j]==&apos;W&apos;)&#123;</span><br><span class="line">                    dfs(i,j);</span><br><span class="line">                    ans++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">        ans=0;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>题解简单的dfs搜索出每一种情况，然后让其返回就行了。</p>
+<h2 id="一道经典的BFS的题目"><a href="#一道经典的BFS的题目" class="headerlink" title="一道经典的BFS的题目"></a>一道经典的BFS的题目</h2><p><strong>题目</strong><br><img src="//yoursite.com/2018/12/01/关于模拟与搜索的相应简单题目/15338825486076/15346617217857.jpg" alt="-w780"></p>
+<p><strong>代码如下:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int fxy[4][2]=&#123;&#123;1,0&#125;,&#123;-1,0&#125;,&#123;0,1&#125;,&#123;0,-1&#125;&#125;;</span><br><span class="line">//朝着四个方向</span><br><span class="line">char dis[101][101];</span><br><span class="line"></span><br><span class="line">int kp[101][101];</span><br><span class="line"></span><br><span class="line">//以下的node就作为每一次前进的节点</span><br><span class="line">struct node&#123;</span><br><span class="line">    int x,y,cnt;</span><br><span class="line">    node(int a=0,int b=0,int c=0)&#123;</span><br><span class="line">        x=a; y=b; cnt=c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int m,n,k,g,k1,g1;</span><br><span class="line">    while(~scanf(&quot;%d %d&quot;,&amp;m,&amp;n))</span><br><span class="line">    &#123;</span><br><span class="line">        for(int i=0;i&lt;m;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            scanf(&quot;%s&quot;,dis[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        //      用队列整合的思想来完成</span><br><span class="line">        queue&lt;struct node&gt;q;</span><br><span class="line">        for(int i=0;i&lt;m;i++)</span><br><span class="line">            for(int j=0;j&lt;n;j++)&#123;</span><br><span class="line">                kp[i][j]=-1;</span><br><span class="line">            &#125;</span><br><span class="line">        //      两种初始化过程，并且找到起点与终点的所在位置</span><br><span class="line">        for(int i=0;i&lt;m;i++)</span><br><span class="line">            for(int j=0;j&lt;n;j++)&#123;</span><br><span class="line">                if(dis[i][j]==&apos;S&apos;)&#123;</span><br><span class="line">                    k=i;</span><br><span class="line">                    g=j;</span><br><span class="line">                &#125;</span><br><span class="line">                if(dis[i][j]==&apos;E&apos;)&#123;</span><br><span class="line">                    k1=i;</span><br><span class="line">                    g1=j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        </span><br><span class="line">        //        将起点存进去</span><br><span class="line">        node a(k,g,0);</span><br><span class="line">        q.push(a);</span><br><span class="line">        //        下面就是为bfs的相应搜索</span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            struct node now=q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            kp[now.x][now.y]=now.cnt;</span><br><span class="line">            //            将起点走了多少步数以及起点的坐标点存入到题目中去</span><br><span class="line">            for(int i=0;i&lt;4;i++)&#123;</span><br><span class="line">                node next;</span><br><span class="line">                next.x=now.x+fxy[i][0];</span><br><span class="line">                next.y=now.y+fxy[i][1];</span><br><span class="line">                //                判断走的下一步有没有出界，或者使下一步走的不会碰到路障</span><br><span class="line">                    if(next.x&gt;=0&amp;&amp;next.x&lt;m&amp;&amp;next.y&gt;=0&amp;&amp;next.y&lt;n&amp;&amp;dis[next.x][next.y]!=&apos;#&apos;&amp;&amp;kp[next.x][next.y]==-1)&#123;</span><br><span class="line">                    node empt(next.x,next.y,now.cnt+1);</span><br><span class="line">                    q.push(empt);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(kp[k1][g1]==-1) printf(&quot;Trapped!\n&quot;);</span><br><span class="line">        else printf(&quot;Escaped in %d minute(s).\n&quot;,kp[k1][g1]);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>记住上面相应的队列思想。</p>
+<h2 id="一道DFS与BFS的综合题"><a href="#一道DFS与BFS的综合题" class="headerlink" title="一道DFS与BFS的综合题"></a>一道DFS与BFS的综合题</h2><p>==需要多花时间来温习一遍==</p>
+<p><strong>题目</strong><br><img src="//yoursite.com/2018/12/01/关于模拟与搜索的相应简单题目/15338825486076/15346690956114.jpg" alt="-w1205"></p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int n,m,k,cnt = 0;</span><br><span class="line">int x_begin,x_end,y_begin,y_end;</span><br><span class="line"></span><br><span class="line">const int maxn = 1005;</span><br><span class="line"></span><br><span class="line">int dis[maxn][maxn];</span><br><span class="line">char ch[maxn][maxn];</span><br><span class="line"></span><br><span class="line">class Position&#123;</span><br><span class="line">public:</span><br><span class="line">    int x;</span><br><span class="line">    int y;</span><br><span class="line">    int distance;</span><br><span class="line">    </span><br><span class="line">public:</span><br><span class="line">    Position() = default;</span><br><span class="line">    Position(int a, int b, int c):x(a),y(b),distance(c)&#123;&#125;;</span><br><span class="line">    Position move(int i);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Position Position::move(int i)&#123;</span><br><span class="line">    Position post = *this;</span><br><span class="line">    if (i == 0)         post.x = this -&gt; x + 1;</span><br><span class="line">    else if (i == 1)    post.x = this -&gt; x - 1;</span><br><span class="line">    else if (i == 2)    post.y = this -&gt; y + 1;</span><br><span class="line">    else if (i == 3)    post.y = this -&gt; y - 1;</span><br><span class="line">    return post;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void bfs()&#123;</span><br><span class="line">    queue&lt;Position&gt;q_dis;</span><br><span class="line">    Position p_begin (x_begin,y_begin,0);</span><br><span class="line">    q_dis.push(p_begin);</span><br><span class="line">    while(!q_dis.empty())&#123;</span><br><span class="line">        Position now = q_dis.front();</span><br><span class="line">        q_dis.pop();</span><br><span class="line">        dis[now.x][now.y]=now.distance;</span><br><span class="line">        for(int i = 0; i != 4; i++)&#123;</span><br><span class="line">            Position next;</span><br><span class="line">            next = now.move(i);</span><br><span class="line">            if (next.x &gt;= 0 &amp;&amp; next.x &lt; n &amp;&amp; next.y &gt;= 0 &amp;&amp; next.y &lt; m &amp;&amp;</span><br><span class="line">                dis[next.x][next.y] == -1 &amp;&amp; ch[next.x][next.y] != &apos;#&apos;)&#123;</span><br><span class="line">                Position empt (next.x,next.y,now.distance + 1);</span><br><span class="line">                q_dis.push(empt);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void dfs(int x,int y)&#123;</span><br><span class="line">    if (x &lt; 0 || x &gt;= n || y &lt; 0 || y &gt;= m) return ;</span><br><span class="line">    if (ch[x][y]==&apos;L&apos;)  &#123;</span><br><span class="line">        cnt++;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (dis[x][y] == -1) return;</span><br><span class="line">    //  前面已经有dis可以表示每一步走的距离，所以只需要一步一步来看，这样的做法便可以完全规避障碍物，单单从路径上面考虑。</span><br><span class="line">    if (dis[x][y]==dis[x+1][y]+1)   dfs(x+1,y);</span><br><span class="line">    if (dis[x][y]==dis[x-1][y]+1)   dfs(x-1,y);</span><br><span class="line">    if (dis[x][y]==dis[x][y+1]+1)   dfs(x,y+1);</span><br><span class="line">    if (dis[x][y]==dis[x][y-1]+1)   dfs(x,y-1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int T,Case = 0;</span><br><span class="line">    cin&gt;&gt;T;</span><br><span class="line">    while(T--)&#123;</span><br><span class="line">        Case++;</span><br><span class="line">        cin&gt;&gt;n&gt;&gt;m&gt;&gt;k;</span><br><span class="line">        bool f_begin = false,f_end = false;</span><br><span class="line">        for (int i = 0; i != n; i++)&#123;</span><br><span class="line">            for (int j = 0; j != m; j++)&#123;</span><br><span class="line">                cin &gt;&gt; ch[i][j];</span><br><span class="line">                dis[i][j] = -1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i != n; i++)&#123;</span><br><span class="line">            for (int j = 0; j != m; j++)&#123;</span><br><span class="line">                if (f_end &amp;&amp; f_begin)   break;</span><br><span class="line">                if (ch[i][j] == &apos;L&apos;)&#123;</span><br><span class="line">                    x_begin = i;</span><br><span class="line">                    y_begin = j;</span><br><span class="line">                    f_begin = true;</span><br><span class="line">                &#125;</span><br><span class="line">                if (ch[i][j] == &apos;C&apos;)&#123;</span><br><span class="line">                    x_end = i;</span><br><span class="line">                    y_end = j;</span><br><span class="line">                    f_end = true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        bfs();</span><br><span class="line">        if (dis[x_end][y_end] == -1 ||dis[x_end][y_end] &gt; k )</span><br><span class="line">            cout &lt;&lt; &quot;Case #&quot;&lt;&lt;Case&lt;&lt;&quot;: &quot;&lt;&lt;-1&lt;&lt;endl;</span><br><span class="line">        else&#123;</span><br><span class="line">            dfs(x_end,y_end);</span><br><span class="line">            cout&lt;&lt;&quot;Case #&quot;&lt;&lt;Case&lt;&lt;&quot;: &quot;&lt;&lt;dis[x_end][y_end]&lt;&lt;&quot; &quot;&lt;&lt;cnt&lt;&lt;endl;</span><br><span class="line">            cnt = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里注明一下关于==默认实参==的知识点，因为在这个地方可以直接对类的构造函数赋值一个默认实参，可以避免输入默认构造函数了。</p>
+<p>下面则是一道DFS的题目，这道题目看上去可以用bfs来做</p>
+<p><img src="//yoursite.com/2018/12/01/关于模拟与搜索的相应简单题目/15338825486076/15351254685296.jpg" alt="-w1003"></p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 100;</span><br><span class="line">int road[maxn][maxn];</span><br><span class="line">int dp[maxn][maxn];</span><br><span class="line">int n, m;</span><br><span class="line"></span><br><span class="line">int dfs (int i,int j)&#123;</span><br><span class="line">    if (dp[i][j] != -1)   return dp[i][j];</span><br><span class="line">    int Max = 0;</span><br><span class="line">    if (i-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i-1][j]&amp;&amp;Max&lt;dfs(i-1,j))</span><br><span class="line">        Max = dfs(i-1,j);</span><br><span class="line">    if(i+1&lt;n &amp;&amp; road[i][j]&gt;road[i+1][j]&amp;&amp;Max&lt;dfs(i+1,j))</span><br><span class="line">        Max=dfs(i+1,j);</span><br><span class="line">    if(j-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i][j-1]&amp;&amp;Max&lt;dfs(i,j-1))</span><br><span class="line">        Max=dfs(i,j-1);</span><br><span class="line">    if(j+1&lt;m &amp;&amp; road[i][j]&gt;road[i][j+1]&amp;&amp;Max&lt;dfs(i,j+1))</span><br><span class="line">        Max=dfs(i,j+1);</span><br><span class="line">    return dp[i][j]=Max+1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while (cin &gt;&gt; n &gt;&gt; m)</span><br><span class="line">    &#123;</span><br><span class="line">        for (int i = 0; i != n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int j = 0; j != m; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                cin &gt;&gt; road[i][j];</span><br><span class="line">                dp[i][j] = -1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int MAX = -1;</span><br><span class="line">        for (int i = 0; i != n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int j = 0; j != m; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                MAX = max (dfs(i,j),MAX);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; MAX &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>题解</strong></p>
+<p>此题其实最重要的就在于这个题目不同于其他题目，这个题目找的是最长路径，还不是最短路径，一般来说，BFS找的是最短路径，DFS找的是最短路径的条数。<br>而这里就是利用dfs的返回值（每走一步的最大值，意思就是从各个角度上）记录在dp中，将每一个位置都走到不能走为止，然后存储在dp中，最后找最大值的DP即可。<br>不过自己可以试试遍历的其他方法。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款20：宁以传 const 引用也不要传值/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Super Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款20：宁以传 const 引用也不要传值/" itemprop="url">条款20：宁以传 const 引用也不要传值</a></h1>
         
 
         <div class="post-meta">
@@ -1911,7 +1937,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  260
+                  159
                 </span>
               
 
@@ -1950,16 +1976,12 @@
       
         
           
-            <h4 id="一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略"><a href="#一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略" class="headerlink" title="一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略"></a>一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略</h4><ol>
-<li><p><strong>禁止复制</strong> 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。</p>
+            <h5 id="这个传值行为是继承与-C-语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。"><a href="#这个传值行为是继承与-C-语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。" class="headerlink" title="这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。"></a>这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。</h5><ul>
+<li><p>传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了</p>
 </li>
-<li><p><strong>对底层数据的共享控制</strong> 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是释放内存、销毁对象。</p>
+<li><p>以上规则不适合某些特殊规则，比如内置类型以及 STL 的迭代器，对它们而言 ，传值往往是最恰当的。</p>
 </li>
-<li><p><strong>转移底部资源的拥有权</strong> 移动操作，C++11 右值引用的移动过程。</p>
-</li>
-<li><p><strong>复制分为浅层复制以及深层复制</strong> 前者是复制其的指针或者引用，达到共享资源的目的，这个时候使用 share_ptr 来进行控制，后者赋值的是全部内存，最好是用 unique_ptr 来保管，但是复制操作得把每一个对象所指向的对象进行拷贝之后，放进 unique_ptr 中进行管理。</p>
-</li>
-</ol>
+</ul>
 
           
         
