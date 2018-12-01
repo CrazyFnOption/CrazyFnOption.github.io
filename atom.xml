@@ -17,19 +17,19 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>条款14：在资源管理类中小心拷贝行为</title>
-    <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83%E6%8B%B7%E8%B4%9D%E8%A1%8C%E4%B8%BA/"/>
-    <id>http://www.wsx1128.xyz/2018/12/01/条款14：在资源管理类中小心拷贝行为/</id>
+    <title>条款13：以对象管理资源</title>
+    <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90/"/>
+    <id>http://www.wsx1128.xyz/2018/12/01/条款13：以对象管理资源/</id>
     <published>2018-12-01T15:26:24.000Z</published>
     <updated>2018-12-01T13:08:22.839Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略"><a href="#一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略" class="headerlink" title="一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略"></a>一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略</h4><ol><li><p><strong>禁止复制</strong> 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。</p></li><li><p><strong>对底层数据的共享控制</strong> 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是释放内存、销毁对象。</p></li><li><p><strong>转移底部资源的拥有权</strong> 移动操作，C++11 右值引用的移动过程。</p></li><li><p><strong>复制分为浅层复制以及深层复制</strong> 前者是复制其的指针或者引用，达到共享资源的目的，这个时候使用 share_ptr 来进行控制，后者赋值的是全部内存，最好是用 unique_ptr 来保管，但是复制操作得把每一个对象所指向的对象进行拷贝之后，放进 unique_ptr 中进行管理。</p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h4 id="系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。"><a href="#系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。" class="headerlink" title="系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。"></a>系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。</h4><ol><li><p>使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数）</p></li><li><p>获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。</p></li><li><p>需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。</p></li></ol>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h4 id=&quot;一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略&quot;&gt;&lt;a href=&quot;#一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略&quot; class=&quot;headerlink&quot; title=&quot;一般在自定义类中会遇到多种多样的拷贝行为，所
+        &lt;h4 id=&quot;系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。&quot;&gt;&lt;a href=&quot;#系统资源的管理规
       
     
     </summary>
@@ -312,6 +312,33 @@
   </entry>
   
   <entry>
+    <title>条款02：尽量以const,enum,inline 替换掉#define</title>
+    <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const,enum,inline%20%E6%9B%BF%E6%8D%A2%E6%8E%89#define/"/>
+    <id>http://www.wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/</id>
+    <published>2018-12-01T15:26:24.000Z</published>
+    <updated>2018-12-01T13:08:22.838Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr><h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul><li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li><li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;这个条款其实也就相当于宁可编译器替换预处理器比较好&quot;&gt;&lt;a href=&quot;#这个条款其实也就相当于宁可编译器替换预处理器比较好&quot; class=&quot;headerlink&quot; title=&quot;这个条款其实也就相当于宁可编译器替换预处理器比较好&quot;&gt;&lt;/a&gt;&lt;strong&gt;这个条
+      
+    
+    </summary>
+    
+      <category term="effective C++" scheme="http://www.wsx1128.xyz/categories/effective-C/"/>
+    
+    
+      <category term="c++" scheme="http://www.wsx1128.xyz/tags/c/"/>
+    
+      <category term="effective C++" scheme="http://www.wsx1128.xyz/tags/effective-C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>条款01：视 C++ 为一个语言联邦</title>
     <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE01%EF%BC%9A%E8%A7%86%20C++%20%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AF%AD%E8%A8%80%E8%81%94%E9%82%A6/"/>
     <id>http://www.wsx1128.xyz/2018/12/01/条款01：视 C++ 为一个语言联邦/</id>
@@ -367,33 +394,6 @@
       <category term="算法" scheme="http://www.wsx1128.xyz/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="数论" scheme="http://www.wsx1128.xyz/tags/%E6%95%B0%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>条款02：尽量以const,enum,inline 替换掉#define</title>
-    <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const,enum,inline%20%E6%9B%BF%E6%8D%A2%E6%8E%89#define/"/>
-    <id>http://www.wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/</id>
-    <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2018-12-01T13:08:22.838Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr><h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul><li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li><li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;这个条款其实也就相当于宁可编译器替换预处理器比较好&quot;&gt;&lt;a href=&quot;#这个条款其实也就相当于宁可编译器替换预处理器比较好&quot; class=&quot;headerlink&quot; title=&quot;这个条款其实也就相当于宁可编译器替换预处理器比较好&quot;&gt;&lt;/a&gt;&lt;strong&gt;这个条
-      
-    
-    </summary>
-    
-      <category term="effective C++" scheme="http://www.wsx1128.xyz/categories/effective-C/"/>
-    
-    
-      <category term="c++" scheme="http://www.wsx1128.xyz/tags/c/"/>
-    
-      <category term="effective C++" scheme="http://www.wsx1128.xyz/tags/effective-C/"/>
     
   </entry>
   
@@ -454,33 +454,6 @@
   </entry>
   
   <entry>
-    <title>条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</title>
-    <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D/"/>
-    <id>http://www.wsx1128.xyz/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/</id>
-    <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2018-12-01T13:08:22.838Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"><a href="#有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。" class="headerlink" title="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"></a>有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。</h4><ol><li><p>把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。</p></li><li><p>继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。</p></li><li><p>C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。</p></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。&quot;&gt;&lt;a href=&quot;#有的时候鉴于某些情况，比如智能指针中-uniq
-      
-    
-    </summary>
-    
-      <category term="effective C++" scheme="http://www.wsx1128.xyz/categories/effective-C/"/>
-    
-    
-      <category term="c++" scheme="http://www.wsx1128.xyz/tags/c/"/>
-    
-      <category term="effective C++" scheme="http://www.wsx1128.xyz/tags/effective-C/"/>
-    
-  </entry>
-  
-  <entry>
     <title>条款05：了解 C++默默编写并调用了哪些函数</title>
     <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3%20C++%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0/"/>
     <id>http://www.wsx1128.xyz/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/</id>
@@ -510,19 +483,19 @@
   </entry>
   
   <entry>
-    <title>条款09：绝不在构造和析构的过程中调用 virtual 函数</title>
-    <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8%20virtual%20%E5%87%BD%E6%95%B0/"/>
-    <id>http://www.wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/</id>
+    <title>条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</title>
+    <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D/"/>
+    <id>http://www.wsx1128.xyz/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/</id>
     <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2018-12-01T13:08:22.839Z</updated>
+    <updated>2018-12-01T13:08:22.838Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol><li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p></li><li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p></li><li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p></li><li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p></li><li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h4 id="有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"><a href="#有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。" class="headerlink" title="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"></a>有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。</h4><ol><li><p>把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。</p></li><li><p>继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。</p></li><li><p>C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。</p></li></ol>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h4 id=&quot;绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。&quot;&gt;&lt;a href=&quot;#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。&quot; class=&quot;headerlink&quot; title=&quot;绝对不要在构造函数和
+        &lt;h4 id=&quot;有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。&quot;&gt;&lt;a href=&quot;#有的时候鉴于某些情况，比如智能指针中-uniq
       
     
     </summary>
@@ -550,6 +523,33 @@
       
       
         &lt;h4 id=&quot;在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。&quot;&gt;&lt;a href=&quot;#在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。&quot; cl
+      
+    
+    </summary>
+    
+      <category term="effective C++" scheme="http://www.wsx1128.xyz/categories/effective-C/"/>
+    
+    
+      <category term="c++" scheme="http://www.wsx1128.xyz/tags/c/"/>
+    
+      <category term="effective C++" scheme="http://www.wsx1128.xyz/tags/effective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>条款09：绝不在构造和析构的过程中调用 virtual 函数</title>
+    <link href="http://www.wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8%20virtual%20%E5%87%BD%E6%95%B0/"/>
+    <id>http://www.wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/</id>
+    <published>2018-12-01T15:26:24.000Z</published>
+    <updated>2018-12-01T13:08:22.839Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol><li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p></li><li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p></li><li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p></li><li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p></li><li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。&quot;&gt;&lt;a href=&quot;#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。&quot; class=&quot;headerlink&quot; title=&quot;绝对不要在构造函数和
       
     
     </summary>

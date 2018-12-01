@@ -291,6 +291,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="url">条款02：尽量以const,enum,inline 替换掉#define</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  170
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr>
+<h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul>
+<li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li>
+<li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款01：视 C++ 为一个语言联邦/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -696,201 +891,6 @@
 </ul>
 <p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343114886344.jpg" alt=""></p>
 <p><strong>解法</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343115089655.jpg" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="url">条款02：尽量以const,enum,inline 替换掉#define</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  170
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr>
-<h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul>
-<li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li>
-<li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li>
-</ul>
 
           
         
@@ -1360,204 +1360,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" itemprop="url">条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  241
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"><a href="#有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。" class="headerlink" title="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"></a>有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。</h4><ol>
-<li><p>把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。</p>
-</li>
-<li><p>继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。</p>
-</li>
-<li><p>C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1757,7 +1559,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1776,7 +1578,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" itemprop="url">条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</a></h1>
         
 
         <div class="post-meta">
@@ -1829,8 +1631,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1852,7 +1654,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  430
+                  241
                 </span>
               
 
@@ -1891,16 +1693,12 @@
       
         
           
-            <h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol>
-<li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p>
+            <h4 id="有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"><a href="#有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。" class="headerlink" title="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"></a>有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。</h4><ol>
+<li><p>把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。</p>
 </li>
-<li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p>
+<li><p>继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。</p>
 </li>
-<li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p>
-</li>
-<li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p>
-</li>
-<li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p>
+<li><p>C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。</p>
 </li>
 </ol>
 
@@ -2103,6 +1901,208 @@
 <li><p>类的用途不是作为多态的用途的话，那么请不要将析构函数声明成虚函数，因为那样没有作用。</p>
 </li>
 <li><p>对于一个纯虚函数而言，这个类就是一个抽象类，但是由于存在一个析构函数，所以一般要为这个纯虚函数提供定义，其的运作方式是最深层派生的那个类的析构函数最先被调用，然后就是每一个基类的析构函数被调用，所以编译器会在派生类的析构函数中定一个对基类纯虚析构函数的调用动作，因此，一般都得进行调用。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  430
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol>
+<li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p>
+</li>
+<li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p>
+</li>
+<li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p>
+</li>
+<li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p>
+</li>
+<li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p>
 </li>
 </ol>
 
