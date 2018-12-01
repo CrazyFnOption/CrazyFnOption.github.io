@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h1>
         
 
         <div class="post-meta">
@@ -356,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  430
+                  103
                 </span>
               
 
@@ -395,18 +395,7 @@
       
         
           
-            <h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol>
-<li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p>
-</li>
-<li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p>
-</li>
-<li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p>
-</li>
-<li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p>
-</li>
-<li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p>
-</li>
-</ol>
+            <p>一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。</p>
 
           
         
@@ -1517,188 +1506,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/关于STL里面函数简单的应用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/关于STL里面函数简单的应用/" itemprop="url">关于STL里面函数简单的应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  90
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="//yoursite.com/2018/12/01/关于STL里面函数简单的应用/15334646203671/15334646368898.jpg" alt=""></p>
-<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,t;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    set&lt;int&gt;s;</span><br><span class="line">    s.insert(0);</span><br><span class="line">    for (int i =0;i!=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        //这道题目的主要做法是记住几个upper_bound 的STL函数</span><br><span class="line">        if(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; s.size() - 1;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/二分法思想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1905,7 +1712,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/数论基础 第一节/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/关于STL里面函数简单的应用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1924,7 +1731,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/数论基础 第一节/" itemprop="url">数论基础 第一节</a></h1>
+                <a class="post-title-link" href="/2018/12/01/关于STL里面函数简单的应用/" itemprop="url">关于STL里面函数简单的应用</a></h1>
         
 
         <div class="post-meta">
@@ -1959,8 +1766,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/acm/" itemprop="url" rel="index">
-                    <span itemprop="name">acm</span>
+                  <a href="/categories/题解/" itemprop="url" rel="index">
+                    <span itemprop="name">题解</span>
                   </a>
                 </span>
 
@@ -1990,7 +1797,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  359
+                  90
                 </span>
               
 
@@ -2029,73 +1836,200 @@
       
         
           
-            <p>初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。</p>
-<h2 id="整除问题引申到同余问题"><a href="#整除问题引申到同余问题" class="headerlink" title="整除问题引申到同余问题"></a>整除问题引申到同余问题</h2><ul>
-<li><strong>同余的性质</strong></li>
-</ul>
-<p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343075827029.jpg" alt=""><br>可以换算成以下式子：<br><strong>a=c(<code>mod</code>b) 这里c为余数，而b为除数</strong></p>
-<ul>
-<li><strong>同余的性质</strong></li>
-</ul>
-<ol>
-<li>自反性 a=a <code>mod</code> m</li>
-<li>对称性 a=b <code>mod</code> m 等价于 b=a <code>mod</code> m</li>
-<li>传递性 a=b <code>mod</code> m 与 b=c <code>mod</code> m 等价于 a=c <code>mod</code> m</li>
-<li>线性合成 a=b <code>mod</code> m 与 c= <code>mod</code> m 等价于 a±c=b±d <code>mod</code> m 与 ac= bd <code>mod</code> m</li>
-<li>消去公因子 ac=bc <code>mod</code> m &amp;&amp; gcd(c,m)=1 等价于 a=b <code>mod</code> m </li>
-</ol>
-<h2 id="素数筛"><a href="#素数筛" class="headerlink" title="素数筛"></a>素数筛</h2><ul>
-<li>朴素筛 一般就是循环2~√n次</li>
-<li>埃拉托斯特尼筛</li>
-</ul>
-<p><strong>循环次数</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343091959776.jpg" alt=""></p>
-<ul>
-<li>欧拉筛</li>
-<li><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343092628399.jpg" alt=""></li>
-</ul>
-<p><strong>相应代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h2 id="最大公约数以及最小公倍数"><a href="#最大公约数以及最小公倍数" class="headerlink" title="最大公约数以及最小公倍数"></a>最大公约数以及最小公倍数</h2><ul>
-<li><p>最大公约数 函数_gcd(a,b)<br>而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c)</p>
-</li>
-<li><p>最小公倍数<br>_lcm(a,b)=ab/_gcd(a,b)</p>
-</li>
-</ul>
-<h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343099257598.jpg" alt=""></p>
-<ul>
-<li>关于求解线性同余方程<br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343099683275.jpg" alt=""></li>
-<li><p>关于求逆元<br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343099966167.jpg" alt=""></p>
-</li>
-<li><p>关于快速幂<br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343101054154.jpg" alt=""></p>
-</li>
-</ul>
-<h2 id="费马小定理"><a href="#费马小定理" class="headerlink" title="费马小定理"></a>费马小定理</h2><p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343101566104.jpg" alt=""></p>
-<p><strong>另外</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343103411689.jpg" alt=""></p>
-<h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><ul>
-<li><strong>欧拉函数定义</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343107143861.jpg" alt=""></li>
-</ul>
-<ul>
-<li><p><strong>欧拉函数性质</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343107974985.jpg" alt=""></p>
-</li>
-<li><p><strong>求值公式</strong> </p>
-</li>
-</ul>
-<ol>
-<li><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343109562640.jpg" alt=""></li>
-<li><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343109655205.jpg" alt=""></li>
-<li><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343109780637.jpg" alt=""><br>上述公式 可以用来：</li>
-</ol>
-<ul>
-<li><p><strong>求逆元</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343110433806.jpg" alt=""></p>
-</li>
-<li><p><strong>欧拉降幂公式</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343111460573.jpg" alt=""></p>
-</li>
-</ul>
-<h2 id="数论函数"><a href="#数论函数" class="headerlink" title="数论函数"></a>数论函数</h2><p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343114512818.jpg" alt=""></p>
-<ul>
-<li><strong>中国剩余定理</strong></li>
-</ul>
-<p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343114886344.jpg" alt=""></p>
-<p><strong>解法</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343115089655.jpg" alt=""></p>
+            <p><img src="//yoursite.com/2018/12/01/关于STL里面函数简单的应用/15334646203671/15334646368898.jpg" alt=""></p>
+<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,t;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    set&lt;int&gt;s;</span><br><span class="line">    s.insert(0);</span><br><span class="line">    for (int i =0;i!=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        //这道题目的主要做法是记住几个upper_bound 的STL函数</span><br><span class="line">        if(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; s.size() - 1;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Super Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/" itemprop="url">关于组合数学，两道思维题目，这里贴两道题目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/题解/" itemprop="url" rel="index">
+                    <span itemprop="name">题解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  816
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第一道-简单的排列组合："><a href="#第一道-简单的排列组合：" class="headerlink" title="第一道 简单的排列组合："></a>第一道 简单的排列组合：</h2><p><img src="//yoursite.com/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/15334544089444/15334551294656.jpg" alt=""></p>
+<p><strong>题解如下：</strong></p>
+<blockquote>
+<p>题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是<strong>==C(b,a+b)==</strong>;那么三堆的话我们可以把前两堆看成一堆，那么表达式就是<strong>==C(c,a+b+c)==</strong>，这是我们需要与前两堆的组成方法相乘，就是<strong>==C(b,a+b)C(c,a+b+c)==</strong>。<br>4堆的话就是<strong>==C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==</strong>。<br>所以答案就是<strong>==C(a,a)C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==</strong>。<br>此外，有一公式==<strong>C(a,b)=C(a,b-1)+C(a-1,b-1)</strong>==，所以我们用数组来代替C(m,n)操作</p>
+</blockquote>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 501;</span><br><span class="line">const long long mod = 1000000007;</span><br><span class="line"></span><br><span class="line">long long a[4],sum[4]=&#123;0&#125;;</span><br><span class="line">//此处用到记忆化搜索，动态规划。</span><br><span class="line">long long dp[maxn*4][maxn*4];</span><br><span class="line"></span><br><span class="line">void init()&#123;</span><br><span class="line">    dp[0][0]=0;</span><br><span class="line">    for (int i=1;i!=4*maxn;i++)&#123;</span><br><span class="line">        dp[i][0]=1;</span><br><span class="line">        //根据表格来看的确是每一行的第一个是1</span><br><span class="line">        for (int j=1;j&lt;i;j++)&#123;</span><br><span class="line">            //这个地方就是状态转移方程</span><br><span class="line">            //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的</span><br><span class="line">            dp[i][j]=dp[i-1][j]+dp[i-1][j-1];</span><br><span class="line">            //dp[i][j]=dp[i][j]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i][i]=1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        init();//这个地方就开始初始化表格了。</span><br><span class="line">        long long ans =1;</span><br><span class="line">        for (int i = 0; i&lt;4;i++)&#123;</span><br><span class="line">            if (!i) sum[i]=0;</span><br><span class="line">            else sum[i]=sum[i-1];</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">            sum[i] += a[i];</span><br><span class="line">            if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 1 ; i != 4; i++)&#123;</span><br><span class="line">            ans *= dp[sum[i]][a[i]];</span><br><span class="line">            //ans %=mod;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="第二题-第一题的变式："><a href="#第二题-第一题的变式：" class="headerlink" title="第二题 第一题的变式："></a>第二题 第一题的变式：</h2><p><img src="//yoursite.com/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/15334544089444/15334588459331.jpg" alt=""></p>
+<p>题解如上，与上面一题有区别的地方就在于要有一个取模的操作</p>
+<p><strong>代码如下</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 501;</span><br><span class="line">const long long mod = 1000000007;</span><br><span class="line"></span><br><span class="line">long long a[4],sum[4]=&#123;0&#125;;</span><br><span class="line">//此处用到记忆化搜索，动态规划。</span><br><span class="line">long long dp[maxn*4][maxn*4];</span><br><span class="line"></span><br><span class="line">void init()&#123;</span><br><span class="line">    dp[0][0]=0;</span><br><span class="line">    for (int i=1;i!=4*maxn;i++)&#123;</span><br><span class="line">        dp[i][0]=1;</span><br><span class="line">        //根据表格来看的确是每一行的第一个是1</span><br><span class="line">        for (int j=1;j&lt;i;j++)&#123;</span><br><span class="line">            //这个地方就是状态转移方程</span><br><span class="line">            //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的</span><br><span class="line">            dp[i][j]=dp[i-1][j]+dp[i-1][j-1];</span><br><span class="line">            dp[i][j]=dp[i][j]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i][i]=1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        init();//这个地方就开始初始化表格了。</span><br><span class="line">        long long ans =1;</span><br><span class="line">        for (int i = 0; i&lt;4;i++)&#123;</span><br><span class="line">            if (!i) sum[i]=0;</span><br><span class="line">            else sum[i]=sum[i-1];</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">            sum[i] += a[i];</span><br><span class="line">            if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 1 ; i != 4; i++)&#123;</span><br><span class="line">            ans *= dp[sum[i]][a[i]];</span><br><span class="line">            ans %=mod;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>==以后学到后面再花时间来深究==</p>
 
           
         

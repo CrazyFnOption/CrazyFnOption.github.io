@@ -271,6 +271,253 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/数论基础 第一节/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Super Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/数论基础 第一节/" itemprop="url">数论基础 第一节</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  359
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。</p>
+<h2 id="整除问题引申到同余问题"><a href="#整除问题引申到同余问题" class="headerlink" title="整除问题引申到同余问题"></a>整除问题引申到同余问题</h2><ul>
+<li><strong>同余的性质</strong></li>
+</ul>
+<p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343075827029.jpg" alt=""><br>可以换算成以下式子：<br><strong>a=c(<code>mod</code>b) 这里c为余数，而b为除数</strong></p>
+<ul>
+<li><strong>同余的性质</strong></li>
+</ul>
+<ol>
+<li>自反性 a=a <code>mod</code> m</li>
+<li>对称性 a=b <code>mod</code> m 等价于 b=a <code>mod</code> m</li>
+<li>传递性 a=b <code>mod</code> m 与 b=c <code>mod</code> m 等价于 a=c <code>mod</code> m</li>
+<li>线性合成 a=b <code>mod</code> m 与 c= <code>mod</code> m 等价于 a±c=b±d <code>mod</code> m 与 ac= bd <code>mod</code> m</li>
+<li>消去公因子 ac=bc <code>mod</code> m &amp;&amp; gcd(c,m)=1 等价于 a=b <code>mod</code> m </li>
+</ol>
+<h2 id="素数筛"><a href="#素数筛" class="headerlink" title="素数筛"></a>素数筛</h2><ul>
+<li>朴素筛 一般就是循环2~√n次</li>
+<li>埃拉托斯特尼筛</li>
+</ul>
+<p><strong>循环次数</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343091959776.jpg" alt=""></p>
+<ul>
+<li>欧拉筛</li>
+<li><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343092628399.jpg" alt=""></li>
+</ul>
+<p><strong>相应代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="最大公约数以及最小公倍数"><a href="#最大公约数以及最小公倍数" class="headerlink" title="最大公约数以及最小公倍数"></a>最大公约数以及最小公倍数</h2><ul>
+<li><p>最大公约数 函数_gcd(a,b)<br>而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c)</p>
+</li>
+<li><p>最小公倍数<br>_lcm(a,b)=ab/_gcd(a,b)</p>
+</li>
+</ul>
+<h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343099257598.jpg" alt=""></p>
+<ul>
+<li>关于求解线性同余方程<br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343099683275.jpg" alt=""></li>
+<li><p>关于求逆元<br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343099966167.jpg" alt=""></p>
+</li>
+<li><p>关于快速幂<br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343101054154.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="费马小定理"><a href="#费马小定理" class="headerlink" title="费马小定理"></a>费马小定理</h2><p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343101566104.jpg" alt=""></p>
+<p><strong>另外</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343103411689.jpg" alt=""></p>
+<h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><ul>
+<li><strong>欧拉函数定义</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343107143861.jpg" alt=""></li>
+</ul>
+<ul>
+<li><p><strong>欧拉函数性质</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343107974985.jpg" alt=""></p>
+</li>
+<li><p><strong>求值公式</strong> </p>
+</li>
+</ul>
+<ol>
+<li><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343109562640.jpg" alt=""></li>
+<li><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343109655205.jpg" alt=""></li>
+<li><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343109780637.jpg" alt=""><br>上述公式 可以用来：</li>
+</ol>
+<ul>
+<li><p><strong>求逆元</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343110433806.jpg" alt=""></p>
+</li>
+<li><p><strong>欧拉降幂公式</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343111460573.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="数论函数"><a href="#数论函数" class="headerlink" title="数论函数"></a>数论函数</h2><p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343114512818.jpg" alt=""></p>
+<ul>
+<li><strong>中国剩余定理</strong></li>
+</ul>
+<p><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343114886344.jpg" alt=""></p>
+<p><strong>解法</strong><br><img src="//yoursite.com/2018/12/01/数论基础 第一节/15343069823981/15343115089655.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款01：视 C++ 为一个语言联邦/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -409,198 +656,6 @@
 </li>
 </ol>
 <hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/" itemprop="url">关于组合数学，两道思维题目，这里贴两道题目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  816
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="第一道-简单的排列组合："><a href="#第一道-简单的排列组合：" class="headerlink" title="第一道 简单的排列组合："></a>第一道 简单的排列组合：</h2><p><img src="//yoursite.com/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/15334544089444/15334551294656.jpg" alt=""></p>
-<p><strong>题解如下：</strong></p>
-<blockquote>
-<p>题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是<strong>==C(b,a+b)==</strong>;那么三堆的话我们可以把前两堆看成一堆，那么表达式就是<strong>==C(c,a+b+c)==</strong>，这是我们需要与前两堆的组成方法相乘，就是<strong>==C(b,a+b)C(c,a+b+c)==</strong>。<br>4堆的话就是<strong>==C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==</strong>。<br>所以答案就是<strong>==C(a,a)C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==</strong>。<br>此外，有一公式==<strong>C(a,b)=C(a,b-1)+C(a-1,b-1)</strong>==，所以我们用数组来代替C(m,n)操作</p>
-</blockquote>
-<p><strong>代码如下：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 501;</span><br><span class="line">const long long mod = 1000000007;</span><br><span class="line"></span><br><span class="line">long long a[4],sum[4]=&#123;0&#125;;</span><br><span class="line">//此处用到记忆化搜索，动态规划。</span><br><span class="line">long long dp[maxn*4][maxn*4];</span><br><span class="line"></span><br><span class="line">void init()&#123;</span><br><span class="line">    dp[0][0]=0;</span><br><span class="line">    for (int i=1;i!=4*maxn;i++)&#123;</span><br><span class="line">        dp[i][0]=1;</span><br><span class="line">        //根据表格来看的确是每一行的第一个是1</span><br><span class="line">        for (int j=1;j&lt;i;j++)&#123;</span><br><span class="line">            //这个地方就是状态转移方程</span><br><span class="line">            //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的</span><br><span class="line">            dp[i][j]=dp[i-1][j]+dp[i-1][j-1];</span><br><span class="line">            //dp[i][j]=dp[i][j]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i][i]=1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        init();//这个地方就开始初始化表格了。</span><br><span class="line">        long long ans =1;</span><br><span class="line">        for (int i = 0; i&lt;4;i++)&#123;</span><br><span class="line">            if (!i) sum[i]=0;</span><br><span class="line">            else sum[i]=sum[i-1];</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">            sum[i] += a[i];</span><br><span class="line">            if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 1 ; i != 4; i++)&#123;</span><br><span class="line">            ans *= dp[sum[i]][a[i]];</span><br><span class="line">            //ans %=mod;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="第二题-第一题的变式："><a href="#第二题-第一题的变式：" class="headerlink" title="第二题 第一题的变式："></a>第二题 第一题的变式：</h2><p><img src="//yoursite.com/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/15334544089444/15334588459331.jpg" alt=""></p>
-<p>题解如上，与上面一题有区别的地方就在于要有一个取模的操作</p>
-<p><strong>代码如下</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 501;</span><br><span class="line">const long long mod = 1000000007;</span><br><span class="line"></span><br><span class="line">long long a[4],sum[4]=&#123;0&#125;;</span><br><span class="line">//此处用到记忆化搜索，动态规划。</span><br><span class="line">long long dp[maxn*4][maxn*4];</span><br><span class="line"></span><br><span class="line">void init()&#123;</span><br><span class="line">    dp[0][0]=0;</span><br><span class="line">    for (int i=1;i!=4*maxn;i++)&#123;</span><br><span class="line">        dp[i][0]=1;</span><br><span class="line">        //根据表格来看的确是每一行的第一个是1</span><br><span class="line">        for (int j=1;j&lt;i;j++)&#123;</span><br><span class="line">            //这个地方就是状态转移方程</span><br><span class="line">            //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的</span><br><span class="line">            dp[i][j]=dp[i-1][j]+dp[i-1][j-1];</span><br><span class="line">            dp[i][j]=dp[i][j]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i][i]=1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        init();//这个地方就开始初始化表格了。</span><br><span class="line">        long long ans =1;</span><br><span class="line">        for (int i = 0; i&lt;4;i++)&#123;</span><br><span class="line">            if (!i) sum[i]=0;</span><br><span class="line">            else sum[i]=sum[i-1];</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">            sum[i] += a[i];</span><br><span class="line">            if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 1 ; i != 4; i++)&#123;</span><br><span class="line">            ans *= dp[sum[i]][a[i]];</span><br><span class="line">            ans %=mod;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>==以后学到后面再花时间来深究==</p>
 
           
         
@@ -1039,7 +1094,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款04：确定对象被使用前已先被初始化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1058,7 +1113,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" itemprop="url">条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款04：确定对象被使用前已先被初始化/" itemprop="url">条款04：确定对象被使用前已先被初始化</a></h1>
         
 
         <div class="post-meta">
@@ -1124,7 +1179,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  241
+                  605
                 </span>
               
 
@@ -1140,7 +1195,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -1163,12 +1218,20 @@
       
         
           
-            <h4 id="有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"><a href="#有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。" class="headerlink" title="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"></a>有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。</h4><ol>
-<li><p>把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。</p>
+            <h4 id="在-C-语言中对象的初始化可能会变得异常容易，但是在-C-中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用-C-part-of-C-会自动有一个初始化过程，但是在其他部分下面的-C-就不能保证初始化过程了。"><a href="#在-C-语言中对象的初始化可能会变得异常容易，但是在-C-中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用-C-part-of-C-会自动有一个初始化过程，但是在其他部分下面的-C-就不能保证初始化过程了。" class="headerlink" title="在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。"></a>在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。</h4><ol>
+<li><p>特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。</p>
 </li>
-<li><p>继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。</p>
+<li><p>对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。</p>
 </li>
-<li><p>C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。</p>
+<li><p>C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。</p>
+</li>
+<li><p>关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。</p>
+</li>
+<li><p>构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值</p>
+</li>
+<li><p>对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。</p>
+</li>
+<li><p>最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。</p>
 </li>
 </ol>
 
@@ -1416,7 +1479,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款04：确定对象被使用前已先被初始化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1435,7 +1498,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款04：确定对象被使用前已先被初始化/" itemprop="url">条款04：确定对象被使用前已先被初始化</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" itemprop="url">条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</a></h1>
         
 
         <div class="post-meta">
@@ -1501,7 +1564,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  605
+                  241
                 </span>
               
 
@@ -1517,7 +1580,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  1
                 </span>
               
             </div>
@@ -1540,20 +1603,204 @@
       
         
           
-            <h4 id="在-C-语言中对象的初始化可能会变得异常容易，但是在-C-中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用-C-part-of-C-会自动有一个初始化过程，但是在其他部分下面的-C-就不能保证初始化过程了。"><a href="#在-C-语言中对象的初始化可能会变得异常容易，但是在-C-中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用-C-part-of-C-会自动有一个初始化过程，但是在其他部分下面的-C-就不能保证初始化过程了。" class="headerlink" title="在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。"></a>在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。</h4><ol>
-<li><p>特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。</p>
+            <h4 id="有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"><a href="#有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。" class="headerlink" title="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"></a>有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。</h4><ol>
+<li><p>把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。</p>
 </li>
-<li><p>对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。</p>
+<li><p>继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。</p>
 </li>
-<li><p>C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。</p>
+<li><p>C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。</p>
 </li>
-<li><p>关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。</p>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款07：为多态基类声明 virtual 析构函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Super Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" itemprop="url">条款07：为多态基类声明 virtual 析构函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  457
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。"><a href="#在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。" class="headerlink" title="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。"></a>在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。</h4><ol>
+<li><p>C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类的析构函数上面加上虚函数的声明。</p>
 </li>
-<li><p>构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值</p>
+<li><p>不要随便继承标准库里面的东西，因为里面大部分东西都不存在虚函数的析构函数，这样一来，如果使用动态绑定的话，那么在销毁对象的过程中就没有办法全部销毁了。</p>
 </li>
-<li><p>对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。</p>
+<li><p>而且不一定是基类的析构函数设置成虚函数，只要类里面有一个函数是虚函数的话，那么就需要将析构函数定义成虚函数。</p>
 </li>
-<li><p>最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。</p>
+<li><p>类的用途不是作为多态的用途的话，那么请不要将析构函数声明成虚函数，因为那样没有作用。</p>
+</li>
+<li><p>对于一个纯虚函数而言，这个类就是一个抽象类，但是由于存在一个析构函数，所以一般要为这个纯虚函数提供定义，其的运作方式是最深层派生的那个类的析构函数最先被调用，然后就是每一个基类的析构函数被调用，所以编译器会在派生类的析构函数中定一个对基类纯虚析构函数的调用动作，因此，一般都得进行调用。</p>
 </li>
 </ol>
 
@@ -1799,7 +2046,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1818,7 +2065,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
         
 
         <div class="post-meta">
@@ -1884,7 +2131,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  103
+                  430
                 </span>
               
 
@@ -1923,197 +2170,16 @@
       
         
           
-            <p>一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/条款07：为多态基类声明 virtual 析构函数/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" itemprop="url">条款07：为多态基类声明 virtual 析构函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  457
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。"><a href="#在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。" class="headerlink" title="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。"></a>在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。</h4><ol>
-<li><p>C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类的析构函数上面加上虚函数的声明。</p>
+            <h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol>
+<li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p>
 </li>
-<li><p>不要随便继承标准库里面的东西，因为里面大部分东西都不存在虚函数的析构函数，这样一来，如果使用动态绑定的话，那么在销毁对象的过程中就没有办法全部销毁了。</p>
+<li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p>
 </li>
-<li><p>而且不一定是基类的析构函数设置成虚函数，只要类里面有一个函数是虚函数的话，那么就需要将析构函数定义成虚函数。</p>
+<li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p>
 </li>
-<li><p>类的用途不是作为多态的用途的话，那么请不要将析构函数声明成虚函数，因为那样没有作用。</p>
+<li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p>
 </li>
-<li><p>对于一个纯虚函数而言，这个类就是一个抽象类，但是由于存在一个析构函数，所以一般要为这个纯虚函数提供定义，其的运作方式是最深层派生的那个类的析构函数最先被调用，然后就是每一个基类的析构函数被调用，所以编译器会在派生类的析构函数中定一个对基类纯虚析构函数的调用动作，因此，一般都得进行调用。</p>
+<li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p>
 </li>
 </ol>
 
