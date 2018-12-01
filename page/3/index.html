@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/STL的简单总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h1>
+                <a class="post-title-link" href="/2018/12/01/STL的简单总结/" itemprop="url">STL的简单总结</a></h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
                   </a>
                 </span>
 
@@ -356,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  103
+                  1.6k
                 </span>
               
 
@@ -372,7 +372,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  5
                 </span>
               
             </div>
@@ -395,386 +395,116 @@
       
         
           
-            <p>一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/树相关题目总结/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/树相关题目总结/" itemprop="url">树相关题目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  855
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="复原二叉树"><a href="#复原二叉树" class="headerlink" title="复原二叉树"></a>复原二叉树</h2><p><img src="//crazyfnoption.github.io/2018/12/01/树相关题目总结/15337238193909/15337273413710.jpg" alt=""></p>
-<p><strong>题解</strong><br>此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点）</p>
-<p><strong>代码如下：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">string pre;</span><br><span class="line">string in;</span><br><span class="line"></span><br><span class="line">void post(int root,int start,int end)</span><br><span class="line">&#123;</span><br><span class="line">	//递归打印这棵树的后序，递归出口为 start &gt; end</span><br><span class="line">    //注意这里不带等于号的原因就是要把叶子节点一样给输出来</span><br><span class="line"> 	if(start&gt;end) return;</span><br><span class="line"></span><br><span class="line"> 	int i=start;//i为 root所代表的值在中序中的下标</span><br><span class="line"></span><br><span class="line">    while(i&lt;end&amp;&amp;in[i]!=pre[root])</span><br><span class="line"> 	    i++;</span><br><span class="line"></span><br><span class="line">    int cnt=i-start;//左子树结点个数</span><br><span class="line">    //由于是先序排序，顺序永远都是根左右，</span><br><span class="line">    post(root+1,start,i-1);</span><br><span class="line">    //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点</span><br><span class="line"></span><br><span class="line">    post(root+1+cnt,i+1,end);</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;pre[root];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin&gt;&gt;pre&gt;&gt;in)&#123;</span><br><span class="line">        int len=pre.length();</span><br><span class="line">        post(0,0,len-1);</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"> 	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="关于树的一个简单DFS运用"><a href="#关于树的一个简单DFS运用" class="headerlink" title="关于树的一个简单DFS运用"></a>关于树的一个简单DFS运用</h2><p><img src="//crazyfnoption.github.io/2018/12/01/树相关题目总结/15337238193909/15338198112868.jpg" alt=""></p>
-<p>题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。</p>
-<p>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 1e5+5;</span><br><span class="line"></span><br><span class="line">//此处实际上是充分利用了vector的特性</span><br><span class="line">//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支</span><br><span class="line">//所以用一个vector的数组，每个vector存储其对应的祖先</span><br><span class="line">//而一共有题目给出数量的vector</span><br><span class="line">vector&lt;int&gt;people[maxn];</span><br><span class="line">char sex[maxn*2];</span><br><span class="line"></span><br><span class="line">int ans;</span><br><span class="line">int top;</span><br><span class="line">int que[maxn];</span><br><span class="line"></span><br><span class="line">//这里e的值只是用来判断到底是该植入值还是该判断值</span><br><span class="line">//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了</span><br><span class="line">//后面一个人则需要做的是根据已有的对方祖先进行判断</span><br><span class="line">void dfs(int x,int s,int e)&#123;</span><br><span class="line">    if (s&gt;=5) return ;</span><br><span class="line">    if (e==0)&#123;</span><br><span class="line">        for (int i=0;i!=top;i++)&#123;</span><br><span class="line">            if (x==que[i])&#123;</span><br><span class="line">                ans=1;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else que[top++]=x;</span><br><span class="line">    for (int i=0;i!=people[x].size();i++)</span><br><span class="line">        dfs(people[x][i],s+1,e);</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//上面的递归搜索可以用来因为是从底层向上面进行搜索</span><br><span class="line">//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    char ch;</span><br><span class="line">    int x,fa,ma;</span><br><span class="line">    for (int i=0;i!=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;x;</span><br><span class="line">        getchar();</span><br><span class="line">        cin&gt;&gt;sex[x];</span><br><span class="line">        cin&gt;&gt;fa&gt;&gt;ma;</span><br><span class="line">        if (fa!=-1) people[x].push_back(fa);</span><br><span class="line">        if (ma!=-1) people[x].push_back(ma);</span><br><span class="line">        sex[fa]=&apos;M&apos;;</span><br><span class="line">        sex[ma]=&apos;F&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    int k;</span><br><span class="line">    cin&gt;&gt;k;</span><br><span class="line">    for (int i=0;i!=k;i++)&#123;</span><br><span class="line">        cin&gt;&gt;fa&gt;&gt;ma;</span><br><span class="line">        ans=0;</span><br><span class="line">        if (sex[fa]==sex[ma]) cout&lt;&lt;&quot;Never Mind&quot;&lt;&lt;endl;</span><br><span class="line">        else&#123;</span><br><span class="line">            top=0;</span><br><span class="line">            dfs(fa,0,1);</span><br><span class="line">            dfs(ma,0,0);</span><br><span class="line">            if (ans) cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;</span><br><span class="line">            else cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="关于树的应用"><a href="#关于树的应用" class="headerlink" title="关于树的应用"></a>关于树的应用</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Super Coding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  430
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol>
-<li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p>
+            <p>补一个加快C++输入输出速度的方法：<br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335220029444.jpg" alt=""></p>
+<p>花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。</p>
+<h2 id="字符串-string与字符数组"><a href="#字符串-string与字符数组" class="headerlink" title="字符串 string与字符数组"></a>字符串 string与字符数组</h2><ul>
+<li><p><strong>构造<code>string</code>的方法</strong><br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335169766308.jpg" alt=""></p>
 </li>
-<li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p>
+<li><p><strong>操作<code>string</code>的方法</strong></p>
 </li>
-<li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p>
-</li>
-<li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p>
-</li>
-<li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p>
-</li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335172798374.jpg" alt=""><br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335172954262.jpg" alt=""><br>上面的成员函数有的说要返回，同时，有的也存在不返回值。</p>
+<ul>
+<li><strong>搜索<code>string</code>的方法</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335179836529.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335179990314.jpg" alt=""></p>
+<p>以上就是find函数的一些用法，在泛型算法一章，还会继续涉及到。<br><strong>题目返回的是下标</strong></p>
+<p>补充一下关于<code>string</code>中的比较函数<br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335183199373.jpg" alt=""><br>一般在string中可以直接用运算符进行比较</p>
+<ul>
+<li><strong><code>int</code>与<code>string</code>之间的转化</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335184125849.jpg" alt=""></p>
+<ul>
+<li><strong><code>getline()</code>的两种写法</strong><br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334343361243.jpg" alt=""><br>注意在<code>cin&gt;&gt;t</code>;必须要一个<code>getchar()</code>来吞掉其前面的回车符号。<br>之后才能用<code>getline()</code>。</li>
+</ul>
+<h2 id="顺序容器"><a href="#顺序容器" class="headerlink" title="顺序容器"></a>顺序容器</h2><ul>
+<li><strong>容器种类</strong><br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334679972152.jpg" alt=""></li>
+</ul>
+<p><code>vector&lt;vector&lt;int&gt; &gt;</code>来表示二维数组。</p>
+<ul>
+<li><strong>容器基础操作</strong><br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334684459041.jpg" alt=""><br>补充一个assign的用法：<br>允许从一个不同但相容的类型里面去赋值，或者从容器的一个子序列赋值。</li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334692047908.jpg" alt=""><br>还有第二个版本：<br>接受一个整型值和一个元素值，用指定数目且具有相同给定元素替换容器中原有的元素：<br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334693472336.jpg" alt=""></p>
+<p>再补充一个resize的用法：<br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335166722769.jpg" alt=""></p>
+<p>需要记住有一些类型声明可以直接用<code>auto</code>。</p>
+<p>初始化有两种一种<strong>直接初始化</strong>和<strong>拷贝初始化</strong>。</p>
+<ul>
+<li><strong>顺序容器添加元素</strong><br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334697068572.jpg" alt=""><br>上面已经列出了各种形式的插入。<br>插入是在迭代器指向的元素之前插入。插入想要插入的元素前面，比如说<code>push_back</code>是插入到了尾后迭代器的前面。<br>而返回的是新添加的第一个元素的迭代器，同样也可也==不返回==。</li>
+</ul>
+<p>这里要注意的是<code>push_front</code>会改变整个容器的迭代器指向，而<code>push_back</code>不会。</p>
+<ul>
+<li><strong>访问元素</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334703127503.jpg" alt=""></p>
+<p>链表，单向链表，栈，队列都不支持随机访问，也就不支持下标访问了。</p>
+<ul>
+<li><strong>删除元素</strong><br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334705958004.jpg" alt=""></li>
+</ul>
+<p>删除的是迭代器指向的元素，返回的是删除元素的后迭代器也就是被删除的元素下一个元素的前面的迭代器，同样也可以不返回。</p>
+<p><em>这里需要注意的就是删除一个元素之后，必定会改变原容器中迭代器的指向，所以务必小心（除了<code>pop_back</code>）</em></p>
+<ul>
+<li><strong>改变容器大小的操作</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335167464723.jpg" alt=""></p>
+<ul>
+<li><strong>特殊的forward_list（单向链表）</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15334712839686.jpg" alt=""></p>
+<p>由于迭代器的添加删除操作都涉及到了首前和尾后，所以对于单向链表来说这里添加了一个首前迭代器<code>before_begin</code><br>而对于单向链表的插入而言 是在元素的后面进行插入，删除也是一样，指向都是迭代器指向元素之后的元素。</p>
+<h2 id="关联容器"><a href="#关联容器" class="headerlink" title="关联容器"></a>关联容器</h2><p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335188187528.jpg" alt=""></p>
+<ul>
+<li>**关联容器里面的<code>pair</code></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335191398555.jpg" alt=""></p>
+<ul>
+<li><strong>关联容器的操作</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335192848295.jpg" alt=""></p>
+<ul>
+<li><strong>关联容器的添加操作</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335195440945.jpg" alt=""></p>
+<p>一般都是直接用下标操作添加<code>map</code>里面的操作。<br><code>at</code>操作只能判断存不存在</p>
+<ul>
+<li><strong>关联容器的删除操作</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335202245929.jpg" alt=""></p>
+<ul>
+<li><strong>关联容器的访问操作</strong></li>
+</ul>
+<p><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335205177307.jpg" alt=""><br>上面关于排序的操作不适用于无序的关联容器。</p>
+<p><strong>当允许关键词重复的multimap中查找元素时，一般使用find函数与count函数同时进行。</strong></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>大部分函数算法都放在<code>&lt;algorithm&gt;</code>的头文件里面了。<br>还有一些数值算法是放在了<code>&lt;numeric&gt;</code>的头文件里面。</p>
+<ul>
+<li><strong>只读算法</strong></li>
+</ul>
+<p>accumulate 求和算法，接受三个参数，前面两个参数是累加范围，第三个是和的初值。<br>equal 判断两个序列里面是否所有的值都相同。<br>后面网上查找 有的再补充。<br>find算法<br>binary_search()二分查找函数<br>find_end()最后一次出现算法<br>find_first_of()第一次出现的算法<br>find_if ()第三个参数就为自定义函数搜索<br>lower_bound()第一个不小于的元素<br>upper_bound()第一个大于的元素<br>count（）算法 计算出现次数<br>count_if（）函数自定义计数</p>
+<ul>
+<li><strong>写容器的算法</strong></li>
+</ul>
+<p>fill 填充算法 类似于memset函数前者在于可以赋值赋任何值，而后者理论上只能赋值0或者1或者0x3f3f3f3f。<br>fill_n也是三个参数，第一个是开始点，第二个是赋值数目，第三个为赋值初始化。<br>copy 拷贝算法，接收三个迭代器，前面两个表示输入范围，第三个为拷贝目标序列的起点。<br>replace 替换算法，将目标序列里面的某些值更改成某些值，接受四个参数，前面两个是目标序列的范围，第三个是要搜索的值，第四个是要将搜索到的第三个的值更改后的值。<br>remove 去除掉函数里面包括的参数的元素。<br>remove_if 自定义。<br>remove_copy 拷贝结果。<br>swap（）交换两个对象的值。<br>swap_range()交换两个序列的值。</p>
+<ul>
+<li><strong>重排容器的算法</strong></li>
+</ul>
+<p>其排序的算法中，定义的排序方式就在于自定义函数传入算法中。<br>有三种自定义函数：</p>
+<ol>
+<li>普通bool型自定义函数，比较排列顺序。</li>
+<li>lambda 匿名小函数。</li>
+<li>bind 函数 绑定谓词。灵活的应用自定义函数。</li>
 </ol>
+<p>unique 将容器中所有重复的值全部排列到后面去，接受目标序列的迭代器范围，返回指向第一个重复元素的迭代器。<br>sort 排序 本质上运用的是快速排序。<br>stable_sort 本质上运动的是归并排序。<br>stable_partition 前面进行排序后，把自定义排列的分割开来。<br>reverse 倒排函数。<br>reverse_copy 倒排函数。<br>rotate 接受三个参数，前面两个是要往后面排的范围。</p>
+<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><ul>
+<li><p><strong>插入迭代器</strong><br>back_inserter 类似于push_back的迭代器，创建并且使用<br>front_inserter 创建并且使用一个push_front的迭代器<br>inserter 创建一个普通插入的迭代器</p>
+</li>
+<li><p><strong>流迭代器</strong><br>istream_iterator 输入迭代器<br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335260532129.jpg" alt=""></p>
+</li>
+</ul>
+<p>ostream_iterator 输出迭代器<br><img src="//crazyfnoption.github.io/2018/12/01/STL的简单总结/15335260817218.jpg" alt=""></p>
+<ul>
+<li><strong>反向迭代器</strong><br>reverse_iterator</li>
+<li><strong>移动迭代器</strong><br>后面复习到在总结 移动、拷贝、右值引用。</li>
+</ul>
 
           
         
@@ -831,7 +561,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款11：在 operator 中处理自我赋值的情况/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -850,7 +580,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款11：在 operator 中处理自我赋值的情况/" itemprop="url">条款11：在 operator 中处理自我赋值的情况</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款11：在operator中处理自我赋值的情况/" itemprop="url">条款11：在 operator 中处理自我赋值的情况</a></h1>
         
 
         <div class="post-meta">
@@ -961,12 +691,203 @@
 <li><p>同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。</p>
 </li>
 </ol>
-<p><img src="//crazyfnoption.github.io/2018/12/01/条款11：在 operator 中处理自我赋值的情况/1.png" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png" alt=""></p>
 <p>就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。</p>
 <ol start="3">
 <li><p>还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。</p>
 </li>
 <li><p>或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款12：复制对象时勿忘其每一个成分/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Super Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款12：复制对象时勿忘其每一个成分/" itemprop="url">条款12：复制对象时勿忘其每一个成分</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  313
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。<br>下面直接分为两个方面进行诠释：</p>
+<ol>
+<li><p>类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。</p>
+</li>
+<li><p>一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图：<br><img src="//crazyfnoption.github.io/2018/12/01/条款12：复制对象时勿忘其每一个成分/2.png" alt=""></p>
+</li>
+<li><p>另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。</p>
+</li>
+<li><p>如果发现两个拷贝行为有类似的代码时，应该把这个相同的代码放到一个函数中区，然后由两个拷贝行为共同调用。</p>
 </li>
 </ol>
 
@@ -1587,7 +1508,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1606,7 +1527,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/" itemprop="url">条款16：成对使用 new 和 delete 时需要采取相同的形式</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="url">条款16：成对使用new和delete时需要采取相同的形式</a></h1>
         
 
         <div class="post-meta">
@@ -1718,9 +1639,194 @@
 <li><p>智能指针默认没有 delete 数组，所以需要自定义删除器。</p>
 </li>
 </ol>
-<p><img src="//crazyfnoption.github.io/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/3.png" alt=""></p>
-<p><img src="//crazyfnoption.github.io/2018/12/01/条款16：成对使用 new 和 delete 时需要采取相同的形式/4.png" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/3.png" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/4.png" alt=""></p>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Super Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/" itemprop="url">条款17：以独立语句将new过得对象放入智能指针中</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  122
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>编译器的编译次序是说不定的，就想下图的</p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/5.png" alt=""></p>
+<p>上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示：</p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/6.png" alt=""></p>
+<p>先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。</p>
+<h4 id="上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句"><a href="#上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句" class="headerlink" title="上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句"></a>上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句</h4>
           
         
       
@@ -1967,7 +2073,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款17：以独立语句将 new 过得对象放入智能指针中/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款19：设计 class 犹如设计 type/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1986,7 +2092,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款17：以独立语句将 new 过得对象放入智能指针中/" itemprop="url">条款17：以独立语句将 new 过得对象放入智能指针中</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款19：设计 class 犹如设计 type/" itemprop="url">条款19：设计 class 犹如设计 type</a></h1>
         
 
         <div class="post-meta">
@@ -2052,7 +2158,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  122
+                  641
                 </span>
               
 
@@ -2068,7 +2174,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -2091,12 +2197,64 @@
       
         
           
-            <p>编译器的编译次序是说不定的，就想下图的</p>
-<p><img src="//crazyfnoption.github.io/2018/12/01/条款17：以独立语句将 new 过得对象放入智能指针中/5.png" alt=""></p>
-<p>上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示：</p>
-<p><img src="//crazyfnoption.github.io/2018/12/01/条款17：以独立语句将 new 过得对象放入智能指针中/6.png" alt=""></p>
-<p>先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。</p>
-<h4 id="上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句"><a href="#上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句" class="headerlink" title="上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句"></a>上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句</h4>
+            <h4 id="一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。"><a href="#一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。" class="headerlink" title="一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。"></a>一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。</h4><ul>
+<li><p>新 type 对象应该如何创建和销毁</p>
+<blockquote>
+<p>关系到类的构造函数与析构函数如何建立</p>
+</blockquote>
+</li>
+<li><p>对象的初始化和对象的赋值之间的差别</p>
+<blockquote>
+<p>主要是为了区分构造函数与赋值运算符之间的区别</p>
+</blockquote>
+</li>
+<li><p>该类参数传递中有传值也有传引用</p>
+<blockquote>
+<p>传引用与传值之间的区别，以及如何实现，以及究竟何时会去调用这一类的函数。</p>
+</blockquote>
+</li>
+<li><p>新 type 的和法制</p>
+<blockquote>
+<p>构造这个类的时候一些合法值，要不要对应自己的私有数据成员，或者是类型转换，通常其都会影响构造函数、赋值操作，以及 setter 函数，甚至还会影响到函数抛出的异常。</p>
+</blockquote>
+</li>
+<li><p>是否需要配合某一个继承体系</p>
+<blockquote>
+<p>需要记住的是继承体系的构成一定要满足的是 is - a 的条件，另外虚函数与非虚函数之间的影响，并且还要考虑的时候 是否应该把自己的析构函数也设计成虚函数。</p>
+</blockquote>
+</li>
+<li><p>是否需要类型转换</p>
+<blockquote>
+<p>类型转换一般会分为显式转换和隐式转换，实现方式一般有直接在其中一个函数内些类型转换的重载运算符函数，和没有声明 explicit 的单一参数的构造函数。</p>
+</blockquote>
+</li>
+<li><p>重载的操作符以及其他相应的函数，是否合理</p>
+<blockquote>
+<p>这里看重载的函数是否符合逻辑条件，不仅仅是代码之间的严禁性质，还需要考虑的就是生活层面的实用性。</p>
+</blockquote>
+</li>
+<li><p>哪些成员应该封装？</p>
+<blockquote>
+<p>这里就设计到哪些成员应该设置成私有，而哪一些函数应该设置成公有函数，并且一些不想编译器生成的函数应该定义成删除。</p>
+</blockquote>
+</li>
+<li><p>类型的未声明接口</p>
+<blockquote>
+<p>它对效率、异常安全性以及资源运用提供什么样保证，以及为类的实现代码应该提供什么的约束条件。</p>
+</blockquote>
+</li>
+<li><p>是否应该定义成模板</p>
+<blockquote>
+<p>这里就看类的一般性究竟有多大，是否具有普遍价值。</p>
+</blockquote>
+</li>
+<li><p>考虑是否会继承与其他的类</p>
+<blockquote>
+<p>有的时候考虑过后，也许这个类就不需要凭空创造出，仅仅只是需要从其他类上面派生出来即可。</p>
+</blockquote>
+</li>
+</ul>
+
           
         
       
@@ -2191,7 +2349,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2309,7 +2467,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">20.6k</span>
+    <span title="Site words total count">20k</span>
   
 </div>
 
