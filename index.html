@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款13：以对象管理资源/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -310,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款13：以对象管理资源/" itemprop="url">条款13：以对象管理资源</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款11：在operator中处理自我赋值的情况/" itemprop="url">条款11：在 operator 中处理自我赋值的情况</a></h1>
         
 
         <div class="post-meta">
@@ -363,8 +363,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/条款13：以对象管理资源/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款13：以对象管理资源/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/条款11：在operator中处理自我赋值的情况/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款11：在operator中处理自我赋值的情况/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  295
+                  343
                 </span>
               
 
@@ -425,12 +425,18 @@
       
         
           
-            <h4 id="系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。"><a href="#系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而-C-中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。" class="headerlink" title="系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。"></a>系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。</h4><ol>
-<li><p>使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数）</p>
+            <h4 id="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况"><a href="#本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况" class="headerlink" title="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况"></a>本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况</h4><ol>
+<li><p>比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。</p>
 </li>
-<li><p>获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。</p>
+<li><p>同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。</p>
 </li>
-<li><p>需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。</p>
+</ol>
+<p><img src="//www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png" alt=""></p>
+<p>就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。</p>
+<ol start="3">
+<li><p>还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。</p>
+</li>
+<li><p>或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。</p>
 </li>
 </ol>
 
@@ -1593,198 +1599,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/关于STL里面函数简单的应用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/关于STL里面函数简单的应用/" itemprop="url">关于STL里面函数简单的应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/关于STL里面函数简单的应用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/关于STL里面函数简单的应用/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  90
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="//www.wsx1128.xyz/2018/12/01/关于STL里面函数简单的应用/15334646368898.jpg" alt=""></p>
-<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,t;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    set&lt;int&gt;s;</span><br><span class="line">    s.insert(0);</span><br><span class="line">    for (int i =0;i!=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        //这道题目的主要做法是记住几个upper_bound 的STL函数</span><br><span class="line">        if(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; s.size() - 1;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/二分法思想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1945,6 +1759,198 @@
 <blockquote>
 <p>poj3301<br>hdu4454<br>hdu3714<br>hdu2438</p>
 </blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/关于STL里面函数简单的应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/关于STL里面函数简单的应用/" itemprop="url">关于STL里面函数简单的应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/题解/" itemprop="url" rel="index">
+                    <span itemprop="name">题解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/关于STL里面函数简单的应用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/关于STL里面函数简单的应用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  90
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="//www.wsx1128.xyz/2018/12/01/关于STL里面函数简单的应用/15334646368898.jpg" alt=""></p>
+<p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,t;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    set&lt;int&gt;s;</span><br><span class="line">    s.insert(0);</span><br><span class="line">    for (int i =0;i!=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        //这道题目的主要做法是记住几个upper_bound 的STL函数</span><br><span class="line">        if(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; s.size() - 1;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
           
         

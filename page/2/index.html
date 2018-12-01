@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/数论基础第一节/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -310,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="url">条款02：尽量以const,enum,inline 替换掉#define</a></h1>
+                <a class="post-title-link" href="/2018/12/01/数论基础第一节/" itemprop="url">数论基础第一节</a></h1>
         
 
         <div class="post-meta">
@@ -345,8 +345,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
                   </a>
                 </span>
 
@@ -363,8 +363,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/数论基础第一节/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/数论基础第一节/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  170
+                  359
                 </span>
               
 
@@ -425,11 +425,73 @@
       
         
           
-            <h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr>
-<h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul>
-<li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li>
-<li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li>
+            <p>初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。</p>
+<h2 id="整除问题引申到同余问题"><a href="#整除问题引申到同余问题" class="headerlink" title="整除问题引申到同余问题"></a>整除问题引申到同余问题</h2><ul>
+<li><strong>同余的性质</strong></li>
 </ul>
+<p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343075827029.jpg" alt=""><br>可以换算成以下式子：<br><strong>a=c(<code>mod</code>b) 这里c为余数，而b为除数</strong></p>
+<ul>
+<li><strong>同余的性质</strong></li>
+</ul>
+<ol>
+<li>自反性 a=a <code>mod</code> m</li>
+<li>对称性 a=b <code>mod</code> m 等价于 b=a <code>mod</code> m</li>
+<li>传递性 a=b <code>mod</code> m 与 b=c <code>mod</code> m 等价于 a=c <code>mod</code> m</li>
+<li>线性合成 a=b <code>mod</code> m 与 c= <code>mod</code> m 等价于 a±c=b±d <code>mod</code> m 与 ac= bd <code>mod</code> m</li>
+<li>消去公因子 ac=bc <code>mod</code> m &amp;&amp; gcd(c,m)=1 等价于 a=b <code>mod</code> m </li>
+</ol>
+<h2 id="素数筛"><a href="#素数筛" class="headerlink" title="素数筛"></a>素数筛</h2><ul>
+<li>朴素筛 一般就是循环2~√n次</li>
+<li>埃拉托斯特尼筛</li>
+</ul>
+<p><strong>循环次数</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343091959776.jpg" alt=""></p>
+<ul>
+<li>欧拉筛</li>
+<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343092628399.jpg" alt=""></li>
+</ul>
+<p><strong>相应代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="最大公约数以及最小公倍数"><a href="#最大公约数以及最小公倍数" class="headerlink" title="最大公约数以及最小公倍数"></a>最大公约数以及最小公倍数</h2><ul>
+<li><p>最大公约数 函数_gcd(a,b)<br>而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c)</p>
+</li>
+<li><p>最小公倍数<br>_lcm(a,b)=ab/_gcd(a,b)</p>
+</li>
+</ul>
+<h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099257598.jpg" alt=""></p>
+<ul>
+<li>关于求解线性同余方程<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099683275.jpg" alt=""></li>
+<li><p>关于求逆元<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099966167.jpg" alt=""></p>
+</li>
+<li><p>关于快速幂<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343101054154.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="费马小定理"><a href="#费马小定理" class="headerlink" title="费马小定理"></a>费马小定理</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343101566104.jpg" alt=""></p>
+<p><strong>另外</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343103411689.jpg" alt=""></p>
+<h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><ul>
+<li><strong>欧拉函数定义</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343107143861.jpg" alt=""></li>
+</ul>
+<ul>
+<li><p><strong>欧拉函数性质</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343107974985.jpg" alt=""></p>
+</li>
+<li><p><strong>求值公式</strong> </p>
+</li>
+</ul>
+<ol>
+<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109562640.jpg" alt=""></li>
+<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109655205.jpg" alt=""></li>
+<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109780637.jpg" alt=""><br>上述公式 可以用来：</li>
+</ol>
+<ul>
+<li><p><strong>求逆元</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343110433806.jpg" alt=""></p>
+</li>
+<li><p><strong>欧拉降幂公式</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343111460573.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="数论函数"><a href="#数论函数" class="headerlink" title="数论函数"></a>数论函数</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343114512818.jpg" alt=""></p>
+<ul>
+<li><strong>中国剩余定理</strong></li>
+</ul>
+<p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343114886344.jpg" alt=""></p>
+<p><strong>解法</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343115089655.jpg" alt=""></p>
 
           
         
@@ -690,7 +752,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/数论基础第一节/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -709,7 +771,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/数论基础第一节/" itemprop="url">数论基础第一节</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="url">条款02：尽量以const,enum,inline 替换掉#define</a></h1>
         
 
         <div class="post-meta">
@@ -744,8 +806,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/acm/" itemprop="url" rel="index">
-                    <span itemprop="name">acm</span>
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
                   </a>
                 </span>
 
@@ -762,8 +824,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/01/数论基础第一节/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/数论基础第一节/" itemprop="commentCount"></span>
+                <a href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -785,7 +847,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  359
+                  170
                 </span>
               
 
@@ -824,73 +886,11 @@
       
         
           
-            <p>初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。</p>
-<h2 id="整除问题引申到同余问题"><a href="#整除问题引申到同余问题" class="headerlink" title="整除问题引申到同余问题"></a>整除问题引申到同余问题</h2><ul>
-<li><strong>同余的性质</strong></li>
+            <h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr>
+<h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul>
+<li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li>
+<li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li>
 </ul>
-<p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343075827029.jpg" alt=""><br>可以换算成以下式子：<br><strong>a=c(<code>mod</code>b) 这里c为余数，而b为除数</strong></p>
-<ul>
-<li><strong>同余的性质</strong></li>
-</ul>
-<ol>
-<li>自反性 a=a <code>mod</code> m</li>
-<li>对称性 a=b <code>mod</code> m 等价于 b=a <code>mod</code> m</li>
-<li>传递性 a=b <code>mod</code> m 与 b=c <code>mod</code> m 等价于 a=c <code>mod</code> m</li>
-<li>线性合成 a=b <code>mod</code> m 与 c= <code>mod</code> m 等价于 a±c=b±d <code>mod</code> m 与 ac= bd <code>mod</code> m</li>
-<li>消去公因子 ac=bc <code>mod</code> m &amp;&amp; gcd(c,m)=1 等价于 a=b <code>mod</code> m </li>
-</ol>
-<h2 id="素数筛"><a href="#素数筛" class="headerlink" title="素数筛"></a>素数筛</h2><ul>
-<li>朴素筛 一般就是循环2~√n次</li>
-<li>埃拉托斯特尼筛</li>
-</ul>
-<p><strong>循环次数</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343091959776.jpg" alt=""></p>
-<ul>
-<li>欧拉筛</li>
-<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343092628399.jpg" alt=""></li>
-</ul>
-<p><strong>相应代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h2 id="最大公约数以及最小公倍数"><a href="#最大公约数以及最小公倍数" class="headerlink" title="最大公约数以及最小公倍数"></a>最大公约数以及最小公倍数</h2><ul>
-<li><p>最大公约数 函数_gcd(a,b)<br>而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c)</p>
-</li>
-<li><p>最小公倍数<br>_lcm(a,b)=ab/_gcd(a,b)</p>
-</li>
-</ul>
-<h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099257598.jpg" alt=""></p>
-<ul>
-<li>关于求解线性同余方程<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099683275.jpg" alt=""></li>
-<li><p>关于求逆元<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099966167.jpg" alt=""></p>
-</li>
-<li><p>关于快速幂<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343101054154.jpg" alt=""></p>
-</li>
-</ul>
-<h2 id="费马小定理"><a href="#费马小定理" class="headerlink" title="费马小定理"></a>费马小定理</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343101566104.jpg" alt=""></p>
-<p><strong>另外</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343103411689.jpg" alt=""></p>
-<h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><ul>
-<li><strong>欧拉函数定义</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343107143861.jpg" alt=""></li>
-</ul>
-<ul>
-<li><p><strong>欧拉函数性质</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343107974985.jpg" alt=""></p>
-</li>
-<li><p><strong>求值公式</strong> </p>
-</li>
-</ul>
-<ol>
-<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109562640.jpg" alt=""></li>
-<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109655205.jpg" alt=""></li>
-<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109780637.jpg" alt=""><br>上述公式 可以用来：</li>
-</ol>
-<ul>
-<li><p><strong>求逆元</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343110433806.jpg" alt=""></p>
-</li>
-<li><p><strong>欧拉降幂公式</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343111460573.jpg" alt=""></p>
-</li>
-</ul>
-<h2 id="数论函数"><a href="#数论函数" class="headerlink" title="数论函数"></a>数论函数</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343114512818.jpg" alt=""></p>
-<ul>
-<li><strong>中国剩余定理</strong></li>
-</ul>
-<p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343114886344.jpg" alt=""></p>
-<p><strong>解法</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343115089655.jpg" alt=""></p>
 
           
         
@@ -1959,6 +1959,203 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款08：别让异常逃离析构函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款08：别让异常逃离析构函数/" itemprop="url">条款08：别让异常逃离析构函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/条款08：别让异常逃离析构函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款08：别让异常逃离析构函数/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  268
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>其实这一项条款没有领悟的很深刻，可以理解成不要再析构函数里面写捕获异常之类的代码。因为某些时候，如果在析构函数里面抓获异常导致程序终止的话，那么就可能造成对象不能完全被销毁</p>
+<ol>
+<li><p>析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常的话，析构函数应该做的应该是捕捉任何异常，然后吞下他们（不传播）或者结束程序。</p>
+</li>
+<li><p>如果对象需要对摸个操作函数运行期间抛出的异常做出反应，那么 class 应该提供一个普通函数（不应该在析构函数里面）执行该任务。但是该析构函数里面仍然要进行双保险的析构过程，可以在类的内部定义里面加上一个 bool 变量来判断到底有没有运行析构行为，相当于一般写程序的一个 flag。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2105,197 +2302,6 @@
 <li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p>
 </li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  103
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。</p>
 
           
         
