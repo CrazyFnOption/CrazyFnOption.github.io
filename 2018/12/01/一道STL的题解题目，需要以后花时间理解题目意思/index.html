@@ -92,16 +92,16 @@
 <meta name="keywords" content="acm,c++,STL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一道STL的题解题目，需要以后花时间理解题目意思">
-<meta property="og:url" content="http://crazyfnoption.github.io/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/index.html">
+<meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/index.html">
 <meta property="og:site_name" content="Super Coding">
 <meta property="og:description" content="代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&amp;lt;iostream&amp;gt;#include&amp;lt;set&amp;gt;#include&amp;lt;algorithm&amp;gt;#include&amp;lt;queu">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://crazyfnoption.github.io/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/15334616821861.jpg">
+<meta property="og:image" content="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/15334616821861.jpg">
 <meta property="og:updated_time" content="2018-12-01T14:37:23.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一道STL的题解题目，需要以后花时间理解题目意思">
 <meta name="twitter:description" content="代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&amp;lt;iostream&amp;gt;#include&amp;lt;set&amp;gt;#include&amp;lt;algorithm&amp;gt;#include&amp;lt;queu">
-<meta name="twitter:image" content="http://crazyfnoption.github.io/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/15334616821861.jpg">
+<meta name="twitter:image" content="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/15334616821861.jpg">
 
 
 
@@ -131,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="http://crazyfnoption.github.io/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/">
+  <link rel="canonical" href="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/">
 
 
 
@@ -143,6 +143,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8759f43af3e04f8088e92ff251867945";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -274,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/">
+    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -339,6 +349,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -399,7 +419,7 @@
       
 
       
-        <p><img src="//crazyfnoption.github.io/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/15334616821861.jpg" alt=""></p>
+        <p><img src="//www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/15334616821861.jpg" alt=""></p>
 <p><strong>代码如下：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">//#include&lt;function&gt;</span><br><span class="line"></span><br><span class="line">#define ll long long</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int fort = 1314;</span><br><span class="line"></span><br><span class="line">ll a[6];</span><br><span class="line"></span><br><span class="line">//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤</span><br><span class="line">int main()&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2];</span><br><span class="line">        a[3] = 5;</span><br><span class="line">        a[4] = 2;</span><br><span class="line">        a[5] = 0;</span><br><span class="line">        sort(a,  a + 6,</span><br><span class="line">        [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;);</span><br><span class="line">        priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq;</span><br><span class="line">        set&lt;ll&gt;s;</span><br><span class="line">        set&lt;ll&gt;ans;</span><br><span class="line">        pq.push(1);</span><br><span class="line">        s.insert(1);</span><br><span class="line">        for(int i = 0;;i++)&#123;</span><br><span class="line">            ll x = pq.top();</span><br><span class="line">            pq.pop();</span><br><span class="line">            if(i)&#123;</span><br><span class="line">                for(int k = 3;k &lt; 6;k++)&#123;</span><br><span class="line">                    ans.insert(x - a[k]);</span><br><span class="line">                    if(ans.size()==fort)</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">                if(ans.size()==fort)&#123;</span><br><span class="line">                    /*int ttt = 1;</span><br><span class="line">                    for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++)</span><br><span class="line">                        cout&lt;&lt;ttt++&lt;&lt;&apos; &apos;&lt;&lt;*it&lt;&lt;endl;*/</span><br><span class="line">                    auto it = ans.rbegin();</span><br><span class="line">                    cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            for(int j = 0;j&lt;3;j++)&#123;</span><br><span class="line">                ll x2=x*a[j];</span><br><span class="line">                if(!s.count(x2))&#123;</span><br><span class="line">                    s.insert(x2);</span><br><span class="line">                    pq.push(x2);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
@@ -430,7 +450,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://crazyfnoption.github.io/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" title="一道STL的题解题目，需要以后花时间理解题目意思">http://crazyfnoption.github.io/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/</a>
+    <a href="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" title="一道STL的题解题目，需要以后花时间理解题目意思">http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -505,6 +525,32 @@
 
     <div class="post-spread">
       
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
     </div>
   </div>
 
@@ -512,8 +558,17 @@
           </div>
           
 
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
 
           
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" data-title="一道STL的题解题目，需要以后花时间理解题目意思" data-url="http://www.wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/">
+      </div>
+    </div>
 
   
 
@@ -556,7 +611,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -567,7 +622,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -578,7 +633,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -674,7 +729,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">20k</span>
+    <span title="Site words total count">23.1k</span>
   
 </div>
 
@@ -830,25 +885,35 @@
 
   
 
+  
+    
+  
 
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yusmile"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
   
 
 
 
 
-	
 
 
-
-
-
-  
-
-
-
-
-
-  
 
 
 
