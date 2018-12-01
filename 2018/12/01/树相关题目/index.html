@@ -102,17 +102,17 @@
 <meta name="keywords" content="acm,c++,树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树相关题目">
-<meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/树相关题目/index.html">
+<meta property="og:url" content="http://crazyfnoption.github.io/2018/12/01/树相关题目/index.html">
 <meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&amp;lt;iostream&amp;gt;#inc">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.wsx1128.xyz/2018/12/01/树相关题目/15337273413710.jpg">
-<meta property="og:image" content="http://www.wsx1128.xyz/2018/12/01/树相关题目/15338198112868.jpg">
+<meta property="og:image" content="http://crazyfnoption.github.io/2018/12/01/树相关题目/15337273413710.jpg">
+<meta property="og:image" content="http://crazyfnoption.github.io/2018/12/01/树相关题目/15338198112868.jpg">
 <meta property="og:updated_time" content="2018-12-01T14:37:23.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树相关题目">
 <meta name="twitter:description" content="复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&amp;lt;iostream&amp;gt;#inc">
-<meta name="twitter:image" content="http://www.wsx1128.xyz/2018/12/01/树相关题目/15337273413710.jpg">
+<meta name="twitter:image" content="http://crazyfnoption.github.io/2018/12/01/树相关题目/15337273413710.jpg">
 
 
 
@@ -142,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="http://www.wsx1128.xyz/2018/12/01/树相关题目/">
+  <link rel="canonical" href="http://crazyfnoption.github.io/2018/12/01/树相关题目/">
 
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/树相关题目/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/树相关题目/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -430,11 +430,11 @@
       
 
       
-        <h2 id="复原二叉树"><a href="#复原二叉树" class="headerlink" title="复原二叉树"></a>复原二叉树</h2><p><img src="//www.wsx1128.xyz/2018/12/01/树相关题目/15337273413710.jpg" alt=""></p>
+        <h2 id="复原二叉树"><a href="#复原二叉树" class="headerlink" title="复原二叉树"></a>复原二叉树</h2><p><img src="//crazyfnoption.github.io/2018/12/01/树相关题目/15337273413710.jpg" alt=""></p>
 <p><strong>题解</strong><br>此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点）</p>
 <p><strong>代码如下：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">string pre;</span><br><span class="line">string in;</span><br><span class="line"></span><br><span class="line">void post(int root,int start,int end)</span><br><span class="line">&#123;</span><br><span class="line">	//递归打印这棵树的后序，递归出口为 start &gt; end</span><br><span class="line">    //注意这里不带等于号的原因就是要把叶子节点一样给输出来</span><br><span class="line"> 	if(start&gt;end) return;</span><br><span class="line"></span><br><span class="line"> 	int i=start;//i为 root所代表的值在中序中的下标</span><br><span class="line"></span><br><span class="line">    while(i&lt;end&amp;&amp;in[i]!=pre[root])</span><br><span class="line"> 	    i++;</span><br><span class="line"></span><br><span class="line">    int cnt=i-start;//左子树结点个数</span><br><span class="line">    //由于是先序排序，顺序永远都是根左右，</span><br><span class="line">    post(root+1,start,i-1);</span><br><span class="line">    //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点</span><br><span class="line"></span><br><span class="line">    post(root+1+cnt,i+1,end);</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;pre[root];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin&gt;&gt;pre&gt;&gt;in)&#123;</span><br><span class="line">        int len=pre.length();</span><br><span class="line">        post(0,0,len-1);</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"> 	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="关于树的一个简单DFS运用"><a href="#关于树的一个简单DFS运用" class="headerlink" title="关于树的一个简单DFS运用"></a>关于树的一个简单DFS运用</h2><p><img src="//www.wsx1128.xyz/2018/12/01/树相关题目/15338198112868.jpg" alt=""></p>
+<h2 id="关于树的一个简单DFS运用"><a href="#关于树的一个简单DFS运用" class="headerlink" title="关于树的一个简单DFS运用"></a>关于树的一个简单DFS运用</h2><p><img src="//crazyfnoption.github.io/2018/12/01/树相关题目/15338198112868.jpg" alt=""></p>
 <p>题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。</p>
 <p>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 1e5+5;</span><br><span class="line"></span><br><span class="line">//此处实际上是充分利用了vector的特性</span><br><span class="line">//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支</span><br><span class="line">//所以用一个vector的数组，每个vector存储其对应的祖先</span><br><span class="line">//而一共有题目给出数量的vector</span><br><span class="line">vector&lt;int&gt;people[maxn];</span><br><span class="line">char sex[maxn*2];</span><br><span class="line"></span><br><span class="line">int ans;</span><br><span class="line">int top;</span><br><span class="line">int que[maxn];</span><br><span class="line"></span><br><span class="line">//这里e的值只是用来判断到底是该植入值还是该判断值</span><br><span class="line">//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了</span><br><span class="line">//后面一个人则需要做的是根据已有的对方祖先进行判断</span><br><span class="line">void dfs(int x,int s,int e)&#123;</span><br><span class="line">    if (s&gt;=5) return ;</span><br><span class="line">    if (e==0)&#123;</span><br><span class="line">        for (int i=0;i!=top;i++)&#123;</span><br><span class="line">            if (x==que[i])&#123;</span><br><span class="line">                ans=1;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else que[top++]=x;</span><br><span class="line">    for (int i=0;i!=people[x].size();i++)</span><br><span class="line">        dfs(people[x][i],s+1,e);</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//上面的递归搜索可以用来因为是从底层向上面进行搜索</span><br><span class="line">//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    char ch;</span><br><span class="line">    int x,fa,ma;</span><br><span class="line">    for (int i=0;i!=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;x;</span><br><span class="line">        getchar();</span><br><span class="line">        cin&gt;&gt;sex[x];</span><br><span class="line">        cin&gt;&gt;fa&gt;&gt;ma;</span><br><span class="line">        if (fa!=-1) people[x].push_back(fa);</span><br><span class="line">        if (ma!=-1) people[x].push_back(ma);</span><br><span class="line">        sex[fa]=&apos;M&apos;;</span><br><span class="line">        sex[ma]=&apos;F&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    int k;</span><br><span class="line">    cin&gt;&gt;k;</span><br><span class="line">    for (int i=0;i!=k;i++)&#123;</span><br><span class="line">        cin&gt;&gt;fa&gt;&gt;ma;</span><br><span class="line">        ans=0;</span><br><span class="line">        if (sex[fa]==sex[ma]) cout&lt;&lt;&quot;Never Mind&quot;&lt;&lt;endl;</span><br><span class="line">        else&#123;</span><br><span class="line">            top=0;</span><br><span class="line">            dfs(fa,0,1);</span><br><span class="line">            dfs(ma,0,0);</span><br><span class="line">            if (ans) cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;</span><br><span class="line">            else cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="关于树的应用"><a href="#关于树的应用" class="headerlink" title="关于树的应用"></a>关于树的应用</h2>
@@ -495,7 +495,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://www.wsx1128.xyz/2018/12/01/树相关题目/" title="树相关题目">http://www.wsx1128.xyz/2018/12/01/树相关题目/</a>
+    <a href="http://crazyfnoption.github.io/2018/12/01/树相关题目/" title="树相关题目">http://crazyfnoption.github.io/2018/12/01/树相关题目/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -527,8 +527,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/ACM集训相关知识/" rel="next" title="ACM集训相关知识">
-                <i class="fa fa-chevron-left"></i> ACM集训相关知识
+              <a href="/2018/12/01/条款12：复制对象时勿忘其每一个成分/" rel="next" title="条款12：复制对象时勿忘其每一个成分">
+                <i class="fa fa-chevron-left"></i> 条款12：复制对象时勿忘其每一个成分
               </a>
             
           </div>
@@ -537,8 +537,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款27：尽量少做转型动作/" rel="prev" title="条款27：尽量少做转型动作">
-                条款27：尽量少做转型动作 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" rel="prev" title="条款10：令 operator= 返回一个 自身的返回">
+                条款10：令 operator= 返回一个 自身的返回 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -611,7 +611,7 @@ var jiathis_config={
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2018/12/01/树相关题目/" data-title="树相关题目" data-url="http://www.wsx1128.xyz/2018/12/01/树相关题目/">
+      <div class="ds-thread" data-thread-key="2018/12/01/树相关题目/" data-title="树相关题目" data-url="http://crazyfnoption.github.io/2018/12/01/树相关题目/">
       </div>
     </div>
 
@@ -665,7 +665,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -676,7 +676,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -687,7 +687,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -799,7 +799,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">23.1k</span>
+    <span title="Site words total count">27.1k</span>
   
 </div>
 

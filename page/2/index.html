@@ -101,7 +101,7 @@
 <meta name="description" content="Smart is the new sexy .">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Magical Beans">
-<meta property="og:url" content="http://www.wsx1128.xyz/page/2/index.html">
+<meta property="og:url" content="http://crazyfnoption.github.io/page/2/index.html">
 <meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="Smart is the new sexy .">
 <meta property="og:locale" content="en">
@@ -137,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://www.wsx1128.xyz/page/2/">
+  <link rel="canonical" href="http://crazyfnoption.github.io/page/2/">
 
 
 
@@ -291,7 +291,468 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/数论基础第一节/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/" itemprop="url">关于组合数学，两道思维题目，这里贴两道题目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/题解/" itemprop="url" rel="index">
+                    <span itemprop="name">题解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  816
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第一道-简单的排列组合："><a href="#第一道-简单的排列组合：" class="headerlink" title="第一道 简单的排列组合："></a>第一道 简单的排列组合：</h2><p><img src="//crazyfnoption.github.io/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/15334551294656.jpg" alt=""></p>
+<p><strong>题解如下：</strong></p>
+<blockquote>
+<p>题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是<strong>==C(b,a+b)==</strong>;那么三堆的话我们可以把前两堆看成一堆，那么表达式就是<strong>==C(c,a+b+c)==</strong>，这是我们需要与前两堆的组成方法相乘，就是<strong>==C(b,a+b)C(c,a+b+c)==</strong>。<br>4堆的话就是<strong>==C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==</strong>。<br>所以答案就是<strong>==C(a,a)C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==</strong>。<br>此外，有一公式==<strong>C(a,b)=C(a,b-1)+C(a-1,b-1)</strong>==，所以我们用数组来代替C(m,n)操作</p>
+</blockquote>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 501;</span><br><span class="line">const long long mod = 1000000007;</span><br><span class="line"></span><br><span class="line">long long a[4],sum[4]=&#123;0&#125;;</span><br><span class="line">//此处用到记忆化搜索，动态规划。</span><br><span class="line">long long dp[maxn*4][maxn*4];</span><br><span class="line"></span><br><span class="line">void init()&#123;</span><br><span class="line">    dp[0][0]=0;</span><br><span class="line">    for (int i=1;i!=4*maxn;i++)&#123;</span><br><span class="line">        dp[i][0]=1;</span><br><span class="line">        //根据表格来看的确是每一行的第一个是1</span><br><span class="line">        for (int j=1;j&lt;i;j++)&#123;</span><br><span class="line">            //这个地方就是状态转移方程</span><br><span class="line">            //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的</span><br><span class="line">            dp[i][j]=dp[i-1][j]+dp[i-1][j-1];</span><br><span class="line">            //dp[i][j]=dp[i][j]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i][i]=1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        init();//这个地方就开始初始化表格了。</span><br><span class="line">        long long ans =1;</span><br><span class="line">        for (int i = 0; i&lt;4;i++)&#123;</span><br><span class="line">            if (!i) sum[i]=0;</span><br><span class="line">            else sum[i]=sum[i-1];</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">            sum[i] += a[i];</span><br><span class="line">            if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 1 ; i != 4; i++)&#123;</span><br><span class="line">            ans *= dp[sum[i]][a[i]];</span><br><span class="line">            //ans %=mod;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="第二题-第一题的变式："><a href="#第二题-第一题的变式：" class="headerlink" title="第二题 第一题的变式："></a>第二题 第一题的变式：</h2><p><img src="//crazyfnoption.github.io/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/15334588459331.jpg" alt=""></p>
+<p>题解如上，与上面一题有区别的地方就在于要有一个取模的操作</p>
+<p><strong>代码如下</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 501;</span><br><span class="line">const long long mod = 1000000007;</span><br><span class="line"></span><br><span class="line">long long a[4],sum[4]=&#123;0&#125;;</span><br><span class="line">//此处用到记忆化搜索，动态规划。</span><br><span class="line">long long dp[maxn*4][maxn*4];</span><br><span class="line"></span><br><span class="line">void init()&#123;</span><br><span class="line">    dp[0][0]=0;</span><br><span class="line">    for (int i=1;i!=4*maxn;i++)&#123;</span><br><span class="line">        dp[i][0]=1;</span><br><span class="line">        //根据表格来看的确是每一行的第一个是1</span><br><span class="line">        for (int j=1;j&lt;i;j++)&#123;</span><br><span class="line">            //这个地方就是状态转移方程</span><br><span class="line">            //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的</span><br><span class="line">            dp[i][j]=dp[i-1][j]+dp[i-1][j-1];</span><br><span class="line">            dp[i][j]=dp[i][j]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i][i]=1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        init();//这个地方就开始初始化表格了。</span><br><span class="line">        long long ans =1;</span><br><span class="line">        for (int i = 0; i&lt;4;i++)&#123;</span><br><span class="line">            if (!i) sum[i]=0;</span><br><span class="line">            else sum[i]=sum[i-1];</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">            sum[i] += a[i];</span><br><span class="line">            if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 1 ; i != 4; i++)&#123;</span><br><span class="line">            ans *= dp[sum[i]][a[i]];</span><br><span class="line">            ans %=mod;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>==以后学到后面再花时间来深究==</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/数据结构相应总结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/数据结构相应总结/" itemprop="url">数据结构相应总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/01/数据结构相应总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/数据结构相应总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><ol>
+<li><p>栈的概念<br>此处只需要记住栈的思想最重要的就是<strong>先进后出</strong>思想，也就是最先进去的最后出来。<br><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332206965126.jpg" alt=""></p>
+</li>
+<li><p>两种方法表示这种栈的实现</p>
+</li>
+</ol>
+<ul>
+<li>第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。</li>
+<li>第二种就是直接用C++里面STL模板<br>首先先定义一个<code>stack&lt;int&gt; s</code> 然后以下就是其的操作。   </li>
+</ul>
+<p><strong>注意其不能使用push_back只能使用push</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s.pop()         删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。</span><br><span class="line">s.push()        创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。</span><br><span class="line">s.top()         返回栈顶的元素，也就是刚刚进来的元素。</span><br><span class="line">s.bottom()      返回栈底的元素，也就是最后一个元素</span><br></pre></td></tr></table></figure>
+<h2 id="队列适配器"><a href="#队列适配器" class="headerlink" title="队列适配器"></a>队列适配器</h2><p>队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者<strong>自己定义一种排序方式</strong>，然后通过这种排序方式，再来出队操作。</p>
+<p>与上面一样，先定义一个<code>queue&lt;int&gt; q</code>与<code>priority_queue&lt;int&gt; q</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">q.pop()         按照先进先出的思想，删除首元素或者优先级最高的元素</span><br><span class="line">q.front()       返回首元素。</span><br><span class="line">q.back()        返回尾元素。</span><br><span class="line">以上两个是只适用于队列。</span><br><span class="line">q.top()         返回优先队列中优先级最高的元素。</span><br><span class="line">q.push()</span><br><span class="line">q.emplace()     加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。</span><br></pre></td></tr></table></figure>
+<p>这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">下面两种优先队列的定义是等价的</span><br><span class="line">priority_queue&lt;int&gt; q;</span><br><span class="line">priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格</span><br><span class="line">默认都是从小到大排序</span><br><span class="line">接受三个参数，</span><br><span class="line">第一个参数为数据类型，</span><br><span class="line">第二个参数为承载容器的类型，</span><br><span class="line">第三个就是自定义的比较函数了。</span><br><span class="line">可以使lamda匿名函数，也可以是function头文件里面的函数模板。</span><br></pre></td></tr></table></figure>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>特点：自定义，不连续的。<br>同时链表也是后面相应树形结构的基础<br>实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程<br>这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了</p>
+<h2 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h2><p>这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。</p>
+<h2 id="树与二叉树"><a href="#树与二叉树" class="headerlink" title="树与二叉树"></a>树与二叉树</h2><h3 id="一般的树"><a href="#一般的树" class="headerlink" title="一般的树"></a>一般的树</h3><p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332616324155.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332617338919.jpg" alt=""></p>
+<p>以上就是一般树的形态。<br>下面则是关于树的基本用语。<br><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332619052693.jpg" alt=""><br>关于上面重要的概念就是结点和结点的度了。</p>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><h5 id="二叉树的定义"><a href="#二叉树的定义" class="headerlink" title="二叉树的定义:"></a>二叉树的定义:</h5><p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332622735630.jpg" alt=""></p>
+<h5 id="二叉树有五种基本形态："><a href="#二叉树有五种基本形态：" class="headerlink" title="二叉树有五种基本形态："></a>二叉树有五种基本形态：</h5><p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332623676250.jpg" alt=""> </p>
+<h6 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质:"></a>二叉树的性质:</h6><p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332624449232.jpg" alt=""><br>上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。</p>
+<h5 id="满二叉树与完全二叉树"><a href="#满二叉树与完全二叉树" class="headerlink" title="满二叉树与完全二叉树"></a>满二叉树与完全二叉树</h5><p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332628389372.jpg" alt=""><br>前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。<br><strong>完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。</strong></p>
+<p>#####二叉树的存储结构：</p>
+<ol>
+<li><p>数组存储：<br><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332634147466.jpg" alt=""></p>
+</li>
+<li><p>二叉链式存储（原理类似链表）：<br><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332635553287.jpg" alt=""><br>将链表内部的*next，变成了指向两边的子节点的指针。</p>
+</li>
+<li><p>三叉链式存储：<br><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332636549533.jpg" alt=""><br><strong>比二叉链式结构多了一个回指向父节点的指针。</strong></p>
+</li>
+</ol>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332637977616.jpg" alt=""></p>
+<h5 id="遍历二叉树的方法"><a href="#遍历二叉树的方法" class="headerlink" title="遍历二叉树的方法"></a>遍历二叉树的方法</h5><ol>
+<li><p>先序遍历（根-&gt;左-&gt;右）：<br><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332639610611.jpg" alt=""></p>
+<p> 代码如下</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void PreOrderTraverse(BiTree *T)</span><br><span class="line">&#123;</span><br><span class="line">    if(T != NULL)&#123;</span><br><span class="line">        printf(&quot;%c&quot;, T-&gt;data);</span><br><span class="line">        PreOrderTraverse(T-&gt;lchild);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 图示：<br> <img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332640892406.jpg" alt="">        </p>
+<p> 最终结果就是==ABDGHCEIF==。</p>
+</li>
+<li><p>中序遍历（左-&gt;根-&gt;右)：<br> 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。</p>
+<p> 代码：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void InOrderTraverse(BiTree T)</span><br><span class="line">&#123;</span><br><span class="line">   if(T != NULL)&#123;</span><br><span class="line">        PreOrderTraverse(T-&gt;lchild);</span><br><span class="line">        printf(&quot;%c&quot;, T-&gt;data);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 最终结果为==GDHBAEICF==。</p>
+</li>
+<li><p>后序遍历（左-&gt;右-&gt;根）<br> 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。</p>
+<p> 代码：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void PostOrderTraverse(BiTree T)</span><br><span class="line">&#123;</span><br><span class="line">  if(T != NULL)&#123;</span><br><span class="line">      PreOrderTraverse(T-&gt;lchild);</span><br><span class="line">      PreOrderTraverse(T-&gt;rchild);</span><br><span class="line">      printf(&quot;%c&quot;, T-&gt;data);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 最终结果为==GHDBIEFCA==。</p>
+</li>
+</ol>
+<h5 id="关于二叉树的建立代码："><a href="#关于二叉树的建立代码：" class="headerlink" title="关于二叉树的建立代码："></a>关于二叉树的建立代码：</h5><p>代码我等下自己写出来。</p>
+<hr>
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="图的定义"><a href="#图的定义" class="headerlink" title="图的定义"></a>图的定义</h3><p>   图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。</p>
+<h3 id="图的专业术语："><a href="#图的专业术语：" class="headerlink" title="图的专业术语："></a>图的专业术语：</h3><p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332695761126.jpg" alt="">    </p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332695489735.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332696082443.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332696413788.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332696550432.jpg" alt=""></p>
+<h3 id="图-生成树"><a href="#图-生成树" class="headerlink" title="图-生成树"></a>图-生成树</h3><p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332696984237.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332697115073.jpg" alt=""><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332697228263.jpg" alt=""></p>
+<h3 id="邻接矩阵的表示方法（数组）"><a href="#邻接矩阵的表示方法（数组）" class="headerlink" title="邻接矩阵的表示方法（数组）"></a>邻接矩阵的表示方法（数组）</h3><h4 id="不带权值的表示方法"><a href="#不带权值的表示方法" class="headerlink" title="不带权值的表示方法"></a>不带权值的表示方法</h4><p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332704000437.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332704263688.jpg" alt=""></p>
+<p><strong>一般就是用二维数组来表示每一个结点之间的关系</strong></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332705567207.jpg" alt=""> <img src="//crazyfnoption.github.io/2018/12/01/数据结构相应总结/15332705659456.jpg" alt=""></p>
+<p>关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/数论基础第一节/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -429,7 +890,7 @@
 <h2 id="整除问题引申到同余问题"><a href="#整除问题引申到同余问题" class="headerlink" title="整除问题引申到同余问题"></a>整除问题引申到同余问题</h2><ul>
 <li><strong>同余的性质</strong></li>
 </ul>
-<p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343075827029.jpg" alt=""><br>可以换算成以下式子：<br><strong>a=c(<code>mod</code>b) 这里c为余数，而b为除数</strong></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343075827029.jpg" alt=""><br>可以换算成以下式子：<br><strong>a=c(<code>mod</code>b) 这里c为余数，而b为除数</strong></p>
 <ul>
 <li><strong>同余的性质</strong></li>
 </ul>
@@ -444,10 +905,10 @@
 <li>朴素筛 一般就是循环2~√n次</li>
 <li>埃拉托斯特尼筛</li>
 </ul>
-<p><strong>循环次数</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343091959776.jpg" alt=""></p>
+<p><strong>循环次数</strong><br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343091959776.jpg" alt=""></p>
 <ul>
 <li>欧拉筛</li>
-<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343092628399.jpg" alt=""></li>
+<li><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343092628399.jpg" alt=""></li>
 </ul>
 <p><strong>相应代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 <h2 id="最大公约数以及最小公倍数"><a href="#最大公约数以及最小公倍数" class="headerlink" title="最大公约数以及最小公倍数"></a>最大公约数以及最小公倍数</h2><ul>
@@ -456,42 +917,42 @@
 <li><p>最小公倍数<br>_lcm(a,b)=ab/_gcd(a,b)</p>
 </li>
 </ul>
-<h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099257598.jpg" alt=""></p>
+<h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><p><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343099257598.jpg" alt=""></p>
 <ul>
-<li>关于求解线性同余方程<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099683275.jpg" alt=""></li>
-<li><p>关于求逆元<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343099966167.jpg" alt=""></p>
+<li>关于求解线性同余方程<br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343099683275.jpg" alt=""></li>
+<li><p>关于求逆元<br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343099966167.jpg" alt=""></p>
 </li>
-<li><p>关于快速幂<br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343101054154.jpg" alt=""></p>
+<li><p>关于快速幂<br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343101054154.jpg" alt=""></p>
 </li>
 </ul>
-<h2 id="费马小定理"><a href="#费马小定理" class="headerlink" title="费马小定理"></a>费马小定理</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343101566104.jpg" alt=""></p>
-<p><strong>另外</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343103411689.jpg" alt=""></p>
+<h2 id="费马小定理"><a href="#费马小定理" class="headerlink" title="费马小定理"></a>费马小定理</h2><p><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343101566104.jpg" alt=""></p>
+<p><strong>另外</strong><br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343103411689.jpg" alt=""></p>
 <h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><ul>
-<li><strong>欧拉函数定义</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343107143861.jpg" alt=""></li>
+<li><strong>欧拉函数定义</strong><br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343107143861.jpg" alt=""></li>
 </ul>
 <ul>
-<li><p><strong>欧拉函数性质</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343107974985.jpg" alt=""></p>
+<li><p><strong>欧拉函数性质</strong><br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343107974985.jpg" alt=""></p>
 </li>
 <li><p><strong>求值公式</strong> </p>
 </li>
 </ul>
 <ol>
-<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109562640.jpg" alt=""></li>
-<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109655205.jpg" alt=""></li>
-<li><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343109780637.jpg" alt=""><br>上述公式 可以用来：</li>
+<li><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343109562640.jpg" alt=""></li>
+<li><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343109655205.jpg" alt=""></li>
+<li><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343109780637.jpg" alt=""><br>上述公式 可以用来：</li>
 </ol>
 <ul>
-<li><p><strong>求逆元</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343110433806.jpg" alt=""></p>
+<li><p><strong>求逆元</strong><br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343110433806.jpg" alt=""></p>
 </li>
-<li><p><strong>欧拉降幂公式</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343111460573.jpg" alt=""></p>
+<li><p><strong>欧拉降幂公式</strong><br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343111460573.jpg" alt=""></p>
 </li>
 </ul>
-<h2 id="数论函数"><a href="#数论函数" class="headerlink" title="数论函数"></a>数论函数</h2><p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343114512818.jpg" alt=""></p>
+<h2 id="数论函数"><a href="#数论函数" class="headerlink" title="数论函数"></a>数论函数</h2><p><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343114512818.jpg" alt=""></p>
 <ul>
 <li><strong>中国剩余定理</strong></li>
 </ul>
-<p><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343114886344.jpg" alt=""></p>
-<p><strong>解法</strong><br><img src="//www.wsx1128.xyz/2018/12/01/数论基础第一节/15343115089655.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343114886344.jpg" alt=""></p>
+<p><strong>解法</strong><br><img src="//crazyfnoption.github.io/2018/12/01/数论基础第一节/15343115089655.jpg" alt=""></p>
 
           
         
@@ -548,7 +1009,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款01：视 C++ 为一个语言联邦/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款01：视 C++ 为一个语言联邦/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -752,7 +1213,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -947,7 +1408,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款03：尽可能使用 const/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款03：尽可能使用 const/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1154,7 +1615,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款04：确定对象被使用前已先被初始化/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款04：确定对象被使用前已先被初始化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1360,7 +1821,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1559,7 +2020,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1757,7 +2218,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款07：为多态基类声明 virtual 析构函数/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款07：为多态基类声明 virtual 析构函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1946,405 +2407,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款08：别让异常逃离析构函数/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款08：别让异常逃离析构函数/" itemprop="url">条款08：别让异常逃离析构函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/条款08：别让异常逃离析构函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款08：别让异常逃离析构函数/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  268
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>其实这一项条款没有领悟的很深刻，可以理解成不要再析构函数里面写捕获异常之类的代码。因为某些时候，如果在析构函数里面抓获异常导致程序终止的话，那么就可能造成对象不能完全被销毁</p>
-<ol>
-<li><p>析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常的话，析构函数应该做的应该是捕捉任何异常，然后吞下他们（不传播）或者结束程序。</p>
-</li>
-<li><p>如果对象需要对摸个操作函数运行期间抛出的异常做出反应，那么 class 应该提供一个普通函数（不应该在析构函数里面）执行该任务。但是该析构函数里面仍然要进行双保险的析构过程，可以在类的内部定义里面加上一个 bool 变量来判断到底有没有运行析构行为，相当于一般写程序的一个 flag。</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  430
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"><a href="#绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。" class="headerlink" title="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。"></a>绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。</h4><ol>
-<li><p>基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。</p>
-</li>
-<li><p>相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。</p>
-</li>
-<li><p>如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。</p>
-</li>
-<li><p>唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。</p>
-</li>
-<li><p>由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
   </section>
 
   
@@ -2397,7 +2459,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2408,7 +2470,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2419,7 +2481,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -2515,7 +2577,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">23.1k</span>
+    <span title="Site words total count">27.1k</span>
   
 </div>
 

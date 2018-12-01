@@ -102,16 +102,16 @@
 <meta name="keywords" content="c++,effective C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款11：在 operator 中处理自我赋值的情况">
-<meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/index.html">
+<meta property="og:url" content="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/index.html">
 <meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。  同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png">
+<meta property="og:image" content="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png">
 <meta property="og:updated_time" content="2018-12-01T14:37:23.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="条款11：在 operator 中处理自我赋值的情况">
 <meta name="twitter:description" content="本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。  同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给">
-<meta name="twitter:image" content="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png">
+<meta name="twitter:image" content="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png">
 
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <link rel="canonical" href="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/">
+  <link rel="canonical" href="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/">
 
 
 
@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -435,7 +435,7 @@
 <li><p>同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。</p>
 </li>
 </ol>
-<p><img src="//www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/1.png" alt=""></p>
 <p>就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。</p>
 <ol start="3">
 <li><p>还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。</p>
@@ -501,7 +501,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/" title="条款11：在 operator 中处理自我赋值的情况">http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/</a>
+    <a href="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/" title="条款11：在 operator 中处理自我赋值的情况">http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -531,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/关于模拟与搜索的相应简单题目/" rel="next" title="关于模拟与搜索的相应简单题目">
-                <i class="fa fa-chevron-left"></i> 关于模拟与搜索的相应简单题目
+              <a href="/2018/12/01/贪心算法/" rel="next" title="贪心算法">
+                <i class="fa fa-chevron-left"></i> 贪心算法
               </a>
             
           </div>
@@ -540,6 +540,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/02/海边的卡夫卡的短书评/" rel="prev" title="海边的卡夫卡的短书评">
+                海边的卡夫卡的短书评 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -611,7 +615,7 @@ var jiathis_config={
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2018/12/01/条款11：在operator中处理自我赋值的情况/" data-title="条款11：在 operator 中处理自我赋值的情况" data-url="http://www.wsx1128.xyz/2018/12/01/条款11：在operator中处理自我赋值的情况/">
+      <div class="ds-thread" data-thread-key="2018/12/01/条款11：在operator中处理自我赋值的情况/" data-title="条款11：在 operator 中处理自我赋值的情况" data-url="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/">
       </div>
     </div>
 
@@ -665,7 +669,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -676,7 +680,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -687,7 +691,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -799,7 +803,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">23.1k</span>
+    <span title="Site words total count">27.1k</span>
   
 </div>
 

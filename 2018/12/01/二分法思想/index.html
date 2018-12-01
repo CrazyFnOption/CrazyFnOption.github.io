@@ -102,17 +102,17 @@
 <meta name="keywords" content="acm,c++,STL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二分法思想">
-<meta property="og:url" content="http://www.wsx1128.xyz/2018/12/01/二分法思想/index.html">
+<meta property="og:url" content="http://crazyfnoption.github.io/2018/12/01/二分法思想/index.html">
 <meta property="og:site_name" content="Magical Beans">
 <meta property="og:description" content="二分查找实现在单调有序的集合中查找元素，每次江集合分为左右两个部分，并且通过判断集合在哪个部分从而调整集合的上下界，重复知道找到目标元素为止。 举一个简单的例子，我要在1到100里面查找62，先拿62根这个其最中间的一个数进行比较。然后在一步一步的缩小集合的上下界，最后再来一步一步往里面缩 下面是C++STL里面二分查找的函数：  binary_search  返回bool值,是否存在lower_">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://www.wsx1128.xyz/2018/12/01/二分法思想/15333828636681.jpg">
-<meta property="og:image" content="http://www.wsx1128.xyz/2018/12/01/二分法思想/15334016401434.jpg">
+<meta property="og:image" content="http://crazyfnoption.github.io/2018/12/01/二分法思想/15333828636681.jpg">
+<meta property="og:image" content="http://crazyfnoption.github.io/2018/12/01/二分法思想/15334016401434.jpg">
 <meta property="og:updated_time" content="2018-12-01T14:13:15.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二分法思想">
 <meta name="twitter:description" content="二分查找实现在单调有序的集合中查找元素，每次江集合分为左右两个部分，并且通过判断集合在哪个部分从而调整集合的上下界，重复知道找到目标元素为止。 举一个简单的例子，我要在1到100里面查找62，先拿62根这个其最中间的一个数进行比较。然后在一步一步的缩小集合的上下界，最后再来一步一步往里面缩 下面是C++STL里面二分查找的函数：  binary_search  返回bool值,是否存在lower_">
-<meta name="twitter:image" content="http://www.wsx1128.xyz/2018/12/01/二分法思想/15333828636681.jpg">
+<meta name="twitter:image" content="http://crazyfnoption.github.io/2018/12/01/二分法思想/15333828636681.jpg">
 
 
 
@@ -142,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="http://www.wsx1128.xyz/2018/12/01/二分法思想/">
+  <link rel="canonical" href="http://crazyfnoption.github.io/2018/12/01/二分法思想/">
 
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wsx1128.xyz/2018/12/01/二分法思想/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/二分法思想/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -437,12 +437,12 @@
 <p>binary_search  返回bool值,是否存在<br>lower_bound    返回可插入的最小位置的迭代器                                                                  即返回第一个符合条件的元素位置<br>upper_bound    返回可插入的最大位置的迭代器<br>               即返回最后一个符合条件的元素位置</p>
 </blockquote>
 <p>在二分查找里面最典型的题目就是二分逼近求方程式的根了。</p>
-<p><img src="//www.wsx1128.xyz/2018/12/01/二分法思想/15333828636681.jpg" alt=""></p>
+<p><img src="//crazyfnoption.github.io/2018/12/01/二分法思想/15333828636681.jpg" alt=""></p>
 <p><strong>代码如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const double pre =1e-4;</span><br><span class="line">double x,y;</span><br><span class="line"></span><br><span class="line">double f(double x)&#123;</span><br><span class="line">    return 8*pow(x,4)+7*pow(x,3)+2*pow(x,2)+3*x+6-y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int t;</span><br><span class="line">    cin&gt;&gt;t;</span><br><span class="line">    while (t--)&#123;</span><br><span class="line">        cin&gt;&gt;y;</span><br><span class="line">        double x1=0,x2=100;//先把上下界在这里确定好</span><br><span class="line">        double mid=(x1+x2)/2;</span><br><span class="line">        if (f(x1)*f(x2)&gt;0) cout&lt;&lt;&quot;No solution!&quot;&lt;&lt;endl;</span><br><span class="line">        else &#123;</span><br><span class="line">            while (x2-x1&gt;=pre)&#123;//这里必须写的是上下界线是多少，</span><br><span class="line">            不能写的是用于判断mid的条件。</span><br><span class="line">                if (f(x1)*f(mid)&lt;0)&#123;</span><br><span class="line">                    x2=mid;</span><br><span class="line">                    mid=(x1+x2)/2;</span><br><span class="line">                &#125;</span><br><span class="line">                else &#123;</span><br><span class="line">                    x1=mid;</span><br><span class="line">                    mid=(x1+x2)/2;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            cout&lt;&lt;fixed&lt;&lt;setprecision(4)&lt;&lt;mid&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上面就是我第二次出错的地方，判断二分循环逼近的的条件不应该看mid的取值，而是应该看得是区间上界减去区间下界的范围从而来限定。</p>
 <p>此处关于三分法的求解：<br>当需要求某凸性或凹形函数的极值，通过函数本身表达式并不容易求解时，就可以用三分法不断逼近求解。</p>
 <p>三分法——求解凸性函数的极值问题<br><a href="http://hi.baidu.com/vfxupdpaipbcpuq/item/81b21d1910ea729c99ce33db" target="_blank" rel="noopener">http://hi.baidu.com/vfxupdpaipbcpuq/item/81b21d1910ea729c99ce33db</a></p>
-<p>经典例题：<br>侵略的奶牛：<br><img src="//www.wsx1128.xyz/2018/12/01/二分法思想/15334016401434.jpg" alt=""></p>
+<p>经典例题：<br>侵略的奶牛：<br><img src="//crazyfnoption.github.io/2018/12/01/二分法思想/15334016401434.jpg" alt=""></p>
 <p><strong>代码如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 100005;</span><br><span class="line">int a[maxn],n,c;</span><br><span class="line"></span><br><span class="line">//此过程就是在判断奶牛之间的间隔为这个值合不合适</span><br><span class="line">bool cc(int d)&#123;</span><br><span class="line">    int t=a[0],cnt=1;</span><br><span class="line">    for (int i=1;i!=n;i++)&#123;</span><br><span class="line">        if (a[i]-t&gt;=d)&#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            t=a[i];</span><br><span class="line">            if (cnt&gt;=c)</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line">//此过程就是在收录每一个值，然后再分别进行判断</span><br><span class="line">int solve()&#123;</span><br><span class="line">    int x=0,y=a[n-1]-a[0];</span><br><span class="line">    while (x&lt;=y)&#123;</span><br><span class="line">        int mid=(x+y)/2;</span><br><span class="line">        if (cc(mid))    x=mid+1;</span><br><span class="line">        else    y=mid-1;</span><br><span class="line">    &#125;</span><br><span class="line">    return x-1;</span><br><span class="line">&#125;</span><br><span class="line">//不过这种最大值最小值的题目需要多花时间想想。</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while (cin&gt;&gt;n&gt;&gt;c)&#123;</span><br><span class="line">        for (int i=0;i!=n;i++)</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">        sort(a,a+n);</span><br><span class="line">        cout&lt;&lt;solve()&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>==下面则是其他地方关于二分的题目==<br><strong>基础版</strong></p>
 <blockquote>
@@ -514,7 +514,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://www.wsx1128.xyz/2018/12/01/二分法思想/" title="二分法思想">http://www.wsx1128.xyz/2018/12/01/二分法思想/</a>
+    <a href="http://crazyfnoption.github.io/2018/12/01/二分法思想/" title="二分法思想">http://crazyfnoption.github.io/2018/12/01/二分法思想/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -630,7 +630,7 @@ var jiathis_config={
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2018/12/01/二分法思想/" data-title="二分法思想" data-url="http://www.wsx1128.xyz/2018/12/01/二分法思想/">
+      <div class="ds-thread" data-thread-key="2018/12/01/二分法思想/" data-title="二分法思想" data-url="http://crazyfnoption.github.io/2018/12/01/二分法思想/">
       </div>
     </div>
 
@@ -684,7 +684,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -695,7 +695,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -706,7 +706,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -818,7 +818,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">23.1k</span>
+    <span title="Site words total count">27.1k</span>
   
 </div>
 
