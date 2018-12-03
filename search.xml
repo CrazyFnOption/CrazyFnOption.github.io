@@ -10,15 +10,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款11：在 operator 中处理自我赋值的情况]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator%E4%B8%AD%E5%A4%84%E7%90%86%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E7%9A%84%E6%83%85%E5%86%B5%2F</url>
-    <content type="text"><![CDATA[本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。 同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。 就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。 还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。 或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。]]></content>
+    <title><![CDATA[树相关题目]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
       <categories>
-        <category>effective C++</category>
+        <category>题解</category>
       </categories>
       <tags>
+        <tag>acm</tag>
         <tag>c++</tag>
-        <tag>effective C++</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -283,16 +284,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[树相关题目]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
+    <title><![CDATA[条款11：在 operator 中处理自我赋值的情况]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator%E4%B8%AD%E5%A4%84%E7%90%86%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E7%9A%84%E6%83%85%E5%86%B5%2F</url>
+    <content type="text"><![CDATA[本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。 同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。 就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。 还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。 或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。]]></content>
       <categories>
-        <category>题解</category>
+        <category>effective C++</category>
       </categories>
       <tags>
-        <tag>acm</tag>
         <tag>c++</tag>
-        <tag>树</tag>
+        <tag>effective C++</tag>
       </tags>
   </entry>
   <entry>
