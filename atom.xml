@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://crazyfnoption.github.io/"/>
-  <updated>2018-12-03T06:44:10.117Z</updated>
+  <updated>2018-12-03T06:46:08.033Z</updated>
   <id>http://crazyfnoption.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://crazyfnoption.github.io/2018/12/03/%E5%AE%9E%E4%BE%8B/"/>
     <id>http://crazyfnoption.github.io/2018/12/03/实例/</id>
     <published>2018-12-03T06:43:31.000Z</published>
-    <updated>2018-12-03T06:44:10.117Z</updated>
+    <updated>2018-12-03T06:46:08.033Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>#include<iostream></iostream></p><p>#include<algorithm></algorithm></p><p>#include<vector></vector></p><p>using namespace std;</p><p>const int maxn = 105;<br>char h[maxn][maxn];<br>int n,m,cnt=0;<br>void dfs(int i,int j){<br>    if (i&lt;0||i&gt;=n||h[i][j]!=’W’) return ;<br>    if (j&lt;0||j&gt;=m||h[i][j]!=’W’) return ;<br>    if (h[i][j]==’W’){<br>        h[i][j]=’.’;<br>        dfs(i-1,j);<br>        dfs(i-1,j-1);<br>        dfs(i+1,j);<br>        dfs(i+1,j+1);<br>        dfs(i,j-1);<br>        dfs(i-1,j+1);<br>        dfs(i,j+1);<br>        dfs(i+1,j-1);<br>    }<br>}<br>int main()<br>{<br>    int ans=0;<br>    while(cin&gt;&gt;n&gt;&gt;m&amp;&amp;(n!=0&amp;&amp;m!=0)){<br>        for (int i=0;i!=n;i++)<br>            for (int j=0;j!=m;j++){<br>                cin&gt;&gt;h[i][j];<br>            }<br>        for (int i=0;i!=n;i++){<br>            for (int j=0;j!=m;j++){<br>                if (h[i][j]==’W’){<br>                    dfs(i,j);<br>                    ans++;<br>                }<br>            }<br>        }<br>        cout&lt;&lt;ans&lt;&lt;endl;<br>        ans=0;<br>    }<br>    return 0;<br>}</p>]]></content>
     
