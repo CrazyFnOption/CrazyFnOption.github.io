@@ -131,18 +131,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[贪心算法]]></title>
-    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>贪心</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[数据结构相应总结]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%BA%94%E6%80%BB%E7%BB%93%2F</url>
     <content type="text"><![CDATA[栈 栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。 两种方法表示这种栈的实现 第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。 第二种就是直接用C++里面STL模板首先先定义一个stack&lt;int&gt; s 然后以下就是其的操作。 注意其不能使用push_back只能使用push 1234s.pop() 删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。s.push() 创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。s.top() 返回栈顶的元素，也就是刚刚进来的元素。s.bottom() 返回栈底的元素，也就是最后一个元素 队列适配器队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者自己定义一种排序方式，然后通过这种排序方式，再来出队操作。 与上面一样，先定义一个queue&lt;int&gt; q与priority_queue&lt;int&gt; q。 1234567q.pop() 按照先进先出的思想，删除首元素或者优先级最高的元素q.front() 返回首元素。q.back() 返回尾元素。以上两个是只适用于队列。q.top() 返回优先队列中优先级最高的元素。q.push()q.emplace() 加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。 这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造 123456789下面两种优先队列的定义是等价的priority_queue&lt;int&gt; q;priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格默认都是从小到大排序接受三个参数，第一个参数为数据类型，第二个参数为承载容器的类型，第三个就是自定义的比较函数了。可以使lamda匿名函数，也可以是function头文件里面的函数模板。 链表特点：自定义，不连续的。同时链表也是后面相应树形结构的基础实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了 动态数组这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。 树与二叉树一般的树 以上就是一般树的形态。下面则是关于树的基本用语。关于上面重要的概念就是结点和结点的度了。 二叉树二叉树的定义: 二叉树有五种基本形态： 二叉树的性质:上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。 满二叉树与完全二叉树前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。 #####二叉树的存储结构： 数组存储： 二叉链式存储（原理类似链表）：将链表内部的*next，变成了指向两边的子节点的指针。 三叉链式存储：比二叉链式结构多了一个回指向父节点的指针。 遍历二叉树的方法 先序遍历（根-&gt;左-&gt;右）： 代码: 12345678void PreOrderTraverse(BiTree *T)&#123; if(T != NULL)&#123; printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 图示： 最终结果就是==ABDGHCEIF==。 中序遍历（左-&gt;根-&gt;右)： 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void InOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 最终结果为==GDHBAEICF==。 后序遍历（左-&gt;右-&gt;根） 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void PostOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); printf("%c", T-&gt;data); &#125;&#125; 最终结果为==GHDBIEFCA==。 关于二叉树的建立代码：代码我等下自己写出来。 图图的定义 图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。 图的专业术语： 图-生成树 邻接矩阵的表示方法（数组）不带权值的表示方法 一般就是用二维数组来表示每一个结点之间的关系 关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。]]></content>
@@ -152,6 +140,18 @@
       <tags>
         <tag>acm</tag>
         <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[贪心算法]]></title>
+    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>贪心</tag>
       </tags>
   </entry>
   <entry>
