@@ -397,6 +397,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[条款20：宁以传 const 引用也不要传值]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE20%EF%BC%9A%E5%AE%81%E4%BB%A5%E4%BC%A0%20const%20%E5%BC%95%E7%94%A8%E4%B9%9F%E4%B8%8D%E8%A6%81%E4%BC%A0%E5%80%BC%2F</url>
+    <content type="text"><![CDATA[这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。 传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了 以上规则不适合某些特殊规则，比如内置类型以及 STL 的迭代器，对它们而言 ，传值往往是最恰当的。]]></content>
+      <categories>
+        <category>effective C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[条款21：必须返回对象的时候，不要妄想返回其的引用]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE21%EF%BC%9A%E5%BF%85%E9%A1%BB%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%B8%8D%E8%A6%81%E5%A6%84%E6%83%B3%E8%BF%94%E5%9B%9E%E5%85%B6%E7%9A%84%E5%BC%95%E7%94%A8%2F</url>
     <content type="text"><![CDATA[该条款一般适用于某些特殊情况下必须返回值的情况 关于这个条款只需要注意一点，绝不要返回 pointer 或 reference 或者返回引用指向一个全局变量，或者返回指针引用指向一个静态成员，但是同时又需要多个这样的静态成员。在条款4中已经提供了一份设计实例。]]></content>
@@ -412,18 +424,6 @@
     <title><![CDATA[条款22：将成员变量声明为 private]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BA%20private%2F</url>
     <content type="text"><![CDATA[这里就是要记住封装的好处 切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。 protected 并不比 public 更具有封装性]]></content>
-      <categories>
-        <category>effective C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款20：宁以传 const 引用也不要传值]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE20%EF%BC%9A%E5%AE%81%E4%BB%A5%E4%BC%A0%20const%20%E5%BC%95%E7%94%A8%E4%B9%9F%E4%B8%8D%E8%A6%81%E4%BC%A0%E5%80%BC%2F</url>
-    <content type="text"><![CDATA[这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。 传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了 以上规则不适合某些特殊规则，比如内置类型以及 STL 的迭代器，对它们而言 ，传值往往是最恰当的。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
