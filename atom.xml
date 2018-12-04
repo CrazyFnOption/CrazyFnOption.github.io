@@ -212,6 +212,35 @@
   </entry>
   
   <entry>
+    <title>一道计算机几何算法相关题目</title>
+    <link href="http://crazyfnoption.github.io/2018/12/01/%E4%B8%80%E9%81%93%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%87%A0%E4%BD%95%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/"/>
+    <id>http://crazyfnoption.github.io/2018/12/01/一道计算机几何算法相关题目/</id>
+    <published>2018-12-01T15:26:24.000Z</published>
+    <updated>2018-12-02T01:48:21.458Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>题目：</strong></p><p><img src="//crazyfnoption.github.io/2018/12/01/一道计算机几何算法相关题目/15349459741854.jpg" alt=""></p><p><strong>代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> v,s,b;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123;</span><br><span class="line">        <span class="keyword">if</span> (s&lt;b)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="number">-1</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">double</span> x = (v * v) / <span class="number">9.8</span>;</span><br><span class="line">        <span class="keyword">if</span> ( x &lt; s ) &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"move "</span>&lt;&lt;fixed&lt;&lt;setprecision(<span class="number">2</span>)&lt;&lt;s-x&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">double</span> b = (s * <span class="number">9.8</span>) / (v * v);</span><br><span class="line">            <span class="comment">//注意反函数的转换。</span></span><br><span class="line">            <span class="keyword">double</span> a = <span class="built_in">asin</span>(b) * <span class="number">90</span> / pi;</span><br><span class="line">            <span class="comment">//这里有一个进一的操作，因为此题不太会去四舍五入。</span></span><br><span class="line">            <span class="keyword">int</span> a_ = a;</span><br><span class="line">            <span class="keyword">if</span> (a-a_ &gt;= <span class="number">0.5</span>) a_++;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"a "</span>&lt;&lt;a_&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p><strong>关于这道题目的相关要点</strong></p><ol><li><p>反函数相关要点。<br>注意 反函数最后输出的是 一个弧度值，根据相应数学的算法而言<br>记住 ==弧度值=角度*pi/180==</p></li><li><p>关于输出中进1的相关操作。<br>按照第几位，先换算成相应的整形数，最后再强转成int型 最后在判断是否大于0.5来考虑时候来加一。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="题解" scheme="http://crazyfnoption.github.io/categories/%E9%A2%98%E8%A7%A3/"/>
+    
+    
+      <category term="acm" scheme="http://crazyfnoption.github.io/tags/acm/"/>
+    
+      <category term="c++" scheme="http://crazyfnoption.github.io/tags/c/"/>
+    
+      <category term="STL" scheme="http://crazyfnoption.github.io/tags/STL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>二分法思想</title>
     <link href="http://crazyfnoption.github.io/2018/12/01/%E4%BA%8C%E5%88%86%E6%B3%95%E6%80%9D%E6%83%B3/"/>
     <id>http://crazyfnoption.github.io/2018/12/01/二分法思想/</id>
@@ -241,13 +270,13 @@
   </entry>
   
   <entry>
-    <title>一道计算机几何算法相关题目</title>
-    <link href="http://crazyfnoption.github.io/2018/12/01/%E4%B8%80%E9%81%93%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%87%A0%E4%BD%95%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/"/>
-    <id>http://crazyfnoption.github.io/2018/12/01/一道计算机几何算法相关题目/</id>
+    <title>关于STL里面函数简单的应用</title>
+    <link href="http://crazyfnoption.github.io/2018/12/01/%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8/"/>
+    <id>http://crazyfnoption.github.io/2018/12/01/关于STL里面函数简单的应用/</id>
     <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2018-12-02T01:48:21.458Z</updated>
+    <updated>2018-12-02T01:48:21.459Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>题目：</strong></p><p><img src="//crazyfnoption.github.io/2018/12/01/一道计算机几何算法相关题目/15349459741854.jpg" alt=""></p><p><strong>代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> v,s,b;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123;</span><br><span class="line">        <span class="keyword">if</span> (s&lt;b)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="number">-1</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">double</span> x = (v * v) / <span class="number">9.8</span>;</span><br><span class="line">        <span class="keyword">if</span> ( x &lt; s ) &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"move "</span>&lt;&lt;fixed&lt;&lt;setprecision(<span class="number">2</span>)&lt;&lt;s-x&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">double</span> b = (s * <span class="number">9.8</span>) / (v * v);</span><br><span class="line">            <span class="comment">//注意反函数的转换。</span></span><br><span class="line">            <span class="keyword">double</span> a = <span class="built_in">asin</span>(b) * <span class="number">90</span> / pi;</span><br><span class="line">            <span class="comment">//这里有一个进一的操作，因为此题不太会去四舍五入。</span></span><br><span class="line">            <span class="keyword">int</span> a_ = a;</span><br><span class="line">            <span class="keyword">if</span> (a-a_ &gt;= <span class="number">0.5</span>) a_++;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"a "</span>&lt;&lt;a_&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p><strong>关于这道题目的相关要点</strong></p><ol><li><p>反函数相关要点。<br>注意 反函数最后输出的是 一个弧度值，根据相应数学的算法而言<br>记住 ==弧度值=角度*pi/180==</p></li><li><p>关于输出中进1的相关操作。<br>按照第几位，先换算成相应的整形数，最后再强转成int型 最后在判断是否大于0.5来考虑时候来加一。</p></li></ol>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img src="//crazyfnoption.github.io/2018/12/01/关于STL里面函数简单的应用/15334646368898.jpg" alt=""></p><p><strong>代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s;</span><br><span class="line">    s.insert(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>;i!=n;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//这道题目的主要做法是记住几个upper_bound 的STL函数</span></span><br><span class="line">        <span class="keyword">if</span>(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; s.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
     
     <summary type="html">
     
@@ -295,35 +324,6 @@
       <category term="c++" scheme="http://crazyfnoption.github.io/tags/c/"/>
     
       <category term="组合数学" scheme="http://crazyfnoption.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于STL里面函数简单的应用</title>
-    <link href="http://crazyfnoption.github.io/2018/12/01/%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8/"/>
-    <id>http://crazyfnoption.github.io/2018/12/01/关于STL里面函数简单的应用/</id>
-    <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2018-12-02T01:48:21.459Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img src="//crazyfnoption.github.io/2018/12/01/关于STL里面函数简单的应用/15334646368898.jpg" alt=""></p><p><strong>代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s;</span><br><span class="line">    s.insert(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>;i!=n;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//这道题目的主要做法是记住几个upper_bound 的STL函数</span></span><br><span class="line">        <span class="keyword">if</span>(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; s.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="题解" scheme="http://crazyfnoption.github.io/categories/%E9%A2%98%E8%A7%A3/"/>
-    
-    
-      <category term="acm" scheme="http://crazyfnoption.github.io/tags/acm/"/>
-    
-      <category term="c++" scheme="http://crazyfnoption.github.io/tags/c/"/>
-    
-      <category term="STL" scheme="http://crazyfnoption.github.io/tags/STL/"/>
     
   </entry>
   
@@ -438,33 +438,6 @@
   </entry>
   
   <entry>
-    <title>条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</title>
-    <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D/"/>
-    <id>http://crazyfnoption.github.io/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/</id>
-    <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2018-12-01T13:08:22.838Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"><a href="#有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。" class="headerlink" title="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"></a>有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。</h4><ol><li><p>把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。</p></li><li><p>继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。</p></li><li><p>C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。</p></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="effective C++" scheme="http://crazyfnoption.github.io/categories/effective-C/"/>
-    
-    
-      <category term="c++" scheme="http://crazyfnoption.github.io/tags/c/"/>
-    
-      <category term="effective C++" scheme="http://crazyfnoption.github.io/tags/effective-C/"/>
-    
-  </entry>
-  
-  <entry>
     <title>条款03：尽可能使用 const</title>
     <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8%20const/"/>
     <id>http://crazyfnoption.github.io/2018/12/01/条款03：尽可能使用 const/</id>
@@ -546,13 +519,40 @@
   </entry>
   
   <entry>
-    <title>条款10：令 operator= 返回一个 自身的返回</title>
-    <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator=%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E/"/>
-    <id>http://crazyfnoption.github.io/2018/12/01/条款10：令 operator= 返回一个 自身的返回/</id>
+    <title>条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</title>
+    <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D/"/>
+    <id>http://crazyfnoption.github.io/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/</id>
+    <published>2018-12-01T15:26:24.000Z</published>
+    <updated>2018-12-01T13:08:22.838Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"><a href="#有的时候鉴于某些情况，比如智能指针中-unique-str-和-io-库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。" class="headerlink" title="有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。"></a>有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。</h4><ol><li><p>把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。</p></li><li><p>继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。</p></li><li><p>C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="effective C++" scheme="http://crazyfnoption.github.io/categories/effective-C/"/>
+    
+    
+      <category term="c++" scheme="http://crazyfnoption.github.io/tags/c/"/>
+    
+      <category term="effective C++" scheme="http://crazyfnoption.github.io/tags/effective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>条款07：为多态基类声明 virtual 析构函数</title>
+    <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8E%20virtual%20%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/"/>
+    <id>http://crazyfnoption.github.io/2018/12/01/条款07：为多态基类声明 virtual 析构函数/</id>
     <published>2018-12-01T15:26:24.000Z</published>
     <updated>2018-12-01T13:08:22.839Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。"><a href="#在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。" class="headerlink" title="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。"></a>在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。</h4><ol><li><p>C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类的析构函数上面加上虚函数的声明。</p></li><li><p>不要随便继承标准库里面的东西，因为里面大部分东西都不存在虚函数的析构函数，这样一来，如果使用动态绑定的话，那么在销毁对象的过程中就没有办法全部销毁了。</p></li><li><p>而且不一定是基类的析构函数设置成虚函数，只要类里面有一个函数是虚函数的话，那么就需要将析构函数定义成虚函数。</p></li><li><p>类的用途不是作为多态的用途的话，那么请不要将析构函数声明成虚函数，因为那样没有作用。</p></li><li><p>对于一个纯虚函数而言，这个类就是一个抽象类，但是由于存在一个析构函数，所以一般要为这个纯虚函数提供定义，其的运作方式是最深层派生的那个类的析构函数最先被调用，然后就是每一个基类的析构函数被调用，所以编译器会在派生类的析构函数中定一个对基类纯虚析构函数的调用动作，因此，一般都得进行调用。</p></li></ol>]]></content>
     
     <summary type="html">
     
