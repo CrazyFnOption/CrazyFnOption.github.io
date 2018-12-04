@@ -45,22 +45,8 @@
     </url>
 
     <url>
-        <loc>http://crazyfnoption.github.io/tags/%E5%88%9B%E4%BD%9C/</loc>
-        <lastmod>2018-12-01T15:13:57.673Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://crazyfnoption.github.io/tags/%E7%BB%8F%E5%8E%86/</loc>
         <lastmod>2018-12-01T17:15:34.283Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://crazyfnoption.github.io/tags/%E4%B9%A6%E8%AF%84/</loc>
-        <lastmod>2018-12-01T17:19:56.161Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -138,6 +124,20 @@
     <url>
         <loc>http://crazyfnoption.github.io/tags/STL/</loc>
         <lastmod>2018-12-04T00:13:06.615Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://crazyfnoption.github.io/tags/%E4%B9%A6%E8%AF%84/</loc>
+        <lastmod>2018-12-04T01:10:30.794Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://crazyfnoption.github.io/tags/%E5%88%9B%E4%BD%9C/</loc>
+        <lastmod>2018-12-04T01:10:30.794Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
