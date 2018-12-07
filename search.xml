@@ -3,13 +3,13 @@
   <entry>
     <title><![CDATA[二叉树总结]]></title>
     <url>%2F2018%2F12%2F04%2F%E4%BA%8C%E5%8F%89%E6%A0%91%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[今天花时间整理一下二叉树的一切内容下面的部分包括： 二叉树的创建 二叉树的遍历 二叉树的层序遍历 二叉树的深度遍历 二叉树递归先序遍历 二叉树递归中序遍历 二叉树递归后序遍历 二叉树非递归先序遍历 二叉树非递归中序遍历 二叉树非递归后序遍历 线索树 下面直接贴代码（在代码内部进行注释）：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212213214215216217218219220221222223224225226227228229230231232233234235236237238239240241242243244245246247248249250251252253254255256257258259260261262263264265266267268269270271272273/************************************************************************* &gt; File Name: tree.cpp &gt; Author: wangshuxiao &gt; Mail: wsx1128@outlook.com &gt; Created Time: 二 11/20 18:51:16 2018 ************************************************************************/#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;string&gt;#include &lt;stack&gt;#include &lt;queue&gt;#include &lt;memory&gt;#include &lt;string&gt;using namespace std;class Node&#123;public: Node():left(0),right(0)&#123;&#125;; Node(char e): value(e)&#123;left = 0;right = 0;&#125;;public: char value; Node* left; Node* right;&#125;;class Bi_tree&#123;public: Bi_tree()=default; ~Bi_tree() &#123; clear(); &#125; //由于建树与析构都要使用到递归，所以对于类而言，必须使用另外一个函数来进行递归，才不会影响私有成员 void bulid (); Node* _bulid (Node *); bool isEmpty () const &#123; return root == 0; &#125;; void breath_order() void preorder(Node *t); void inorder(Node *t); void postorder(Node *t); void iter_preorder(); void iter_inorder(); void iter_postorder(); Node * get_root() &#123;return root;&#125;private: void clear(); void clear(Node *); void print(Node *p); Node *root; &#125;;void Bi_tree::clear()&#123; clear(root); root = 0;&#125;void Bi_tree::clear(Node *n)&#123; if (n) &#123; if (n-&gt;left) clear(n-&gt;left); if (n-&gt;right) clear(n-&gt;right); delete n; &#125;&#125;void Bi_tree::print(Node *p)&#123; cout &lt;&lt; p-&gt;value &lt;&lt; " ";&#125;void Bi_tree::bulid()&#123; root = _bulid(root);&#125;//另外这里还是需要注意到的是，由于类的逻辑与C语言的不太相同，所以再循环的时候不能直接返回为空，所以必须要返回一个`Node*`，这样才可以把之前的给联系在一起。//或者还有一种办法是，使用指针的引用，这样也就是所谓的二级指针，才能造成效果。Node * Bi_tree::_bulid(Node *t)&#123; //creat the tree by preorder char ch; cin &gt;&gt; ch; if (ch =='#') t = nullptr ; else&#123; t = new Node; t-&gt;value = ch; t-&gt;left = _bulid(t-&gt;left); t-&gt;right = _bulid(t-&gt;right); &#125; return t;&#125;// 层序遍历void Bi_tree::breath_order()&#123; queue&lt;Node*&gt; q_tree; Node *t = root; if ( t != 0 ) &#123; q_tree.push(t); while (!q_tree.empty()) &#123; t = q_tree.front(); q_tree.pop(); print(t); if (t-&gt;left != 0) q_tree.push(t-&gt;left); if (t-&gt;right != 0) q_tree.push(t-&gt;right); &#125; &#125;&#125;//递归 先序遍历void Bi_tree::preorder(Node *t)&#123; if (t) &#123; print(t); preorder(t-&gt;left); preorder(t-&gt;right); &#125; return ;&#125;//递归 中序遍历void Bi_tree::inorder(Node *t)&#123; if (t) &#123; inorder(t-&gt;left); print(t); inorder(t-&gt;right); &#125; return ;&#125;//递归 后序遍历void Bi_tree::postorder(Node *t)&#123; if (t) &#123; postorder(t-&gt;left); postorder(t-&gt;right); print(t); &#125; return ;&#125;//非递归 先序遍历 使用栈void Bi_tree::iter_preorder()&#123; stack&lt;Node*&gt; s_tree; Node *t = root; if (t != 0) &#123; s_tree.push(t); while (!s_tree.empty()) &#123; t = s_tree.top(); s_tree.pop(); print(t); if (t-&gt;right != 0) &#123; s_tree.push(t-&gt;right); &#125; if (t-&gt;left != 0) &#123; s_tree.push(t-&gt;left); &#125; &#125; &#125; return ;&#125;//非递归 中序遍历 使用栈void Bi_tree::iter_postorder()&#123; stack&lt;Node*&gt; s_tree; Node *p = root , *q = root; while (p != 0) &#123; for ( ;p-&gt;left != 0;p = p-&gt;left) s_tree.push(p); while (p-&gt;right == 0 || p-&gt;right == q) &#123; print(p); q = p; if (s_tree.empty()) return ; p = s_tree.top(); s_tree.pop(); &#125; s_tree.push(p); p = p-&gt;right; &#125;&#125;// 非递归 后序遍历 使用栈void Bi_tree::iter_inorder()&#123; stack &lt;Node*&gt; s_tree; Node *p = root; while (p != 0) &#123; while (p != 0) &#123; if (p-&gt;right) s_tree.push(p-&gt;right); s_tree.push(p); p = p-&gt;left; &#125; p = s_tree.top(); s_tree.pop(); while (!s_tree.empty() &amp;&amp; p-&gt;right == 0) &#123; print (p); p = s_tree.top(); s_tree.pop(); &#125; print(p); if (!s_tree.empty()) &#123; p = s_tree.top(); s_tree.pop(); &#125; else p = 0; &#125; return ;&#125;int main()&#123; Bi_tree b; b.bulid(); if (b.isEmpty()) cout &lt;&lt; "空的" &lt;&lt; endl; cout &lt;&lt; "下面是递归形式的遍历方式"&lt;&lt;endl; cout &lt;&lt; "递归形式先序遍历" &lt;&lt; endl; b.preorder(b.get_root()); cout &lt;&lt;endl; cout &lt;&lt; "递归形式后续遍历" &lt;&lt;endl; b.postorder(b.get_root()); cout &lt;&lt; endl; cout &lt;&lt; " 非递归形式的中序遍历"&lt;&lt; endl; b.iter_inorder(); cout &lt;&lt; endl; cout &lt;&lt; " 非递归形式的后序遍历"&lt;&lt; endl; b.iter_postorder(); cout &lt;&lt; endl; return 0;&#125; 线索树线索二叉树原理通过考察各种二叉链表，不管儿叉树的形态如何，空链域的个数总是多过非空链域的个数。准确的说，n各结点的二叉链表共有2n个链域，非空链域为n-1个，但其中的空链域却有n+1个。因此，提出了一种方法，利用原来的空链域存放指针，指向树中其他结点。这种指针称为线索。 记ptr指向二叉链表中的一个结点，以下是建立线索的规则： 如果ptr-&gt;lchild为空，则存放指向中序遍历序列中该结点的前驱结点。这个结点称为ptr的中序前驱； 如果ptr-&gt;rchild为空，则存放指向中序遍历序列中该结点的后继结点。这个结点称为ptr的中序后继； 显然，在决定lchild是指向左孩子还是前驱，rchild是指向右孩子还是后继，需要一个区分标志的。因此，我们在每个结点再增设两个标志域ltag和rtag，注意ltag和rtag只是区分0或1数字的布尔型变量，其占用内存空间要小于像lchild和rchild的指针变量。 其中： ltag为0时指向该结点的左孩子，为1时指向该结点的前驱； rtag为0时指向该结点的右孩子，为1时指向该结点的后继； 因此对于上图的二叉链表图可以修改为下图的养子。 ### 线索二叉树的代码实现对接下来的例子中，线索二叉树的中序遍历。 12]]></content>
+    <content type="text"><![CDATA[今天花时间整理一下二叉树的一切内容下面的部分包括： 二叉树的创建 二叉树的遍历 二叉树的层序遍历 二叉树的深度遍历 二叉树递归先序遍历 二叉树递归中序遍历 二叉树递归后序遍历 二叉树非递归先序遍历 二叉树非递归中序遍历 二叉树非递归后序遍历 线索树 下面直接贴代码（在代码内部进行注释）：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212213214215216217218219220221222223224225226227228229230231232233234235236237238239240241242243244245246247248249250251252253254255256257258259260261262263264265266267268269270271272273/************************************************************************* &gt; File Name: tree.cpp &gt; Author: wangshuxiao &gt; Mail: wsx1128@outlook.com &gt; Created Time: 二 11/20 18:51:16 2018 ************************************************************************/#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;string&gt;#include &lt;stack&gt;#include &lt;queue&gt;#include &lt;memory&gt;#include &lt;string&gt;using namespace std;class Node&#123;public: Node():left(0),right(0)&#123;&#125;; Node(char e): value(e)&#123;left = 0;right = 0;&#125;;public: char value; Node* left; Node* right;&#125;;class Bi_tree&#123;public: Bi_tree()=default; ~Bi_tree() &#123; clear(); &#125;//由于建树与析构都要使用到递归，所以对于类而言，必须使用另外一个函数来进行递归，才不会影响私有成员 void bulid (); Node* _bulid (Node *); bool isEmpty () const &#123; return root == 0; &#125;; void breath_order() void preorder(Node *t); void inorder(Node *t); void postorder(Node *t); void iter_preorder(); void iter_inorder(); void iter_postorder(); Node * get_root() &#123;return root;&#125;private: void clear(); void clear(Node *); void print(Node *p); Node *root; &#125;;void Bi_tree::clear()&#123; clear(root); root = 0;&#125;void Bi_tree::clear(Node *n)&#123; if (n) &#123; if (n-&gt;left) clear(n-&gt;left); if (n-&gt;right) clear(n-&gt;right); delete n; &#125;&#125;void Bi_tree::print(Node *p)&#123; cout &lt;&lt; p-&gt;value &lt;&lt; " ";&#125;void Bi_tree::bulid()&#123; root = _bulid(root);&#125;//另外这里还是需要注意到的是，由于类的逻辑与C语言的不太相同，所以再循环的时候不能直接返回为空，所以必须要返回一个`Node*`，这样才可以把之前的给联系在一起。//或者还有一种办法是，使用指针的引用，这样也就是所谓的二级指针，才能造成效果。Node * Bi_tree::_bulid(Node *t)&#123; //creat the tree by preorder char ch; cin &gt;&gt; ch; if (ch =='#') t = nullptr ; else&#123; t = new Node; t-&gt;value = ch; t-&gt;left = _bulid(t-&gt;left); t-&gt;right = _bulid(t-&gt;right); &#125; return t;&#125;// 层序遍历void Bi_tree::breath_order()&#123; queue&lt;Node*&gt; q_tree; Node *t = root; if ( t != 0 ) &#123; q_tree.push(t); while (!q_tree.empty()) &#123; t = q_tree.front(); q_tree.pop(); print(t); if (t-&gt;left != 0) q_tree.push(t-&gt;left); if (t-&gt;right != 0) q_tree.push(t-&gt;right); &#125; &#125;&#125;//递归 先序遍历void Bi_tree::preorder(Node *t)&#123; if (t) &#123; print(t); preorder(t-&gt;left); preorder(t-&gt;right); &#125; return ;&#125;//递归 中序遍历void Bi_tree::inorder(Node *t)&#123; if (t) &#123; inorder(t-&gt;left); print(t); inorder(t-&gt;right); &#125; return ;&#125;//递归 后序遍历void Bi_tree::postorder(Node *t)&#123; if (t) &#123; postorder(t-&gt;left); postorder(t-&gt;right); print(t); &#125; return ;&#125;//非递归 先序遍历 使用栈void Bi_tree::iter_preorder()&#123; stack&lt;Node*&gt; s_tree; Node *t = root; if (t != 0) &#123; s_tree.push(t); while (!s_tree.empty()) &#123; t = s_tree.top(); s_tree.pop(); print(t); if (t-&gt;right != 0) &#123; s_tree.push(t-&gt;right); &#125; if (t-&gt;left != 0) &#123; s_tree.push(t-&gt;left); &#125; &#125; &#125; return ;&#125;//非递归 中序遍历 使用栈void Bi_tree::iter_postorder()&#123; stack&lt;Node*&gt; s_tree; Node *p = root , *q = root; while (p != 0) &#123; for ( ;p-&gt;left != 0;p = p-&gt;left) s_tree.push(p); while (p-&gt;right == 0 || p-&gt;right == q) &#123; print(p); q = p; if (s_tree.empty()) return ; p = s_tree.top(); s_tree.pop(); &#125; s_tree.push(p); p = p-&gt;right; &#125;&#125;// 非递归 后序遍历 使用栈void Bi_tree::iter_inorder()&#123; stack &lt;Node*&gt; s_tree; Node *p = root; while (p != 0) &#123; while (p != 0) &#123; if (p-&gt;right) s_tree.push(p-&gt;right); s_tree.push(p); p = p-&gt;left; &#125; p = s_tree.top(); s_tree.pop(); while (!s_tree.empty() &amp;&amp; p-&gt;right == 0) &#123; print (p); p = s_tree.top(); s_tree.pop(); &#125; print(p); if (!s_tree.empty()) &#123; p = s_tree.top(); s_tree.pop(); &#125; else p = 0; &#125; return ;&#125;int main()&#123; Bi_tree b; b.bulid(); if (b.isEmpty()) cout &lt;&lt; "空的" &lt;&lt; endl; cout &lt;&lt; "下面是递归形式的遍历方式"&lt;&lt;endl; cout &lt;&lt; "递归形式先序遍历" &lt;&lt; endl; b.preorder(b.get_root()); cout &lt;&lt;endl; cout &lt;&lt; "递归形式后续遍历" &lt;&lt;endl; b.postorder(b.get_root()); cout &lt;&lt; endl; cout &lt;&lt; " 非递归形式的中序遍历"&lt;&lt; endl; b.iter_inorder(); cout &lt;&lt; endl; cout &lt;&lt; " 非递归形式的后序遍历"&lt;&lt; endl; b.iter_postorder(); cout &lt;&lt; endl; return 0;&#125; 线索树线索二叉树原理通过考察各种二叉链表，不管儿叉树的形态如何，空链域的个数总是多过非空链域的个数。准确的说，n各结点的二叉链表共有2n个链域，非空链域为n-1个，但其中的空链域却有n+1个。因此，提出了一种方法，利用原来的空链域存放指针，指向树中其他结点。这种指针称为线索。 记ptr指向二叉链表中的一个结点，以下是建立线索的规则： 如果ptr-&gt;lchild为空，则存放指向中序遍历序列中该结点的前驱结点。这个结点称为ptr的中序前驱； 如果ptr-&gt;rchild为空，则存放指向中序遍历序列中该结点的后继结点。这个结点称为ptr的中序后继；]]></content>
       <categories>
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>二叉树</tag>
         <tag>算法</tag>
+        <tag>二叉树</tag>
         <tag>遍历</tag>
       </tags>
   </entry>
@@ -49,28 +49,28 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[树相关题目]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款10：令 operator= 返回一个 自身的返回]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator%3D%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E%2F</url>
-    <content type="text"><![CDATA[一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。]]></content>
+    <title><![CDATA[条款11：在 operator 中处理自我赋值的情况]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator%E4%B8%AD%E5%A4%84%E7%90%86%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E7%9A%84%E6%83%85%E5%86%B5%2F</url>
+    <content type="text"><![CDATA[本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。 同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。 就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。 还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。 或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
       <tags>
         <tag>c++</tag>
         <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
+    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
@@ -113,18 +113,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[贪心算法]]></title>
-    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>贪心</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[关于STL里面函数简单的应用]]></title>
     <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8%2F</url>
     <content type="text"><![CDATA[代码如下：1234567891011121314151617181920212223#include&lt;iostream&gt;#include&lt;set&gt;using namespace std;int main()&#123; int n,t; cin&gt;&gt;n; set&lt;int&gt;s; s.insert(0); for (int i =0;i!=n;i++)&#123; cin&gt;&gt;t; //这道题目的主要做法是记住几个upper_bound 的STL函数 if(t &lt; *s.rbegin()) &#123; s.erase(*(s.upper_bound(t))); &#125; s.insert(t); &#125; cout &lt;&lt; s.size() - 1; return 0;&#125;]]></content>
@@ -151,16 +139,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
-    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
+    <title><![CDATA[贪心算法]]></title>
+    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
       <categories>
         <category>题解</category>
       </categories>
       <tags>
         <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>STL</tag>
+        <tag>贪心</tag>
       </tags>
   </entry>
   <entry>
@@ -285,6 +272,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[条款10：令 operator= 返回一个 自身的返回]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator%3D%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E%2F</url>
+    <content type="text"><![CDATA[一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。]]></content>
+      <categories>
+        <category>effective C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数据结构相应总结]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%BA%94%E6%80%BB%E7%BB%93%2F</url>
     <content type="text"><![CDATA[栈 栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。 两种方法表示这种栈的实现 第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。 第二种就是直接用C++里面STL模板首先先定义一个stack&lt;int&gt; s 然后以下就是其的操作。 注意其不能使用push_back只能使用push 1234s.pop() 删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。s.push() 创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。s.top() 返回栈顶的元素，也就是刚刚进来的元素。s.bottom() 返回栈底的元素，也就是最后一个元素 队列适配器队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者自己定义一种排序方式，然后通过这种排序方式，再来出队操作。 与上面一样，先定义一个queue&lt;int&gt; q与priority_queue&lt;int&gt; q。 1234567q.pop() 按照先进先出的思想，删除首元素或者优先级最高的元素q.front() 返回首元素。q.back() 返回尾元素。以上两个是只适用于队列。q.top() 返回优先队列中优先级最高的元素。q.push()q.emplace() 加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。 这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造 123456789下面两种优先队列的定义是等价的priority_queue&lt;int&gt; q;priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格默认都是从小到大排序接受三个参数，第一个参数为数据类型，第二个参数为承载容器的类型，第三个就是自定义的比较函数了。可以使lamda匿名函数，也可以是function头文件里面的函数模板。 链表特点：自定义，不连续的。同时链表也是后面相应树形结构的基础实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了 动态数组这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。 树与二叉树一般的树 以上就是一般树的形态。下面则是关于树的基本用语。关于上面重要的概念就是结点和结点的度了。 二叉树二叉树的定义: 二叉树有五种基本形态： 二叉树的性质:上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。 满二叉树与完全二叉树前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。 #####二叉树的存储结构： 数组存储： 二叉链式存储（原理类似链表）：将链表内部的*next，变成了指向两边的子节点的指针。 三叉链式存储：比二叉链式结构多了一个回指向父节点的指针。 遍历二叉树的方法 先序遍历（根-&gt;左-&gt;右）： 代码: 12345678void PreOrderTraverse(BiTree *T)&#123; if(T != NULL)&#123; printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 图示： 最终结果就是==ABDGHCEIF==。 中序遍历（左-&gt;根-&gt;右)： 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void InOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 最终结果为==GDHBAEICF==。 后序遍历（左-&gt;右-&gt;根） 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void PostOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); printf("%c", T-&gt;data); &#125;&#125; 最终结果为==GHDBIEFCA==。 关于二叉树的建立代码：代码我等下自己写出来。 图图的定义 图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。 图的专业术语： 图-生成树 邻接矩阵的表示方法（数组）不带权值的表示方法 一般就是用二维数组来表示每一个结点之间的关系 关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。]]></content>
@@ -294,18 +293,6 @@
       <tags>
         <tag>acm</tag>
         <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款11：在 operator 中处理自我赋值的情况]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator%E4%B8%AD%E5%A4%84%E7%90%86%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E7%9A%84%E6%83%85%E5%86%B5%2F</url>
-    <content type="text"><![CDATA[本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。 同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。 就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。 还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。 或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。]]></content>
-      <categories>
-        <category>effective C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
       </tags>
   </entry>
   <entry>
@@ -369,9 +356,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款17：以独立语句将new过得对象放入智能指针中]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-new-%E8%BF%87%E5%BE%97%E5%AF%B9%E8%B1%A1%E6%94%BE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%B8%AD%2F</url>
-    <content type="text"><![CDATA[编译器的编译次序是说不定的，就想下图的 上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示： 先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。 上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句]]></content>
+    <title><![CDATA[条款18：让接口容易被正确使用，不易被误用]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE18%EF%BC%9A%E8%AE%A9%E6%8E%A5%E5%8F%A3%E5%AE%B9%E6%98%93%E8%A2%AB%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%B8%8D%E6%98%93%E8%A2%AB%E8%AF%AF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[注意类的隐式转换，并且智能指针与内置指针的区别，以及以对象管理的思想来管理资源。 好的接口很容易被正确使用，不容易被误用，应该在接口里面努力达成这些性质。 促进正确使用的办法 包括接口的一致性，与其内置类型的行为一致。 阻止误用的办法包括建立新类型，限制类型上面的操作，以及束缚对象值，以及消除客户的资源管理责任 智能指针支持定制删除器，这样可以防范动态链接程序库的问题]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -381,9 +368,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款18：让接口容易被正确使用，不易被误用]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE18%EF%BC%9A%E8%AE%A9%E6%8E%A5%E5%8F%A3%E5%AE%B9%E6%98%93%E8%A2%AB%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%B8%8D%E6%98%93%E8%A2%AB%E8%AF%AF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[注意类的隐式转换，并且智能指针与内置指针的区别，以及以对象管理的思想来管理资源。 好的接口很容易被正确使用，不容易被误用，应该在接口里面努力达成这些性质。 促进正确使用的办法 包括接口的一致性，与其内置类型的行为一致。 阻止误用的办法包括建立新类型，限制类型上面的操作，以及束缚对象值，以及消除客户的资源管理责任 智能指针支持定制删除器，这样可以防范动态链接程序库的问题]]></content>
+    <title><![CDATA[条款17：以独立语句将new过得对象放入智能指针中]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-new-%E8%BF%87%E5%BE%97%E5%AF%B9%E8%B1%A1%E6%94%BE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%B8%AD%2F</url>
+    <content type="text"><![CDATA[编译器的编译次序是说不定的，就想下图的 上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示： 先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。 上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -498,6 +485,19 @@
       <tags>
         <tag>c++</tag>
         <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[树相关题目]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
