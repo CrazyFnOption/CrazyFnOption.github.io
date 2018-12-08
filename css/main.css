@@ -1,3 +1,20 @@
+.site-meta {
+  background: rgba(255,255,255,0.8);
+}
+body {
+  background: url("/images/1.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+.main-inner {
+  margin-top: 60px;
+  padding: 60px 60px 60px 60px;
+  background: #fff;
+  opacity: 0.8;
+  min-height: 500px;
+}
 /* normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif; /* 1 */
@@ -2115,7 +2132,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c1ffff;
+  background: #ffb3ff;
 }
 .links-of-blogroll {
   font-size: 13px;
