@@ -74,9 +74,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一道有趣的题目——逆波兰计算器]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93%E6%9C%89%E8%B6%A3%E7%9A%84%E9%A2%98%E7%9B%AE%E2%80%94%E2%80%94%E9%80%86%E6%B3%A2%E5%85%B0%E8%AE%A1%E7%AE%97%E5%99%A8%2F</url>
-    <content type="text"><![CDATA[题解首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。==注意以下几个地方== 注意输入cin&gt;&gt;t以后，需要用getchar()来清空上一个步骤留下来的回车符号 注意此处需要严格进行判断栈内是否为空。 这里是将乘除求模的运算放在最右边，这样就可以有优先级存在了 括号会提前进行一步运算，然后消除掉左括号，或者左边的所有运算式，进行一个结算。 map这里存在的意义就在于 为判断进行提供条件。 此道题目涉及字符串，栈，模拟的相应算法，需要有空的时候可以多看看。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;stack&gt;#include&lt;sstream&gt;#include&lt;map&gt;using namespace std;stack&lt;char&gt;ope;stack&lt;int&gt;num;string str;map&lt;char,int&gt;m;void init()&#123; m['+']=m['-']=1; m['*']=m['/']=m['%']=m['(']=m[')']=2; while(!num.empty()) num.pop(); while(!ope.empty()) ope.pop();&#125;//此处为基本的运算规模。void op1(int &amp;a,int &amp;b,const char &amp;c)&#123; if (c =='+') a += b; else if (c == '-') a=b-a; else if (c == '*') a*=b; else if (c == '/') a=b/a; else if (c == '%') a=b%a;&#125;//此处就是控制出栈的运算，一般就是括号内部的计算了。算出每一个括号内部的运算式。void op2()&#123; char ch = ope.top(); while (ch != '('&amp;&amp;!ope.empty())&#123; ope.pop(); int a = num.top(); num.pop(); int b = num.top(); num.pop(); op1(a,b,ch); num.push(a); if (!ope.empty()) ch = ope.top(); &#125;//这个下面要注意的判断条件中一定要加上判断是否为空。 if (!ope.empty()&amp;&amp;ope.top() =='(') ope.pop();&#125;int main()&#123; int t; cin&gt;&gt;t; getchar(); while (t--)&#123; getline(cin,str); stringstream s(str); init(); char tmp; while (s&gt;&gt;tmp)&#123; if(tmp&gt;='0'&amp;&amp;tmp&lt;='9')&#123; int x = 0; do&#123; if (m[tmp]) break; x *= 10; x += tmp - '0';//此处是将char转换成int &#125;while(s&gt;&gt;tmp); num.push(x); &#125; //注意这个地方的高明之处就在于碰见‘）’的返回，以及判断有没有‘（’， 比如连加的情况就把加减乘除的优先运算级给表示出来了。 //最后相当于将运算优先级高的全部放到了右边，然后有括号的就先解决括号， 及时左括号被提前弄没了也不要紧，存在有右括号就行，然后乘除永远放在加减的左边。 if (tmp==')') op2(); else if (m[tmp]==1)&#123; if (!ope.empty()&amp;&amp;ope.top()!='(') op2(); ope.push(tmp); &#125; else if (m[tmp]) ope.push(tmp); &#125; int ans = num.top(); num.pop(); while (!num.empty()&amp;&amp;!ope.empty())&#123; op1(ans,num.top(),ope.top()); ope.pop(); num.pop(); &#125; cout &lt;&lt; ans &lt;&lt; endl; &#125; return 0;&#125;]]></content>
+    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
+    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
       <categories>
         <category>题解</category>
       </categories>
@@ -113,18 +113,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[贪心算法]]></title>
-    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>贪心</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[关于STL里面函数简单的应用]]></title>
     <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8%2F</url>
     <content type="text"><![CDATA[代码如下：1234567891011121314151617181920212223#include&lt;iostream&gt;#include&lt;set&gt;using namespace std;int main()&#123; int n,t; cin&gt;&gt;n; set&lt;int&gt;s; s.insert(0); for (int i =0;i!=n;i++)&#123; cin&gt;&gt;t; //这道题目的主要做法是记住几个upper_bound 的STL函数 if(t &lt; *s.rbegin()) &#123; s.erase(*(s.upper_bound(t))); &#125; s.insert(t); &#125; cout &lt;&lt; s.size() - 1; return 0;&#125;]]></content>
@@ -135,6 +123,18 @@
         <tag>acm</tag>
         <tag>c++</tag>
         <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[贪心算法]]></title>
+    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>贪心</tag>
       </tags>
   </entry>
   <entry>
@@ -151,9 +151,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
-    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
+    <title><![CDATA[一道有趣的题目——逆波兰计算器]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93%E6%9C%89%E8%B6%A3%E7%9A%84%E9%A2%98%E7%9B%AE%E2%80%94%E2%80%94%E9%80%86%E6%B3%A2%E5%85%B0%E8%AE%A1%E7%AE%97%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[题解首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。==注意以下几个地方== 注意输入cin&gt;&gt;t以后，需要用getchar()来清空上一个步骤留下来的回车符号 注意此处需要严格进行判断栈内是否为空。 这里是将乘除求模的运算放在最右边，这样就可以有优先级存在了 括号会提前进行一步运算，然后消除掉左括号，或者左边的所有运算式，进行一个结算。 map这里存在的意义就在于 为判断进行提供条件。 此道题目涉及字符串，栈，模拟的相应算法，需要有空的时候可以多看看。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;stack&gt;#include&lt;sstream&gt;#include&lt;map&gt;using namespace std;stack&lt;char&gt;ope;stack&lt;int&gt;num;string str;map&lt;char,int&gt;m;void init()&#123; m['+']=m['-']=1; m['*']=m['/']=m['%']=m['(']=m[')']=2; while(!num.empty()) num.pop(); while(!ope.empty()) ope.pop();&#125;//此处为基本的运算规模。void op1(int &amp;a,int &amp;b,const char &amp;c)&#123; if (c =='+') a += b; else if (c == '-') a=b-a; else if (c == '*') a*=b; else if (c == '/') a=b/a; else if (c == '%') a=b%a;&#125;//此处就是控制出栈的运算，一般就是括号内部的计算了。算出每一个括号内部的运算式。void op2()&#123; char ch = ope.top(); while (ch != '('&amp;&amp;!ope.empty())&#123; ope.pop(); int a = num.top(); num.pop(); int b = num.top(); num.pop(); op1(a,b,ch); num.push(a); if (!ope.empty()) ch = ope.top(); &#125;//这个下面要注意的判断条件中一定要加上判断是否为空。 if (!ope.empty()&amp;&amp;ope.top() =='(') ope.pop();&#125;int main()&#123; int t; cin&gt;&gt;t; getchar(); while (t--)&#123; getline(cin,str); stringstream s(str); init(); char tmp; while (s&gt;&gt;tmp)&#123; if(tmp&gt;='0'&amp;&amp;tmp&lt;='9')&#123; int x = 0; do&#123; if (m[tmp]) break; x *= 10; x += tmp - '0';//此处是将char转换成int &#125;while(s&gt;&gt;tmp); num.push(x); &#125; //注意这个地方的高明之处就在于碰见‘）’的返回，以及判断有没有‘（’， 比如连加的情况就把加减乘除的优先运算级给表示出来了。 //最后相当于将运算优先级高的全部放到了右边，然后有括号的就先解决括号， 及时左括号被提前弄没了也不要紧，存在有右括号就行，然后乘除永远放在加减的左边。 if (tmp==')') op2(); else if (m[tmp]==1)&#123; if (!ope.empty()&amp;&amp;ope.top()!='(') op2(); ope.push(tmp); &#125; else if (m[tmp]) ope.push(tmp); &#125; int ans = num.top(); num.pop(); while (!num.empty()&amp;&amp;!ope.empty())&#123; op1(ans,num.top(),ope.top()); ope.pop(); num.pop(); &#125; cout &lt;&lt; ans &lt;&lt; endl; &#125; return 0;&#125;]]></content>
       <categories>
         <category>题解</category>
       </categories>
@@ -201,9 +201,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款03：尽可能使用 const]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8%20const%2F</url>
-    <content type="text"><![CDATA[首先使用 const 可以防止后期莫名其妙的进行改变原有的意思，相当于一个约束语义，另外编译器不论什么时候都会强制施行这项约束。 const 在 C++ 11 中有底层和顶层之分，前者是作用于指针本身，指针不再改变指向对象，而顶层 const 则是指针所指向的对象则不能发生改变。 const 最具威力的用法实在面对函数声明时的用法，在一个函数的声明式里，const 可以和函数的返回值，各自的参数以及函数自身产生关联。 将引用参数设置成 const 好处是在后面写代码的过程中如果把==写成=，可以立马甄别出来。 const 成员函数存在的两个理由，一个使 class 的接口一目了然，因为知道了哪些可以被改动对象而哪些不可以被改动对象，第二则是基于代码编写的高效性而言，操作 const 对象成为可能，因为可以通过 const 成员函数返回 const 对象。 存在一种特殊情况，重载[ ]运算符的时候，如果成员函数是 const 那么其的返回值也必须是 const&amp;类型的。 如果对于const 成员函数，想要改变该对象的内部成员的话，但是又不想全部改变的话，可以在类中的数据成员定义中加上 mutable，来保证可以改变该函数，其存在的意义就在于保证了其他数据成员不能被 const 成员函数改变，但是该数据成员却可以。 7.当 const 和 non-const 成员函数有实质等价的实现时，令 non-const 版本调用 const 版本可避免代码重复。 这一点还不是特别了解，需要看到后面之后花点时间来看看这一点的内容。]]></content>
+    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -213,9 +213,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
+    <title><![CDATA[条款03：尽可能使用 const]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8%20const%2F</url>
+    <content type="text"><![CDATA[首先使用 const 可以防止后期莫名其妙的进行改变原有的意思，相当于一个约束语义，另外编译器不论什么时候都会强制施行这项约束。 const 在 C++ 11 中有底层和顶层之分，前者是作用于指针本身，指针不再改变指向对象，而顶层 const 则是指针所指向的对象则不能发生改变。 const 最具威力的用法实在面对函数声明时的用法，在一个函数的声明式里，const 可以和函数的返回值，各自的参数以及函数自身产生关联。 将引用参数设置成 const 好处是在后面写代码的过程中如果把==写成=，可以立马甄别出来。 const 成员函数存在的两个理由，一个使 class 的接口一目了然，因为知道了哪些可以被改动对象而哪些不可以被改动对象，第二则是基于代码编写的高效性而言，操作 const 对象成为可能，因为可以通过 const 成员函数返回 const 对象。 存在一种特殊情况，重载[ ]运算符的时候，如果成员函数是 const 那么其的返回值也必须是 const&amp;类型的。 如果对于const 成员函数，想要改变该对象的内部成员的话，但是又不想全部改变的话，可以在类中的数据成员定义中加上 mutable，来保证可以改变该函数，其存在的意义就在于保证了其他数据成员不能被 const 成员函数改变，但是该数据成员却可以。 7.当 const 和 non-const 成员函数有实质等价的实现时，令 non-const 版本调用 const 版本可避免代码重复。 这一点还不是特别了解，需要看到后面之后花点时间来看看这一点的内容。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
