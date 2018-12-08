@@ -464,7 +464,7 @@
 
       
         <p><strong>题目：</strong></p>
-<p><img src="//crazyfnoption.github.io/2018/12/01/一道计算机几何算法相关题目/15349459741854.jpg" alt=""></p>
+<p><img src="/2018/12/01/一道计算机几何算法相关题目/15349459741854.jpg" alt=""></p>
 <p><strong>代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> v,s,b;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123;</span><br><span class="line">        <span class="keyword">if</span> (s&lt;b)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="number">-1</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">double</span> x = (v * v) / <span class="number">9.8</span>;</span><br><span class="line">        <span class="keyword">if</span> ( x &lt; s ) &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"move "</span>&lt;&lt;fixed&lt;&lt;setprecision(<span class="number">2</span>)&lt;&lt;s-x&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">double</span> b = (s * <span class="number">9.8</span>) / (v * v);</span><br><span class="line">            <span class="comment">//注意反函数的转换。</span></span><br><span class="line">            <span class="keyword">double</span> a = <span class="built_in">asin</span>(b) * <span class="number">90</span> / pi;</span><br><span class="line">            <span class="comment">//这里有一个进一的操作，因为此题不太会去四舍五入。</span></span><br><span class="line">            <span class="keyword">int</span> a_ = a;</span><br><span class="line">            <span class="keyword">if</span> (a-a_ &gt;= <span class="number">0.5</span>) a_++;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"a "</span>&lt;&lt;a_&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>关于这道题目的相关要点</strong></p>
 <ol>
@@ -545,8 +545,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/一道有趣的题目——逆波兰计算器/" rel="next" title="一道有趣的题目——逆波兰计算器">
-                <i class="fa fa-chevron-left"></i> 一道有趣的题目——逆波兰计算器
+              <a href="/2018/12/01/二分法思想/" rel="next" title="二分法思想">
+                <i class="fa fa-chevron-left"></i> 二分法思想
               </a>
             
           </div>
@@ -555,8 +555,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" rel="prev" title="一道STL的题解题目，需要以后花时间理解题目意思">
-                一道STL的题解题目，需要以后花时间理解题目意思 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/一道有趣的题目——逆波兰计算器/" rel="prev" title="一道有趣的题目——逆波兰计算器">
+                一道有趣的题目——逆波兰计算器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
