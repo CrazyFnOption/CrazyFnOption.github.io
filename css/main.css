@@ -1090,7 +1090,7 @@ pre .javascript .function {
   bottom: 19px;
 }
 .header {
-  background: transparent;
+  background: rgba(255,255,255,0.8);
 }
 .header-inner {
   position: relative;
@@ -2115,7 +2115,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fbbdf7;
+  background: #2acd6e;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3211,10 +3211,11 @@ hr {
   cursor: url("/images/end.ico"), auto !important;
 }
 body {
-  background: url("/images/backgrand.jpg");
+  background: url("/images/1.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
+  background-size: cover;
 }
 .main-inner {
   margin-top: 60px;
