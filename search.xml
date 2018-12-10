@@ -23,29 +23,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[二分法思想]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%BA%8C%E5%88%86%E6%B3%95%E6%80%9D%E6%83%B3%2F</url>
-    <content type="text"><![CDATA[二分查找实现在单调有序的集合中查找元素，每次江集合分为左右两个部分，并且通过判断集合在哪个部分从而调整集合的上下界，重复知道找到目标元素为止。 举一个简单的例子，我要在1到100里面查找62，先拿62根这个其最中间的一个数进行比较。然后在一步一步的缩小集合的上下界，最后再来一步一步往里面缩 下面是C++STL里面二分查找的函数： binary_search 返回bool值,是否存在lower_bound 返回可插入的最小位置的迭代器 即返回第一个符合条件的元素位置upper_bound 返回可插入的最大位置的迭代器 即返回最后一个符合条件的元素位置 在二分查找里面最典型的题目就是二分逼近求方程式的根了。 代码如下123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;using namespace std;const double pre =1e-4;double x,y;double f(double x)&#123; return 8*pow(x,4)+7*pow(x,3)+2*pow(x,2)+3*x+6-y;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; cin&gt;&gt;y; double x1=0,x2=100;//先把上下界在这里确定好 double mid=(x1+x2)/2; if (f(x1)*f(x2)&gt;0) cout&lt;&lt;"No solution!"&lt;&lt;endl; else &#123; while (x2-x1&gt;=pre)&#123;//这里必须写的是上下界线是多少， 不能写的是用于判断mid的条件。 if (f(x1)*f(mid)&lt;0)&#123; x2=mid; mid=(x1+x2)/2; &#125; else &#123; x1=mid; mid=(x1+x2)/2; &#125; &#125; cout&lt;&lt;fixed&lt;&lt;setprecision(4)&lt;&lt;mid&lt;&lt;endl; &#125; &#125;&#125; 上面就是我第二次出错的地方，判断二分循环逼近的的条件不应该看mid的取值，而是应该看得是区间上界减去区间下界的范围从而来限定。 此处关于三分法的求解：当需要求某凸性或凹形函数的极值，通过函数本身表达式并不容易求解时，就可以用三分法不断逼近求解。 三分法——求解凸性函数的极值问题http://hi.baidu.com/vfxupdpaipbcpuq/item/81b21d1910ea729c99ce33db 经典例题：侵略的奶牛： 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100005;int a[maxn],n,c;//此过程就是在判断奶牛之间的间隔为这个值合不合适bool cc(int d)&#123; int t=a[0],cnt=1; for (int i=1;i!=n;i++)&#123; if (a[i]-t&gt;=d)&#123; cnt++; t=a[i]; if (cnt&gt;=c) return true; &#125; &#125; return false;&#125;//此过程就是在收录每一个值，然后再分别进行判断int solve()&#123; int x=0,y=a[n-1]-a[0]; while (x&lt;=y)&#123; int mid=(x+y)/2; if (cc(mid)) x=mid+1; else y=mid-1; &#125; return x-1;&#125;//不过这种最大值最小值的题目需要多花时间想想。int main()&#123; while (cin&gt;&gt;n&gt;&gt;c)&#123; for (int i=0;i!=n;i++) cin&gt;&gt;a[i]; sort(a,a+n); cout&lt;&lt;solve()&lt;&lt;endl; &#125;&#125; ==下面则是其他地方关于二分的题目==基础版 POJ 3122 Pie 二分枚举区间是实数POJ 1064 Cable master 二分枚举区间是实数,注意精度POJ 3258 River Hopscotch 最大化最小值POJ 3273 Monthly Expense 最小化最大值LIGHTOJ 1076 Get the Containers 最小化最大值，。和上一个差不多LIGHTOJ 1307 Counting Triangles 进阶版 POJ 3579 二分搜索+二分查找POJ 3685 二分搜索+二分查找ZOJ 3278 也是两个二分嵌套LIGHTOJ 1048和LightOJ 1076一样，不过要输出一组解LIGHTOJ 1383 二分加贪心（区间）ZOJ 3665 某年区域赛题。，二分枚举ZOJ 3726 去年区域赛题，二分查找codeforces 382B 有意思的题codeforces 391D2 难，。。，，、 ==下面就是关于三分的题目== poj3301hdu4454hdu3714hdu2438]]></content>
+    <title><![CDATA[条款11：在 operator 中处理自我赋值的情况]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator%E4%B8%AD%E5%A4%84%E7%90%86%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E7%9A%84%E6%83%85%E5%86%B5%2F</url>
+    <content type="text"><![CDATA[本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。 同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。 就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。 还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。 或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。]]></content>
       <categories>
-        <category>acm</category>
+        <category>effective C++</category>
       </categories>
       <tags>
-        <tag>acm</tag>
         <tag>c++</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[STL的简单总结]]></title>
-    <url>%2F2018%2F12%2F01%2FSTL%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[补一个加快C++输入输出速度的方法： 花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。 字符串 string与字符数组 构造string的方法 操作string的方法 上面的成员函数有的说要返回，同时，有的也存在不返回值。 搜索string的方法 以上就是find函数的一些用法，在泛型算法一章，还会继续涉及到。题目返回的是下标 补充一下关于string中的比较函数一般在string中可以直接用运算符进行比较 int与string之间的转化 getline()的两种写法注意在cin&gt;&gt;t;必须要一个getchar()来吞掉其前面的回车符号。之后才能用getline()。 顺序容器 容器种类 vector&lt;vector&lt;int&gt; &gt;来表示二维数组。 容器基础操作补充一个assign的用法：允许从一个不同但相容的类型里面去赋值，或者从容器的一个子序列赋值。 还有第二个版本：接受一个整型值和一个元素值，用指定数目且具有相同给定元素替换容器中原有的元素： 再补充一个resize的用法： 需要记住有一些类型声明可以直接用auto。 初始化有两种一种直接初始化和拷贝初始化。 顺序容器添加元素上面已经列出了各种形式的插入。插入是在迭代器指向的元素之前插入。插入想要插入的元素前面，比如说push_back是插入到了尾后迭代器的前面。而返回的是新添加的第一个元素的迭代器，同样也可也==不返回==。 这里要注意的是push_front会改变整个容器的迭代器指向，而push_back不会。 访问元素 链表，单向链表，栈，队列都不支持随机访问，也就不支持下标访问了。 删除元素 删除的是迭代器指向的元素，返回的是删除元素的后迭代器也就是被删除的元素下一个元素的前面的迭代器，同样也可以不返回。 这里需要注意的就是删除一个元素之后，必定会改变原容器中迭代器的指向，所以务必小心（除了pop_back） 改变容器大小的操作 特殊的forward_list（单向链表） 由于迭代器的添加删除操作都涉及到了首前和尾后，所以对于单向链表来说这里添加了一个首前迭代器before_begin而对于单向链表的插入而言 是在元素的后面进行插入，删除也是一样，指向都是迭代器指向元素之后的元素。 关联容器 **关联容器里面的pair 关联容器的操作 关联容器的添加操作 一般都是直接用下标操作添加map里面的操作。at操作只能判断存不存在 关联容器的删除操作 关联容器的访问操作 上面关于排序的操作不适用于无序的关联容器。 当允许关键词重复的multimap中查找元素时，一般使用find函数与count函数同时进行。 算法大部分函数算法都放在&lt;algorithm&gt;的头文件里面了。还有一些数值算法是放在了&lt;numeric&gt;的头文件里面。 只读算法 accumulate 求和算法，接受三个参数，前面两个参数是累加范围，第三个是和的初值。equal 判断两个序列里面是否所有的值都相同。后面网上查找 有的再补充。find算法binary_search()二分查找函数find_end()最后一次出现算法find_first_of()第一次出现的算法find_if ()第三个参数就为自定义函数搜索lower_bound()第一个不小于的元素upper_bound()第一个大于的元素count（）算法 计算出现次数count_if（）函数自定义计数 写容器的算法 fill 填充算法 类似于memset函数前者在于可以赋值赋任何值，而后者理论上只能赋值0或者1或者0x3f3f3f3f。fill_n也是三个参数，第一个是开始点，第二个是赋值数目，第三个为赋值初始化。copy 拷贝算法，接收三个迭代器，前面两个表示输入范围，第三个为拷贝目标序列的起点。replace 替换算法，将目标序列里面的某些值更改成某些值，接受四个参数，前面两个是目标序列的范围，第三个是要搜索的值，第四个是要将搜索到的第三个的值更改后的值。remove 去除掉函数里面包括的参数的元素。remove_if 自定义。remove_copy 拷贝结果。swap（）交换两个对象的值。swap_range()交换两个序列的值。 重排容器的算法 其排序的算法中，定义的排序方式就在于自定义函数传入算法中。有三种自定义函数： 普通bool型自定义函数，比较排列顺序。 lambda 匿名小函数。 bind 函数 绑定谓词。灵活的应用自定义函数。 unique 将容器中所有重复的值全部排列到后面去，接受目标序列的迭代器范围，返回指向第一个重复元素的迭代器。sort 排序 本质上运用的是快速排序。stable_sort 本质上运动的是归并排序。stable_partition 前面进行排序后，把自定义排列的分割开来。reverse 倒排函数。reverse_copy 倒排函数。rotate 接受三个参数，前面两个是要往后面排的范围。 迭代器 插入迭代器back_inserter 类似于push_back的迭代器，创建并且使用front_inserter 创建并且使用一个push_front的迭代器inserter 创建一个普通插入的迭代器 流迭代器istream_iterator 输入迭代器 ostream_iterator 输出迭代器 反向迭代器reverse_iterator 移动迭代器后面复习到在总结 移动、拷贝、右值引用。]]></content>
-      <categories>
-        <category>acm</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>数据结构</tag>
-        <tag>STL</tag>
+        <tag>effective C++</tag>
       </tags>
   </entry>
   <entry>
@@ -62,15 +48,29 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款10：令 operator= 返回一个 自身的返回]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator%3D%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E%2F</url>
-    <content type="text"><![CDATA[一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。]]></content>
+    <title><![CDATA[STL的简单总结]]></title>
+    <url>%2F2018%2F12%2F01%2FSTL%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[补一个加快C++输入输出速度的方法： 花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。 字符串 string与字符数组 构造string的方法 操作string的方法 上面的成员函数有的说要返回，同时，有的也存在不返回值。 搜索string的方法 以上就是find函数的一些用法，在泛型算法一章，还会继续涉及到。题目返回的是下标 补充一下关于string中的比较函数一般在string中可以直接用运算符进行比较 int与string之间的转化 getline()的两种写法注意在cin&gt;&gt;t;必须要一个getchar()来吞掉其前面的回车符号。之后才能用getline()。 顺序容器 容器种类 vector&lt;vector&lt;int&gt; &gt;来表示二维数组。 容器基础操作补充一个assign的用法：允许从一个不同但相容的类型里面去赋值，或者从容器的一个子序列赋值。 还有第二个版本：接受一个整型值和一个元素值，用指定数目且具有相同给定元素替换容器中原有的元素： 再补充一个resize的用法： 需要记住有一些类型声明可以直接用auto。 初始化有两种一种直接初始化和拷贝初始化。 顺序容器添加元素上面已经列出了各种形式的插入。插入是在迭代器指向的元素之前插入。插入想要插入的元素前面，比如说push_back是插入到了尾后迭代器的前面。而返回的是新添加的第一个元素的迭代器，同样也可也==不返回==。 这里要注意的是push_front会改变整个容器的迭代器指向，而push_back不会。 访问元素 链表，单向链表，栈，队列都不支持随机访问，也就不支持下标访问了。 删除元素 删除的是迭代器指向的元素，返回的是删除元素的后迭代器也就是被删除的元素下一个元素的前面的迭代器，同样也可以不返回。 这里需要注意的就是删除一个元素之后，必定会改变原容器中迭代器的指向，所以务必小心（除了pop_back） 改变容器大小的操作 特殊的forward_list（单向链表） 由于迭代器的添加删除操作都涉及到了首前和尾后，所以对于单向链表来说这里添加了一个首前迭代器before_begin而对于单向链表的插入而言 是在元素的后面进行插入，删除也是一样，指向都是迭代器指向元素之后的元素。 关联容器 **关联容器里面的pair 关联容器的操作 关联容器的添加操作 一般都是直接用下标操作添加map里面的操作。at操作只能判断存不存在 关联容器的删除操作 关联容器的访问操作 上面关于排序的操作不适用于无序的关联容器。 当允许关键词重复的multimap中查找元素时，一般使用find函数与count函数同时进行。 算法大部分函数算法都放在&lt;algorithm&gt;的头文件里面了。还有一些数值算法是放在了&lt;numeric&gt;的头文件里面。 只读算法 accumulate 求和算法，接受三个参数，前面两个参数是累加范围，第三个是和的初值。equal 判断两个序列里面是否所有的值都相同。后面网上查找 有的再补充。find算法binary_search()二分查找函数find_end()最后一次出现算法find_first_of()第一次出现的算法find_if ()第三个参数就为自定义函数搜索lower_bound()第一个不小于的元素upper_bound()第一个大于的元素count（）算法 计算出现次数count_if（）函数自定义计数 写容器的算法 fill 填充算法 类似于memset函数前者在于可以赋值赋任何值，而后者理论上只能赋值0或者1或者0x3f3f3f3f。fill_n也是三个参数，第一个是开始点，第二个是赋值数目，第三个为赋值初始化。copy 拷贝算法，接收三个迭代器，前面两个表示输入范围，第三个为拷贝目标序列的起点。replace 替换算法，将目标序列里面的某些值更改成某些值，接受四个参数，前面两个是目标序列的范围，第三个是要搜索的值，第四个是要将搜索到的第三个的值更改后的值。remove 去除掉函数里面包括的参数的元素。remove_if 自定义。remove_copy 拷贝结果。swap（）交换两个对象的值。swap_range()交换两个序列的值。 重排容器的算法 其排序的算法中，定义的排序方式就在于自定义函数传入算法中。有三种自定义函数： 普通bool型自定义函数，比较排列顺序。 lambda 匿名小函数。 bind 函数 绑定谓词。灵活的应用自定义函数。 unique 将容器中所有重复的值全部排列到后面去，接受目标序列的迭代器范围，返回指向第一个重复元素的迭代器。sort 排序 本质上运用的是快速排序。stable_sort 本质上运动的是归并排序。stable_partition 前面进行排序后，把自定义排列的分割开来。reverse 倒排函数。reverse_copy 倒排函数。rotate 接受三个参数，前面两个是要往后面排的范围。 迭代器 插入迭代器back_inserter 类似于push_back的迭代器，创建并且使用front_inserter 创建并且使用一个push_front的迭代器inserter 创建一个普通插入的迭代器 流迭代器istream_iterator 输入迭代器 ostream_iterator 输出迭代器 反向迭代器reverse_iterator 移动迭代器后面复习到在总结 移动、拷贝、右值引用。]]></content>
       <categories>
-        <category>effective C++</category>
+        <category>acm</category>
       </categories>
       <tags>
+        <tag>acm</tag>
+        <tag>数据结构</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
+    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
         <tag>c++</tag>
-        <tag>effective C++</tag>
+        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
@@ -100,19 +100,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[关于模拟与搜索的相应简单题目]]></title>
-    <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8E%E6%A8%A1%E6%8B%9F%E4%B8%8E%E6%90%9C%E7%B4%A2%E7%9A%84%E7%9B%B8%E5%BA%94%E7%AE%80%E5%8D%95%E9%A2%98%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[题目 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;cmath&gt;using namespace std;int main()&#123; string w,v; int x,y,m; char ch; while(cin&gt;&gt;w&gt;&gt;v)&#123; string s; int flag=0; reverse(w.begin(),w.end()); reverse(v.begin(),v.end()); if (w.size()&gt;v.size())&#123; m=w.size()-v.size(); for (int i=0;i!=v.size();i++)&#123; x=w[i]-'0'; y=v[i]-'0'; x+=y; if (flag)&#123; flag=0; x++; &#125; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); &#125; int i=v.size(); while (flag==1&amp;&amp;i&lt;=m)&#123; flag=0; x=w[i]-'0'; x++; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); i++; &#125; if (flag&amp;&amp;i==w.size())&#123; s.push_back('1'); &#125; &#125; else &#123; m=v.size()-w.size(); for (int i=0;i!=w.size();i++)&#123; x=w[i]-'0'; y=v[i]-'0'; x+=y; if (flag)&#123; flag=0; x++; &#125; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); &#125; int i=w.size(); while (flag&amp;&amp;i&lt;=m)&#123; flag=0; x=w[i]-'0'; x++; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); i++; &#125; if (flag&amp;&amp;i==v.size())&#123; s.push_back('1'); &#125; &#125; reverse(s.begin(),s.end()); cout&lt;&lt;s&lt;&lt;endl; &#125;&#125; 题解：其实这道题目属于一道相应简单的题目，就是要注意相应string与char之间的区别就行了。另外 int转换char是加上‘0’char转换int是减去‘0’。 一道简单的dfs的题目 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;using namespace std;const int maxn = 105;char h[maxn][maxn];int n,m,cnt=0;void dfs(int i,int j)&#123; if (i&lt;0||i&gt;=n||h[i][j]!='W') return ; if (j&lt;0||j&gt;=m||h[i][j]!='W') return ; if (h[i][j]=='W')&#123; h[i][j]='.'; dfs(i-1,j); dfs(i-1,j-1); dfs(i+1,j); dfs(i+1,j+1); dfs(i,j-1); dfs(i-1,j+1); dfs(i,j+1); dfs(i+1,j-1); &#125;&#125;int main()&#123; int ans=0; while(cin&gt;&gt;n&gt;&gt;m&amp;&amp;(n!=0&amp;&amp;m!=0))&#123; for (int i=0;i!=n;i++) for (int j=0;j!=m;j++)&#123; cin&gt;&gt;h[i][j]; &#125; for (int i=0;i!=n;i++)&#123; for (int j=0;j!=m;j++)&#123; if (h[i][j]=='W')&#123; dfs(i,j); ans++; &#125; &#125; &#125; cout&lt;&lt;ans&lt;&lt;endl; ans=0; &#125; return 0;&#125; 题解简单的dfs搜索出每一种情况，然后让其返回就行了。 一道经典的BFS的题目题目 代码如下:1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071#include&lt;stdio.h&gt;#include&lt;queue&gt;using namespace std;int fxy[4][2]=&#123;&#123;1,0&#125;,&#123;-1,0&#125;,&#123;0,1&#125;,&#123;0,-1&#125;&#125;;//朝着四个方向char dis[101][101];int kp[101][101];//以下的node就作为每一次前进的节点struct node&#123; int x,y,cnt; node(int a=0,int b=0,int c=0)&#123; x=a; y=b; cnt=c; &#125;&#125;;int main()&#123; int m,n,k,g,k1,g1; while(~scanf("%d %d",&amp;m,&amp;n)) &#123; for(int i=0;i&lt;m;i++) &#123; scanf("%s",dis[i]); &#125; // 用队列整合的思想来完成 queue&lt;struct node&gt;q; for(int i=0;i&lt;m;i++) for(int j=0;j&lt;n;j++)&#123; kp[i][j]=-1; &#125; // 两种初始化过程，并且找到起点与终点的所在位置 for(int i=0;i&lt;m;i++) for(int j=0;j&lt;n;j++)&#123; if(dis[i][j]=='S')&#123; k=i; g=j; &#125; if(dis[i][j]=='E')&#123; k1=i; g1=j; &#125; &#125; // 将起点存进去 node a(k,g,0); q.push(a); // 下面就是为bfs的相应搜索 while(!q.empty())&#123; struct node now=q.front(); q.pop(); kp[now.x][now.y]=now.cnt; // 将起点走了多少步数以及起点的坐标点存入到题目中去 for(int i=0;i&lt;4;i++)&#123; node next; next.x=now.x+fxy[i][0]; next.y=now.y+fxy[i][1]; // 判断走的下一步有没有出界，或者使下一步走的不会碰到路障 if(next.x&gt;=0&amp;&amp;next.x&lt;m&amp;&amp;next.y&gt;=0&amp;&amp;next.y&lt;n&amp;&amp;dis[next.x][next.y]!='#'&amp;&amp;kp[next.x][next.y]==-1)&#123; node empt(next.x,next.y,now.cnt+1); q.push(empt); &#125; &#125; &#125; if(kp[k1][g1]==-1) printf("Trapped!\n"); else printf("Escaped in %d minute(s).\n",kp[k1][g1]); &#125; return 0;&#125; 记住上面相应的队列思想。 一道DFS与BFS的综合题==需要多花时间来温习一遍== 题目 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112#include&lt;iostream&gt;#include&lt;queue&gt;#include&lt;algorithm&gt;using namespace std;int n,m,k,cnt = 0;int x_begin,x_end,y_begin,y_end;const int maxn = 1005;int dis[maxn][maxn];char ch[maxn][maxn];class Position&#123;public: int x; int y; int distance; public: Position() = default; Position(int a, int b, int c):x(a),y(b),distance(c)&#123;&#125;; Position move(int i);&#125;;Position Position::move(int i)&#123; Position post = *this; if (i == 0) post.x = this -&gt; x + 1; else if (i == 1) post.x = this -&gt; x - 1; else if (i == 2) post.y = this -&gt; y + 1; else if (i == 3) post.y = this -&gt; y - 1; return post;&#125;void bfs()&#123; queue&lt;Position&gt;q_dis; Position p_begin (x_begin,y_begin,0); q_dis.push(p_begin); while(!q_dis.empty())&#123; Position now = q_dis.front(); q_dis.pop(); dis[now.x][now.y]=now.distance; for(int i = 0; i != 4; i++)&#123; Position next; next = now.move(i); if (next.x &gt;= 0 &amp;&amp; next.x &lt; n &amp;&amp; next.y &gt;= 0 &amp;&amp; next.y &lt; m &amp;&amp; dis[next.x][next.y] == -1 &amp;&amp; ch[next.x][next.y] != '#')&#123; Position empt (next.x,next.y,now.distance + 1); q_dis.push(empt); &#125; &#125; &#125;&#125;void dfs(int x,int y)&#123; if (x &lt; 0 || x &gt;= n || y &lt; 0 || y &gt;= m) return ; if (ch[x][y]=='L') &#123; cnt++; return; &#125; if (dis[x][y] == -1) return; // 前面已经有dis可以表示每一步走的距离，所以只需要一步一步来看，这样的做法便可以完全规避障碍物，单单从路径上面考虑。 if (dis[x][y]==dis[x+1][y]+1) dfs(x+1,y); if (dis[x][y]==dis[x-1][y]+1) dfs(x-1,y); if (dis[x][y]==dis[x][y+1]+1) dfs(x,y+1); if (dis[x][y]==dis[x][y-1]+1) dfs(x,y-1);&#125;int main()&#123; int T,Case = 0; cin&gt;&gt;T; while(T--)&#123; Case++; cin&gt;&gt;n&gt;&gt;m&gt;&gt;k; bool f_begin = false,f_end = false; for (int i = 0; i != n; i++)&#123; for (int j = 0; j != m; j++)&#123; cin &gt;&gt; ch[i][j]; dis[i][j] = -1; &#125; &#125; for (int i = 0; i != n; i++)&#123; for (int j = 0; j != m; j++)&#123; if (f_end &amp;&amp; f_begin) break; if (ch[i][j] == 'L')&#123; x_begin = i; y_begin = j; f_begin = true; &#125; if (ch[i][j] == 'C')&#123; x_end = i; y_end = j; f_end = true; &#125; &#125; &#125; bfs(); if (dis[x_end][y_end] == -1 ||dis[x_end][y_end] &gt; k ) cout &lt;&lt; "Case #"&lt;&lt;Case&lt;&lt;": "&lt;&lt;-1&lt;&lt;endl; else&#123; dfs(x_end,y_end); cout&lt;&lt;"Case #"&lt;&lt;Case&lt;&lt;": "&lt;&lt;dis[x_end][y_end]&lt;&lt;" "&lt;&lt;cnt&lt;&lt;endl; cnt = 0; &#125; &#125; return 0;&#125; 这里注明一下关于==默认实参==的知识点，因为在这个地方可以直接对类的构造函数赋值一个默认实参，可以避免输入默认构造函数了。 下面则是一道DFS的题目，这道题目看上去可以用bfs来做 代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;queue&gt;using namespace std;const int maxn = 100;int road[maxn][maxn];int dp[maxn][maxn];int n, m;int dfs (int i,int j)&#123; if (dp[i][j] != -1) return dp[i][j]; int Max = 0; if (i-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i-1][j]&amp;&amp;Max&lt;dfs(i-1,j)) Max = dfs(i-1,j); if(i+1&lt;n &amp;&amp; road[i][j]&gt;road[i+1][j]&amp;&amp;Max&lt;dfs(i+1,j)) Max=dfs(i+1,j); if(j-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i][j-1]&amp;&amp;Max&lt;dfs(i,j-1)) Max=dfs(i,j-1); if(j+1&lt;m &amp;&amp; road[i][j]&gt;road[i][j+1]&amp;&amp;Max&lt;dfs(i,j+1)) Max=dfs(i,j+1); return dp[i][j]=Max+1;&#125;int main()&#123; while (cin &gt;&gt; n &gt;&gt; m) &#123; for (int i = 0; i != n; i++) &#123; for (int j = 0; j != m; j++) &#123; cin &gt;&gt; road[i][j]; dp[i][j] = -1; &#125; &#125; int MAX = -1; for (int i = 0; i != n; i++) &#123; for (int j = 0; j != m; j++) &#123; MAX = max (dfs(i,j),MAX); &#125; &#125; cout &lt;&lt; MAX &lt;&lt; endl; &#125; return 0;&#125; 题解 此题其实最重要的就在于这个题目不同于其他题目，这个题目找的是最长路径，还不是最短路径，一般来说，BFS找的是最短路径，DFS找的是最短路径的条数。而这里就是利用dfs的返回值（每走一步的最大值，意思就是从各个角度上）记录在dp中，将每一个位置都走到不能走为止，然后存储在dp中，最后找最大值的DP即可。不过自己可以试试遍历的其他方法。]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>模拟与搜索</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[关于STL里面函数简单的应用]]></title>
     <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8%2F</url>
     <content type="text"><![CDATA[代码如下：1234567891011121314151617181920212223#include&lt;iostream&gt;#include&lt;set&gt;using namespace std;int main()&#123; int n,t; cin&gt;&gt;n; set&lt;int&gt;s; s.insert(0); for (int i =0;i!=n;i++)&#123; cin&gt;&gt;t; //这道题目的主要做法是记住几个upper_bound 的STL函数 if(t &lt; *s.rbegin()) &#123; s.erase(*(s.upper_bound(t))); &#125; s.insert(t); &#125; cout &lt;&lt; s.size() - 1; return 0;&#125;]]></content>
@@ -126,15 +113,29 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[贪心算法]]></title>
-    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
+    <title><![CDATA[二分法思想]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%BA%8C%E5%88%86%E6%B3%95%E6%80%9D%E6%83%B3%2F</url>
+    <content type="text"><![CDATA[二分查找实现在单调有序的集合中查找元素，每次江集合分为左右两个部分，并且通过判断集合在哪个部分从而调整集合的上下界，重复知道找到目标元素为止。 举一个简单的例子，我要在1到100里面查找62，先拿62根这个其最中间的一个数进行比较。然后在一步一步的缩小集合的上下界，最后再来一步一步往里面缩 下面是C++STL里面二分查找的函数： binary_search 返回bool值,是否存在lower_bound 返回可插入的最小位置的迭代器 即返回第一个符合条件的元素位置upper_bound 返回可插入的最大位置的迭代器 即返回最后一个符合条件的元素位置 在二分查找里面最典型的题目就是二分逼近求方程式的根了。 代码如下123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;using namespace std;const double pre =1e-4;double x,y;double f(double x)&#123; return 8*pow(x,4)+7*pow(x,3)+2*pow(x,2)+3*x+6-y;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; cin&gt;&gt;y; double x1=0,x2=100;//先把上下界在这里确定好 double mid=(x1+x2)/2; if (f(x1)*f(x2)&gt;0) cout&lt;&lt;"No solution!"&lt;&lt;endl; else &#123; while (x2-x1&gt;=pre)&#123;//这里必须写的是上下界线是多少， 不能写的是用于判断mid的条件。 if (f(x1)*f(mid)&lt;0)&#123; x2=mid; mid=(x1+x2)/2; &#125; else &#123; x1=mid; mid=(x1+x2)/2; &#125; &#125; cout&lt;&lt;fixed&lt;&lt;setprecision(4)&lt;&lt;mid&lt;&lt;endl; &#125; &#125;&#125; 上面就是我第二次出错的地方，判断二分循环逼近的的条件不应该看mid的取值，而是应该看得是区间上界减去区间下界的范围从而来限定。 此处关于三分法的求解：当需要求某凸性或凹形函数的极值，通过函数本身表达式并不容易求解时，就可以用三分法不断逼近求解。 三分法——求解凸性函数的极值问题http://hi.baidu.com/vfxupdpaipbcpuq/item/81b21d1910ea729c99ce33db 经典例题：侵略的奶牛： 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100005;int a[maxn],n,c;//此过程就是在判断奶牛之间的间隔为这个值合不合适bool cc(int d)&#123; int t=a[0],cnt=1; for (int i=1;i!=n;i++)&#123; if (a[i]-t&gt;=d)&#123; cnt++; t=a[i]; if (cnt&gt;=c) return true; &#125; &#125; return false;&#125;//此过程就是在收录每一个值，然后再分别进行判断int solve()&#123; int x=0,y=a[n-1]-a[0]; while (x&lt;=y)&#123; int mid=(x+y)/2; if (cc(mid)) x=mid+1; else y=mid-1; &#125; return x-1;&#125;//不过这种最大值最小值的题目需要多花时间想想。int main()&#123; while (cin&gt;&gt;n&gt;&gt;c)&#123; for (int i=0;i!=n;i++) cin&gt;&gt;a[i]; sort(a,a+n); cout&lt;&lt;solve()&lt;&lt;endl; &#125;&#125; ==下面则是其他地方关于二分的题目==基础版 POJ 3122 Pie 二分枚举区间是实数POJ 1064 Cable master 二分枚举区间是实数,注意精度POJ 3258 River Hopscotch 最大化最小值POJ 3273 Monthly Expense 最小化最大值LIGHTOJ 1076 Get the Containers 最小化最大值，。和上一个差不多LIGHTOJ 1307 Counting Triangles 进阶版 POJ 3579 二分搜索+二分查找POJ 3685 二分搜索+二分查找ZOJ 3278 也是两个二分嵌套LIGHTOJ 1048和LightOJ 1076一样，不过要输出一组解LIGHTOJ 1383 二分加贪心（区间）ZOJ 3665 某年区域赛题。，二分枚举ZOJ 3726 去年区域赛题，二分查找codeforces 382B 有意思的题codeforces 391D2 难，。。，，、 ==下面就是关于三分的题目== poj3301hdu4454hdu3714hdu2438]]></content>
+      <categories>
+        <category>acm</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[关于模拟与搜索的相应简单题目]]></title>
+    <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8E%E6%A8%A1%E6%8B%9F%E4%B8%8E%E6%90%9C%E7%B4%A2%E7%9A%84%E7%9B%B8%E5%BA%94%E7%AE%80%E5%8D%95%E9%A2%98%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[题目 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;cmath&gt;using namespace std;int main()&#123; string w,v; int x,y,m; char ch; while(cin&gt;&gt;w&gt;&gt;v)&#123; string s; int flag=0; reverse(w.begin(),w.end()); reverse(v.begin(),v.end()); if (w.size()&gt;v.size())&#123; m=w.size()-v.size(); for (int i=0;i!=v.size();i++)&#123; x=w[i]-'0'; y=v[i]-'0'; x+=y; if (flag)&#123; flag=0; x++; &#125; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); &#125; int i=v.size(); while (flag==1&amp;&amp;i&lt;=m)&#123; flag=0; x=w[i]-'0'; x++; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); i++; &#125; if (flag&amp;&amp;i==w.size())&#123; s.push_back('1'); &#125; &#125; else &#123; m=v.size()-w.size(); for (int i=0;i!=w.size();i++)&#123; x=w[i]-'0'; y=v[i]-'0'; x+=y; if (flag)&#123; flag=0; x++; &#125; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); &#125; int i=w.size(); while (flag&amp;&amp;i&lt;=m)&#123; flag=0; x=w[i]-'0'; x++; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); i++; &#125; if (flag&amp;&amp;i==v.size())&#123; s.push_back('1'); &#125; &#125; reverse(s.begin(),s.end()); cout&lt;&lt;s&lt;&lt;endl; &#125;&#125; 题解：其实这道题目属于一道相应简单的题目，就是要注意相应string与char之间的区别就行了。另外 int转换char是加上‘0’char转换int是减去‘0’。 一道简单的dfs的题目 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;using namespace std;const int maxn = 105;char h[maxn][maxn];int n,m,cnt=0;void dfs(int i,int j)&#123; if (i&lt;0||i&gt;=n||h[i][j]!='W') return ; if (j&lt;0||j&gt;=m||h[i][j]!='W') return ; if (h[i][j]=='W')&#123; h[i][j]='.'; dfs(i-1,j); dfs(i-1,j-1); dfs(i+1,j); dfs(i+1,j+1); dfs(i,j-1); dfs(i-1,j+1); dfs(i,j+1); dfs(i+1,j-1); &#125;&#125;int main()&#123; int ans=0; while(cin&gt;&gt;n&gt;&gt;m&amp;&amp;(n!=0&amp;&amp;m!=0))&#123; for (int i=0;i!=n;i++) for (int j=0;j!=m;j++)&#123; cin&gt;&gt;h[i][j]; &#125; for (int i=0;i!=n;i++)&#123; for (int j=0;j!=m;j++)&#123; if (h[i][j]=='W')&#123; dfs(i,j); ans++; &#125; &#125; &#125; cout&lt;&lt;ans&lt;&lt;endl; ans=0; &#125; return 0;&#125; 题解简单的dfs搜索出每一种情况，然后让其返回就行了。 一道经典的BFS的题目题目 代码如下:1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071#include&lt;stdio.h&gt;#include&lt;queue&gt;using namespace std;int fxy[4][2]=&#123;&#123;1,0&#125;,&#123;-1,0&#125;,&#123;0,1&#125;,&#123;0,-1&#125;&#125;;//朝着四个方向char dis[101][101];int kp[101][101];//以下的node就作为每一次前进的节点struct node&#123; int x,y,cnt; node(int a=0,int b=0,int c=0)&#123; x=a; y=b; cnt=c; &#125;&#125;;int main()&#123; int m,n,k,g,k1,g1; while(~scanf("%d %d",&amp;m,&amp;n)) &#123; for(int i=0;i&lt;m;i++) &#123; scanf("%s",dis[i]); &#125; // 用队列整合的思想来完成 queue&lt;struct node&gt;q; for(int i=0;i&lt;m;i++) for(int j=0;j&lt;n;j++)&#123; kp[i][j]=-1; &#125; // 两种初始化过程，并且找到起点与终点的所在位置 for(int i=0;i&lt;m;i++) for(int j=0;j&lt;n;j++)&#123; if(dis[i][j]=='S')&#123; k=i; g=j; &#125; if(dis[i][j]=='E')&#123; k1=i; g1=j; &#125; &#125; // 将起点存进去 node a(k,g,0); q.push(a); // 下面就是为bfs的相应搜索 while(!q.empty())&#123; struct node now=q.front(); q.pop(); kp[now.x][now.y]=now.cnt; // 将起点走了多少步数以及起点的坐标点存入到题目中去 for(int i=0;i&lt;4;i++)&#123; node next; next.x=now.x+fxy[i][0]; next.y=now.y+fxy[i][1]; // 判断走的下一步有没有出界，或者使下一步走的不会碰到路障 if(next.x&gt;=0&amp;&amp;next.x&lt;m&amp;&amp;next.y&gt;=0&amp;&amp;next.y&lt;n&amp;&amp;dis[next.x][next.y]!='#'&amp;&amp;kp[next.x][next.y]==-1)&#123; node empt(next.x,next.y,now.cnt+1); q.push(empt); &#125; &#125; &#125; if(kp[k1][g1]==-1) printf("Trapped!\n"); else printf("Escaped in %d minute(s).\n",kp[k1][g1]); &#125; return 0;&#125; 记住上面相应的队列思想。 一道DFS与BFS的综合题==需要多花时间来温习一遍== 题目 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112#include&lt;iostream&gt;#include&lt;queue&gt;#include&lt;algorithm&gt;using namespace std;int n,m,k,cnt = 0;int x_begin,x_end,y_begin,y_end;const int maxn = 1005;int dis[maxn][maxn];char ch[maxn][maxn];class Position&#123;public: int x; int y; int distance; public: Position() = default; Position(int a, int b, int c):x(a),y(b),distance(c)&#123;&#125;; Position move(int i);&#125;;Position Position::move(int i)&#123; Position post = *this; if (i == 0) post.x = this -&gt; x + 1; else if (i == 1) post.x = this -&gt; x - 1; else if (i == 2) post.y = this -&gt; y + 1; else if (i == 3) post.y = this -&gt; y - 1; return post;&#125;void bfs()&#123; queue&lt;Position&gt;q_dis; Position p_begin (x_begin,y_begin,0); q_dis.push(p_begin); while(!q_dis.empty())&#123; Position now = q_dis.front(); q_dis.pop(); dis[now.x][now.y]=now.distance; for(int i = 0; i != 4; i++)&#123; Position next; next = now.move(i); if (next.x &gt;= 0 &amp;&amp; next.x &lt; n &amp;&amp; next.y &gt;= 0 &amp;&amp; next.y &lt; m &amp;&amp; dis[next.x][next.y] == -1 &amp;&amp; ch[next.x][next.y] != '#')&#123; Position empt (next.x,next.y,now.distance + 1); q_dis.push(empt); &#125; &#125; &#125;&#125;void dfs(int x,int y)&#123; if (x &lt; 0 || x &gt;= n || y &lt; 0 || y &gt;= m) return ; if (ch[x][y]=='L') &#123; cnt++; return; &#125; if (dis[x][y] == -1) return; // 前面已经有dis可以表示每一步走的距离，所以只需要一步一步来看，这样的做法便可以完全规避障碍物，单单从路径上面考虑。 if (dis[x][y]==dis[x+1][y]+1) dfs(x+1,y); if (dis[x][y]==dis[x-1][y]+1) dfs(x-1,y); if (dis[x][y]==dis[x][y+1]+1) dfs(x,y+1); if (dis[x][y]==dis[x][y-1]+1) dfs(x,y-1);&#125;int main()&#123; int T,Case = 0; cin&gt;&gt;T; while(T--)&#123; Case++; cin&gt;&gt;n&gt;&gt;m&gt;&gt;k; bool f_begin = false,f_end = false; for (int i = 0; i != n; i++)&#123; for (int j = 0; j != m; j++)&#123; cin &gt;&gt; ch[i][j]; dis[i][j] = -1; &#125; &#125; for (int i = 0; i != n; i++)&#123; for (int j = 0; j != m; j++)&#123; if (f_end &amp;&amp; f_begin) break; if (ch[i][j] == 'L')&#123; x_begin = i; y_begin = j; f_begin = true; &#125; if (ch[i][j] == 'C')&#123; x_end = i; y_end = j; f_end = true; &#125; &#125; &#125; bfs(); if (dis[x_end][y_end] == -1 ||dis[x_end][y_end] &gt; k ) cout &lt;&lt; "Case #"&lt;&lt;Case&lt;&lt;": "&lt;&lt;-1&lt;&lt;endl; else&#123; dfs(x_end,y_end); cout&lt;&lt;"Case #"&lt;&lt;Case&lt;&lt;": "&lt;&lt;dis[x_end][y_end]&lt;&lt;" "&lt;&lt;cnt&lt;&lt;endl; cnt = 0; &#125; &#125; return 0;&#125; 这里注明一下关于==默认实参==的知识点，因为在这个地方可以直接对类的构造函数赋值一个默认实参，可以避免输入默认构造函数了。 下面则是一道DFS的题目，这道题目看上去可以用bfs来做 代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;queue&gt;using namespace std;const int maxn = 100;int road[maxn][maxn];int dp[maxn][maxn];int n, m;int dfs (int i,int j)&#123; if (dp[i][j] != -1) return dp[i][j]; int Max = 0; if (i-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i-1][j]&amp;&amp;Max&lt;dfs(i-1,j)) Max = dfs(i-1,j); if(i+1&lt;n &amp;&amp; road[i][j]&gt;road[i+1][j]&amp;&amp;Max&lt;dfs(i+1,j)) Max=dfs(i+1,j); if(j-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i][j-1]&amp;&amp;Max&lt;dfs(i,j-1)) Max=dfs(i,j-1); if(j+1&lt;m &amp;&amp; road[i][j]&gt;road[i][j+1]&amp;&amp;Max&lt;dfs(i,j+1)) Max=dfs(i,j+1); return dp[i][j]=Max+1;&#125;int main()&#123; while (cin &gt;&gt; n &gt;&gt; m) &#123; for (int i = 0; i != n; i++) &#123; for (int j = 0; j != m; j++) &#123; cin &gt;&gt; road[i][j]; dp[i][j] = -1; &#125; &#125; int MAX = -1; for (int i = 0; i != n; i++) &#123; for (int j = 0; j != m; j++) &#123; MAX = max (dfs(i,j),MAX); &#125; &#125; cout &lt;&lt; MAX &lt;&lt; endl; &#125; return 0;&#125; 题解 此题其实最重要的就在于这个题目不同于其他题目，这个题目找的是最长路径，还不是最短路径，一般来说，BFS找的是最短路径，DFS找的是最短路径的条数。而这里就是利用dfs的返回值（每走一步的最大值，意思就是从各个角度上）记录在dp中，将每一个位置都走到不能走为止，然后存储在dp中，最后找最大值的DP即可。不过自己可以试试遍历的其他方法。]]></content>
       <categories>
         <category>题解</category>
       </categories>
       <tags>
         <tag>acm</tag>
-        <tag>贪心</tag>
+        <tag>c++</tag>
+        <tag>模拟与搜索</tag>
       </tags>
   </entry>
   <entry>
@@ -151,19 +152,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
-    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[数论基础第一节]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E8%8A%82%2F</url>
     <content type="text"><![CDATA[初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。 整除问题引申到同余问题 同余的性质 可以换算成以下式子：a=c(modb) 这里c为余数，而b为除数 同余的性质 自反性 a=a mod m 对称性 a=b mod m 等价于 b=a mod m 传递性 a=b mod m 与 b=c mod m 等价于 a=c mod m 线性合成 a=b mod m 与 c= mod m 等价于 a±c=b±d mod m 与 ac= bd mod m 消去公因子 ac=bc mod m &amp;&amp; gcd(c,m)=1 等价于 a=b mod m 素数筛 朴素筛 一般就是循环2~√n次 埃拉托斯特尼筛 循环次数 欧拉筛 相应代码如下：12 最大公约数以及最小公倍数 最大公约数 函数_gcd(a,b)而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c) 最小公倍数_lcm(a,b)=ab/_gcd(a,b) 扩展欧几里得 关于求解线性同余方程 关于求逆元 关于快速幂 费马小定理 另外 欧拉函数 欧拉函数定义 欧拉函数性质 求值公式 上述公式 可以用来： 求逆元 欧拉降幂公式 数论函数 中国剩余定理 解法]]></content>
@@ -177,9 +165,21 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款02：尽量以const,enum,inline 替换掉#define]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const%2Cenum%2Cinline%20%E6%9B%BF%E6%8D%A2%E6%8E%89%23define%2F</url>
-    <content type="text"><![CDATA[这个条款其实也就相当于宁可编译器替换预处理器比较好 1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间 时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。 还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量]]></content>
+    <title><![CDATA[数据结构相应总结]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%BA%94%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[栈 栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。 两种方法表示这种栈的实现 第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。 第二种就是直接用C++里面STL模板首先先定义一个stack&lt;int&gt; s 然后以下就是其的操作。 注意其不能使用push_back只能使用push 1234s.pop() 删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。s.push() 创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。s.top() 返回栈顶的元素，也就是刚刚进来的元素。s.bottom() 返回栈底的元素，也就是最后一个元素 队列适配器队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者自己定义一种排序方式，然后通过这种排序方式，再来出队操作。 与上面一样，先定义一个queue&lt;int&gt; q与priority_queue&lt;int&gt; q。 1234567q.pop() 按照先进先出的思想，删除首元素或者优先级最高的元素q.front() 返回首元素。q.back() 返回尾元素。以上两个是只适用于队列。q.top() 返回优先队列中优先级最高的元素。q.push()q.emplace() 加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。 这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造 123456789下面两种优先队列的定义是等价的priority_queue&lt;int&gt; q;priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格默认都是从小到大排序接受三个参数，第一个参数为数据类型，第二个参数为承载容器的类型，第三个就是自定义的比较函数了。可以使lamda匿名函数，也可以是function头文件里面的函数模板。 链表特点：自定义，不连续的。同时链表也是后面相应树形结构的基础实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了 动态数组这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。 树与二叉树一般的树 以上就是一般树的形态。下面则是关于树的基本用语。关于上面重要的概念就是结点和结点的度了。 二叉树二叉树的定义: 二叉树有五种基本形态： 二叉树的性质:上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。 满二叉树与完全二叉树前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。 #####二叉树的存储结构： 数组存储： 二叉链式存储（原理类似链表）：将链表内部的*next，变成了指向两边的子节点的指针。 三叉链式存储：比二叉链式结构多了一个回指向父节点的指针。 遍历二叉树的方法 先序遍历（根-&gt;左-&gt;右）： 代码: 12345678void PreOrderTraverse(BiTree *T)&#123; if(T != NULL)&#123; printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 图示： 最终结果就是==ABDGHCEIF==。 中序遍历（左-&gt;根-&gt;右)： 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void InOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 最终结果为==GDHBAEICF==。 后序遍历（左-&gt;右-&gt;根） 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void PostOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); printf("%c", T-&gt;data); &#125;&#125; 最终结果为==GHDBIEFCA==。 关于二叉树的建立代码：代码我等下自己写出来。 图图的定义 图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。 图的专业术语： 图-生成树 邻接矩阵的表示方法（数组）不带权值的表示方法 一般就是用二维数组来表示每一个结点之间的关系 关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。]]></content>
+      <categories>
+        <category>acm</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款01：视 C++ 为一个语言联邦]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE01%EF%BC%9A%E8%A7%86%20C%2B%2B%20%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AF%AD%E8%A8%80%E8%81%94%E9%82%A6%2F</url>
+    <content type="text"><![CDATA[现在发展的C++已经是一个多重泛型编程语言。 一个同时支持过程形式、支持面向对象形式、函数形式、泛型形式、元编程形式的语言，这些能力和弹性使 C++成为了一个无可匹敌的工具。对待其的方式最简单的方法是将其看做是一个由相关语言组成的一个联邦而不是某个次语言。 C 说到底 C++ 仍然是 C 的一个延伸，面对过程的编程思想仍然在某些时候很受用，而某些时刻 C++ 的解法只不过就是比 C 高级了一点点，但是当你以 C++的内 C 成分的工作的时候，高效编程则映照出了 C 语言的局限，没有模板，没有异常，没有重载。 Object-Oriented C++ 这部分也就是 C++ 中面对对象编程思想的直接体现，简单来说就是 C with class 比如 类，封装，继承，多态，虚函数的动态绑定。 Template C++ 这是 C++中的泛型编程部分，template 的相关考虑与设计已经弥漫了整个 C++ 而这种编程思想的强大，直接带来了全新的名字 模板元编程，后面得花上大部分时间去专研这个。 STL 基本上包括 容器，迭代器，算法以及相应的函数对象，一般竞赛可能会直接用到里面的相关容器以及相关算法，熟练使用 STL 也是一名 C++ 程序员应该必备的素质。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -189,9 +189,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款01：视 C++ 为一个语言联邦]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE01%EF%BC%9A%E8%A7%86%20C%2B%2B%20%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AF%AD%E8%A8%80%E8%81%94%E9%82%A6%2F</url>
-    <content type="text"><![CDATA[现在发展的C++已经是一个多重泛型编程语言。 一个同时支持过程形式、支持面向对象形式、函数形式、泛型形式、元编程形式的语言，这些能力和弹性使 C++成为了一个无可匹敌的工具。对待其的方式最简单的方法是将其看做是一个由相关语言组成的一个联邦而不是某个次语言。 C 说到底 C++ 仍然是 C 的一个延伸，面对过程的编程思想仍然在某些时候很受用，而某些时刻 C++ 的解法只不过就是比 C 高级了一点点，但是当你以 C++的内 C 成分的工作的时候，高效编程则映照出了 C 语言的局限，没有模板，没有异常，没有重载。 Object-Oriented C++ 这部分也就是 C++ 中面对对象编程思想的直接体现，简单来说就是 C with class 比如 类，封装，继承，多态，虚函数的动态绑定。 Template C++ 这是 C++中的泛型编程部分，template 的相关考虑与设计已经弥漫了整个 C++ 而这种编程思想的强大，直接带来了全新的名字 模板元编程，后面得花上大部分时间去专研这个。 STL 基本上包括 容器，迭代器，算法以及相应的函数对象，一般竞赛可能会直接用到里面的相关容器以及相关算法，熟练使用 STL 也是一名 C++ 程序员应该必备的素质。]]></content>
+    <title><![CDATA[条款02：尽量以const,enum,inline 替换掉#define]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const%2Cenum%2Cinline%20%E6%9B%BF%E6%8D%A2%E6%8E%89%23define%2F</url>
+    <content type="text"><![CDATA[这个条款其实也就相当于宁可编译器替换预处理器比较好 1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间 时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。 还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -237,9 +237,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款06：若不想使用编译器自动生成的函数，就应该明确拒绝]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D%2F</url>
-    <content type="text"><![CDATA[有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。 把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。 继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。 C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。]]></content>
+    <title><![CDATA[条款07：为多态基类声明 virtual 析构函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8E%20virtual%20%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。 C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类的析构函数上面加上虚函数的声明。 不要随便继承标准库里面的东西，因为里面大部分东西都不存在虚函数的析构函数，这样一来，如果使用动态绑定的话，那么在销毁对象的过程中就没有办法全部销毁了。 而且不一定是基类的析构函数设置成虚函数，只要类里面有一个函数是虚函数的话，那么就需要将析构函数定义成虚函数。 类的用途不是作为多态的用途的话，那么请不要将析构函数声明成虚函数，因为那样没有作用。 对于一个纯虚函数而言，这个类就是一个抽象类，但是由于存在一个析构函数，所以一般要为这个纯虚函数提供定义，其的运作方式是最深层派生的那个类的析构函数最先被调用，然后就是每一个基类的析构函数被调用，所以编译器会在派生类的析构函数中定一个对基类纯虚析构函数的调用动作，因此，一般都得进行调用。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -249,9 +249,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款07：为多态基类声明 virtual 析构函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8E%20virtual%20%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。 C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类的析构函数上面加上虚函数的声明。 不要随便继承标准库里面的东西，因为里面大部分东西都不存在虚函数的析构函数，这样一来，如果使用动态绑定的话，那么在销毁对象的过程中就没有办法全部销毁了。 而且不一定是基类的析构函数设置成虚函数，只要类里面有一个函数是虚函数的话，那么就需要将析构函数定义成虚函数。 类的用途不是作为多态的用途的话，那么请不要将析构函数声明成虚函数，因为那样没有作用。 对于一个纯虚函数而言，这个类就是一个抽象类，但是由于存在一个析构函数，所以一般要为这个纯虚函数提供定义，其的运作方式是最深层派生的那个类的析构函数最先被调用，然后就是每一个基类的析构函数被调用，所以编译器会在派生类的析构函数中定一个对基类纯虚析构函数的调用动作，因此，一般都得进行调用。]]></content>
+    <title><![CDATA[条款06：若不想使用编译器自动生成的函数，就应该明确拒绝]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D%2F</url>
+    <content type="text"><![CDATA[有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。 把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。 继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。 C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -285,15 +285,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数据结构相应总结]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%BA%94%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[栈 栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。 两种方法表示这种栈的实现 第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。 第二种就是直接用C++里面STL模板首先先定义一个stack&lt;int&gt; s 然后以下就是其的操作。 注意其不能使用push_back只能使用push 1234s.pop() 删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。s.push() 创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。s.top() 返回栈顶的元素，也就是刚刚进来的元素。s.bottom() 返回栈底的元素，也就是最后一个元素 队列适配器队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者自己定义一种排序方式，然后通过这种排序方式，再来出队操作。 与上面一样，先定义一个queue&lt;int&gt; q与priority_queue&lt;int&gt; q。 1234567q.pop() 按照先进先出的思想，删除首元素或者优先级最高的元素q.front() 返回首元素。q.back() 返回尾元素。以上两个是只适用于队列。q.top() 返回优先队列中优先级最高的元素。q.push()q.emplace() 加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。 这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造 123456789下面两种优先队列的定义是等价的priority_queue&lt;int&gt; q;priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格默认都是从小到大排序接受三个参数，第一个参数为数据类型，第二个参数为承载容器的类型，第三个就是自定义的比较函数了。可以使lamda匿名函数，也可以是function头文件里面的函数模板。 链表特点：自定义，不连续的。同时链表也是后面相应树形结构的基础实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了 动态数组这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。 树与二叉树一般的树 以上就是一般树的形态。下面则是关于树的基本用语。关于上面重要的概念就是结点和结点的度了。 二叉树二叉树的定义: 二叉树有五种基本形态： 二叉树的性质:上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。 满二叉树与完全二叉树前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。 #####二叉树的存储结构： 数组存储： 二叉链式存储（原理类似链表）：将链表内部的*next，变成了指向两边的子节点的指针。 三叉链式存储：比二叉链式结构多了一个回指向父节点的指针。 遍历二叉树的方法 先序遍历（根-&gt;左-&gt;右）： 代码: 12345678void PreOrderTraverse(BiTree *T)&#123; if(T != NULL)&#123; printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 图示： 最终结果就是==ABDGHCEIF==。 中序遍历（左-&gt;根-&gt;右)： 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void InOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 最终结果为==GDHBAEICF==。 后序遍历（左-&gt;右-&gt;根） 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void PostOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); printf("%c", T-&gt;data); &#125;&#125; 最终结果为==GHDBIEFCA==。 关于二叉树的建立代码：代码我等下自己写出来。 图图的定义 图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。 图的专业术语： 图-生成树 邻接矩阵的表示方法（数组）不带权值的表示方法 一般就是用二维数组来表示每一个结点之间的关系 关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。]]></content>
+    <title><![CDATA[贪心算法]]></title>
+    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
       <categories>
-        <category>acm</category>
+        <category>题解</category>
       </categories>
       <tags>
         <tag>acm</tag>
-        <tag>数据结构</tag>
+        <tag>贪心</tag>
       </tags>
   </entry>
   <entry>
@@ -309,9 +309,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款11：在 operator 中处理自我赋值的情况]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator%E4%B8%AD%E5%A4%84%E7%90%86%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E7%9A%84%E6%83%85%E5%86%B5%2F</url>
-    <content type="text"><![CDATA[本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。 同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。 就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。 还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。 或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。]]></content>
+    <title><![CDATA[条款10：令 operator= 返回一个 自身的返回]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator%3D%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E%2F</url>
+    <content type="text"><![CDATA[一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -345,9 +345,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款15：在资源管理类中提供对原始资源的访问]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%2F</url>
-    <content type="text"><![CDATA[一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是 在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。 另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。 上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。]]></content>
+    <title><![CDATA[条款16：成对使用new和delete时需要采取相同的形式]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E9%9C%80%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E7%9A%84%E5%BD%A2%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话： new 一个数组，那么一定要 delete 一个数组 智能指针默认没有 delete 数组，所以需要自定义删除器。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -357,9 +357,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款16：成对使用new和delete时需要采取相同的形式]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E9%9C%80%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E7%9A%84%E5%BD%A2%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话： new 一个数组，那么一定要 delete 一个数组 智能指针默认没有 delete 数组，所以需要自定义删除器。]]></content>
+    <title><![CDATA[条款15：在资源管理类中提供对原始资源的访问]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%2F</url>
+    <content type="text"><![CDATA[一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是 在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。 另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。 上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -381,18 +381,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款19：设计 class 犹如设计 type]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE19%EF%BC%9A%E8%AE%BE%E8%AE%A1%20class%20%E7%8A%B9%E5%A6%82%E8%AE%BE%E8%AE%A1%20type%2F</url>
-    <content type="text"><![CDATA[一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。 新 type 对象应该如何创建和销毁 关系到类的构造函数与析构函数如何建立 对象的初始化和对象的赋值之间的差别 主要是为了区分构造函数与赋值运算符之间的区别 该类参数传递中有传值也有传引用 传引用与传值之间的区别，以及如何实现，以及究竟何时会去调用这一类的函数。 新 type 的和法制 构造这个类的时候一些合法值，要不要对应自己的私有数据成员，或者是类型转换，通常其都会影响构造函数、赋值操作，以及 setter 函数，甚至还会影响到函数抛出的异常。 是否需要配合某一个继承体系 需要记住的是继承体系的构成一定要满足的是 is - a 的条件，另外虚函数与非虚函数之间的影响，并且还要考虑的时候 是否应该把自己的析构函数也设计成虚函数。 是否需要类型转换 类型转换一般会分为显式转换和隐式转换，实现方式一般有直接在其中一个函数内些类型转换的重载运算符函数，和没有声明 explicit 的单一参数的构造函数。 重载的操作符以及其他相应的函数，是否合理 这里看重载的函数是否符合逻辑条件，不仅仅是代码之间的严禁性质，还需要考虑的就是生活层面的实用性。 哪些成员应该封装？ 这里就设计到哪些成员应该设置成私有，而哪一些函数应该设置成公有函数，并且一些不想编译器生成的函数应该定义成删除。 类型的未声明接口 它对效率、异常安全性以及资源运用提供什么样保证，以及为类的实现代码应该提供什么的约束条件。 是否应该定义成模板 这里就看类的一般性究竟有多大，是否具有普遍价值。 考虑是否会继承与其他的类 有的时候考虑过后，也许这个类就不需要凭空创造出，仅仅只是需要从其他类上面派生出来即可。]]></content>
-      <categories>
-        <category>effective C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[条款18：让接口容易被正确使用，不易被误用]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE18%EF%BC%9A%E8%AE%A9%E6%8E%A5%E5%8F%A3%E5%AE%B9%E6%98%93%E8%A2%AB%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%B8%8D%E6%98%93%E8%A2%AB%E8%AF%AF%E7%94%A8%2F</url>
     <content type="text"><![CDATA[注意类的隐式转换，并且智能指针与内置指针的区别，以及以对象管理的思想来管理资源。 好的接口很容易被正确使用，不容易被误用，应该在接口里面努力达成这些性质。 促进正确使用的办法 包括接口的一致性，与其内置类型的行为一致。 阻止误用的办法包括建立新类型，限制类型上面的操作，以及束缚对象值，以及消除客户的资源管理责任 智能指针支持定制删除器，这样可以防范动态链接程序库的问题]]></content>
@@ -405,9 +393,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款20：宁以传 const 引用也不要传值]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE20%EF%BC%9A%E5%AE%81%E4%BB%A5%E4%BC%A0%20const%20%E5%BC%95%E7%94%A8%E4%B9%9F%E4%B8%8D%E8%A6%81%E4%BC%A0%E5%80%BC%2F</url>
-    <content type="text"><![CDATA[这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。 传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了 以上规则不适合某些特殊规则，比如内置类型以及 STL 的迭代器，对它们而言 ，传值往往是最恰当的。]]></content>
+    <title><![CDATA[条款19：设计 class 犹如设计 type]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE19%EF%BC%9A%E8%AE%BE%E8%AE%A1%20class%20%E7%8A%B9%E5%A6%82%E8%AE%BE%E8%AE%A1%20type%2F</url>
+    <content type="text"><![CDATA[一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。 新 type 对象应该如何创建和销毁 关系到类的构造函数与析构函数如何建立 对象的初始化和对象的赋值之间的差别 主要是为了区分构造函数与赋值运算符之间的区别 该类参数传递中有传值也有传引用 传引用与传值之间的区别，以及如何实现，以及究竟何时会去调用这一类的函数。 新 type 的和法制 构造这个类的时候一些合法值，要不要对应自己的私有数据成员，或者是类型转换，通常其都会影响构造函数、赋值操作，以及 setter 函数，甚至还会影响到函数抛出的异常。 是否需要配合某一个继承体系 需要记住的是继承体系的构成一定要满足的是 is - a 的条件，另外虚函数与非虚函数之间的影响，并且还要考虑的时候 是否应该把自己的析构函数也设计成虚函数。 是否需要类型转换 类型转换一般会分为显式转换和隐式转换，实现方式一般有直接在其中一个函数内些类型转换的重载运算符函数，和没有声明 explicit 的单一参数的构造函数。 重载的操作符以及其他相应的函数，是否合理 这里看重载的函数是否符合逻辑条件，不仅仅是代码之间的严禁性质，还需要考虑的就是生活层面的实用性。 哪些成员应该封装？ 这里就设计到哪些成员应该设置成私有，而哪一些函数应该设置成公有函数，并且一些不想编译器生成的函数应该定义成删除。 类型的未声明接口 它对效率、异常安全性以及资源运用提供什么样保证，以及为类的实现代码应该提供什么的约束条件。 是否应该定义成模板 这里就看类的一般性究竟有多大，是否具有普遍价值。 考虑是否会继承与其他的类 有的时候考虑过后，也许这个类就不需要凭空创造出，仅仅只是需要从其他类上面派生出来即可。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -417,9 +405,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款21：必须返回对象的时候，不要妄想返回其的引用]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE21%EF%BC%9A%E5%BF%85%E9%A1%BB%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%B8%8D%E8%A6%81%E5%A6%84%E6%83%B3%E8%BF%94%E5%9B%9E%E5%85%B6%E7%9A%84%E5%BC%95%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[该条款一般适用于某些特殊情况下必须返回值的情况 关于这个条款只需要注意一点，绝不要返回 pointer 或 reference 或者返回引用指向一个全局变量，或者返回指针引用指向一个静态成员，但是同时又需要多个这样的静态成员。在条款4中已经提供了一份设计实例。]]></content>
+    <title><![CDATA[条款20：宁以传 const 引用也不要传值]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE20%EF%BC%9A%E5%AE%81%E4%BB%A5%E4%BC%A0%20const%20%E5%BC%95%E7%94%A8%E4%B9%9F%E4%B8%8D%E8%A6%81%E4%BC%A0%E5%80%BC%2F</url>
+    <content type="text"><![CDATA[这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。 传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了 以上规则不适合某些特殊规则，比如内置类型以及 STL 的迭代器，对它们而言 ，传值往往是最恰当的。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -456,6 +444,18 @@
     <title><![CDATA[条款24：若所有参数需要类型转换的时候，请设置非成员函数]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE24%EF%BC%9A%E8%8B%A5%E6%89%80%E6%9C%89%E5%8F%82%E6%95%B0%E9%9C%80%E8%A6%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E8%AF%B7%E8%AE%BE%E7%BD%AE%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[该条款就是需要注意一点 如果需要为某个函数的所有参数，包括this 指针所指的隐喻参数，进行类型转换的时候，那么这个函数就必须是非成员函数]]></content>
+      <categories>
+        <category>effective C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款21：必须返回对象的时候，不要妄想返回其的引用]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE21%EF%BC%9A%E5%BF%85%E9%A1%BB%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%B8%8D%E8%A6%81%E5%A6%84%E6%83%B3%E8%BF%94%E5%9B%9E%E5%85%B6%E7%9A%84%E5%BC%95%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[该条款一般适用于某些特殊情况下必须返回值的情况 关于这个条款只需要注意一点，绝不要返回 pointer 或 reference 或者返回引用指向一个全局变量，或者返回指针引用指向一个静态成员，但是同时又需要多个这样的静态成员。在条款4中已经提供了一份设计实例。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
