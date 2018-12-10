@@ -2147,7 +2147,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -2166,7 +2166,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/" itemprop="url">条款17：以独立语句将new过得对象放入智能指针中</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="url">条款16：成对使用new和delete时需要采取相同的形式</a></h1>
         
 
         <div class="post-meta">
@@ -2245,7 +2245,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  122
+                  72
                 </span>
               
 
@@ -2284,16 +2284,20 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
       
         
           
-          编译器的编译次序是说不定的，就想下图的
+          其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话：
 
-上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示：
+new 一个数组，那么一定要 delete 一个数组
 
-先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。
-上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句
+智能指针默认没有 delete 数组，所以需要自定义删除器。
+
+
+
+
+
           
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>

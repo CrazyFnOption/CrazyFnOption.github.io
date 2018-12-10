@@ -357,9 +357,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款17：以独立语句将new过得对象放入智能指针中]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-new-%E8%BF%87%E5%BE%97%E5%AF%B9%E8%B1%A1%E6%94%BE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%B8%AD%2F</url>
-    <content type="text"><![CDATA[编译器的编译次序是说不定的，就想下图的 上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示： 先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。 上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句]]></content>
+    <title><![CDATA[条款16：成对使用new和delete时需要采取相同的形式]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E9%9C%80%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E7%9A%84%E5%BD%A2%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话： new 一个数组，那么一定要 delete 一个数组 智能指针默认没有 delete 数组，所以需要自定义删除器。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -369,9 +369,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款16：成对使用new和delete时需要采取相同的形式]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E9%9C%80%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E7%9A%84%E5%BD%A2%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话： new 一个数组，那么一定要 delete 一个数组 智能指针默认没有 delete 数组，所以需要自定义删除器。]]></content>
+    <title><![CDATA[条款17：以独立语句将new过得对象放入智能指针中]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-new-%E8%BF%87%E5%BE%97%E5%AF%B9%E8%B1%A1%E6%94%BE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%B8%AD%2F</url>
+    <content type="text"><![CDATA[编译器的编译次序是说不定的，就想下图的 上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示： 先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。 上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
