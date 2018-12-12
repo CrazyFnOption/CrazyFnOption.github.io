@@ -440,13 +440,13 @@
   </entry>
   
   <entry>
-    <title>条款02：尽量以const,enum,inline 替换掉#define</title>
-    <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const,enum,inline%20%E6%9B%BF%E6%8D%A2%E6%8E%89#define/"/>
-    <id>http://crazyfnoption.github.io/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/</id>
+    <title>条款03：尽可能使用 const</title>
+    <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8%20const/"/>
+    <id>http://crazyfnoption.github.io/2018/12/01/条款03：尽可能使用 const/</id>
     <published>2018-12-01T15:26:24.000Z</published>
     <updated>2018-12-04T10:24:04.411Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr><h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul><li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li><li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li></ul>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>首先使用 const 可以防止后期莫名其妙的进行改变原有的意思，相当于一个约束语义，另外编译器不论什么时候都会强制施行这项约束。</p><ol><li><p>const 在 C++ 11 中有底层和顶层之分，前者是作用于指针本身，指针不再改变指向对象，而顶层 const 则<br>是指针所指向的对象则不能发生改变。</p></li><li><p>const 最具威力的用法实在面对函数声明时的用法，在一个函数的声明式里，const 可以和函数的返回值，各自的参数以及函数自身产生关联。</p></li><li><p>将引用参数设置成 const 好处是在后面写代码的过程中如果把==写成=，可以立马甄别出来。</p></li><li><p>const 成员函数存在的两个理由，一个使 class 的接口一目了然，因为知道了哪些可以被改动对象而哪些不可以被改动对象，第二则是基于代码编写的高效性而言，操作 const 对象成为可能，因为可以通过 const 成员函数返回 const 对象。</p></li><li><p>存在一种特殊情况，重载[ ]运算符的时候，如果成员函数是 const 那么其的返回值也必须是 const&amp;类型的。</p></li><li><p>如果对于const 成员函数，想要改变该对象的内部成员的话，但是又不想全部改变的话，可以在类中的数据成员定义中加上 mutable，来保证可以改变该函数，其存在的意义就在于保证了其他数据成员不能被 const 成员函数改变，但是该数据成员却可以。</p></li></ol><p>7.当 const 和 non-const 成员函数有实质等价的实现时，令 non-const 版本调用 const 版本可避免代码重复。     </p><p><strong><em>这一点还不是特别了解，需要看到后面之后花点时间来看看这一点的内容。</em></strong></p>]]></content>
     
     <summary type="html">
     
@@ -467,13 +467,13 @@
   </entry>
   
   <entry>
-    <title>条款03：尽可能使用 const</title>
-    <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8%20const/"/>
-    <id>http://crazyfnoption.github.io/2018/12/01/条款03：尽可能使用 const/</id>
+    <title>条款02：尽量以const,enum,inline 替换掉#define</title>
+    <link href="http://crazyfnoption.github.io/2018/12/01/%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const,enum,inline%20%E6%9B%BF%E6%8D%A2%E6%8E%89#define/"/>
+    <id>http://crazyfnoption.github.io/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/</id>
     <published>2018-12-01T15:26:24.000Z</published>
     <updated>2018-12-04T10:24:04.411Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>首先使用 const 可以防止后期莫名其妙的进行改变原有的意思，相当于一个约束语义，另外编译器不论什么时候都会强制施行这项约束。</p><ol><li><p>const 在 C++ 11 中有底层和顶层之分，前者是作用于指针本身，指针不再改变指向对象，而顶层 const 则<br>是指针所指向的对象则不能发生改变。</p></li><li><p>const 最具威力的用法实在面对函数声明时的用法，在一个函数的声明式里，const 可以和函数的返回值，各自的参数以及函数自身产生关联。</p></li><li><p>将引用参数设置成 const 好处是在后面写代码的过程中如果把==写成=，可以立马甄别出来。</p></li><li><p>const 成员函数存在的两个理由，一个使 class 的接口一目了然，因为知道了哪些可以被改动对象而哪些不可以被改动对象，第二则是基于代码编写的高效性而言，操作 const 对象成为可能，因为可以通过 const 成员函数返回 const 对象。</p></li><li><p>存在一种特殊情况，重载[ ]运算符的时候，如果成员函数是 const 那么其的返回值也必须是 const&amp;类型的。</p></li><li><p>如果对于const 成员函数，想要改变该对象的内部成员的话，但是又不想全部改变的话，可以在类中的数据成员定义中加上 mutable，来保证可以改变该函数，其存在的意义就在于保证了其他数据成员不能被 const 成员函数改变，但是该数据成员却可以。</p></li></ol><p>7.当 const 和 non-const 成员函数有实质等价的实现时，令 non-const 版本调用 const 版本可避免代码重复。     </p><p><strong><em>这一点还不是特别了解，需要看到后面之后花点时间来看看这一点的内容。</em></strong></p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr><h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul><li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li><li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li></ul>]]></content>
     
     <summary type="html">
     
