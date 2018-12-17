@@ -59,19 +59,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
-    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[STL的简单总结]]></title>
     <url>%2F2018%2F12%2F01%2FSTL%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93%2F</url>
     <content type="text"><![CDATA[补一个加快C++输入输出速度的方法： 花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。 字符串 string与字符数组 构造string的方法 操作string的方法 上面的成员函数有的说要返回，同时，有的也存在不返回值。 搜索string的方法 以上就是find函数的一些用法，在泛型算法一章，还会继续涉及到。题目返回的是下标 补充一下关于string中的比较函数一般在string中可以直接用运算符进行比较 int与string之间的转化 getline()的两种写法注意在cin&gt;&gt;t;必须要一个getchar()来吞掉其前面的回车符号。之后才能用getline()。 顺序容器 容器种类 vector&lt;vector&lt;int&gt; &gt;来表示二维数组。 容器基础操作补充一个assign的用法：允许从一个不同但相容的类型里面去赋值，或者从容器的一个子序列赋值。 还有第二个版本：接受一个整型值和一个元素值，用指定数目且具有相同给定元素替换容器中原有的元素： 再补充一个resize的用法： 需要记住有一些类型声明可以直接用auto。 初始化有两种一种直接初始化和拷贝初始化。 顺序容器添加元素上面已经列出了各种形式的插入。插入是在迭代器指向的元素之前插入。插入想要插入的元素前面，比如说push_back是插入到了尾后迭代器的前面。而返回的是新添加的第一个元素的迭代器，同样也可也==不返回==。 这里要注意的是push_front会改变整个容器的迭代器指向，而push_back不会。 访问元素 链表，单向链表，栈，队列都不支持随机访问，也就不支持下标访问了。 删除元素 删除的是迭代器指向的元素，返回的是删除元素的后迭代器也就是被删除的元素下一个元素的前面的迭代器，同样也可以不返回。 这里需要注意的就是删除一个元素之后，必定会改变原容器中迭代器的指向，所以务必小心（除了pop_back） 改变容器大小的操作 特殊的forward_list（单向链表） 由于迭代器的添加删除操作都涉及到了首前和尾后，所以对于单向链表来说这里添加了一个首前迭代器before_begin而对于单向链表的插入而言 是在元素的后面进行插入，删除也是一样，指向都是迭代器指向元素之后的元素。 关联容器 **关联容器里面的pair 关联容器的操作 关联容器的添加操作 一般都是直接用下标操作添加map里面的操作。at操作只能判断存不存在 关联容器的删除操作 关联容器的访问操作 上面关于排序的操作不适用于无序的关联容器。 当允许关键词重复的multimap中查找元素时，一般使用find函数与count函数同时进行。 算法大部分函数算法都放在&lt;algorithm&gt;的头文件里面了。还有一些数值算法是放在了&lt;numeric&gt;的头文件里面。 只读算法 accumulate 求和算法，接受三个参数，前面两个参数是累加范围，第三个是和的初值。equal 判断两个序列里面是否所有的值都相同。后面网上查找 有的再补充。find算法binary_search()二分查找函数find_end()最后一次出现算法find_first_of()第一次出现的算法find_if ()第三个参数就为自定义函数搜索lower_bound()第一个不小于的元素upper_bound()第一个大于的元素count（）算法 计算出现次数count_if（）函数自定义计数 写容器的算法 fill 填充算法 类似于memset函数前者在于可以赋值赋任何值，而后者理论上只能赋值0或者1或者0x3f3f3f3f。fill_n也是三个参数，第一个是开始点，第二个是赋值数目，第三个为赋值初始化。copy 拷贝算法，接收三个迭代器，前面两个表示输入范围，第三个为拷贝目标序列的起点。replace 替换算法，将目标序列里面的某些值更改成某些值，接受四个参数，前面两个是目标序列的范围，第三个是要搜索的值，第四个是要将搜索到的第三个的值更改后的值。remove 去除掉函数里面包括的参数的元素。remove_if 自定义。remove_copy 拷贝结果。swap（）交换两个对象的值。swap_range()交换两个序列的值。 重排容器的算法 其排序的算法中，定义的排序方式就在于自定义函数传入算法中。有三种自定义函数： 普通bool型自定义函数，比较排列顺序。 lambda 匿名小函数。 bind 函数 绑定谓词。灵活的应用自定义函数。 unique 将容器中所有重复的值全部排列到后面去，接受目标序列的迭代器范围，返回指向第一个重复元素的迭代器。sort 排序 本质上运用的是快速排序。stable_sort 本质上运动的是归并排序。stable_partition 前面进行排序后，把自定义排列的分割开来。reverse 倒排函数。reverse_copy 倒排函数。rotate 接受三个参数，前面两个是要往后面排的范围。 迭代器 插入迭代器back_inserter 类似于push_back的迭代器，创建并且使用front_inserter 创建并且使用一个push_front的迭代器inserter 创建一个普通插入的迭代器 流迭代器istream_iterator 输入迭代器 ostream_iterator 输出迭代器 反向迭代器reverse_iterator 移动迭代器后面复习到在总结 移动、拷贝、右值引用。]]></content>
@@ -81,6 +68,19 @@
       <tags>
         <tag>acm</tag>
         <tag>数据结构</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
+    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
         <tag>STL</tag>
       </tags>
   </entry>
@@ -111,18 +111,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[贪心算法]]></title>
-    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>贪心</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[二分法思想]]></title>
     <url>%2F2018%2F12%2F01%2F%E4%BA%8C%E5%88%86%E6%B3%95%E6%80%9D%E6%83%B3%2F</url>
     <content type="text"><![CDATA[二分查找实现在单调有序的集合中查找元素，每次江集合分为左右两个部分，并且通过判断集合在哪个部分从而调整集合的上下界，重复知道找到目标元素为止。 举一个简单的例子，我要在1到100里面查找62，先拿62根这个其最中间的一个数进行比较。然后在一步一步的缩小集合的上下界，最后再来一步一步往里面缩 下面是C++STL里面二分查找的函数： binary_search 返回bool值,是否存在lower_bound 返回可插入的最小位置的迭代器 即返回第一个符合条件的元素位置upper_bound 返回可插入的最大位置的迭代器 即返回最后一个符合条件的元素位置 在二分查找里面最典型的题目就是二分逼近求方程式的根了。 代码如下123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;using namespace std;const double pre =1e-4;double x,y;double f(double x)&#123; return 8*pow(x,4)+7*pow(x,3)+2*pow(x,2)+3*x+6-y;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; cin&gt;&gt;y; double x1=0,x2=100;//先把上下界在这里确定好 double mid=(x1+x2)/2; if (f(x1)*f(x2)&gt;0) cout&lt;&lt;"No solution!"&lt;&lt;endl; else &#123; while (x2-x1&gt;=pre)&#123;//这里必须写的是上下界线是多少， 不能写的是用于判断mid的条件。 if (f(x1)*f(mid)&lt;0)&#123; x2=mid; mid=(x1+x2)/2; &#125; else &#123; x1=mid; mid=(x1+x2)/2; &#125; &#125; cout&lt;&lt;fixed&lt;&lt;setprecision(4)&lt;&lt;mid&lt;&lt;endl; &#125; &#125;&#125; 上面就是我第二次出错的地方，判断二分循环逼近的的条件不应该看mid的取值，而是应该看得是区间上界减去区间下界的范围从而来限定。 此处关于三分法的求解：当需要求某凸性或凹形函数的极值，通过函数本身表达式并不容易求解时，就可以用三分法不断逼近求解。 三分法——求解凸性函数的极值问题http://hi.baidu.com/vfxupdpaipbcpuq/item/81b21d1910ea729c99ce33db 经典例题：侵略的奶牛： 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100005;int a[maxn],n,c;//此过程就是在判断奶牛之间的间隔为这个值合不合适bool cc(int d)&#123; int t=a[0],cnt=1; for (int i=1;i!=n;i++)&#123; if (a[i]-t&gt;=d)&#123; cnt++; t=a[i]; if (cnt&gt;=c) return true; &#125; &#125; return false;&#125;//此过程就是在收录每一个值，然后再分别进行判断int solve()&#123; int x=0,y=a[n-1]-a[0]; while (x&lt;=y)&#123; int mid=(x+y)/2; if (cc(mid)) x=mid+1; else y=mid-1; &#125; return x-1;&#125;//不过这种最大值最小值的题目需要多花时间想想。int main()&#123; while (cin&gt;&gt;n&gt;&gt;c)&#123; for (int i=0;i!=n;i++) cin&gt;&gt;a[i]; sort(a,a+n); cout&lt;&lt;solve()&lt;&lt;endl; &#125;&#125; ==下面则是其他地方关于二分的题目==基础版 POJ 3122 Pie 二分枚举区间是实数POJ 1064 Cable master 二分枚举区间是实数,注意精度POJ 3258 River Hopscotch 最大化最小值POJ 3273 Monthly Expense 最小化最大值LIGHTOJ 1076 Get the Containers 最小化最大值，。和上一个差不多LIGHTOJ 1307 Counting Triangles 进阶版 POJ 3579 二分搜索+二分查找POJ 3685 二分搜索+二分查找ZOJ 3278 也是两个二分嵌套LIGHTOJ 1048和LightOJ 1076一样，不过要输出一组解LIGHTOJ 1383 二分加贪心（区间）ZOJ 3665 某年区域赛题。，二分枚举ZOJ 3726 去年区域赛题，二分查找codeforces 382B 有意思的题codeforces 391D2 难，。。，，、 ==下面就是关于三分的题目== poj3301hdu4454hdu3714hdu2438]]></content>
@@ -146,6 +134,18 @@
         <tag>acm</tag>
         <tag>c++</tag>
         <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[贪心算法]]></title>
+    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>贪心</tag>
       </tags>
   </entry>
   <entry>
@@ -235,9 +235,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款05：了解 C++默默编写并调用了哪些函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3%20C%2B%2B%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。 千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而且此类问题会造成很多方面上的无法适应问题。 另外这里额外需要注意的是 C++11上增加的移动语义，只有在拥有了拷贝构造函数和拷贝赋值运算符之后，编译器才会自动生成移动构造函数，和移动赋值运算符。 最后这个条款需要注意的就是编译器自动生成的函数具有普遍性，所以就不具有特异性，一些特殊的操作在合成版本上面可能会出现大问题。]]></content>
+    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -259,9 +259,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
+    <title><![CDATA[条款05：了解 C++默默编写并调用了哪些函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3%20C%2B%2B%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。 千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而且此类问题会造成很多方面上的无法适应问题。 另外这里额外需要注意的是 C++11上增加的移动语义，只有在拥有了拷贝构造函数和拷贝赋值运算符之后，编译器才会自动生成移动构造函数，和移动赋值运算符。 最后这个条款需要注意的就是编译器自动生成的函数具有普遍性，所以就不具有特异性，一些特殊的操作在合成版本上面可能会出现大问题。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -331,18 +331,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款13：以对象管理资源]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90%2F</url>
-    <content type="text"><![CDATA[系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。 使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数） 获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。 需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。]]></content>
-      <categories>
-        <category>effective C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[条款12：复制对象时勿忘其每一个成分]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86%2F</url>
     <content type="text"><![CDATA[这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。下面直接分为两个方面进行诠释： 类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。 一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图： 另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。 如果发现两个拷贝行为有类似的代码时，应该把这个相同的代码放到一个函数中区，然后由两个拷贝行为共同调用。]]></content>
@@ -367,9 +355,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款15：在资源管理类中提供对原始资源的访问]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%2F</url>
-    <content type="text"><![CDATA[一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是 在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。 另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。 上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。]]></content>
+    <title><![CDATA[条款13：以对象管理资源]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90%2F</url>
+    <content type="text"><![CDATA[系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。 使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数） 获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。 需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -382,6 +370,18 @@
     <title><![CDATA[条款16：成对使用new和delete时需要采取相同的形式]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E9%9C%80%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E7%9A%84%E5%BD%A2%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话： new 一个数组，那么一定要 delete 一个数组 智能指针默认没有 delete 数组，所以需要自定义删除器。]]></content>
+      <categories>
+        <category>effective C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款15：在资源管理类中提供对原始资源的访问]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%2F</url>
+    <content type="text"><![CDATA[一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是 在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。 另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。 上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -415,18 +415,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款19：设计 class 犹如设计 type]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE19%EF%BC%9A%E8%AE%BE%E8%AE%A1%20class%20%E7%8A%B9%E5%A6%82%E8%AE%BE%E8%AE%A1%20type%2F</url>
-    <content type="text"><![CDATA[一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。 新 type 对象应该如何创建和销毁 关系到类的构造函数与析构函数如何建立 对象的初始化和对象的赋值之间的差别 主要是为了区分构造函数与赋值运算符之间的区别 该类参数传递中有传值也有传引用 传引用与传值之间的区别，以及如何实现，以及究竟何时会去调用这一类的函数。 新 type 的和法制 构造这个类的时候一些合法值，要不要对应自己的私有数据成员，或者是类型转换，通常其都会影响构造函数、赋值操作，以及 setter 函数，甚至还会影响到函数抛出的异常。 是否需要配合某一个继承体系 需要记住的是继承体系的构成一定要满足的是 is - a 的条件，另外虚函数与非虚函数之间的影响，并且还要考虑的时候 是否应该把自己的析构函数也设计成虚函数。 是否需要类型转换 类型转换一般会分为显式转换和隐式转换，实现方式一般有直接在其中一个函数内些类型转换的重载运算符函数，和没有声明 explicit 的单一参数的构造函数。 重载的操作符以及其他相应的函数，是否合理 这里看重载的函数是否符合逻辑条件，不仅仅是代码之间的严禁性质，还需要考虑的就是生活层面的实用性。 哪些成员应该封装？ 这里就设计到哪些成员应该设置成私有，而哪一些函数应该设置成公有函数，并且一些不想编译器生成的函数应该定义成删除。 类型的未声明接口 它对效率、异常安全性以及资源运用提供什么样保证，以及为类的实现代码应该提供什么的约束条件。 是否应该定义成模板 这里就看类的一般性究竟有多大，是否具有普遍价值。 考虑是否会继承与其他的类 有的时候考虑过后，也许这个类就不需要凭空创造出，仅仅只是需要从其他类上面派生出来即可。]]></content>
-      <categories>
-        <category>effective C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[条款20：宁以传 const 引用也不要传值]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE20%EF%BC%9A%E5%AE%81%E4%BB%A5%E4%BC%A0%20const%20%E5%BC%95%E7%94%A8%E4%B9%9F%E4%B8%8D%E8%A6%81%E4%BC%A0%E5%80%BC%2F</url>
     <content type="text"><![CDATA[这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。 传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了 以上规则不适合某些特殊规则，比如内置类型以及 STL 的迭代器，对它们而言 ，传值往往是最恰当的。]]></content>
@@ -439,9 +427,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款21：必须返回对象的时候，不要妄想返回其的引用]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE21%EF%BC%9A%E5%BF%85%E9%A1%BB%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%B8%8D%E8%A6%81%E5%A6%84%E6%83%B3%E8%BF%94%E5%9B%9E%E5%85%B6%E7%9A%84%E5%BC%95%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[该条款一般适用于某些特殊情况下必须返回值的情况 关于这个条款只需要注意一点，绝不要返回 pointer 或 reference 或者返回引用指向一个全局变量，或者返回指针引用指向一个静态成员，但是同时又需要多个这样的静态成员。在条款4中已经提供了一份设计实例。]]></content>
+    <title><![CDATA[条款19：设计 class 犹如设计 type]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE19%EF%BC%9A%E8%AE%BE%E8%AE%A1%20class%20%E7%8A%B9%E5%A6%82%E8%AE%BE%E8%AE%A1%20type%2F</url>
+    <content type="text"><![CDATA[一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。 新 type 对象应该如何创建和销毁 关系到类的构造函数与析构函数如何建立 对象的初始化和对象的赋值之间的差别 主要是为了区分构造函数与赋值运算符之间的区别 该类参数传递中有传值也有传引用 传引用与传值之间的区别，以及如何实现，以及究竟何时会去调用这一类的函数。 新 type 的和法制 构造这个类的时候一些合法值，要不要对应自己的私有数据成员，或者是类型转换，通常其都会影响构造函数、赋值操作，以及 setter 函数，甚至还会影响到函数抛出的异常。 是否需要配合某一个继承体系 需要记住的是继承体系的构成一定要满足的是 is - a 的条件，另外虚函数与非虚函数之间的影响，并且还要考虑的时候 是否应该把自己的析构函数也设计成虚函数。 是否需要类型转换 类型转换一般会分为显式转换和隐式转换，实现方式一般有直接在其中一个函数内些类型转换的重载运算符函数，和没有声明 explicit 的单一参数的构造函数。 重载的操作符以及其他相应的函数，是否合理 这里看重载的函数是否符合逻辑条件，不仅仅是代码之间的严禁性质，还需要考虑的就是生活层面的实用性。 哪些成员应该封装？ 这里就设计到哪些成员应该设置成私有，而哪一些函数应该设置成公有函数，并且一些不想编译器生成的函数应该定义成删除。 类型的未声明接口 它对效率、异常安全性以及资源运用提供什么样保证，以及为类的实现代码应该提供什么的约束条件。 是否应该定义成模板 这里就看类的一般性究竟有多大，是否具有普遍价值。 考虑是否会继承与其他的类 有的时候考虑过后，也许这个类就不需要凭空创造出，仅仅只是需要从其他类上面派生出来即可。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -463,9 +451,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款23：宁以非成员友元函数代替成员函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE23%EF%BC%9A%E5%AE%81%E4%BB%A5%E9%9D%9E%E6%88%90%E5%91%98%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0%E4%BB%A3%E6%9B%BF%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[同样还是为了封装 宁可拿非成员非友元函数来代替成员函数，这样做可以增加封装性，和包裹弹性，以及机能扩充性。]]></content>
+    <title><![CDATA[条款21：必须返回对象的时候，不要妄想返回其的引用]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE21%EF%BC%9A%E5%BF%85%E9%A1%BB%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%B8%8D%E8%A6%81%E5%A6%84%E6%83%B3%E8%BF%94%E5%9B%9E%E5%85%B6%E7%9A%84%E5%BC%95%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[该条款一般适用于某些特殊情况下必须返回值的情况 关于这个条款只需要注意一点，绝不要返回 pointer 或 reference 或者返回引用指向一个全局变量，或者返回指针引用指向一个静态成员，但是同时又需要多个这样的静态成员。在条款4中已经提供了一份设计实例。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -478,6 +466,18 @@
     <title><![CDATA[条款24：若所有参数需要类型转换的时候，请设置非成员函数]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE24%EF%BC%9A%E8%8B%A5%E6%89%80%E6%9C%89%E5%8F%82%E6%95%B0%E9%9C%80%E8%A6%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E8%AF%B7%E8%AE%BE%E7%BD%AE%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[该条款就是需要注意一点 如果需要为某个函数的所有参数，包括this 指针所指的隐喻参数，进行类型转换的时候，那么这个函数就必须是非成员函数]]></content>
+      <categories>
+        <category>effective C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款23：宁以非成员友元函数代替成员函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE23%EF%BC%9A%E5%AE%81%E4%BB%A5%E9%9D%9E%E6%88%90%E5%91%98%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0%E4%BB%A3%E6%9B%BF%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[同样还是为了封装 宁可拿非成员非友元函数来代替成员函数，这样做可以增加封装性，和包裹弹性，以及机能扩充性。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
