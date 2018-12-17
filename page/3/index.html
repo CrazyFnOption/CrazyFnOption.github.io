@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
-
+<meta name="baidu-site-verification" content="WwJNi7FIvf">
 
 
   
@@ -538,7 +538,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -557,7 +557,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/" itemprop="url">条款25：考虑写出一个不抛异常的swap函数</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" itemprop="url">条款05：了解 C++默默编写并调用了哪些函数</a></h1>
         
 
         <div class="post-meta">
@@ -636,7 +636,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  504
+                  279
                 </span>
               
 
@@ -675,15 +675,415 @@
       
         
           
-          所谓 swap 两对象值，意思就是将两个对象的值彼此赋予对方，缺省的情况下 swap 的动作可以由标准库程序提供的 swap来完成。
+          几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。
 
-其中有一个最主要的方法就是，以指针指向一个对象，内含真正的数据“ 即”pimpl 手法”所以一般对于一个对象而言，直接交换里面的指针对象即可。就如同以下的写法：
-
-
+千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款07：为多态基类声明 virtual 析构函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" itemprop="url">条款07：为多态基类声明 virtual 析构函数</a></h1>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-04T18:24:04+08:00">
+                2018-12-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  457
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。
+C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Beans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-04T18:24:04+08:00">
+                2018-12-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  430
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。
+基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -944,7 +1344,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -963,7 +1363,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/" itemprop="url">条款25：考虑写出一个不抛异常的swap函数</a></h1>
         
 
         <div class="post-meta">
@@ -1042,7 +1442,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  430
+                  504
                 </span>
               
 
@@ -1081,12 +1481,15 @@
       
         
           
-          绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。
-基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那
+          所谓 swap 两对象值，意思就是将两个对象的值彼此赋予对方，缺省的情况下 swap 的动作可以由标准库程序提供的 swap来完成。
+
+其中有一个最主要的方法就是，以指针指向一个对象，内含真正的数据“ 即”pimpl 手法”所以一般对于一个对象而言，直接交换里面的指针对象即可。就如同以下的写法：
+
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1145,7 +1548,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/树相关题目/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1164,210 +1567,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/树相关题目/" itemprop="url">树相关题目</a></h1>
-        
-
-        <div class="post-meta">
-		
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-04T18:24:04+08:00">
-                2018-12-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  839
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          复原二叉树
-题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点）
-代码如下：
-12345678910111213141516171819202122232425262728
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/树相关题目/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款07：为多态基类声明 virtual 析构函数/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" itemprop="url">条款07：为多态基类声明 virtual 析构函数</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h1>
         
 
         <div class="post-meta">
@@ -1446,7 +1646,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  457
+                  103
                 </span>
               
 
@@ -1485,12 +1685,12 @@
       
         
           
-          在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。
-C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就
-          ...
+          一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1549,7 +1749,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款11：在operator中处理自我赋值的情况/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款12：复制对象时勿忘其每一个成分/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1568,7 +1768,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款11：在operator中处理自我赋值的情况/" itemprop="url">条款11：在 operator 中处理自我赋值的情况</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款12：复制对象时勿忘其每一个成分/" itemprop="url">条款12：复制对象时勿忘其每一个成分</a></h1>
         
 
         <div class="post-meta">
@@ -1647,7 +1847,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  343
+                  313
                 </span>
               
 
@@ -1686,215 +1886,15 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
       
         
           
-          本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况
-比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。
+          这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。下面直接分为两个方面进行诠释：
 
-同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的
+类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。
+
+一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款11：在operator中处理自我赋值的情况/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款13：以对象管理资源/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款13：以对象管理资源/" itemprop="url">条款13：以对象管理资源</a></h1>
-        
-
-        <div class="post-meta">
-		
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-04T18:24:04+08:00">
-                2018-12-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  295
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。
-使用智能指针， C++11之后智能指针分为三种一种是 share_ptr
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款13：以对象管理资源/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款12：复制对象时勿忘其每一个成分/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2156,7 +2156,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/">
+    <link itemprop="mainEntityOfPage" href="http://crazyfnoption.github.io/2018/12/01/条款13：以对象管理资源/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -2175,7 +2175,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="url">条款16：成对使用new和delete时需要采取相同的形式</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款13：以对象管理资源/" itemprop="url">条款13：以对象管理资源</a></h1>
         
 
         <div class="post-meta">
@@ -2254,7 +2254,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  72
+                  295
                 </span>
               
 
@@ -2293,20 +2293,12 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
       
         
           
-          其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话：
-
-new 一个数组，那么一定要 delete 一个数组
-
-智能指针默认没有 delete 数组，所以需要自定义删除器。
-
-
-
-
-
-          
+          系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。
+使用智能指针， C++11之后智能指针分为三种一种是 share_ptr
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款13：以对象管理资源/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
