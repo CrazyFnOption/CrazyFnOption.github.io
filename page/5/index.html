@@ -341,7 +341,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/树相关题目/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -360,7 +360,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/树相关题目/" itemprop="url">树相关题目</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/" itemprop="url">条款24：若所有参数需要类型转换的时候，请设置非成员函数</a></h1>
         
 
         <div class="post-meta">
@@ -408,8 +408,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/题解/" itemprop="url" rel="index">
-                    <span itemprop="name">题解</span>
+                  <a href="/categories/effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">effective C++</span>
                   </a>
                 </span>
 
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  839
+                  61
                 </span>
               
 
@@ -455,7 +455,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  3
+                  1
                 </span>
               
             </div>
@@ -478,14 +478,14 @@
       
         
           
-          复原二叉树
-题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点）
-代码如下：
-12345678910111213141516171819202122232425262728
-          ...
+          该条款就是需要注意一点
+如果需要为某个函数的所有参数，包括this 指针所指的隐喻参数，进行类型转换的时候，那么这个函数就必须是非成员函数
+
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/树相关题目/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
