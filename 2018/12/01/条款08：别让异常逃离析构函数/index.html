@@ -97,7 +97,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Magical Beans" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Magical Bean" type="application/atom+xml">
 
 
 
@@ -119,7 +119,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款08：别让异常逃离析构函数">
 <meta property="og:url" content="http://wsx1128.xyz/2018/12/01/条款08：别让异常逃离析构函数/index.html">
-<meta property="og:site_name" content="Magical Beans">
+<meta property="og:site_name" content="Magical Bean">
 <meta property="og:description" content="其实这一项条款没有领悟的很深刻，可以理解成不要再析构函数里面写捕获异常之类的代码。因为某些时候，如果在析构函数里面抓获异常导致程序终止的话，那么就可能造成对象不能完全被销毁  析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常的话，析构函数应该做的应该是捕捉任何异常，然后吞下他们（不传播）或者结束程序。  如果对象需要对摸个操作函数运行期间抛出的异常做出反应，那么 class 应该">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-12-04T10:24:04.411Z">
@@ -161,7 +161,7 @@
 
 
 
-  <title>条款08：别让异常逃离析构函数 | Magical Beans</title>
+  <title>条款08：别让异常逃离析构函数 | Magical Bean</title>
   
 
 
@@ -193,7 +193,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Magical Beans</span>
+        <span class="site-title">Magical Bean</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -351,7 +351,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Beans">
+      <meta itemprop="name" content="Magical Bean">
     </span>
 
     
@@ -552,8 +552,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" rel="next" title="条款06：若不想使用编译器自动生成的函数，就应该明确拒绝">
-                <i class="fa fa-chevron-left"></i> 条款06：若不想使用编译器自动生成的函数，就应该明确拒绝
+              <a href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" rel="next" title="条款09：绝不在构造和析构的过程中调用 virtual 函数">
+                <i class="fa fa-chevron-left"></i> 条款09：绝不在构造和析构的过程中调用 virtual 函数
               </a>
             
           </div>
@@ -651,7 +651,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -673,7 +673,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -783,7 +783,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">32k</span>
+    <span title="Site words total count">36.1k</span>
   
 </div>
 
