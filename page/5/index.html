@@ -545,7 +545,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款26：尽量延后变量定义式出现的时间/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -564,7 +564,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/" itemprop="url">条款24：若所有参数需要类型转换的时候，请设置非成员函数</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款26：尽量延后变量定义式出现的时间/" itemprop="url">条款25：考虑写出一个不抛异常的 swap 函数</a></h1>
         
 
         <div class="post-meta">
@@ -643,7 +643,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  61
+                  159
                 </span>
               
 
@@ -682,14 +682,15 @@
       
         
           
-          该条款就是需要注意一点
-如果需要为某个函数的所有参数，包括this 指针所指的隐喻参数，进行类型转换的时候，那么这个函数就必须是非成员函数
+          其实该条款总结下来就是再讲一个东西，而这个东西分成两点：
 
+如果类的赋值成本低于一组构造和析构成本，那么将对象的定义定义到循环体外部去，尤其是在循环次数很多的情况下。否则就是将定义循环体内部中去。
 
-          
+尽可能延后变量定义式出现的时间，最好达到需要什么才去定义什么，这样做可以增加程序的清晰度并改善程序效
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款26：尽量延后变量定义式出现的时间/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1002,8 +1003,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-13T15:03:48+08:00">
-                2018-12-13
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-18T13:53:40+08:00">
+                2018-12-18
               </time>
             
           </span>
@@ -1207,8 +1208,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-04T18:24:04+08:00">
-                2018-12-04
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-18T13:53:40+08:00">
+                2018-12-18
               </time>
             
           </span>
@@ -1407,8 +1408,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-12T23:45:40+08:00">
-                2018-12-12
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-18T13:53:40+08:00">
+                2018-12-18
               </time>
             
           </span>
@@ -1807,8 +1808,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-12T23:43:04+08:00">
-                2018-12-12
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-18T13:53:40+08:00">
+                2018-12-18
               </time>
             
           </span>
@@ -2007,8 +2008,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-04T18:18:59+08:00">
-                2018-12-04
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-18T13:53:40+08:00">
+                2018-12-18
               </time>
             
           </span>
@@ -2207,8 +2208,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-04T18:24:04+08:00">
-                2018-12-04
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-18T13:53:40+08:00">
+                2018-12-18
               </time>
             
           </span>
