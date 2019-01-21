@@ -91,7 +91,7 @@
 
 
 
-  <meta name="keywords" content="java,算法,数据结构,">
+  <meta name="keywords" content="数据结构,java,算法,">
 
 
 
@@ -115,14 +115,14 @@
 
 
 <meta name="description" content="thisthis是自身的一个对象，代表对象本身，可以理解为：指向对象本身的一个指针。 this的用法在java中大体可以分为3种： 1. 类似于C++里面对于自身普通的引用，这种情况就不在多讲了2. 形参与成员名字重名，用this来区分1234567891011121314151617class Person &amp;#123;    private int age = 10;    public Pe">
-<meta name="keywords" content="java,算法,数据结构">
+<meta name="keywords" content="数据结构,java,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java中this和super的用法总结">
 <meta property="og:url" content="http://wsx1128.xyz/2019/01/21/Java中this和super的用法总结/index.html">
 <meta property="og:site_name" content="Magical Bean">
 <meta property="og:description" content="thisthis是自身的一个对象，代表对象本身，可以理解为：指向对象本身的一个指针。 this的用法在java中大体可以分为3种： 1. 类似于C++里面对于自身普通的引用，这种情况就不在多讲了2. 形参与成员名字重名，用this来区分1234567891011121314151617class Person &amp;#123;    private int age = 10;    public Pe">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-21T03:36:52.938Z">
+<meta property="og:updated_time" content="2019-01-21T06:13:38.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中this和super的用法总结">
 <meta name="twitter:description" content="thisthis是自身的一个对象，代表对象本身，可以理解为：指向对象本身的一个指针。 this的用法在java中大体可以分为3种： 1. 类似于C++里面对于自身普通的引用，这种情况就不在多讲了2. 形参与成员名字重名，用this来区分1234567891011121314151617class Person &amp;#123;    private int age = 10;    public Pe">
@@ -392,7 +392,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-01-21T11:36:52+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-01-21T14:13:38+08:00">
                 2019-01-21
               </time>
             
@@ -482,9 +482,7 @@
         <h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><p>this是自身的一个对象，代表对象本身，可以理解为：指向对象本身的一个指针。</p>
 <p><strong>this的用法在java中大体可以分为3种：</strong></p>
 <h4 id="1-类似于C-里面对于自身普通的引用，这种情况就不在多讲了"><a href="#1-类似于C-里面对于自身普通的引用，这种情况就不在多讲了" class="headerlink" title="1. 类似于C++里面对于自身普通的引用，这种情况就不在多讲了"></a>1. 类似于C++里面对于自身普通的引用，这种情况就不在多讲了</h4><h4 id="2-形参与成员名字重名，用this来区分"><a href="#2-形参与成员名字重名，用this来区分" class="headerlink" title="2. 形参与成员名字重名，用this来区分"></a>2. 形参与成员名字重名，用this来区分</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age = <span class="number">10</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"初始化年龄："</span>+age);</span><br><span class="line">&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetAge</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Person Harry = <span class="keyword">new</span> Person();</span><br><span class="line">        System.out.println(<span class="string">"Harry's age is "</span>+Harry.GetAge(<span class="number">12</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>*运行结果：</p>
-<p>初始化年龄：10</p>
-<p>Harry’s age is 12*</p>
+<p><em>运行结果：<br>初始化年龄：10<br>Harry’s age is 12</em></p>
 <p><strong>可以看到，这里age是GetAge成员方法的形参，this.age是Person类的成员变量。</strong></p>
 <h4 id="3-引用构造函数"><a href="#3-引用构造函数" class="headerlink" title="3. 引用构造函数"></a>3. 引用构造函数</h4><p>这个就放在下面与super一起讲。</p>
 <h2 id="super"><a href="#super" class="headerlink" title="super"></a>super</h2><p><strong>super可以理解为是指向自己超（父）类对象的一个指针，而这个超类指的是离自己最近的一个父类。</strong></p>
@@ -496,7 +494,19 @@
 <p><em>运行结果:<br>父类·无参数构造方法： A Person.<br>子类·调用父类”无参数构造方法“： A chinese coder.<br>父类·含一个参数的构造方法： A person’s name is codersai<br>子类·调用父类”含一个参数的构造方法“： his name is codersai<br>父类·含一个参数的构造方法： A person’s name is codersai<br>子类·调用父类”含一个参数的构造方法“： his name is codersai<br>子类：调用子类具有相同形参的构造方法：his age is 18</em></p>
 <p>从本例可以看到，可以用super和this分别调用父类的构造方法和本类中其他形式的构造方法。</p>
 <p>例子中Chinese类第三种构造方法调用的是本类中第二种构造方法，而第二种构造方法是调用父类的，因此也要先调用父类的构造方法，再调用本类中第二种，最后是重写第三种构造方法。</p>
-<h2 id="super和this的异同："><a href="#super和this的异同：" class="headerlink" title="super和this的异同："></a>super和this的异同：</h2><p>super（参数）：调用基类中的某一个构造函数（应该为构造函数中的第一条语句）<br>this（参数）：调用本类中另一种形成的构造函数（应该为构造函数中的第一条语句）<br>super:　它引用当前对象的直接父类中的成员（用来访问直接父类中被隐藏的父类中成员数据或函数，基类与派生类中有相同成员定义时如：super.变量名    super.成员函数据名（实参）<br>this：它代表当前对象名（在程序中易产生二义性之处，应使用this来指明当前对象；如果函数的形参与类中的成员数据同名，这时需用this来指明成员变量名）<br>调用super()必须写在子类构造方法的第一行，否则编译不通过。每个子类构造方法的第一条语句，都是隐含地调用super()，如果父类没有这种形式的构造函数，那么在编译的时候就会报错。<br>super()和this()类似,区别是，super()从子类中调用父类的构造方法，this()在同一类内调用其它方法。<br>super()和this()均需放在构造方法内第一行。<br>尽管可以用this调用一个构造器，但却不能调用两个。<br>this和super不能同时出现在一个构造函数里面，因为this必然会调用其它的构造函数，其它的构造函数必然也会有super语句的存在，所以在同一个构造函数里面有相同的语句，就失去了语句的意义，编译器也不会通过。<br>this()和super()都指的是对象，所以，均不可以在static环境中使用。包括：static变量,static方法，static语句块。<br>从本质上讲，this是一个指向本对象的指针, 然而super是一个Java关键字。</p>
+<h2 id="super和this的异同："><a href="#super和this的异同：" class="headerlink" title="super和this的异同："></a>super和this的异同：</h2><ul>
+<li>super（参数）：调用基类中的某一个构造函数（应该为构造函数中的第一条语句）</li>
+<li>this（参数）：调用本类中另一种形成的构造函数（应该为构造函数中的第一条语句）</li>
+<li>super:　它引用当前对象的直接父类中的成员（用来访问直接父类中被隐藏的父类中成员数据或函数，基类与派生类中有相同成员定义时如：super.变量名    super.成员函数据名（实参）</li>
+<li>this：它代表当前对象名（在程序中易产生二义性之处，应使用this来指明当前对象；如果函数的形参与类中的成员数据同名，这时需用this来指明成员变量名）</li>
+<li>调用super()必须写在子类构造方法的第一行，否则编译不通过。每个子类构造方法的第一条语句，都是隐含地调用super()，如果父类没有这种形式的构造函数，那么在编译的时候就会报错。</li>
+<li>super()和this()类似,区别是，super()从子类中调用父类的构造方法，this()在同一类内调用其它方法。</li>
+<li>super()和this()均需放在构造方法内第一行。</li>
+<li>尽管可以用this调用一个构造器，但却不能调用两个。</li>
+<li>this和super不能同时出现在一个构造函数里面，因为this必然会调用其它的构造函数，其它的构造函数必然也会有super语句的存在，所以在同一个构造函数里面有相同的语句，就失去了语句的意义，编译器也不会通过。</li>
+<li>this()和super()都指的是对象，所以，均不可以在static环境中使用。包括：static变量,static方法，static语句块。</li>
+<li>从本质上讲，this是一个指向本对象的指针, 然而super是一个Java关键字。</li>
+</ul>
 
       
     </div>
@@ -516,7 +526,7 @@
   <p><span>本文标题:</span><a href="/2019/01/21/Java中this和super的用法总结/">Java中this和super的用法总结</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
   <p><span>发布时间:</span>2019年01月21日 - 10:01</p>
-  <p><span>最后更新:</span>2019年01月21日 - 11:01</p>
+  <p><span>最后更新:</span>2019年01月21日 - 14:01</p>
   <p><span>原始链接:</span><a href="/2019/01/21/Java中this和super的用法总结/" title="Java中this和super的用法总结">http://wsx1128.xyz/2019/01/21/Java中this和super的用法总结/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.xyz/2019/01/21/Java中this和super的用法总结/" aria-label="复制成功！"></i></span>
   </p>
@@ -581,11 +591,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
             <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
             <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
-          
-            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
           
         </div>
       

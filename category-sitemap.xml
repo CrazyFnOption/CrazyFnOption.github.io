@@ -15,29 +15,8 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/categories/%E9%A2%98%E8%A7%A3/</loc>
-        <lastmod>2018-12-04T10:24:04.413Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://wsx1128.xyz/categories/effective-C/</loc>
         <lastmod>2018-12-04T10:24:04.413Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://wsx1128.xyz/categories/acm/</loc>
-        <lastmod>2018-12-16T17:25:27.461Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://wsx1128.xyz/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
-        <lastmod>2018-12-20T05:09:16.646Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -51,7 +30,28 @@
 
     <url>
         <loc>http://wsx1128.xyz/categories/java/</loc>
-        <lastmod>2019-01-21T03:36:52.938Z</lastmod>
+        <lastmod>2019-01-21T06:13:38.367Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/categories/acm/</loc>
+        <lastmod>2019-01-21T06:14:46.779Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/categories/%E9%A2%98%E8%A7%A3/</loc>
+        <lastmod>2019-01-21T06:15:10.044Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
+        <lastmod>2019-01-21T06:15:40.373Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
