@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-barber-shop.min.css?v=1.0.2" rel="stylesheet">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="2abIo_A5nMhdTOncpCpNSXNLFkH93A_Xns3iOs7LWKI">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="WwJNi7FIvf">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,java,普林斯顿算法课,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Bean" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7c502428"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+<meta name="description" content="Programming Assignment 1: Percolation第一次提交这样的全英文大作业，先开始完全看不懂题目，然后在网上看懂题目之后，于是写代码的时候也是混乱的，完全不知道该怎么用，看了别人提交的写了之后，自己也提交了几次，都是60分70分左右，到最后才发现数组的溢出，以及java输入输出的一些问题。 接下来看题目首先先看英文版的题目  看懂的大神可以不用看下面的中文版的题目了：">
+<meta name="keywords" content="数据结构,java,普林斯顿算法课">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Percolation">
+<meta property="og:url" content="http://wsx1128.xyz/2019/02/08/Percolation/index.html">
+<meta property="og:site_name" content="Magical Bean">
+<meta property="og:description" content="Programming Assignment 1: Percolation第一次提交这样的全英文大作业，先开始完全看不懂题目，然后在网上看懂题目之后，于是写代码的时候也是混乱的，完全不知道该怎么用，看了别人提交的写了之后，自己也提交了几次，都是60分70分左右，到最后才发现数组的溢出，以及java输入输出的一些问题。 接下来看题目首先先看英文版的题目  看懂的大神可以不用看下面的中文版的题目了：">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wsx1128.xyz/2019/02/08/Percolation/11.png">
+<meta property="og:image" content="http://wsx1128.xyz/2019/02/08/Percolation/12.png">
+<meta property="og:image" content="http://wsx1128.xyz/2019/02/08/Percolation/13.png">
+<meta property="og:image" content="http://wsx1128.xyz/2019/02/08/Percolation/14.png">
+<meta property="og:image" content="http://wsx1128.xyz/2019/02/08/Percolation/15.jpg">
+<meta property="og:image" content="http://wsx1128.xyz/2019/02/08/Percolation/16.png">
+<meta property="og:updated_time" content="2019-02-08T15:15:35.719Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Percolation">
+<meta name="twitter:description" content="Programming Assignment 1: Percolation第一次提交这样的全英文大作业，先开始完全看不懂题目，然后在网上看懂题目之后，于是写代码的时候也是混乱的，完全不知道该怎么用，看了别人提交的写了之后，自己也提交了几次，都是60分70分左右，到最后才发现数组的溢出，以及java输入输出的一些问题。 接下来看题目首先先看英文版的题目  看懂的大神可以不用看下面的中文版的题目了：">
+<meta name="twitter:image" content="http://wsx1128.xyz/2019/02/08/Percolation/11.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wsx1128.xyz/2019/02/08/Percolation/">
+
+
+
+
+
+  <title>Percolation | Magical Bean</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Bean</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2019/02/08/Percolation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Percolation</h1>
+        
+
+        <div class="post-meta">
+		
+            <i class="fa fa-thumb-tack"></i>
+            <font color="7D26CD">置顶</font>
+            <span class="post-meta-divider">|</span>
+          
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-08T22:46:58+08:00">
+                2019-02-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-08T23:15:35+08:00">
+                2019-02-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Programming-Assignment-1-Percolation"><a href="#Programming-Assignment-1-Percolation" class="headerlink" title="Programming Assignment 1: Percolation"></a>Programming Assignment 1: Percolation</h2><p>第一次提交这样的全英文大作业，先开始完全看不懂题目，然后在网上看懂题目之后，于是写代码的时候也是混乱的，完全不知道该怎么用，看了别人提交的写了之后，自己也提交了几次，都是60分70分左右，到最后才发现数组的溢出，以及java输入输出的一些问题。</p>
+<h2 id="接下来看题目"><a href="#接下来看题目" class="headerlink" title="接下来看题目"></a>接下来看题目</h2><p><strong>首先先看英文版的题目</strong></p>
+<p><img src="/2019/02/08/Percolation/11.png" alt="11"><br><img src="/2019/02/08/Percolation/12.png" alt="12"></p>
+<p><strong>看懂的大神可以不用看下面的中文版的题目了：</strong></p>
+<p>通过蒙特卡洛模拟方法来估计渗流阈值。</p>
+<p>Percolation. 给一个有随机分布的绝缘和金属材料的组成的复合系统。例如我们想知道哪些部分必须是金属材料才能让这个复合系统是一个电导体。或者在一个多孔的地形，在表面有水或者油，在什么情况下水或者油能够从最表面渗透到最底层。科学家把这种过程的模型叫做Percolation。</p>
+<p>The model. 在Assignment中，用一个NxN的格子表示percolation系统，每一个格子是打开或者关闭，打开是白色关闭是黑色。如果一个格子是full，首先他必须是打开额，然后表示从最顶上通过相连(4方向)的打开的格子可以渗透到这个位置。当一个系统是percolates，表示能从最顶层渗透到最底层，也就是说，最底层存在打开的格子是full。</p>
+<p><img src="/2019/02/08/Percolation/13.png" alt="13"></p>
+<p>The Problem. 研究人员对一下的问题感兴趣，如果每一个格子是独立的，并且被打开的概率为p，那么系统percolates的概率是多少？p=0，percolates概率为0，p=100，percolates的概率为100。下图是20x20和100x100格子的概率p的分布：</p>
+<p><img src="/2019/02/08/Percolation/14.png" alt="14"></p>
+<p>当N足够大时, 有一个阈值P<em>, 使得当p &lt; p</em>时候，任意的N<em>N网格，几乎不能被渗透, 并且当p &gt; p</em>, 基本能够被渗透。p<em>没有准确的数值解。任务是写一个计算估计p</em>的算法。</p>
+<p>题目给出了两个样版分别作为题目开始写的两个类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Percolation</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Percolation</span><span class="params">(<span class="keyword">int</span> N)</span>              <span class="comment">// create N-by-N grid, with all sites blocked</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span>         <span class="comment">// open site (row i, column j) if it is not already</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span>    <span class="comment">// is site (row i, column j) open?</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span>    <span class="comment">// is site (row i, column j) full?</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">percolates</span><span class="params">()</span>            <span class="comment">// does the system percolate?</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PercolationStats</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">PercolationStats</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> trials)</span>    <span class="comment">// perform trials independent experiments on an n-by-n grid</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">double</span> <span class="title">mean</span><span class="params">()</span>                          <span class="comment">// sample mean of percolation threshold</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">double</span> <span class="title">stddev</span><span class="params">()</span>                        <span class="comment">// sample standard deviation of percolation threshold</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">double</span> <span class="title">confidenceLo</span><span class="params">()</span>                  <span class="comment">// low  endpoint of 95% confidence interval</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">double</span> <span class="title">confidenceHi</span><span class="params">()</span>                  <span class="comment">// high endpoint of 95% confidence interval</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>        <span class="comment">// test client (described below)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="第一部分建立起一个数学模型来模拟这个系统"><a href="#第一部分建立起一个数学模型来模拟这个系统" class="headerlink" title="第一部分建立起一个数学模型来模拟这个系统"></a>第一部分建立起一个数学模型来模拟这个系统</h2><h3 id="class-Percolation"><a href="#class-Percolation" class="headerlink" title="class Percolation"></a><strong>class Percolation</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.WeightedQuickUnionUF;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Percolation</span> </span>&#123;</span><br><span class="line">    <span class="comment">//建立两个并查集 来控制 backwash 的虚拟节点所产生的问题</span></span><br><span class="line">    <span class="keyword">private</span> WeightedQuickUnionUF uf;</span><br><span class="line">    <span class="keyword">private</span> WeightedQuickUnionUF backwash;</span><br><span class="line">    <span class="comment">//打开的数目</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num;</span><br><span class="line">    <span class="comment">//这里用一维数组来表示整张图</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] percolation;</span><br><span class="line">    <span class="comment">//总数目</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> len;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Percolation</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">1</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illeagal Argument"</span>);</span><br><span class="line">        len = n;</span><br><span class="line">        percolation = <span class="keyword">new</span> <span class="keyword">boolean</span>[n * n + <span class="number">2</span>];</span><br><span class="line">        uf = <span class="keyword">new</span> WeightedQuickUnionUF(n * n + <span class="number">2</span>);</span><br><span class="line">        backwash = <span class="keyword">new</span> WeightedQuickUnionUF(n * n + <span class="number">1</span>);</span><br><span class="line">        num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n * n + <span class="number">1</span>; i++)&#123;</span><br><span class="line">            percolation[i] = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        percolation[<span class="number">0</span>] = percolation[n * n + <span class="number">1</span>] = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">1</span> || i &gt; len || j &lt; <span class="number">1</span> || j &gt; len)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"out of the range"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">get_position</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (i - <span class="number">1</span>) * len + j;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        check(row,col);</span><br><span class="line">        <span class="keyword">if</span> (isOpen(row,col)) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> index = get_position(row,col);</span><br><span class="line">        percolation[index] = <span class="keyword">true</span>;</span><br><span class="line">        num++;</span><br><span class="line">        <span class="comment">//处理虚拟节点与实际中的点的关系</span></span><br><span class="line">        <span class="comment">//并且同时处理一下前后左右点之间的关系</span></span><br><span class="line">        <span class="keyword">if</span> (row == <span class="number">1</span>)&#123;</span><br><span class="line">            uf.union(<span class="number">0</span>,index);</span><br><span class="line">            backwash.union(<span class="number">0</span>,index);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (isOpen(index - len))&#123;</span><br><span class="line">            uf.union(index,index - len);</span><br><span class="line">            backwash.union(index,index - len);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (row == len) uf.union(len * len + <span class="number">1</span>,index);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (isOpen(index + len))&#123;</span><br><span class="line">            uf.union(index,index + len);</span><br><span class="line">            backwash.union(index,index + len);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (col != <span class="number">1</span> &amp;&amp; isOpen(index - <span class="number">1</span>))&#123;</span><br><span class="line">            uf.union(index,index - <span class="number">1</span>);</span><br><span class="line">            backwash.union(index,index - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (col != len &amp;&amp; isOpen(index + <span class="number">1</span>))&#123;</span><br><span class="line">            uf.union(index,index + <span class="number">1</span>);</span><br><span class="line">            backwash.union(index,index + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> percolation[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">        check(row,col);</span><br><span class="line">        <span class="keyword">return</span> isOpen(get_position(row,col));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">        check(row,col);</span><br><span class="line">        <span class="keyword">int</span> index = get_position(row,col);</span><br><span class="line">        <span class="keyword">if</span> (backwash.connected(index,<span class="number">0</span>))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfOpenSites</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">percolates</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> uf.connected(<span class="number">0</span>,len * len + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于以上这个类 其实最初思考之处，完全就是借鉴并查集的思想，使用一个数组来存储当前的模块有没有被打开，然后根据这个模块进行改变，然后再使用并查集将第一个与当前位置相连接，前后左右都打开就相当于链接了，然后根据遍历就可以找出是否会遍历到最后一个位置去了。</p>
+<p><strong>上面所说的办法有些麻烦，有一种方法所产生的两个问题，也就是上面所使用的方法</strong><br>使用虚拟节点，相当于预设一个起点和一个终点，最后只需要判断起点与终点是否是并查集相连接的即可</p>
+<ol>
+<li>并查集的使用方法，可以直接写一个类也可以使用自带好的类型。</li>
+<li>会产生终点处的backwash问题，意思就是终点位置可能会与许多没有连接到起点的支点相连接，所以采用的解决办法就是使用两个并查集。</li>
+</ol>
+<h2 id="第二部分就是-解决数据的位置"><a href="#第二部分就是-解决数据的位置" class="headerlink" title="第二部分就是 解决数据的位置"></a>第二部分就是 解决数据的位置</h2><p>估计percolation的阈值，初始化时候格子都是关闭的，随机寻找一个关闭的位置打开，直到系统可以渗透为止，打开的格子比上总格子数就是阈值。</p>
+<p><img src="/2019/02/08/Percolation/15.jpg" alt="15"><br><strong>运用一下这些公式：</strong><br><img src="/2019/02/08/Percolation/16.png" alt="16"></p>
+<p>这个问题仅仅就是数学处理的问题，以及控制格式上面的输入输出。</p>
+<h3 id="class-PercolationStats"><a href="#class-PercolationStats" class="headerlink" title="class PercolationStats"></a><strong>class PercolationStats</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdIn;</span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdOut;</span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdRandom;</span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdStats;</span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.Stopwatch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PercolationStats</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[] results; <span class="comment">// estimated threshold for each trial</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> avg;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> std;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PercolationStats</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> trials)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">0</span> || trials &lt;= <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line"></span><br><span class="line">        results = <span class="keyword">new</span> <span class="keyword">double</span>[trials];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; trials; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> step = <span class="number">0</span>;</span><br><span class="line">            Percolation pr = <span class="keyword">new</span> Percolation(n);</span><br><span class="line">            <span class="keyword">while</span>(!pr.percolates())&#123;</span><br><span class="line">                <span class="keyword">int</span> row = StdRandom.uniform(n) + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> col = StdRandom.uniform(n) + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(!pr.isOpen(row, col))&#123;</span><br><span class="line">                    pr.open(row, col);</span><br><span class="line">                    step++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            results[i] = (<span class="keyword">double</span>)step / (n * n);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.avg = StdStats.mean(results);</span><br><span class="line">        <span class="keyword">this</span>.std = StdStats.stddev(results);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        StdOut.printf(<span class="string">"%-25s\n"</span>, <span class="string">"Please input 2 integers"</span>);</span><br><span class="line">        <span class="keyword">int</span> N = StdIn.readInt();</span><br><span class="line">        <span class="keyword">int</span> T = StdIn.readInt();</span><br><span class="line"></span><br><span class="line">        Stopwatch wt = <span class="keyword">new</span> Stopwatch();</span><br><span class="line"></span><br><span class="line">        PercolationStats ps = <span class="keyword">new</span> PercolationStats(N, T);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// elapsed CPU time in seconds</span></span><br><span class="line">        <span class="keyword">double</span> elapsed = wt.elapsedTime();</span><br><span class="line"></span><br><span class="line">        StdOut.printf(<span class="string">"%-25s= %.15f\n"</span>, <span class="string">"elapsed CPU time"</span>, elapsed);</span><br><span class="line">        StdOut.printf(<span class="string">"%-25s= %.7f\n"</span>, <span class="string">"mean"</span>, ps.mean());</span><br><span class="line">        StdOut.printf(<span class="string">"%-25s= %.17f\n"</span>, <span class="string">"stddev"</span>, ps.stddev());</span><br><span class="line">        StdOut.printf(<span class="string">"%-25s= [%.15f, %.15f]\n"</span>, <span class="string">"%95 confidence interval"</span>,</span><br><span class="line">                ps.confidenceLo(), ps.confidenceHi());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">mean</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.avg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">stddev</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.std;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">confidenceLo</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mean() - <span class="number">1.96</span> * stddev() / Math.sqrt(results.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">confidenceHi</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mean() + <span class="number">1.96</span> * stddev() / Math.sqrt(results.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/08/Percolation/">Percolation</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
+  <p><span>发布时间:</span>2019年02月08日 - 22:02</p>
+  <p><span>最后更新:</span>2019年02月08日 - 23:02</p>
+  <p><span>原始链接:</span><a href="/2019/02/08/Percolation/" title="Percolation">http://wsx1128.xyz/2019/02/08/Percolation/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.xyz/2019/02/08/Percolation/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+
+		
+	</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/普林斯顿算法课/" rel="tag"><i class="fa fa-tag"></i> 普林斯顿算法课</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/08/普林斯顿算法课之并查集/" rel="next" title="普林斯顿算法课之并查集">
+                <i class="fa fa-chevron-left"></i> 普林斯顿算法课之并查集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+
+  
+</div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTM5Ni8xNzk0Mw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/good.jpg" alt="五光君">
+            
+              <p class="site-author-name" itemprop="name">五光君</p>
+              <p class="site-description motion-element" itemprop="description">Smart is the new sexy .</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CrazyFnOption" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="785988220@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="V2EX" target="_blank">V2EX</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+
+
+
+
+    <div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=551294967&auto=1&height=66"></iframe>
+		</div>
+		
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Programming-Assignment-1-Percolation"><span class="nav-number">1.</span> <span class="nav-text">Programming Assignment 1: Percolation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接下来看题目"><span class="nav-number">2.</span> <span class="nav-text">接下来看题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分建立起一个数学模型来模拟这个系统"><span class="nav-number">3.</span> <span class="nav-text">第一部分建立起一个数学模型来模拟这个系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#class-Percolation"><span class="nav-number">3.1.</span> <span class="nav-text">class Percolation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分就是-解决数据的位置"><span class="nav-number">4.</span> <span class="nav-text">第二部分就是 解决数据的位置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#class-PercolationStats"><span class="nav-number">4.1.</span> <span class="nav-text">class PercolationStats</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+	
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五光君</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">40k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+
+	
+  
+
+
+</body>
+</html>
