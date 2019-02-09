@@ -301,6 +301,35 @@
   </entry>
   
   <entry>
+    <title>关于STL里面函数简单的应用</title>
+    <link href="http://wsx1128.xyz/2018/12/01/%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8/"/>
+    <id>http://wsx1128.xyz/2018/12/01/关于STL里面函数简单的应用/</id>
+    <published>2018-12-01T15:26:24.000Z</published>
+    <updated>2018-12-04T10:24:04.411Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img src="/2018/12/01/关于STL里面函数简单的应用/15334646368898.jpg" alt=""></p><p><strong>代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s;</span><br><span class="line">    s.insert(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>;i!=n;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//这道题目的主要做法是记住几个upper_bound 的STL函数</span></span><br><span class="line">        <span class="keyword">if</span>(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; s.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="题解" scheme="http://wsx1128.xyz/categories/%E9%A2%98%E8%A7%A3/"/>
+    
+    
+      <category term="acm" scheme="http://wsx1128.xyz/tags/acm/"/>
+    
+      <category term="c++" scheme="http://wsx1128.xyz/tags/c/"/>
+    
+      <category term="STL" scheme="http://wsx1128.xyz/tags/STL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>条款10：令 operator= 返回一个 自身的返回</title>
     <link href="http://wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator=%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E/"/>
     <id>http://wsx1128.xyz/2018/12/01/条款10：令 operator= 返回一个 自身的返回/</id>
@@ -346,35 +375,6 @@
     </summary>
     
       <category term="acm" scheme="http://wsx1128.xyz/categories/acm/"/>
-    
-    
-      <category term="acm" scheme="http://wsx1128.xyz/tags/acm/"/>
-    
-      <category term="c++" scheme="http://wsx1128.xyz/tags/c/"/>
-    
-      <category term="STL" scheme="http://wsx1128.xyz/tags/STL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于STL里面函数简单的应用</title>
-    <link href="http://wsx1128.xyz/2018/12/01/%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8/"/>
-    <id>http://wsx1128.xyz/2018/12/01/关于STL里面函数简单的应用/</id>
-    <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2018-12-04T10:24:04.411Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img src="/2018/12/01/关于STL里面函数简单的应用/15334646368898.jpg" alt=""></p><p><strong>代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s;</span><br><span class="line">    s.insert(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>;i!=n;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//这道题目的主要做法是记住几个upper_bound 的STL函数</span></span><br><span class="line">        <span class="keyword">if</span>(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; s.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="题解" scheme="http://wsx1128.xyz/categories/%E9%A2%98%E8%A7%A3/"/>
     
     
       <category term="acm" scheme="http://wsx1128.xyz/tags/acm/"/>
@@ -527,33 +527,6 @@
   </entry>
   
   <entry>
-    <title>条款02：尽量以const,enum,inline 替换掉#define</title>
-    <link href="http://wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const,enum,inline%20%E6%9B%BF%E6%8D%A2%E6%8E%89#define/"/>
-    <id>http://wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/</id>
-    <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2018-12-04T10:24:04.411Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr><h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul><li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li><li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="effective C++" scheme="http://wsx1128.xyz/categories/effective-C/"/>
-    
-    
-      <category term="c++" scheme="http://wsx1128.xyz/tags/c/"/>
-    
-      <category term="effective C++" scheme="http://wsx1128.xyz/tags/effective-C/"/>
-    
-  </entry>
-  
-  <entry>
     <title>贪心算法</title>
     <link href="http://wsx1128.xyz/2018/12/01/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
     <id>http://wsx1128.xyz/2018/12/01/贪心算法/</id>
@@ -577,6 +550,33 @@
       <category term="acm" scheme="http://wsx1128.xyz/tags/acm/"/>
     
       <category term="贪心" scheme="http://wsx1128.xyz/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>条款02：尽量以const,enum,inline 替换掉#define</title>
+    <link href="http://wsx1128.xyz/2018/12/01/%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BB%A5const,enum,inline%20%E6%9B%BF%E6%8D%A2%E6%8E%89#define/"/>
+    <id>http://wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/</id>
+    <published>2018-12-01T15:26:24.000Z</published>
+    <updated>2018-12-04T10:24:04.411Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="这个条款其实也就相当于宁可编译器替换预处理器比较好"><a href="#这个条款其实也就相当于宁可编译器替换预处理器比较好" class="headerlink" title="这个条款其实也就相当于宁可编译器替换预处理器比较好"></a><strong>这个条款其实也就相当于宁可编译器替换预处理器比较好</strong></h3><hr><h4 id="1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间"><a href="#1-对于单纯常量而言，使用-const-对象或者是-enums-比-define-更加省时间" class="headerlink" title="1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间"></a>1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间</h4><ul><li>时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找，不像名称记号，可能有的时候并没有进入到记号表中。</li><li>还有一些其他的只能使用 const 情况 定义常量指针和类的专属常量</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="effective C++" scheme="http://wsx1128.xyz/categories/effective-C/"/>
+    
+    
+      <category term="c++" scheme="http://wsx1128.xyz/tags/c/"/>
+    
+      <category term="effective C++" scheme="http://wsx1128.xyz/tags/effective-C/"/>
     
   </entry>
   
