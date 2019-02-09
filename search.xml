@@ -74,16 +74,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[关于模拟与搜索的相应简单题目]]></title>
-    <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8E%E6%A8%A1%E6%8B%9F%E4%B8%8E%E6%90%9C%E7%B4%A2%E7%9A%84%E7%9B%B8%E5%BA%94%E7%AE%80%E5%8D%95%E9%A2%98%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[题目 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;cmath&gt;using namespace std;int main()&#123; string w,v; int x,y,m; char ch; while(cin&gt;&gt;w&gt;&gt;v)&#123; string s; int flag=0; reverse(w.begin(),w.end()); reverse(v.begin(),v.end()); if (w.size()&gt;v.size())&#123; m=w.size()-v.size(); for (int i=0;i!=v.size();i++)&#123; x=w[i]-'0'; y=v[i]-'0'; x+=y; if (flag)&#123; flag=0; x++; &#125; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); &#125; int i=v.size(); while (flag==1&amp;&amp;i&lt;=m)&#123; flag=0; x=w[i]-'0'; x++; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); i++; &#125; if (flag&amp;&amp;i==w.size())&#123; s.push_back('1'); &#125; &#125; else &#123; m=v.size()-w.size(); for (int i=0;i!=w.size();i++)&#123; x=w[i]-'0'; y=v[i]-'0'; x+=y; if (flag)&#123; flag=0; x++; &#125; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); &#125; int i=w.size(); while (flag&amp;&amp;i&lt;=m)&#123; flag=0; x=w[i]-'0'; x++; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); i++; &#125; if (flag&amp;&amp;i==v.size())&#123; s.push_back('1'); &#125; &#125; reverse(s.begin(),s.end()); cout&lt;&lt;s&lt;&lt;endl; &#125;&#125; 题解：其实这道题目属于一道相应简单的题目，就是要注意相应string与char之间的区别就行了。另外 int转换char是加上‘0’char转换int是减去‘0’。 一道简单的dfs的题目 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;using namespace std;const int maxn = 105;char h[maxn][maxn];int n,m,cnt=0;void dfs(int i,int j)&#123; if (i&lt;0||i&gt;=n||h[i][j]!='W') return ; if (j&lt;0||j&gt;=m||h[i][j]!='W') return ; if (h[i][j]=='W')&#123; h[i][j]='.'; dfs(i-1,j); dfs(i-1,j-1); dfs(i+1,j); dfs(i+1,j+1); dfs(i,j-1); dfs(i-1,j+1); dfs(i,j+1); dfs(i+1,j-1); &#125;&#125;int main()&#123; int ans=0; while(cin&gt;&gt;n&gt;&gt;m&amp;&amp;(n!=0&amp;&amp;m!=0))&#123; for (int i=0;i!=n;i++) for (int j=0;j!=m;j++)&#123; cin&gt;&gt;h[i][j]; &#125; for (int i=0;i!=n;i++)&#123; for (int j=0;j!=m;j++)&#123; if (h[i][j]=='W')&#123; dfs(i,j); ans++; &#125; &#125; &#125; cout&lt;&lt;ans&lt;&lt;endl; ans=0; &#125; return 0;&#125; 题解简单的dfs搜索出每一种情况，然后让其返回就行了。 一道经典的BFS的题目题目 代码如下:1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071#include&lt;stdio.h&gt;#include&lt;queue&gt;using namespace std;int fxy[4][2]=&#123;&#123;1,0&#125;,&#123;-1,0&#125;,&#123;0,1&#125;,&#123;0,-1&#125;&#125;;//朝着四个方向char dis[101][101];int kp[101][101];//以下的node就作为每一次前进的节点struct node&#123; int x,y,cnt; node(int a=0,int b=0,int c=0)&#123; x=a; y=b; cnt=c; &#125;&#125;;int main()&#123; int m,n,k,g,k1,g1; while(~scanf("%d %d",&amp;m,&amp;n)) &#123; for(int i=0;i&lt;m;i++) &#123; scanf("%s",dis[i]); &#125; // 用队列整合的思想来完成 queue&lt;struct node&gt;q; for(int i=0;i&lt;m;i++) for(int j=0;j&lt;n;j++)&#123; kp[i][j]=-1; &#125; // 两种初始化过程，并且找到起点与终点的所在位置 for(int i=0;i&lt;m;i++) for(int j=0;j&lt;n;j++)&#123; if(dis[i][j]=='S')&#123; k=i; g=j; &#125; if(dis[i][j]=='E')&#123; k1=i; g1=j; &#125; &#125; // 将起点存进去 node a(k,g,0); q.push(a); // 下面就是为bfs的相应搜索 while(!q.empty())&#123; struct node now=q.front(); q.pop(); kp[now.x][now.y]=now.cnt; // 将起点走了多少步数以及起点的坐标点存入到题目中去 for(int i=0;i&lt;4;i++)&#123; node next; next.x=now.x+fxy[i][0]; next.y=now.y+fxy[i][1]; // 判断走的下一步有没有出界，或者使下一步走的不会碰到路障 if(next.x&gt;=0&amp;&amp;next.x&lt;m&amp;&amp;next.y&gt;=0&amp;&amp;next.y&lt;n&amp;&amp;dis[next.x][next.y]!='#'&amp;&amp;kp[next.x][next.y]==-1)&#123; node empt(next.x,next.y,now.cnt+1); q.push(empt); &#125; &#125; &#125; if(kp[k1][g1]==-1) printf("Trapped!\n"); else printf("Escaped in %d minute(s).\n",kp[k1][g1]); &#125; return 0;&#125; 记住上面相应的队列思想。 一道DFS与BFS的综合题==需要多花时间来温习一遍== 题目 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112#include&lt;iostream&gt;#include&lt;queue&gt;#include&lt;algorithm&gt;using namespace std;int n,m,k,cnt = 0;int x_begin,x_end,y_begin,y_end;const int maxn = 1005;int dis[maxn][maxn];char ch[maxn][maxn];class Position&#123;public: int x; int y; int distance; public: Position() = default; Position(int a, int b, int c):x(a),y(b),distance(c)&#123;&#125;; Position move(int i);&#125;;Position Position::move(int i)&#123; Position post = *this; if (i == 0) post.x = this -&gt; x + 1; else if (i == 1) post.x = this -&gt; x - 1; else if (i == 2) post.y = this -&gt; y + 1; else if (i == 3) post.y = this -&gt; y - 1; return post;&#125;void bfs()&#123; queue&lt;Position&gt;q_dis; Position p_begin (x_begin,y_begin,0); q_dis.push(p_begin); while(!q_dis.empty())&#123; Position now = q_dis.front(); q_dis.pop(); dis[now.x][now.y]=now.distance; for(int i = 0; i != 4; i++)&#123; Position next; next = now.move(i); if (next.x &gt;= 0 &amp;&amp; next.x &lt; n &amp;&amp; next.y &gt;= 0 &amp;&amp; next.y &lt; m &amp;&amp; dis[next.x][next.y] == -1 &amp;&amp; ch[next.x][next.y] != '#')&#123; Position empt (next.x,next.y,now.distance + 1); q_dis.push(empt); &#125; &#125; &#125;&#125;void dfs(int x,int y)&#123; if (x &lt; 0 || x &gt;= n || y &lt; 0 || y &gt;= m) return ; if (ch[x][y]=='L') &#123; cnt++; return; &#125; if (dis[x][y] == -1) return; // 前面已经有dis可以表示每一步走的距离，所以只需要一步一步来看，这样的做法便可以完全规避障碍物，单单从路径上面考虑。 if (dis[x][y]==dis[x+1][y]+1) dfs(x+1,y); if (dis[x][y]==dis[x-1][y]+1) dfs(x-1,y); if (dis[x][y]==dis[x][y+1]+1) dfs(x,y+1); if (dis[x][y]==dis[x][y-1]+1) dfs(x,y-1);&#125;int main()&#123; int T,Case = 0; cin&gt;&gt;T; while(T--)&#123; Case++; cin&gt;&gt;n&gt;&gt;m&gt;&gt;k; bool f_begin = false,f_end = false; for (int i = 0; i != n; i++)&#123; for (int j = 0; j != m; j++)&#123; cin &gt;&gt; ch[i][j]; dis[i][j] = -1; &#125; &#125; for (int i = 0; i != n; i++)&#123; for (int j = 0; j != m; j++)&#123; if (f_end &amp;&amp; f_begin) break; if (ch[i][j] == 'L')&#123; x_begin = i; y_begin = j; f_begin = true; &#125; if (ch[i][j] == 'C')&#123; x_end = i; y_end = j; f_end = true; &#125; &#125; &#125; bfs(); if (dis[x_end][y_end] == -1 ||dis[x_end][y_end] &gt; k ) cout &lt;&lt; "Case #"&lt;&lt;Case&lt;&lt;": "&lt;&lt;-1&lt;&lt;endl; else&#123; dfs(x_end,y_end); cout&lt;&lt;"Case #"&lt;&lt;Case&lt;&lt;": "&lt;&lt;dis[x_end][y_end]&lt;&lt;" "&lt;&lt;cnt&lt;&lt;endl; cnt = 0; &#125; &#125; return 0;&#125; 这里注明一下关于==默认实参==的知识点，因为在这个地方可以直接对类的构造函数赋值一个默认实参，可以避免输入默认构造函数了。 下面则是一道DFS的题目，这道题目看上去可以用bfs来做 代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;queue&gt;using namespace std;const int maxn = 100;int road[maxn][maxn];int dp[maxn][maxn];int n, m;int dfs (int i,int j)&#123; if (dp[i][j] != -1) return dp[i][j]; int Max = 0; if (i-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i-1][j]&amp;&amp;Max&lt;dfs(i-1,j)) Max = dfs(i-1,j); if(i+1&lt;n &amp;&amp; road[i][j]&gt;road[i+1][j]&amp;&amp;Max&lt;dfs(i+1,j)) Max=dfs(i+1,j); if(j-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i][j-1]&amp;&amp;Max&lt;dfs(i,j-1)) Max=dfs(i,j-1); if(j+1&lt;m &amp;&amp; road[i][j]&gt;road[i][j+1]&amp;&amp;Max&lt;dfs(i,j+1)) Max=dfs(i,j+1); return dp[i][j]=Max+1;&#125;int main()&#123; while (cin &gt;&gt; n &gt;&gt; m) &#123; for (int i = 0; i != n; i++) &#123; for (int j = 0; j != m; j++) &#123; cin &gt;&gt; road[i][j]; dp[i][j] = -1; &#125; &#125; int MAX = -1; for (int i = 0; i != n; i++) &#123; for (int j = 0; j != m; j++) &#123; MAX = max (dfs(i,j),MAX); &#125; &#125; cout &lt;&lt; MAX &lt;&lt; endl; &#125; return 0;&#125; 题解 此题其实最重要的就在于这个题目不同于其他题目，这个题目找的是最长路径，还不是最短路径，一般来说，BFS找的是最短路径，DFS找的是最短路径的条数。而这里就是利用dfs的返回值（每走一步的最大值，意思就是从各个角度上）记录在dp中，将每一个位置都走到不能走为止，然后存储在dp中，最后找最大值的DP即可。不过自己可以试试遍历的其他方法。]]></content>
+    <title><![CDATA[STL的简单总结]]></title>
+    <url>%2F2018%2F12%2F01%2FSTL%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[补一个加快C++输入输出速度的方法： 花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。 字符串 string与字符数组 构造string的方法 操作string的方法 上面的成员函数有的说要返回，同时，有的也存在不返回值。 搜索string的方法 以上就是find函数的一些用法，在泛型算法一章，还会继续涉及到。题目返回的是下标 补充一下关于string中的比较函数一般在string中可以直接用运算符进行比较 int与string之间的转化 getline()的两种写法注意在cin&gt;&gt;t;必须要一个getchar()来吞掉其前面的回车符号。之后才能用getline()。 顺序容器 容器种类 vector&lt;vector&lt;int&gt; &gt;来表示二维数组。 容器基础操作补充一个assign的用法：允许从一个不同但相容的类型里面去赋值，或者从容器的一个子序列赋值。 还有第二个版本：接受一个整型值和一个元素值，用指定数目且具有相同给定元素替换容器中原有的元素： 再补充一个resize的用法： 需要记住有一些类型声明可以直接用auto。 初始化有两种一种直接初始化和拷贝初始化。 顺序容器添加元素上面已经列出了各种形式的插入。插入是在迭代器指向的元素之前插入。插入想要插入的元素前面，比如说push_back是插入到了尾后迭代器的前面。而返回的是新添加的第一个元素的迭代器，同样也可也==不返回==。 这里要注意的是push_front会改变整个容器的迭代器指向，而push_back不会。 访问元素 链表，单向链表，栈，队列都不支持随机访问，也就不支持下标访问了。 删除元素 删除的是迭代器指向的元素，返回的是删除元素的后迭代器也就是被删除的元素下一个元素的前面的迭代器，同样也可以不返回。 这里需要注意的就是删除一个元素之后，必定会改变原容器中迭代器的指向，所以务必小心（除了pop_back） 改变容器大小的操作 特殊的forward_list（单向链表） 由于迭代器的添加删除操作都涉及到了首前和尾后，所以对于单向链表来说这里添加了一个首前迭代器before_begin而对于单向链表的插入而言 是在元素的后面进行插入，删除也是一样，指向都是迭代器指向元素之后的元素。 关联容器 **关联容器里面的pair 关联容器的操作 关联容器的添加操作 一般都是直接用下标操作添加map里面的操作。at操作只能判断存不存在 关联容器的删除操作 关联容器的访问操作 上面关于排序的操作不适用于无序的关联容器。 当允许关键词重复的multimap中查找元素时，一般使用find函数与count函数同时进行。 算法大部分函数算法都放在&lt;algorithm&gt;的头文件里面了。还有一些数值算法是放在了&lt;numeric&gt;的头文件里面。 只读算法 accumulate 求和算法，接受三个参数，前面两个参数是累加范围，第三个是和的初值。equal 判断两个序列里面是否所有的值都相同。后面网上查找 有的再补充。find算法binary_search()二分查找函数find_end()最后一次出现算法find_first_of()第一次出现的算法find_if ()第三个参数就为自定义函数搜索lower_bound()第一个不小于的元素upper_bound()第一个大于的元素count（）算法 计算出现次数count_if（）函数自定义计数 写容器的算法 fill 填充算法 类似于memset函数前者在于可以赋值赋任何值，而后者理论上只能赋值0或者1或者0x3f3f3f3f。fill_n也是三个参数，第一个是开始点，第二个是赋值数目，第三个为赋值初始化。copy 拷贝算法，接收三个迭代器，前面两个表示输入范围，第三个为拷贝目标序列的起点。replace 替换算法，将目标序列里面的某些值更改成某些值，接受四个参数，前面两个是目标序列的范围，第三个是要搜索的值，第四个是要将搜索到的第三个的值更改后的值。remove 去除掉函数里面包括的参数的元素。remove_if 自定义。remove_copy 拷贝结果。swap（）交换两个对象的值。swap_range()交换两个序列的值。 重排容器的算法 其排序的算法中，定义的排序方式就在于自定义函数传入算法中。有三种自定义函数： 普通bool型自定义函数，比较排列顺序。 lambda 匿名小函数。 bind 函数 绑定谓词。灵活的应用自定义函数。 unique 将容器中所有重复的值全部排列到后面去，接受目标序列的迭代器范围，返回指向第一个重复元素的迭代器。sort 排序 本质上运用的是快速排序。stable_sort 本质上运动的是归并排序。stable_partition 前面进行排序后，把自定义排列的分割开来。reverse 倒排函数。reverse_copy 倒排函数。rotate 接受三个参数，前面两个是要往后面排的范围。 迭代器 插入迭代器back_inserter 类似于push_back的迭代器，创建并且使用front_inserter 创建并且使用一个push_front的迭代器inserter 创建一个普通插入的迭代器 流迭代器istream_iterator 输入迭代器 ostream_iterator 输出迭代器 反向迭代器reverse_iterator 移动迭代器后面复习到在总结 移动、拷贝、右值引用。]]></content>
       <categories>
-        <category>题解</category>
+        <category>acm</category>
       </categories>
       <tags>
         <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>模拟与搜索</tag>
+        <tag>数据结构</tag>
+        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
@@ -139,9 +139,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款12：复制对象时勿忘其每一个成分]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86%2F</url>
-    <content type="text"><![CDATA[这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。下面直接分为两个方面进行诠释： 类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。 一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图： 另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。 如果发现两个拷贝行为有类似的代码时，应该把这个相同的代码放到一个函数中区，然后由两个拷贝行为共同调用。]]></content>
+    <title><![CDATA[条款10：令 operator= 返回一个 自身的返回]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator%3D%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E%2F</url>
+    <content type="text"><![CDATA[一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -164,18 +164,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[贪心算法]]></title>
-    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>贪心</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[关于组合数学，两道思维题目，这里贴两道题目]]></title>
     <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%EF%BC%8C%E4%B8%A4%E9%81%93%E6%80%9D%E7%BB%B4%E9%A2%98%E7%9B%AE%EF%BC%8C%E8%BF%99%E9%87%8C%E8%B4%B4%E4%B8%A4%E9%81%93%E9%A2%98%E7%9B%AE%2F</url>
     <content type="text"><![CDATA[第一道 简单的排列组合： 题解如下： 题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是==C(b,a+b)==;那么三堆的话我们可以把前两堆看成一堆，那么表达式就是==C(c,a+b+c)==，这是我们需要与前两堆的组成方法相乘，就是==C(b,a+b)C(c,a+b+c)==。4堆的话就是==C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==。所以答案就是==C(a,a)C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==。此外，有一公式==C(a,b)=C(a,b-1)+C(a-1,b-1)==，所以我们用数组来代替C(m,n)操作 代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 501;const long long mod = 1000000007;long long a[4],sum[4]=&#123;0&#125;;//此处用到记忆化搜索，动态规划。long long dp[maxn*4][maxn*4];void init()&#123; dp[0][0]=0; for (int i=1;i!=4*maxn;i++)&#123; dp[i][0]=1; //根据表格来看的确是每一行的第一个是1 for (int j=1;j&lt;i;j++)&#123; //这个地方就是状态转移方程 //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的 dp[i][j]=dp[i-1][j]+dp[i-1][j-1]; //dp[i][j]=dp[i][j]%mod; &#125; dp[i][i]=1; &#125;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; init();//这个地方就开始初始化表格了。 long long ans =1; for (int i = 0; i&lt;4;i++)&#123; if (!i) sum[i]=0; else sum[i]=sum[i-1]; cin&gt;&gt;a[i]; sum[i] += a[i]; if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i]; &#125; for (int i = 1 ; i != 4; i++)&#123; ans *= dp[sum[i]][a[i]]; //ans %=mod; &#125; cout&lt;&lt;ans&lt;&lt;endl; &#125; return 0;&#125; 第二题 第一题的变式： 题解如上，与上面一题有区别的地方就在于要有一个取模的操作 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 501;const long long mod = 1000000007;long long a[4],sum[4]=&#123;0&#125;;//此处用到记忆化搜索，动态规划。long long dp[maxn*4][maxn*4];void init()&#123; dp[0][0]=0; for (int i=1;i!=4*maxn;i++)&#123; dp[i][0]=1; //根据表格来看的确是每一行的第一个是1 for (int j=1;j&lt;i;j++)&#123; //这个地方就是状态转移方程 //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的 dp[i][j]=dp[i-1][j]+dp[i-1][j-1]; dp[i][j]=dp[i][j]%mod; &#125; dp[i][i]=1; &#125;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; init();//这个地方就开始初始化表格了。 long long ans =1; for (int i = 0; i&lt;4;i++)&#123; if (!i) sum[i]=0; else sum[i]=sum[i-1]; cin&gt;&gt;a[i]; sum[i] += a[i]; if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i]; &#125; for (int i = 1 ; i != 4; i++)&#123; ans *= dp[sum[i]][a[i]]; ans %=mod; &#125; cout&lt;&lt;ans&lt;&lt;endl; &#125; return 0;&#125; ==以后学到后面再花时间来深究==]]></content>
@@ -189,6 +177,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[贪心算法]]></title>
+    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>贪心</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数据结构相应总结]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%BA%94%E6%80%BB%E7%BB%93%2F</url>
     <content type="text"><![CDATA[栈 栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。 两种方法表示这种栈的实现 第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。 第二种就是直接用C++里面STL模板首先先定义一个stack&lt;int&gt; s 然后以下就是其的操作。 注意其不能使用push_back只能使用push 1234s.pop() 删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。s.push() 创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。s.top() 返回栈顶的元素，也就是刚刚进来的元素。s.bottom() 返回栈底的元素，也就是最后一个元素 队列适配器队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者自己定义一种排序方式，然后通过这种排序方式，再来出队操作。 与上面一样，先定义一个queue&lt;int&gt; q与priority_queue&lt;int&gt; q。 1234567q.pop() 按照先进先出的思想，删除首元素或者优先级最高的元素q.front() 返回首元素。q.back() 返回尾元素。以上两个是只适用于队列。q.top() 返回优先队列中优先级最高的元素。q.push()q.emplace() 加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。 这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造 123456789下面两种优先队列的定义是等价的priority_queue&lt;int&gt; q;priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格默认都是从小到大排序接受三个参数，第一个参数为数据类型，第二个参数为承载容器的类型，第三个就是自定义的比较函数了。可以使lamda匿名函数，也可以是function头文件里面的函数模板。 链表特点：自定义，不连续的。同时链表也是后面相应树形结构的基础实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了 动态数组这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。 树与二叉树一般的树 以上就是一般树的形态。下面则是关于树的基本用语。关于上面重要的概念就是结点和结点的度了。 二叉树二叉树的定义: 二叉树有五种基本形态： 二叉树的性质:上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。 满二叉树与完全二叉树前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。 #####二叉树的存储结构： 数组存储： 二叉链式存储（原理类似链表）：将链表内部的*next，变成了指向两边的子节点的指针。 三叉链式存储：比二叉链式结构多了一个回指向父节点的指针。 遍历二叉树的方法 先序遍历（根-&gt;左-&gt;右）： 代码: 12345678void PreOrderTraverse(BiTree *T)&#123; if(T != NULL)&#123; printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 图示： 最终结果就是==ABDGHCEIF==。 中序遍历（左-&gt;根-&gt;右)： 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void InOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 最终结果为==GDHBAEICF==。 后序遍历（左-&gt;右-&gt;根） 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void PostOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); printf("%c", T-&gt;data); &#125;&#125; 最终结果为==GHDBIEFCA==。 关于二叉树的建立代码：代码我等下自己写出来。 图图的定义 图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。 图的专业术语： 图-生成树 邻接矩阵的表示方法（数组）不带权值的表示方法 一般就是用二维数组来表示每一个结点之间的关系 关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。]]></content>
@@ -198,19 +198,6 @@
       <tags>
         <tag>acm</tag>
         <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[树相关题目]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -251,9 +238,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
+    <title><![CDATA[条款03：尽可能使用 const]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8%20const%2F</url>
+    <content type="text"><![CDATA[首先使用 const 可以防止后期莫名其妙的进行改变原有的意思，相当于一个约束语义，另外编译器不论什么时候都会强制施行这项约束。 const 在 C++ 11 中有底层和顶层之分，前者是作用于指针本身，指针不再改变指向对象，而顶层 const 则是指针所指向的对象则不能发生改变。 const 最具威力的用法实在面对函数声明时的用法，在一个函数的声明式里，const 可以和函数的返回值，各自的参数以及函数自身产生关联。 将引用参数设置成 const 好处是在后面写代码的过程中如果把==写成=，可以立马甄别出来。 const 成员函数存在的两个理由，一个使 class 的接口一目了然，因为知道了哪些可以被改动对象而哪些不可以被改动对象，第二则是基于代码编写的高效性而言，操作 const 对象成为可能，因为可以通过 const 成员函数返回 const 对象。 存在一种特殊情况，重载[ ]运算符的时候，如果成员函数是 const 那么其的返回值也必须是 const&amp;类型的。 如果对于const 成员函数，想要改变该对象的内部成员的话，但是又不想全部改变的话，可以在类中的数据成员定义中加上 mutable，来保证可以改变该函数，其存在的意义就在于保证了其他数据成员不能被 const 成员函数改变，但是该数据成员却可以。 7.当 const 和 non-const 成员函数有实质等价的实现时，令 non-const 版本调用 const 版本可避免代码重复。 这一点还不是特别了解，需要看到后面之后花点时间来看看这一点的内容。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -263,9 +250,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款03：尽可能使用 const]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8%20const%2F</url>
-    <content type="text"><![CDATA[首先使用 const 可以防止后期莫名其妙的进行改变原有的意思，相当于一个约束语义，另外编译器不论什么时候都会强制施行这项约束。 const 在 C++ 11 中有底层和顶层之分，前者是作用于指针本身，指针不再改变指向对象，而顶层 const 则是指针所指向的对象则不能发生改变。 const 最具威力的用法实在面对函数声明时的用法，在一个函数的声明式里，const 可以和函数的返回值，各自的参数以及函数自身产生关联。 将引用参数设置成 const 好处是在后面写代码的过程中如果把==写成=，可以立马甄别出来。 const 成员函数存在的两个理由，一个使 class 的接口一目了然，因为知道了哪些可以被改动对象而哪些不可以被改动对象，第二则是基于代码编写的高效性而言，操作 const 对象成为可能，因为可以通过 const 成员函数返回 const 对象。 存在一种特殊情况，重载[ ]运算符的时候，如果成员函数是 const 那么其的返回值也必须是 const&amp;类型的。 如果对于const 成员函数，想要改变该对象的内部成员的话，但是又不想全部改变的话，可以在类中的数据成员定义中加上 mutable，来保证可以改变该函数，其存在的意义就在于保证了其他数据成员不能被 const 成员函数改变，但是该数据成员却可以。 7.当 const 和 non-const 成员函数有实质等价的实现时，令 non-const 版本调用 const 版本可避免代码重复。 这一点还不是特别了解，需要看到后面之后花点时间来看看这一点的内容。]]></content>
+    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -287,6 +274,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[条款07：为多态基类声明 virtual 析构函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8E%20virtual%20%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。 C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类的析构函数上面加上虚函数的声明。 不要随便继承标准库里面的东西，因为里面大部分东西都不存在虚函数的析构函数，这样一来，如果使用动态绑定的话，那么在销毁对象的过程中就没有办法全部销毁了。 而且不一定是基类的析构函数设置成虚函数，只要类里面有一个函数是虚函数的话，那么就需要将析构函数定义成虚函数。 类的用途不是作为多态的用途的话，那么请不要将析构函数声明成虚函数，因为那样没有作用。 对于一个纯虚函数而言，这个类就是一个抽象类，但是由于存在一个析构函数，所以一般要为这个纯虚函数提供定义，其的运作方式是最深层派生的那个类的析构函数最先被调用，然后就是每一个基类的析构函数被调用，所以编译器会在派生类的析构函数中定一个对基类纯虚析构函数的调用动作，因此，一般都得进行调用。]]></content>
+      <categories>
+        <category>effective C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[条款06：若不想使用编译器自动生成的函数，就应该明确拒绝]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D%2F</url>
     <content type="text"><![CDATA[有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。 把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。 继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。 C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。]]></content>
@@ -299,15 +298,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款07：为多态基类声明 virtual 析构函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8E%20virtual%20%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。 C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类的析构函数上面加上虚函数的声明。 不要随便继承标准库里面的东西，因为里面大部分东西都不存在虚函数的析构函数，这样一来，如果使用动态绑定的话，那么在销毁对象的过程中就没有办法全部销毁了。 而且不一定是基类的析构函数设置成虚函数，只要类里面有一个函数是虚函数的话，那么就需要将析构函数定义成虚函数。 类的用途不是作为多态的用途的话，那么请不要将析构函数声明成虚函数，因为那样没有作用。 对于一个纯虚函数而言，这个类就是一个抽象类，但是由于存在一个析构函数，所以一般要为这个纯虚函数提供定义，其的运作方式是最深层派生的那个类的析构函数最先被调用，然后就是每一个基类的析构函数被调用，所以编译器会在派生类的析构函数中定一个对基类纯虚析构函数的调用动作，因此，一般都得进行调用。]]></content>
+    <title><![CDATA[树相关题目]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
       <categories>
-        <category>effective C++</category>
+        <category>题解</category>
       </categories>
       <tags>
+        <tag>acm</tag>
         <tag>c++</tag>
-        <tag>effective C++</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -335,22 +335,22 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[STL的简单总结]]></title>
-    <url>%2F2018%2F12%2F01%2FSTL%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[补一个加快C++输入输出速度的方法： 花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。 字符串 string与字符数组 构造string的方法 操作string的方法 上面的成员函数有的说要返回，同时，有的也存在不返回值。 搜索string的方法 以上就是find函数的一些用法，在泛型算法一章，还会继续涉及到。题目返回的是下标 补充一下关于string中的比较函数一般在string中可以直接用运算符进行比较 int与string之间的转化 getline()的两种写法注意在cin&gt;&gt;t;必须要一个getchar()来吞掉其前面的回车符号。之后才能用getline()。 顺序容器 容器种类 vector&lt;vector&lt;int&gt; &gt;来表示二维数组。 容器基础操作补充一个assign的用法：允许从一个不同但相容的类型里面去赋值，或者从容器的一个子序列赋值。 还有第二个版本：接受一个整型值和一个元素值，用指定数目且具有相同给定元素替换容器中原有的元素： 再补充一个resize的用法： 需要记住有一些类型声明可以直接用auto。 初始化有两种一种直接初始化和拷贝初始化。 顺序容器添加元素上面已经列出了各种形式的插入。插入是在迭代器指向的元素之前插入。插入想要插入的元素前面，比如说push_back是插入到了尾后迭代器的前面。而返回的是新添加的第一个元素的迭代器，同样也可也==不返回==。 这里要注意的是push_front会改变整个容器的迭代器指向，而push_back不会。 访问元素 链表，单向链表，栈，队列都不支持随机访问，也就不支持下标访问了。 删除元素 删除的是迭代器指向的元素，返回的是删除元素的后迭代器也就是被删除的元素下一个元素的前面的迭代器，同样也可以不返回。 这里需要注意的就是删除一个元素之后，必定会改变原容器中迭代器的指向，所以务必小心（除了pop_back） 改变容器大小的操作 特殊的forward_list（单向链表） 由于迭代器的添加删除操作都涉及到了首前和尾后，所以对于单向链表来说这里添加了一个首前迭代器before_begin而对于单向链表的插入而言 是在元素的后面进行插入，删除也是一样，指向都是迭代器指向元素之后的元素。 关联容器 **关联容器里面的pair 关联容器的操作 关联容器的添加操作 一般都是直接用下标操作添加map里面的操作。at操作只能判断存不存在 关联容器的删除操作 关联容器的访问操作 上面关于排序的操作不适用于无序的关联容器。 当允许关键词重复的multimap中查找元素时，一般使用find函数与count函数同时进行。 算法大部分函数算法都放在&lt;algorithm&gt;的头文件里面了。还有一些数值算法是放在了&lt;numeric&gt;的头文件里面。 只读算法 accumulate 求和算法，接受三个参数，前面两个参数是累加范围，第三个是和的初值。equal 判断两个序列里面是否所有的值都相同。后面网上查找 有的再补充。find算法binary_search()二分查找函数find_end()最后一次出现算法find_first_of()第一次出现的算法find_if ()第三个参数就为自定义函数搜索lower_bound()第一个不小于的元素upper_bound()第一个大于的元素count（）算法 计算出现次数count_if（）函数自定义计数 写容器的算法 fill 填充算法 类似于memset函数前者在于可以赋值赋任何值，而后者理论上只能赋值0或者1或者0x3f3f3f3f。fill_n也是三个参数，第一个是开始点，第二个是赋值数目，第三个为赋值初始化。copy 拷贝算法，接收三个迭代器，前面两个表示输入范围，第三个为拷贝目标序列的起点。replace 替换算法，将目标序列里面的某些值更改成某些值，接受四个参数，前面两个是目标序列的范围，第三个是要搜索的值，第四个是要将搜索到的第三个的值更改后的值。remove 去除掉函数里面包括的参数的元素。remove_if 自定义。remove_copy 拷贝结果。swap（）交换两个对象的值。swap_range()交换两个序列的值。 重排容器的算法 其排序的算法中，定义的排序方式就在于自定义函数传入算法中。有三种自定义函数： 普通bool型自定义函数，比较排列顺序。 lambda 匿名小函数。 bind 函数 绑定谓词。灵活的应用自定义函数。 unique 将容器中所有重复的值全部排列到后面去，接受目标序列的迭代器范围，返回指向第一个重复元素的迭代器。sort 排序 本质上运用的是快速排序。stable_sort 本质上运动的是归并排序。stable_partition 前面进行排序后，把自定义排列的分割开来。reverse 倒排函数。reverse_copy 倒排函数。rotate 接受三个参数，前面两个是要往后面排的范围。 迭代器 插入迭代器back_inserter 类似于push_back的迭代器，创建并且使用front_inserter 创建并且使用一个push_front的迭代器inserter 创建一个普通插入的迭代器 流迭代器istream_iterator 输入迭代器 ostream_iterator 输出迭代器 反向迭代器reverse_iterator 移动迭代器后面复习到在总结 移动、拷贝、右值引用。]]></content>
+    <title><![CDATA[关于模拟与搜索的相应简单题目]]></title>
+    <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8E%E6%A8%A1%E6%8B%9F%E4%B8%8E%E6%90%9C%E7%B4%A2%E7%9A%84%E7%9B%B8%E5%BA%94%E7%AE%80%E5%8D%95%E9%A2%98%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[题目 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;cmath&gt;using namespace std;int main()&#123; string w,v; int x,y,m; char ch; while(cin&gt;&gt;w&gt;&gt;v)&#123; string s; int flag=0; reverse(w.begin(),w.end()); reverse(v.begin(),v.end()); if (w.size()&gt;v.size())&#123; m=w.size()-v.size(); for (int i=0;i!=v.size();i++)&#123; x=w[i]-'0'; y=v[i]-'0'; x+=y; if (flag)&#123; flag=0; x++; &#125; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); &#125; int i=v.size(); while (flag==1&amp;&amp;i&lt;=m)&#123; flag=0; x=w[i]-'0'; x++; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); i++; &#125; if (flag&amp;&amp;i==w.size())&#123; s.push_back('1'); &#125; &#125; else &#123; m=v.size()-w.size(); for (int i=0;i!=w.size();i++)&#123; x=w[i]-'0'; y=v[i]-'0'; x+=y; if (flag)&#123; flag=0; x++; &#125; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); &#125; int i=w.size(); while (flag&amp;&amp;i&lt;=m)&#123; flag=0; x=w[i]-'0'; x++; if (x&gt;=10)&#123; flag=1; x=x-10; &#125; ch=x+'0'; s.push_back(ch); i++; &#125; if (flag&amp;&amp;i==v.size())&#123; s.push_back('1'); &#125; &#125; reverse(s.begin(),s.end()); cout&lt;&lt;s&lt;&lt;endl; &#125;&#125; 题解：其实这道题目属于一道相应简单的题目，就是要注意相应string与char之间的区别就行了。另外 int转换char是加上‘0’char转换int是减去‘0’。 一道简单的dfs的题目 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;using namespace std;const int maxn = 105;char h[maxn][maxn];int n,m,cnt=0;void dfs(int i,int j)&#123; if (i&lt;0||i&gt;=n||h[i][j]!='W') return ; if (j&lt;0||j&gt;=m||h[i][j]!='W') return ; if (h[i][j]=='W')&#123; h[i][j]='.'; dfs(i-1,j); dfs(i-1,j-1); dfs(i+1,j); dfs(i+1,j+1); dfs(i,j-1); dfs(i-1,j+1); dfs(i,j+1); dfs(i+1,j-1); &#125;&#125;int main()&#123; int ans=0; while(cin&gt;&gt;n&gt;&gt;m&amp;&amp;(n!=0&amp;&amp;m!=0))&#123; for (int i=0;i!=n;i++) for (int j=0;j!=m;j++)&#123; cin&gt;&gt;h[i][j]; &#125; for (int i=0;i!=n;i++)&#123; for (int j=0;j!=m;j++)&#123; if (h[i][j]=='W')&#123; dfs(i,j); ans++; &#125; &#125; &#125; cout&lt;&lt;ans&lt;&lt;endl; ans=0; &#125; return 0;&#125; 题解简单的dfs搜索出每一种情况，然后让其返回就行了。 一道经典的BFS的题目题目 代码如下:1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071#include&lt;stdio.h&gt;#include&lt;queue&gt;using namespace std;int fxy[4][2]=&#123;&#123;1,0&#125;,&#123;-1,0&#125;,&#123;0,1&#125;,&#123;0,-1&#125;&#125;;//朝着四个方向char dis[101][101];int kp[101][101];//以下的node就作为每一次前进的节点struct node&#123; int x,y,cnt; node(int a=0,int b=0,int c=0)&#123; x=a; y=b; cnt=c; &#125;&#125;;int main()&#123; int m,n,k,g,k1,g1; while(~scanf("%d %d",&amp;m,&amp;n)) &#123; for(int i=0;i&lt;m;i++) &#123; scanf("%s",dis[i]); &#125; // 用队列整合的思想来完成 queue&lt;struct node&gt;q; for(int i=0;i&lt;m;i++) for(int j=0;j&lt;n;j++)&#123; kp[i][j]=-1; &#125; // 两种初始化过程，并且找到起点与终点的所在位置 for(int i=0;i&lt;m;i++) for(int j=0;j&lt;n;j++)&#123; if(dis[i][j]=='S')&#123; k=i; g=j; &#125; if(dis[i][j]=='E')&#123; k1=i; g1=j; &#125; &#125; // 将起点存进去 node a(k,g,0); q.push(a); // 下面就是为bfs的相应搜索 while(!q.empty())&#123; struct node now=q.front(); q.pop(); kp[now.x][now.y]=now.cnt; // 将起点走了多少步数以及起点的坐标点存入到题目中去 for(int i=0;i&lt;4;i++)&#123; node next; next.x=now.x+fxy[i][0]; next.y=now.y+fxy[i][1]; // 判断走的下一步有没有出界，或者使下一步走的不会碰到路障 if(next.x&gt;=0&amp;&amp;next.x&lt;m&amp;&amp;next.y&gt;=0&amp;&amp;next.y&lt;n&amp;&amp;dis[next.x][next.y]!='#'&amp;&amp;kp[next.x][next.y]==-1)&#123; node empt(next.x,next.y,now.cnt+1); q.push(empt); &#125; &#125; &#125; if(kp[k1][g1]==-1) printf("Trapped!\n"); else printf("Escaped in %d minute(s).\n",kp[k1][g1]); &#125; return 0;&#125; 记住上面相应的队列思想。 一道DFS与BFS的综合题==需要多花时间来温习一遍== 题目 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112#include&lt;iostream&gt;#include&lt;queue&gt;#include&lt;algorithm&gt;using namespace std;int n,m,k,cnt = 0;int x_begin,x_end,y_begin,y_end;const int maxn = 1005;int dis[maxn][maxn];char ch[maxn][maxn];class Position&#123;public: int x; int y; int distance; public: Position() = default; Position(int a, int b, int c):x(a),y(b),distance(c)&#123;&#125;; Position move(int i);&#125;;Position Position::move(int i)&#123; Position post = *this; if (i == 0) post.x = this -&gt; x + 1; else if (i == 1) post.x = this -&gt; x - 1; else if (i == 2) post.y = this -&gt; y + 1; else if (i == 3) post.y = this -&gt; y - 1; return post;&#125;void bfs()&#123; queue&lt;Position&gt;q_dis; Position p_begin (x_begin,y_begin,0); q_dis.push(p_begin); while(!q_dis.empty())&#123; Position now = q_dis.front(); q_dis.pop(); dis[now.x][now.y]=now.distance; for(int i = 0; i != 4; i++)&#123; Position next; next = now.move(i); if (next.x &gt;= 0 &amp;&amp; next.x &lt; n &amp;&amp; next.y &gt;= 0 &amp;&amp; next.y &lt; m &amp;&amp; dis[next.x][next.y] == -1 &amp;&amp; ch[next.x][next.y] != '#')&#123; Position empt (next.x,next.y,now.distance + 1); q_dis.push(empt); &#125; &#125; &#125;&#125;void dfs(int x,int y)&#123; if (x &lt; 0 || x &gt;= n || y &lt; 0 || y &gt;= m) return ; if (ch[x][y]=='L') &#123; cnt++; return; &#125; if (dis[x][y] == -1) return; // 前面已经有dis可以表示每一步走的距离，所以只需要一步一步来看，这样的做法便可以完全规避障碍物，单单从路径上面考虑。 if (dis[x][y]==dis[x+1][y]+1) dfs(x+1,y); if (dis[x][y]==dis[x-1][y]+1) dfs(x-1,y); if (dis[x][y]==dis[x][y+1]+1) dfs(x,y+1); if (dis[x][y]==dis[x][y-1]+1) dfs(x,y-1);&#125;int main()&#123; int T,Case = 0; cin&gt;&gt;T; while(T--)&#123; Case++; cin&gt;&gt;n&gt;&gt;m&gt;&gt;k; bool f_begin = false,f_end = false; for (int i = 0; i != n; i++)&#123; for (int j = 0; j != m; j++)&#123; cin &gt;&gt; ch[i][j]; dis[i][j] = -1; &#125; &#125; for (int i = 0; i != n; i++)&#123; for (int j = 0; j != m; j++)&#123; if (f_end &amp;&amp; f_begin) break; if (ch[i][j] == 'L')&#123; x_begin = i; y_begin = j; f_begin = true; &#125; if (ch[i][j] == 'C')&#123; x_end = i; y_end = j; f_end = true; &#125; &#125; &#125; bfs(); if (dis[x_end][y_end] == -1 ||dis[x_end][y_end] &gt; k ) cout &lt;&lt; "Case #"&lt;&lt;Case&lt;&lt;": "&lt;&lt;-1&lt;&lt;endl; else&#123; dfs(x_end,y_end); cout&lt;&lt;"Case #"&lt;&lt;Case&lt;&lt;": "&lt;&lt;dis[x_end][y_end]&lt;&lt;" "&lt;&lt;cnt&lt;&lt;endl; cnt = 0; &#125; &#125; return 0;&#125; 这里注明一下关于==默认实参==的知识点，因为在这个地方可以直接对类的构造函数赋值一个默认实参，可以避免输入默认构造函数了。 下面则是一道DFS的题目，这道题目看上去可以用bfs来做 代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;queue&gt;using namespace std;const int maxn = 100;int road[maxn][maxn];int dp[maxn][maxn];int n, m;int dfs (int i,int j)&#123; if (dp[i][j] != -1) return dp[i][j]; int Max = 0; if (i-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i-1][j]&amp;&amp;Max&lt;dfs(i-1,j)) Max = dfs(i-1,j); if(i+1&lt;n &amp;&amp; road[i][j]&gt;road[i+1][j]&amp;&amp;Max&lt;dfs(i+1,j)) Max=dfs(i+1,j); if(j-1&gt;=0 &amp;&amp; road[i][j]&gt;road[i][j-1]&amp;&amp;Max&lt;dfs(i,j-1)) Max=dfs(i,j-1); if(j+1&lt;m &amp;&amp; road[i][j]&gt;road[i][j+1]&amp;&amp;Max&lt;dfs(i,j+1)) Max=dfs(i,j+1); return dp[i][j]=Max+1;&#125;int main()&#123; while (cin &gt;&gt; n &gt;&gt; m) &#123; for (int i = 0; i != n; i++) &#123; for (int j = 0; j != m; j++) &#123; cin &gt;&gt; road[i][j]; dp[i][j] = -1; &#125; &#125; int MAX = -1; for (int i = 0; i != n; i++) &#123; for (int j = 0; j != m; j++) &#123; MAX = max (dfs(i,j),MAX); &#125; &#125; cout &lt;&lt; MAX &lt;&lt; endl; &#125; return 0;&#125; 题解 此题其实最重要的就在于这个题目不同于其他题目，这个题目找的是最长路径，还不是最短路径，一般来说，BFS找的是最短路径，DFS找的是最短路径的条数。而这里就是利用dfs的返回值（每走一步的最大值，意思就是从各个角度上）记录在dp中，将每一个位置都走到不能走为止，然后存储在dp中，最后找最大值的DP即可。不过自己可以试试遍历的其他方法。]]></content>
       <categories>
-        <category>acm</category>
+        <category>题解</category>
       </categories>
       <tags>
         <tag>acm</tag>
-        <tag>数据结构</tag>
-        <tag>STL</tag>
+        <tag>c++</tag>
+        <tag>模拟与搜索</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款10：令 operator= 返回一个 自身的返回]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator%3D%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E%2F</url>
-    <content type="text"><![CDATA[一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。]]></content>
+    <title><![CDATA[条款12：复制对象时勿忘其每一个成分]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86%2F</url>
+    <content type="text"><![CDATA[这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。下面直接分为两个方面进行诠释： 类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。 一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图： 另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。 如果发现两个拷贝行为有类似的代码时，应该把这个相同的代码放到一个函数中区，然后由两个拷贝行为共同调用。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -408,9 +408,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款17：以独立语句将new过得对象放入智能指针中]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-new-%E8%BF%87%E5%BE%97%E5%AF%B9%E8%B1%A1%E6%94%BE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%B8%AD%2F</url>
-    <content type="text"><![CDATA[编译器的编译次序是说不定的，就想下图的 上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示： 先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。 上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句]]></content>
+    <title><![CDATA[条款15：在资源管理类中提供对原始资源的访问]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%2F</url>
+    <content type="text"><![CDATA[一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是 在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。 另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。 上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -420,9 +420,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款15：在资源管理类中提供对原始资源的访问]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%2F</url>
-    <content type="text"><![CDATA[一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是 在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。 另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。 上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。]]></content>
+    <title><![CDATA[条款17：以独立语句将new过得对象放入智能指针中]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-new-%E8%BF%87%E5%BE%97%E5%AF%B9%E8%B1%A1%E6%94%BE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%B8%AD%2F</url>
+    <content type="text"><![CDATA[编译器的编译次序是说不定的，就想下图的 上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示： 先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。 上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -480,6 +480,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[条款22：将成员变量声明为 private]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BA%20private%2F</url>
+    <content type="text"><![CDATA[这里就是要记住封装的好处 切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。 protected 并不比 public 更具有封装性]]></content>
+      <categories>
+        <category>effective C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[条款23：宁以非成员友元函数代替成员函数]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE23%EF%BC%9A%E5%AE%81%E4%BB%A5%E9%9D%9E%E6%88%90%E5%91%98%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0%E4%BB%A3%E6%9B%BF%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[同样还是为了封装 宁可拿非成员非友元函数来代替成员函数，这样做可以增加封装性，和包裹弹性，以及机能扩充性。]]></content>
@@ -504,9 +516,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款22：将成员变量声明为 private]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BA%20private%2F</url>
-    <content type="text"><![CDATA[这里就是要记住封装的好处 切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。 protected 并不比 public 更具有封装性]]></content>
+    <title><![CDATA[条款25：考虑写出一个不抛异常的 swap 函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE26%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%BB%B6%E5%90%8E%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E5%BC%8F%E5%87%BA%E7%8E%B0%E7%9A%84%E6%97%B6%E9%97%B4%2F</url>
+    <content type="text"><![CDATA[其实该条款总结下来就是再讲一个东西，而这个东西分成两点： 如果类的赋值成本低于一组构造和析构成本，那么将对象的定义定义到循环体外部去，尤其是在循环次数很多的情况下。否则就是将定义循环体内部中去。 尽可能延后变量定义式出现的时间，最好达到需要什么才去定义什么，这样做可以增加程序的清晰度并改善程序效率。另外最好在程序定义的时候就直接构造（初始化）。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
@@ -519,18 +531,6 @@
     <title><![CDATA[条款25：考虑写出一个不抛异常的swap函数]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE25%EF%BC%9A%E8%80%83%E8%99%91%E5%86%99%E5%87%BA%E4%B8%80%E4%B8%AA%E4%B8%8D%E6%8A%9B%E5%BC%82%E5%B8%B8%E7%9A%84swap%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[所谓 swap 两对象值，意思就是将两个对象的值彼此赋予对方，缺省的情况下 swap 的动作可以由标准库程序提供的 swap来完成。 其中有一个最主要的方法就是，以指针指向一个对象，内含真正的数据“ 即”pimpl 手法”所以一般对于一个对象而言，直接交换里面的指针对象即可。就如同以下的写法： 以上就是该对象的特化版本。这同时也是一个模板类的偏特化的例子。 如果想特化一个函数模板的话，通常的做法就是添加一个重载版本。 但是这种特化存在问题： 我们可以全特化 std 内的模板，但是不可以添加新的模板到 std 里面去，因为 std 的内容完全由 C++标准委员会决定的。 有的时候不能直接访问私有成员，因为封装层面的相关权限缺失。 解决的办法很简单，声明一个非成员版本的 swap 函数，然后让他调用其的成员函数，而不是将那个不是成员函数的 swap 声明为 std：：中的特化版本或者是重载版本。下面就是相关步骤： 提供一个 public swap 成员函数，让它高效地置换你的类型的两个对象（注意这个地方时高效的置换），但是这个函数不应该抛出异常。 在你的类或者模板所在的命名空间内，提供一个非成员函数的 swap，并且另其调用 swap 成员函数。 如果你正在编写一个 class 而不是一个模板类的时候，为你的类特化std：：swap。并令其调用你的 swap 成员函数。 最后，在调用奇函数的时候，请确定包含一个 using 生命是，以便于让 std：：swap 在你的函数内曝光可见，直接赤裸裸的调用 swap。]]></content>
-      <categories>
-        <category>effective C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款25：考虑写出一个不抛异常的 swap 函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE26%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%BB%B6%E5%90%8E%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E5%BC%8F%E5%87%BA%E7%8E%B0%E7%9A%84%E6%97%B6%E9%97%B4%2F</url>
-    <content type="text"><![CDATA[其实该条款总结下来就是再讲一个东西，而这个东西分成两点： 如果类的赋值成本低于一组构造和析构成本，那么将对象的定义定义到循环体外部去，尤其是在循环次数很多的情况下。否则就是将定义循环体内部中去。 尽可能延后变量定义式出现的时间，最好达到需要什么才去定义什么，这样做可以增加程序的清晰度并改善程序效率。另外最好在程序定义的时候就直接构造（初始化）。]]></content>
       <categories>
         <category>effective C++</category>
       </categories>
