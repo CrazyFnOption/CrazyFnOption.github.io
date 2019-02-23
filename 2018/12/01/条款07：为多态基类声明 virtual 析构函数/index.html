@@ -122,7 +122,7 @@
 <meta property="og:site_name" content="Magical Bean">
 <meta property="og:description" content="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。 C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-04T10:24:04.411Z">
+<meta property="og:updated_time" content="2019-02-23T16:42:25.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="条款07：为多态基类声明 virtual 析构函数">
 <meta name="twitter:description" content="在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。 C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就像上述的说法而言，往往是对象的 derived 成分没有被销毁，而且消除这个问题最简单的办法是在基类">
@@ -388,8 +388,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-12-04T18:24:04+08:00">
-                2018-12-04
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:25+08:00">
+                2019-02-24
               </time>
             
           </span>
@@ -407,8 +407,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/effective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">effective C++</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -557,8 +557,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" rel="next" title="条款05：了解 C++默默编写并调用了哪些函数">
-                <i class="fa fa-chevron-left"></i> 条款05：了解 C++默默编写并调用了哪些函数
+              <a href="/2018/12/01/条款08：别让异常逃离析构函数/" rel="next" title="条款08：别让异常逃离析构函数">
+                <i class="fa fa-chevron-left"></i> 条款08：别让异常逃离析构函数
               </a>
             
           </div>
@@ -567,8 +567,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款04：确定对象被使用前已先被初始化/" rel="prev" title="条款04：确定对象被使用前已先被初始化">
-                条款04：确定对象被使用前已先被初始化 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" rel="prev" title="条款06：若不想使用编译器自动生成的函数，就应该明确拒绝">
+                条款06：若不想使用编译器自动生成的函数，就应该明确拒绝 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -665,7 +665,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -676,7 +676,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -687,7 +687,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -813,7 +813,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">40.9k</span>
+    <span title="Site words total count">41.8k</span>
   
 </div>
 
