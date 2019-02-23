@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[普林斯顿算法课第四周小作业]]></title>
+    <url>%2F2019%2F02%2F24%2F%E6%99%AE%E6%9E%97%E6%96%AF%E9%A1%BF%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%AC%E5%9B%9B%E5%91%A8%E5%B0%8F%E4%BD%9C%E4%B8%9A%2F</url>
+    <content type="text"><![CDATA[第四周的小作业主要围绕优先队列以及基于优先队列的Taxicabnumber。先贴出关于优先队列的代码MaxPQ.java 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149package Interview_Question_Week4.PQ;import edu.princeton.cs.algs4.StdIn;import edu.princeton.cs.algs4.StdOut;import java.util.Comparator;import java.util.Iterator;import java.util.NoSuchElementException;public class MaxPQ&lt;Key extends Comparable&lt;Key&gt;&gt; implements Iterable&lt;Key&gt; &#123; protected Key[] key; protected int len; private Comparator&lt;Key&gt; comparator; public MaxPQ(int init)&#123; key = (Key[]) new Object[1 + init]; len = 0 + init; &#125; public MaxPQ (int init , Comparator&lt;Key&gt; rule)&#123; comparator = rule; key = (Key[]) new Object[1 + init]; len = 0 + init; &#125; private boolean less(int i,int j)&#123; if (comparator == null)&#123; return key[i].compareTo(key[j]) &lt; 0; &#125; return comparator.compare(key[i],key[j]) &lt; 0; &#125; protected void change(int i,int j) &#123; Key temp = key[i]; key[i] = key[j]; key[j] = temp; &#125; protected void sink(int k)&#123; while (k * 2 &lt;= len) &#123; int j = k * 2; if (j &lt; len &amp;&amp; less(j,j+1)) j++; if (!less(k,j)) break; change(k,j); k = j; &#125; &#125; protected void up(int k)&#123; while (k &gt; 1 &amp;&amp; less(k / 2,k)) &#123; change(k, k / 2); k = k / 2; &#125; &#125; private void resize(int n) &#123; Key[] temp = (Key[]) new Object[n]; for (int i = 1; i &lt;= len;i++) &#123; temp[i] = key[i]; &#125; key = temp; &#125; public boolean isEmpty()&#123; return len == 0; &#125; public Key get(int n) &#123; return key[n]; &#125; public int size() &#123; return len; &#125; public void insert(Key item) &#123; if (item == null) throw new IllegalArgumentException("wrong"); if (len + 1 == key.length) resize(2 * key.length); key[++len] = item; up(len); assert isMaxHeap(1); &#125; // 这里是帮助后面完成一个assert判断而存在的 private boolean isMaxHeap(int k) &#123; if (k &gt; len) return true; int left = 2*k; int right = 2*k + 1; if (left &lt;= len &amp;&amp; less(k, left)) return false; if (right &lt;= len &amp;&amp; less(k, right)) return false; return isMaxHeap(left) &amp;&amp; isMaxHeap(right); &#125; public Key delMax() &#123; if (isEmpty()) throw new NoSuchElementException(); Key item = key[1]; key[1] = null; change(1,len--); sink(1); if (len + 1 &lt;= key.length / 4 &amp;&amp; len &gt; 0 ) resize(key.length / 2); assert isMaxHeap(1); return item; &#125; public Iterator&lt;Key&gt; iterator ()&#123; return new heapIterator(); &#125; private class heapIterator implements Iterator&lt;Key&gt;&#123; private MaxPQ&lt;Key&gt; copy; public heapIterator() &#123; if (comparator == null) &#123; copy = new MaxPQ&lt;Key&gt;(len); &#125; else copy = new MaxPQ&lt;Key&gt;(len,comparator); for (int i = 0;i &lt; len;i++)&#123; copy.insert(key[i]); &#125; &#125; public boolean hasNext() &#123; if (!isEmpty()) return true; return false; &#125; public Key next() &#123; if (!hasNext()) throw new NoSuchElementException(); return copy.delMax(); &#125; @Override public void remove() &#123; throw new UnsupportedOperationException(); &#125; &#125; public static void main(String[] args) &#123; edu.princeton.cs.algs4.MaxPQ&lt;String&gt; pq = new edu.princeton.cs.algs4.MaxPQ&lt;String&gt;(); while (!StdIn.isEmpty()) &#123; String item = StdIn.readString(); if (!item.equals("-")) pq.insert(item); else if (!pq.isEmpty()) StdOut.print(pq.delMax() + " "); &#125; StdOut.println("(" + pq.size() + " left on pq)"); &#125;&#125; 随机优先队列 RandomPQ.java 12345678910111213141516171819202122232425262728package Interview_Question_Week4;import Interview_Question_Week4.PQ.MaxPQ;import edu.princeton.cs.algs4.StdRandom;public class RandomPQ&lt;Key extends Comparable&lt;Key&gt;&gt; extends MaxPQ &#123; private int len; public RandomPQ (int n) &#123; super(n); this.len = super.len; &#125; public Comparable&lt;Key&gt; sample() &#123; int n = StdRandom.uniform(len + 1); return super.get(n); &#125; public Comparable&lt;Key&gt; randomRemove () &#123; int n = StdRandom.uniform(len + 1); Comparable&lt;Key&gt; item = key[n]; change(n,len--); key[len + 1] = null; sink(n); return item; &#125;&#125; 优先队列的一些应用PriorityQueue.java12345678910111213141516171819202122232425262728293031323334353637383940414243444546public class PriorityQueue &#123; private MaxPQ&lt;Integer&gt; left; private MinPQ&lt;Integer&gt; right; public PriorityQueue() &#123; left = new MaxPQ&lt;Integer&gt;(); right = new MinPQ&lt;Integer&gt;(); &#125; public double findMedian() &#123; int L = left.size(); int R = right.size(); if (L == R) return (left.max() + right.min()) / 2; else if (L &gt; R) return left.max(); else return right.min(); &#125; public void insert(int key) &#123; double median = findMedian(); int L = left.size(); int R = right.size(); if (key &lt;= median) &#123; left.insert(key); if (L - R &gt; 1) &#123; right.insert(left.delMax()); &#125; &#125; else &#123; right.insert(key); if (R - L &gt; 1) &#123; left.insert(right.delMin()); &#125; &#125; &#125; public void removeMedian() &#123; int L = left.size(); int R = right.size(); if (L &gt; R) &#123; left.delMax(); &#125; else &#123; right.delMin(); &#125; &#125;&#125; 有四个数 a,b,c,d 满足 a^3 + b^3 = c^3 +d^3，然后再给一个数 n，求出 n之内所有满足上述等式的四个数 思路此处就是运用优先队列，将没两个数的立方和加起来，然后再以立方和的大小来进行排序，作为最后排序的标准，最后进行比较，可做优化。 代码如下： Taxicab 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657package Interview_Question_Week4;import edu.princeton.cs.algs4.MinPQ;import edu.princeton.cs.algs4.StdOut;public class Taxicab implements Comparable&lt;Taxicab&gt; &#123; private final int a; private final int b; private final int cube; public Taxicab(int x,int y) &#123; this.a = x; this.b = y; this.cube = x * x * x + y * y * y; &#125; @Override public int compareTo(Taxicab a) &#123; if (this.cube &lt; a.cube) return -1; if (this.cube &gt; a.cube) return 1; if (this.a &lt; a.a) return -1; if (this.a &gt; a.a) return 1; return 0; &#125; @Override public String toString() &#123; return "number: " + cube + " (" + a + ", " + b + ")"; &#125; public void findTaxicabNumber(int N) &#123; MinPQ&lt;Taxicab&gt; candidate = new MinPQ&lt;Taxicab&gt;(); for (int i = 1;i &lt;= N;i++) &#123; candidate.insert(new Taxicab(i,i)); &#125; int cnt = 1; Taxicab pre = new Taxicab(0,0); while (!candidate.isEmpty()) &#123; Taxicab curr = candidate.delMin(); if (curr == pre) &#123; cnt ++; if (cnt == 2) &#123; StdOut.print(pre.cube + "=" + pre); &#125; StdOut.print(" = " + curr); &#125; else &#123; if (cnt &gt; 1) StdOut.println(); cnt = 1; &#125; pre = curr; if (curr.a &lt; N) candidate.insert(new Taxicab(curr.a,curr.b + 1)); &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>算法</tag>
+        <tag>普林斯顿算法课</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CollinearPoint]]></title>
+    <url>%2F2019%2F02%2F24%2FCollinearPoint%2F</url>
+    <content type="text"><![CDATA[CollinearPoint—–普林斯顿第三周大作业第三周的大作业 有点意思，基于排序的一次简单优化，先看题目。 一步一步来，根据题目首先写出一个点的类，这个类要包含比较，并且，要包含求出两个类之间斜率的方法。Point.java123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101package Programming_Assignment_3;import edu.princeton.cs.algs4.StdDraw;import edu.princeton.cs.algs4.StdRandom;import java.util.Arrays;import java.util.Comparator;public class Point implements Comparable&lt;Point&gt; &#123; private final int x; private final int y; public Point(int x, int y) &#123; this.x = x; this.y = y; &#125; public void draw() &#123; StdDraw.point(x,y); &#125; public void drawTo(Point that) &#123; StdDraw.line(x,y,that.x,that.y); &#125; public String toString() &#123; return "(" + x + ", " + y + ")"; &#125; public int compareTo(Point that) &#123; if (y &gt; that.y) return 1; else if (y &lt; that.y) return -1; else if (x &gt; that.x) return 1; else if (x &lt; that.x) return -1; else return 0; &#125; public double slopeTo(Point that) &#123; if (x == that.x) &#123; if (y == that.y) return Double.NEGATIVE_INFINITY; else return Double.POSITIVE_INFINITY; &#125; if (y == that.y) return 0 / 1.0; return (y - that.y) * 1.0 / (x - that.x); &#125; private class SlopeOrder implements Comparator&lt;Point&gt;&#123; public int compare(Point p, Point q) &#123; if (slopeTo(p) &lt; slopeTo(q)) return -1; if (slopeTo(p) &gt; slopeTo(q)) return +1; return 0; &#125; &#125; public Comparator&lt;Point&gt; slopeOrder() &#123; return new SlopeOrder(); &#125; public static void main(String[] args) &#123; int x0 = Integer.parseInt(args[0]); int y0 = Integer.parseInt(args[1]); int n = Integer.parseInt(args[2]); StdDraw.setCanvasSize(800, 800); StdDraw.setXscale(0, 50); StdDraw.setYscale(0, 50); StdDraw.setPenRadius(0.005); StdDraw.enableDoubleBuffering(); Point[] points = new Point[n]; for (int i = 0; i &lt; n; i++) &#123; int x = StdRandom.uniform(50); int y = StdRandom.uniform(50); points[i] = new Point(x, y); points[i].draw(); &#125; // draw p = (x0, x1) in red Point p = new Point(x0, y0); StdDraw.setPenColor(StdDraw.RED); StdDraw.setPenRadius(0.02); p.draw(); // draw line segments from p to each point, one at a time, in polar order StdDraw.setPenRadius(); StdDraw.setPenColor(StdDraw.BLUE); Arrays.sort(points, p.slopeOrder()); for (int i = 0; i &lt; n; i++) &#123; p.drawTo(points[i]); StdDraw.show(); StdDraw.pause(100); &#125; &#125;&#125; 接下来就是直线的类，这两个类都比较简单，这里就直接贴出代码LineSegment.java123456789101112131415161718192021222324package Programming_Assignment_3;public class LineSegment &#123; private final Point a; private final Point b; public LineSegment(Point p, Point q) &#123; if (p == null || q == null) throw new java.lang.IllegalArgumentException(); a = p; b = q; &#125; public void draw() &#123; a.drawTo(b); &#125; public String toString() &#123; return a + " -&gt; " + b; &#125; public int hasCode() &#123; throw new UnsupportedOperationException(); &#125;&#125; 最后就是问题的求解方法。问题 需要知道平面上的点，有哪些点是在一条直线上的，第一种方法，暴力法，直接用四种循环写出答案。 BruteCollinearPoints.java123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package Programming_Assignment_3;import java.util.ArrayList;import java.util.Arrays;public class BruteCollinearPoints &#123; private Point[] copies; private ArrayList&lt;LineSegment&gt; lineSegments = new ArrayList&lt;LineSegment&gt;(); // finds all line segments containing 4 points public BruteCollinearPoints(final Point[] points) &#123; if (points == null) throw new java.lang.IllegalArgumentException(); copies = new Point[points.length]; for (int i = 0; i &lt; points.length; i++) &#123; copies[i] = points[i]; &#125; // sort by y-coordinate // the endpoints are the first and last points Arrays.sort(copies); // after sort then can check if duplicate for (int i = 0; i &lt; copies.length - 1; i++) if (copies[i].compareTo(copies[i+1]) == 0) throw new java.lang.IllegalArgumentException(); for (int ip = 0; ip &lt; copies.length-3; ip++) &#123; for (int iq = ip + 1; iq &lt; copies.length-2; iq++) &#123; double slopeP2Q = copies[ip].slopeTo(copies[iq]); for (int ir = iq + 1; ir &lt; copies.length-1; ir++) &#123; double slopeQ2R = copies[iq].slopeTo(copies[ir]); if (slopeP2Q != slopeQ2R) continue; for (int is = ir + 1; is &lt; copies.length; is++) &#123; double slopeR2S = copies[ir].slopeTo(copies[is]); // if 3 of 4's slopes are equal then 4 points are colllinear if (slopeP2Q == slopeR2S) lineSegments.add(new LineSegment(copies[ip], copies[is])); &#125; &#125; &#125; &#125; &#125; // the number of line segments public int numberOfSegments() &#123; return lineSegments.size(); &#125; // the line segments public LineSegment[] segments() &#123; LineSegment[] result = new LineSegment[lineSegments.size()]; for (int i = 0; i &lt; lineSegments.size(); i++) &#123; result[i] = lineSegments.get(i); &#125; return result; &#125; 优化的方法就是基于排序，将每一个点都与已经排好序的点集进行比较，按照一定的顺序进行比较可以省略很多。FastCollinearPoints.java123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475package Programming_Assignment_3;import java.util.ArrayList;import java.util.Arrays;public class FastCollinearPoints &#123; private Point[] copies; private ArrayList&lt;LineSegment&gt; lineSegments = new ArrayList&lt;LineSegment&gt;(); // finds all line segments containing 4 or more points public FastCollinearPoints(Point[] points) &#123; if (points == null) throw new java.lang.IllegalArgumentException(); copies = new Point[points.length]; for (int i = 0; i &lt; points.length; i++) &#123; copies[i] = points[i]; &#125; // sort by y-coordinate // the endpoints are the first and last points Arrays.sort(copies); // after sort then can check if duplicate for (int i = 0; i &lt; copies.length - 1; i++) if (copies[i].compareTo(copies[i+1]) == 0) throw new java.lang.IllegalArgumentException(); for (int i = 0; i &lt; copies.length - 1; i++) &#123; Point origin = copies[i]; // Think of p as the origin. double[] slopes = new double[copies.length - 1 - i]; Point[] others = new Point[copies.length - 1 - i]; for (int j = 0; j &lt; copies.length - 1 - i; j++) others[j] = copies[j + 1 + i]; // For each other point q, determine the slope it makes with p for (int j = 0; j &lt; others.length; j++) slopes[j] = origin.slopeTo(others[j]); // Sort the points according to the slopes they makes with p Arrays.sort(others, origin.slopeOrder()); Arrays.sort(slopes); // Check if any 3 (or more) adjacent points in the // sorted order have equal slopes with respect to p // If so, these points, together with p, are collinear for (int cnt_same = 0, j = 0; j &lt; slopes.length - 1; j++) &#123; if (slopes[j] == slopes[j+1]) &#123; cnt_same++; &#125; if (cnt_same &gt;= 2) &#123; lineSegments.add(new LineSegment(origin, others[j + 1])); break; &#125; &#125; &#125; &#125; // the number of line segments public int numberOfSegments() &#123; return lineSegments.size(); &#125; // the line segments public LineSegment[] segments() &#123; LineSegment[] result = new LineSegment[lineSegments.size()]; for (int i = 0; i &lt; lineSegments.size(); i++) &#123; result[i] = lineSegments.get(i); &#125; return result; &#125;&#125; 总结由于暴力做法运算了很多原本不需要的循环，相当于是做了很多重复功，所以不招收待见，而基于优化的版本进行了优化，所以在实际应用中是可取的。]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>算法</tag>
+        <tag>普林斯顿算法课</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[普林斯顿算法课第三周小作业]]></title>
+    <url>%2F2019%2F02%2F24%2F%E6%99%AE%E6%9E%97%E6%96%AF%E9%A1%BF%E7%AE%97%E6%B3%95%E8%AF%BE%E7%AC%AC%E4%B8%89%E5%91%A8%E5%B0%8F%E4%BD%9C%E4%B8%9A%2F</url>
+    <content type="text"><![CDATA[第三周主要讲的是归并排序和快速排序，这里在C++里面已经总结过，直接贴出代码。CountInversions 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253package Interview_Question_Week3;import java.util.Arrays;public class CountInversions &#123; private Comparable[] aux; private int inversion = 0; private boolean less (Comparable a,Comparable b)&#123; return a.compareTo(b) &lt; 0; &#125; public int get_num(Comparable[] a) &#123; aux = new Comparable[a.length]; sort(a,0,a.length - 1); return inversion; &#125; public void sort(Comparable[] a,int lo,int high)&#123; if (lo &gt;= high) return; int mid = (lo + high) / 2; sort(a,lo,mid); sort(a,mid+1,high); merge(a,lo,mid,high); &#125; public void merge(Comparable[] a,int lo,int mid,int high)&#123; int i = lo; int j = mid + 1; for (int k = lo; k &lt;= high;k++)&#123; aux[k] = a[k]; &#125; for (int k = lo;k &lt;= high;k++)&#123; if (i &gt; mid) a[k] = aux[j++]; else if (j &gt; high) a[k] = aux[i++]; else if (less (aux[i],aux[j]))&#123; // 这一步的目的就在于逆序对的个数，前面有多少个大于自己个数，就有多少个逆序对 inversion += mid + 1 - i; a[k] = aux[i++]; &#125; else a[k] = aux[j++]; &#125; &#125; public static void main(String [] args)&#123; Integer []a = &#123;1,5,3,7,2,8,6,4&#125;; System.out.println(new CountInversions().get_num(a)); System.out.println(Arrays.toString(a)); &#125;&#125; LinkedMergedArrays123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110package Interview_Question_Week3;import java.util.Arrays;import java.util.Iterator;import java.util.ListIterator;public class LinkedMergedArrays &lt;T extends Comparable&lt;T&gt;&gt; implements Iterable&lt;T&gt;&#123; private Node first = null; private Node last = null; private int n = 0; private class Node &#123; Node next; T item; &#125; private boolean less (Comparable a,Comparable b) &#123; return a.compareTo(b) &lt; 0; &#125; public Iterator&lt;T&gt; iterator() &#123; return new ListIterator(); &#125; private class ListIterator implements Iterator&lt;T&gt;&#123; private Node current = first; public boolean hasNext() &#123; return current != null; &#125; public T next() &#123; // TODO Auto-generated method stub T t = current.item; current = current.next; return t; &#125; &#125; public void add(T t)&#123; Node node = new Node(); node.item = t; node.next = null; if(first == null &amp;&amp; last == null)&#123; first = node; last = node; &#125;else if(first != null &amp;&amp; first == last)&#123; first.next = node; last = node; &#125;else&#123; last.next = node; last = node; &#125; n++; &#125; public String toString()&#123; Iterator&lt;T&gt; iter = iterator(); String ret = iter.next().toString(); while(iter.hasNext())&#123; ret += ", "+ iter.next().toString() ; &#125; return ret; &#125; //以下代码是第一种方式的归并 还有第二种形式的归并 明天可以写一下。 public void mergeSort()&#123; first = sort(first); &#125; private Node sort(Node head)&#123; if(head == null || head.next == null) return head; Node slow = head; Node fast = head; //取中间节点 while(fast.next != null &amp;&amp; fast.next.next != null)&#123; slow = slow.next; fast = fast.next.next; &#125; Node left = head; Node right = slow.next; slow.next = null; //将左右链表分开 left = sort(left); right = sort(right); return merge(left,right); &#125; private Node merge(Node left, Node right)&#123; //System.out.println("left="+left.element+",right="+right.element); Node aux = new Node(); //需要耗费logn的额外空间 Node l= left; Node r = right; Node current = aux; while(l != null &amp;&amp; r!=null)&#123; if(less(r.item,l.item)) &#123; current.next = r; current = current.next; r = r.next; &#125; else &#123; current.next = l; current = current.next; l= l.next; &#125; &#125; if(l!=null) current.next = l; // 如果左侧没遍历完，将其连接至current后 else if(r != null) current.next = r; //如果右侧没遍历完，将其连接至current后 return aux.next; //返回归并好的链表 &#125;&#125; MergeSortedSubArray 12345678910111213141516171819202122232425262728package Interview_Question_Week3;import edu.princeton.cs.algs4.StdRandom;import java.util.Arrays;public class MergeSortedSubArray &#123; private static boolean less (Comparable a,Comparable b)&#123; return a.compareTo(b) &lt; 0; &#125; public static void merge(Comparable[] array)&#123; int n = array.length / 2; Comparable[] aux = new Comparable[n]; for (int i = 0;i &lt; n;i++)&#123; aux[i] = array[i]; &#125; System.out.println(Arrays.toString(aux)); int l = 0; int r = n; for(int k = 0; k&lt;2*n;k++)&#123; if(l &gt;= n) break;//辅助元素数组全部用完，array右侧不需要挪动位置了 else if(r&gt;=2*n) array[k]=aux[l++];//array原右侧元素全部放置合适位置，后面只需把辅助数组的元素挪到array右侧 else if(less(array[r],aux[l])) array[k] = array[r++]; else array[k] = aux[l++]; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>算法</tag>
+        <tag>普林斯顿算法课</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[普林斯顿第二周小作业]]></title>
     <url>%2F2019%2F02%2F24%2F%E6%99%AE%E6%9E%97%E6%96%AF%E9%A1%BF%E7%AC%AC%E4%BA%8C%E5%91%A8%E5%B0%8F%E4%BD%9C%E4%B8%9A%2F</url>
     <content type="text"><![CDATA[第二周是关于队列与栈的相关实现，由于C++里面早就涉及到了，这里并不多说，直接贴代码Elementary_Sorts123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115package Interview_Question_Week2.Elementary_Sorts;import edu.princeton.cs.algs4.StdRandom;enum Ball &#123; Red, Blue, White;&#125;public class Backets&#123; private Ball backets[]; private Ball color(int i)&#123; return backets[i]; &#125; private void swap (int i , int j)&#123; Ball tmp = backets[i]; backets[i] = backets[j]; backets[j] = tmp; &#125; public Backets(int n) &#123; backets = new Ball[n]; for (Ball i : backets)&#123; int x = StdRandom.uniform(3); switch (x)&#123; case 0: &#123;i = Ball.Blue;break;&#125; case 1: &#123; i = Ball.Red;break;&#125; case 2: &#123;i = Ball.White;break;&#125; &#125; &#125; &#125; public void sort() &#123; int low = 0; int cur = 0; int high = backets.length - 1; while (cur &lt;= high)&#123; switch (color(cur))&#123; case Red: &#123; if (cur != low) &#123; swap(cur, low); &#125; cur++; low++; break; &#125; case White: &#123; cur++; break; &#125; case Blue: &#123; swap (high,cur); high--; break; &#125; &#125; &#125; &#125; public static void main(String [] args)&#123; &#125;&#125;package Interview_Question_Week2.Elementary_Sorts;import java.awt.Point;import java.util.Arrays;import java.util.HashSet;import java.util.Random;import java.util.Set;public class Intersection_of_two_sets &#123; private Set&lt;Point&gt; same; private int sameTimes; public Intersection_of_two_sets(Point[]a , Point[]b,int times)&#123; same = new HashSet&lt;Point&gt;(); for (int i = 0;i &lt; times;i++)&#123; same.add(a[i]); same.add(b[i]); &#125; sameTimes = times * 2 - same.size(); &#125; public int get()&#123; return sameTimes; &#125; public static void main(String [] args)&#123; int n = 10; Random ra = new Random(); Point[] a = new Point[10]; Point[] b = new Point[10]; for (int i = 0;i &lt; n;i++)&#123; a[i] = new Point(); b[i] = new Point(); a[i].setLocation(ra.nextInt(10)+1,ra.nextInt(10)+1); b[i].setLocation(ra.nextInt(10)+1,ra.nextInt(10)+1); &#125; Intersection_of_two_sets i = new Intersection_of_two_sets(a,b,n); System.out.println(Arrays.toString(a)); System.out.println(Arrays.toString(b)); System.out.println(i.same); System.out.println(i.get()); &#125;&#125; MaxArrayStack1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162package Interview_Question_Week2;import java.util.*;public class MaxArrayStack &#123; private int Max; private int sz; private int []a; public MaxArrayStack()&#123; Max = -999999999; a = new int [1]; sz = 0; &#125; public void resize(int capacity)&#123; int[] tmp = new int [capacity]; for (int i = 0;i != sz;i++)&#123; tmp[i] = a[i]; &#125; a = tmp; &#125; private void check()&#123; if (sz == a.length) resize(a.length * 2); &#125; public void push(int item)&#123; if (item &gt; Max) Max = item; check(); a[sz++] = item; &#125; public int pop()&#123; return a[--sz]; &#125; public int getMax()&#123; return Max; &#125; public String toString()&#123; return Arrays.toString(a); &#125; public static void main(String [] args)&#123; MaxArrayStack mStack = new MaxArrayStack(); mStack.push(4); mStack.push(5); mStack.push(6); mStack.push(2); mStack.push(1); mStack.push(10); mStack.push(7); mStack.push(7); System.out.println(mStack); System.out.println(mStack.getMax()); &#125;&#125; MaxLinkedStack123456789101112131415161718192021222324252627282930313233343536373839404142package Interview_Question_Week2;import java.util.*;class MaxLinkedStack &#123; private int N; private Node first; private Node max; private class Node &#123; private double item; private Node next; &#125; public MaxLinkedStack() &#123; N = 0; first = null; max = null; &#125; public double getMax() &#123; return max.item; &#125; public void push(double item) &#123; Node oldfirst = first; first = new Node(); first.item = item; first.next = oldfirst; N++; if (item &gt;= getMax()) &#123; Node oldmax = max; max = new Node(); max.next = oldmax; &#125; &#125; public double pop() &#123; double tmp = first.item; first = first.next; N--; if (tmp == getMax()) &#123; max = max.next; &#125; return tmp; &#125;&#125; StackQueue1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465package Interview_Question_Week2;import java.util.*;public class StackQueue&lt;Item&gt; &#123; private Stack&lt;Item&gt; input = new Stack &lt;Item&gt;(); private Stack&lt;Item&gt; output = new Stack &lt;Item&gt;(); public int size ()&#123; return input.size() + output.size(); &#125; public StackQueue() &#123; &#125; public boolean isEmpty() &#123; return size() == 0; &#125; public void enqueue(Item item) &#123; if (item == null) throw new IllegalArgumentException("wrong enquene"); input.push(item); &#125; public Item dequeue() &#123; if (isEmpty())&#123; throw new IndexOutOfBoundsException("out of range"); &#125; if (output.isEmpty())&#123; while (!input.isEmpty())&#123; output.push(input.pop()); &#125; &#125; return output.pop(); &#125; public static void main(String [] args)&#123; StackQueue&lt;Integer&gt; squeue = new StackQueue&lt;Integer&gt;(); int i = 0; int N = 100; System.out.println("Size: " + squeue.size()); squeue.enqueue(i); while (i &lt;= N) &#123; if (i % 3 == 0) &#123; System.out.println("Dequeue: " + squeue.dequeue()); &#125; else &#123; squeue.enqueue(i); System.out.println("Enqueue: " + i); &#125; ++i; &#125; System.out.println("Size: " + squeue.size()); while (!squeue.isEmpty()) &#123; System.out.println("Dequeue: " + squeue.dequeue()); &#125; System.out.println("Size: " + squeue.size()); &#125;&#125;]]></content>
@@ -100,45 +139,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
-    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[一道有趣的题目——逆波兰计算器]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93%E6%9C%89%E8%B6%A3%E7%9A%84%E9%A2%98%E7%9B%AE%E2%80%94%E2%80%94%E9%80%86%E6%B3%A2%E5%85%B0%E8%AE%A1%E7%AE%97%E5%99%A8%2F</url>
-    <content type="text"><![CDATA[题解首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。==注意以下几个地方== 注意输入cin&gt;&gt;t以后，需要用getchar()来清空上一个步骤留下来的回车符号 注意此处需要严格进行判断栈内是否为空。 这里是将乘除求模的运算放在最右边，这样就可以有优先级存在了 括号会提前进行一步运算，然后消除掉左括号，或者左边的所有运算式，进行一个结算。 map这里存在的意义就在于 为判断进行提供条件。 此道题目涉及字符串，栈，模拟的相应算法，需要有空的时候可以多看看。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;stack&gt;#include&lt;sstream&gt;#include&lt;map&gt;using namespace std;stack&lt;char&gt;ope;stack&lt;int&gt;num;string str;map&lt;char,int&gt;m;void init()&#123; m['+']=m['-']=1; m['*']=m['/']=m['%']=m['(']=m[')']=2; while(!num.empty()) num.pop(); while(!ope.empty()) ope.pop();&#125;//此处为基本的运算规模。void op1(int &amp;a,int &amp;b,const char &amp;c)&#123; if (c =='+') a += b; else if (c == '-') a=b-a; else if (c == '*') a*=b; else if (c == '/') a=b/a; else if (c == '%') a=b%a;&#125;//此处就是控制出栈的运算，一般就是括号内部的计算了。算出每一个括号内部的运算式。void op2()&#123; char ch = ope.top(); while (ch != '('&amp;&amp;!ope.empty())&#123; ope.pop(); int a = num.top(); num.pop(); int b = num.top(); num.pop(); op1(a,b,ch); num.push(a); if (!ope.empty()) ch = ope.top(); &#125;//这个下面要注意的判断条件中一定要加上判断是否为空。 if (!ope.empty()&amp;&amp;ope.top() =='(') ope.pop();&#125;int main()&#123; int t; cin&gt;&gt;t; getchar(); while (t--)&#123; getline(cin,str); stringstream s(str); init(); char tmp; while (s&gt;&gt;tmp)&#123; if(tmp&gt;='0'&amp;&amp;tmp&lt;='9')&#123; int x = 0; do&#123; if (m[tmp]) break; x *= 10; x += tmp - '0';//此处是将char转换成int &#125;while(s&gt;&gt;tmp); num.push(x); &#125; //注意这个地方的高明之处就在于碰见‘）’的返回，以及判断有没有‘（’， 比如连加的情况就把加减乘除的优先运算级给表示出来了。 //最后相当于将运算优先级高的全部放到了右边，然后有括号的就先解决括号， 及时左括号被提前弄没了也不要紧，存在有右括号就行，然后乘除永远放在加减的左边。 if (tmp==')') op2(); else if (m[tmp]==1)&#123; if (!ope.empty()&amp;&amp;ope.top()!='(') op2(); ope.push(tmp); &#125; else if (m[tmp]) ope.push(tmp); &#125; int ans = num.top(); num.pop(); while (!num.empty()&amp;&amp;!ope.empty())&#123; op1(ans,num.top(),ope.top()); ope.pop(); num.pop(); &#125; cout &lt;&lt; ans &lt;&lt; endl; &#125; return 0;&#125;]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[一道计算机几何算法相关题目]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%87%A0%E4%BD%95%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[题目： 代码如下：1234567891011121314151617181920212223242526272829303132#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;#include&lt;cmath&gt;using namespace std;double v,s,b;const double pi = acos(-1.0);int main()&#123; while(cin&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123; if (s&lt;b)&#123; cout&lt;&lt;-1&lt;&lt;endl; continue; &#125; double x = (v * v) / 9.8; if ( x &lt; s ) &#123; cout&lt;&lt;"move "&lt;&lt;fixed&lt;&lt;setprecision(2)&lt;&lt;s-x&lt;&lt;endl; &#125; else &#123; double b = (s * 9.8) / (v * v); //注意反函数的转换。 double a = asin(b) * 90 / pi; //这里有一个进一的操作，因为此题不太会去四舍五入。 int a_ = a; if (a-a_ &gt;= 0.5) a_++; cout&lt;&lt;"a "&lt;&lt;a_&lt;&lt;endl; &#125; &#125; return 0;&#125; 关于这道题目的相关要点 反函数相关要点。注意 反函数最后输出的是 一个弧度值，根据相应数学的算法而言记住 ==弧度值=角度*pi/180== 关于输出中进1的相关操作。按照第几位，先换算成相应的整形数，最后再强转成int型 最后在判断是否大于0.5来考虑时候来加一。]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[二分法思想]]></title>
     <url>%2F2018%2F12%2F01%2F%E4%BA%8C%E5%88%86%E6%B3%95%E6%80%9D%E6%83%B3%2F</url>
     <content type="text"><![CDATA[二分查找实现在单调有序的集合中查找元素，每次江集合分为左右两个部分，并且通过判断集合在哪个部分从而调整集合的上下界，重复知道找到目标元素为止。 举一个简单的例子，我要在1到100里面查找62，先拿62根这个其最中间的一个数进行比较。然后在一步一步的缩小集合的上下界，最后再来一步一步往里面缩 下面是C++STL里面二分查找的函数： binary_search 返回bool值,是否存在lower_bound 返回可插入的最小位置的迭代器 即返回第一个符合条件的元素位置upper_bound 返回可插入的最大位置的迭代器 即返回最后一个符合条件的元素位置 在二分查找里面最典型的题目就是二分逼近求方程式的根了。 代码如下123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;using namespace std;const double pre =1e-4;double x,y;double f(double x)&#123; return 8*pow(x,4)+7*pow(x,3)+2*pow(x,2)+3*x+6-y;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; cin&gt;&gt;y; double x1=0,x2=100;//先把上下界在这里确定好 double mid=(x1+x2)/2; if (f(x1)*f(x2)&gt;0) cout&lt;&lt;"No solution!"&lt;&lt;endl; else &#123; while (x2-x1&gt;=pre)&#123;//这里必须写的是上下界线是多少， 不能写的是用于判断mid的条件。 if (f(x1)*f(mid)&lt;0)&#123; x2=mid; mid=(x1+x2)/2; &#125; else &#123; x1=mid; mid=(x1+x2)/2; &#125; &#125; cout&lt;&lt;fixed&lt;&lt;setprecision(4)&lt;&lt;mid&lt;&lt;endl; &#125; &#125;&#125; 上面就是我第二次出错的地方，判断二分循环逼近的的条件不应该看mid的取值，而是应该看得是区间上界减去区间下界的范围从而来限定。 此处关于三分法的求解：当需要求某凸性或凹形函数的极值，通过函数本身表达式并不容易求解时，就可以用三分法不断逼近求解。 三分法——求解凸性函数的极值问题http://hi.baidu.com/vfxupdpaipbcpuq/item/81b21d1910ea729c99ce33db 经典例题：侵略的奶牛： 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100005;int a[maxn],n,c;//此过程就是在判断奶牛之间的间隔为这个值合不合适bool cc(int d)&#123; int t=a[0],cnt=1; for (int i=1;i!=n;i++)&#123; if (a[i]-t&gt;=d)&#123; cnt++; t=a[i]; if (cnt&gt;=c) return true; &#125; &#125; return false;&#125;//此过程就是在收录每一个值，然后再分别进行判断int solve()&#123; int x=0,y=a[n-1]-a[0]; while (x&lt;=y)&#123; int mid=(x+y)/2; if (cc(mid)) x=mid+1; else y=mid-1; &#125; return x-1;&#125;//不过这种最大值最小值的题目需要多花时间想想。int main()&#123; while (cin&gt;&gt;n&gt;&gt;c)&#123; for (int i=0;i!=n;i++) cin&gt;&gt;a[i]; sort(a,a+n); cout&lt;&lt;solve()&lt;&lt;endl; &#125;&#125; ==下面则是其他地方关于二分的题目==基础版 POJ 3122 Pie 二分枚举区间是实数POJ 1064 Cable master 二分枚举区间是实数,注意精度POJ 3258 River Hopscotch 最大化最小值POJ 3273 Monthly Expense 最小化最大值LIGHTOJ 1076 Get the Containers 最小化最大值，。和上一个差不多LIGHTOJ 1307 Counting Triangles 进阶版 POJ 3579 二分搜索+二分查找POJ 3685 二分搜索+二分查找ZOJ 3278 也是两个二分嵌套LIGHTOJ 1048和LightOJ 1076一样，不过要输出一组解LIGHTOJ 1383 二分加贪心（区间）ZOJ 3665 某年区域赛题。，二分枚举ZOJ 3726 去年区域赛题，二分查找codeforces 382B 有意思的题codeforces 391D2 难，。。，，、 ==下面就是关于三分的题目== poj3301hdu4454hdu3714hdu2438]]></content>
@@ -149,18 +149,6 @@
         <tag>acm</tag>
         <tag>c++</tag>
         <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款09：绝不在构造和析构的过程中调用 virtual 函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8%20virtual%20%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。 基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。 相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。 如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。 唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。 由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
       </tags>
   </entry>
   <entry>
@@ -177,6 +165,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[条款11：在 operator 中处理自我赋值的情况]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator%E4%B8%AD%E5%A4%84%E7%90%86%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E7%9A%84%E6%83%85%E5%86%B5%2F</url>
+    <content type="text"><![CDATA[本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。 同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。 就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。 还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。 或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[关于组合数学，两道思维题目，这里贴两道题目]]></title>
     <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%EF%BC%8C%E4%B8%A4%E9%81%93%E6%80%9D%E7%BB%B4%E9%A2%98%E7%9B%AE%EF%BC%8C%E8%BF%99%E9%87%8C%E8%B4%B4%E4%B8%A4%E9%81%93%E9%A2%98%E7%9B%AE%2F</url>
     <content type="text"><![CDATA[第一道 简单的排列组合： 题解如下： 题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是==C(b,a+b)==;那么三堆的话我们可以把前两堆看成一堆，那么表达式就是==C(c,a+b+c)==，这是我们需要与前两堆的组成方法相乘，就是==C(b,a+b)C(c,a+b+c)==。4堆的话就是==C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==。所以答案就是==C(a,a)C(b,a+b)C(c,a+b+c)C(d,a+b+c+d)==。此外，有一公式==C(a,b)=C(a,b-1)+C(a-1,b-1)==，所以我们用数组来代替C(m,n)操作 代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 501;const long long mod = 1000000007;long long a[4],sum[4]=&#123;0&#125;;//此处用到记忆化搜索，动态规划。long long dp[maxn*4][maxn*4];void init()&#123; dp[0][0]=0; for (int i=1;i!=4*maxn;i++)&#123; dp[i][0]=1; //根据表格来看的确是每一行的第一个是1 for (int j=1;j&lt;i;j++)&#123; //这个地方就是状态转移方程 //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的 dp[i][j]=dp[i-1][j]+dp[i-1][j-1]; //dp[i][j]=dp[i][j]%mod; &#125; dp[i][i]=1; &#125;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; init();//这个地方就开始初始化表格了。 long long ans =1; for (int i = 0; i&lt;4;i++)&#123; if (!i) sum[i]=0; else sum[i]=sum[i-1]; cin&gt;&gt;a[i]; sum[i] += a[i]; if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i]; &#125; for (int i = 1 ; i != 4; i++)&#123; ans *= dp[sum[i]][a[i]]; //ans %=mod; &#125; cout&lt;&lt;ans&lt;&lt;endl; &#125; return 0;&#125; 第二题 第一题的变式： 题解如上，与上面一题有区别的地方就在于要有一个取模的操作 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 501;const long long mod = 1000000007;long long a[4],sum[4]=&#123;0&#125;;//此处用到记忆化搜索，动态规划。long long dp[maxn*4][maxn*4];void init()&#123; dp[0][0]=0; for (int i=1;i!=4*maxn;i++)&#123; dp[i][0]=1; //根据表格来看的确是每一行的第一个是1 for (int j=1;j&lt;i;j++)&#123; //这个地方就是状态转移方程 //C(a,b)=C(a,b-1)+C(a-1,b-1)根据公式来做的 dp[i][j]=dp[i-1][j]+dp[i-1][j-1]; dp[i][j]=dp[i][j]%mod; &#125; dp[i][i]=1; &#125;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; init();//这个地方就开始初始化表格了。 long long ans =1; for (int i = 0; i&lt;4;i++)&#123; if (!i) sum[i]=0; else sum[i]=sum[i-1]; cin&gt;&gt;a[i]; sum[i] += a[i]; if (a[i] &gt; sum[i]-a[i]) a[i]=sum[i]-a[i]; &#125; for (int i = 1 ; i != 4; i++)&#123; ans *= dp[sum[i]][a[i]]; ans %=mod; &#125; cout&lt;&lt;ans&lt;&lt;endl; &#125; return 0;&#125; ==以后学到后面再花时间来深究==]]></content>
@@ -190,18 +190,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[贪心算法]]></title>
-    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>贪心</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[数据结构相应总结]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%BA%94%E6%80%BB%E7%BB%93%2F</url>
     <content type="text"><![CDATA[栈 栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。 两种方法表示这种栈的实现 第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。 第二种就是直接用C++里面STL模板首先先定义一个stack&lt;int&gt; s 然后以下就是其的操作。 注意其不能使用push_back只能使用push 1234s.pop() 删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。s.push() 创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。s.top() 返回栈顶的元素，也就是刚刚进来的元素。s.bottom() 返回栈底的元素，也就是最后一个元素 队列适配器队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者自己定义一种排序方式，然后通过这种排序方式，再来出队操作。 与上面一样，先定义一个queue&lt;int&gt; q与priority_queue&lt;int&gt; q。 1234567q.pop() 按照先进先出的思想，删除首元素或者优先级最高的元素q.front() 返回首元素。q.back() 返回尾元素。以上两个是只适用于队列。q.top() 返回优先队列中优先级最高的元素。q.push()q.emplace() 加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。 这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造 123456789下面两种优先队列的定义是等价的priority_queue&lt;int&gt; q;priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格默认都是从小到大排序接受三个参数，第一个参数为数据类型，第二个参数为承载容器的类型，第三个就是自定义的比较函数了。可以使lamda匿名函数，也可以是function头文件里面的函数模板。 链表特点：自定义，不连续的。同时链表也是后面相应树形结构的基础实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了 动态数组这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。 树与二叉树一般的树 以上就是一般树的形态。下面则是关于树的基本用语。关于上面重要的概念就是结点和结点的度了。 二叉树二叉树的定义: 二叉树有五种基本形态： 二叉树的性质:上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。 满二叉树与完全二叉树前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。 #####二叉树的存储结构： 数组存储： 二叉链式存储（原理类似链表）：将链表内部的*next，变成了指向两边的子节点的指针。 三叉链式存储：比二叉链式结构多了一个回指向父节点的指针。 遍历二叉树的方法 先序遍历（根-&gt;左-&gt;右）： 代码: 12345678void PreOrderTraverse(BiTree *T)&#123; if(T != NULL)&#123; printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 图示： 最终结果就是==ABDGHCEIF==。 中序遍历（左-&gt;根-&gt;右)： 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void InOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 最终结果为==GDHBAEICF==。 后序遍历（左-&gt;右-&gt;根） 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void PostOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); printf("%c", T-&gt;data); &#125;&#125; 最终结果为==GHDBIEFCA==。 关于二叉树的建立代码：代码我等下自己写出来。 图图的定义 图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。 图的专业术语： 图-生成树 邻接矩阵的表示方法（数组）不带权值的表示方法 一般就是用二维数组来表示每一个结点之间的关系 关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。]]></content>
@@ -211,19 +199,6 @@
       <tags>
         <tag>acm</tag>
         <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[数论基础第一节]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E8%8A%82%2F</url>
-    <content type="text"><![CDATA[初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。 整除问题引申到同余问题 同余的性质 可以换算成以下式子：a=c(modb) 这里c为余数，而b为除数 同余的性质 自反性 a=a mod m 对称性 a=b mod m 等价于 b=a mod m 传递性 a=b mod m 与 b=c mod m 等价于 a=c mod m 线性合成 a=b mod m 与 c= mod m 等价于 a±c=b±d mod m 与 ac= bd mod m 消去公因子 ac=bc mod m &amp;&amp; gcd(c,m)=1 等价于 a=b mod m 素数筛 朴素筛 一般就是循环2~√n次 埃拉托斯特尼筛 循环次数 欧拉筛 相应代码如下：12 最大公约数以及最小公倍数 最大公约数 函数_gcd(a,b)而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c) 最小公倍数_lcm(a,b)=ab/_gcd(a,b) 扩展欧几里得 关于求解线性同余方程 关于求逆元 关于快速幂 费马小定理 另外 欧拉函数 欧拉函数定义 欧拉函数性质 求值公式 上述公式 可以用来： 求逆元 欧拉降幂公式 数论函数 中国剩余定理 解法]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>算法</tag>
-        <tag>数论</tag>
       </tags>
   </entry>
   <entry>
@@ -253,9 +228,60 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[数论基础第一节]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E8%8A%82%2F</url>
+    <content type="text"><![CDATA[初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。 整除问题引申到同余问题 同余的性质 可以换算成以下式子：a=c(modb) 这里c为余数，而b为除数 同余的性质 自反性 a=a mod m 对称性 a=b mod m 等价于 b=a mod m 传递性 a=b mod m 与 b=c mod m 等价于 a=c mod m 线性合成 a=b mod m 与 c= mod m 等价于 a±c=b±d mod m 与 ac= bd mod m 消去公因子 ac=bc mod m &amp;&amp; gcd(c,m)=1 等价于 a=b mod m 素数筛 朴素筛 一般就是循环2~√n次 埃拉托斯特尼筛 循环次数 欧拉筛 相应代码如下：12 最大公约数以及最小公倍数 最大公约数 函数_gcd(a,b)而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c) 最小公倍数_lcm(a,b)=ab/_gcd(a,b) 扩展欧几里得 关于求解线性同余方程 关于求逆元 关于快速幂 费马小定理 另外 欧拉函数 欧拉函数定义 欧拉函数性质 求值公式 上述公式 可以用来： 求逆元 欧拉降幂公式 数论函数 中国剩余定理 解法]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>算法</tag>
+        <tag>数论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
+    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一道有趣的题目——逆波兰计算器]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93%E6%9C%89%E8%B6%A3%E7%9A%84%E9%A2%98%E7%9B%AE%E2%80%94%E2%80%94%E9%80%86%E6%B3%A2%E5%85%B0%E8%AE%A1%E7%AE%97%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[题解首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。==注意以下几个地方== 注意输入cin&gt;&gt;t以后，需要用getchar()来清空上一个步骤留下来的回车符号 注意此处需要严格进行判断栈内是否为空。 这里是将乘除求模的运算放在最右边，这样就可以有优先级存在了 括号会提前进行一步运算，然后消除掉左括号，或者左边的所有运算式，进行一个结算。 map这里存在的意义就在于 为判断进行提供条件。 此道题目涉及字符串，栈，模拟的相应算法，需要有空的时候可以多看看。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;stack&gt;#include&lt;sstream&gt;#include&lt;map&gt;using namespace std;stack&lt;char&gt;ope;stack&lt;int&gt;num;string str;map&lt;char,int&gt;m;void init()&#123; m['+']=m['-']=1; m['*']=m['/']=m['%']=m['(']=m[')']=2; while(!num.empty()) num.pop(); while(!ope.empty()) ope.pop();&#125;//此处为基本的运算规模。void op1(int &amp;a,int &amp;b,const char &amp;c)&#123; if (c =='+') a += b; else if (c == '-') a=b-a; else if (c == '*') a*=b; else if (c == '/') a=b/a; else if (c == '%') a=b%a;&#125;//此处就是控制出栈的运算，一般就是括号内部的计算了。算出每一个括号内部的运算式。void op2()&#123; char ch = ope.top(); while (ch != '('&amp;&amp;!ope.empty())&#123; ope.pop(); int a = num.top(); num.pop(); int b = num.top(); num.pop(); op1(a,b,ch); num.push(a); if (!ope.empty()) ch = ope.top(); &#125;//这个下面要注意的判断条件中一定要加上判断是否为空。 if (!ope.empty()&amp;&amp;ope.top() =='(') ope.pop();&#125;int main()&#123; int t; cin&gt;&gt;t; getchar(); while (t--)&#123; getline(cin,str); stringstream s(str); init(); char tmp; while (s&gt;&gt;tmp)&#123; if(tmp&gt;='0'&amp;&amp;tmp&lt;='9')&#123; int x = 0; do&#123; if (m[tmp]) break; x *= 10; x += tmp - '0';//此处是将char转换成int &#125;while(s&gt;&gt;tmp); num.push(x); &#125; //注意这个地方的高明之处就在于碰见‘）’的返回，以及判断有没有‘（’， 比如连加的情况就把加减乘除的优先运算级给表示出来了。 //最后相当于将运算优先级高的全部放到了右边，然后有括号的就先解决括号， 及时左括号被提前弄没了也不要紧，存在有右括号就行，然后乘除永远放在加减的左边。 if (tmp==')') op2(); else if (m[tmp]==1)&#123; if (!ope.empty()&amp;&amp;ope.top()!='(') op2(); ope.push(tmp); &#125; else if (m[tmp]) ope.push(tmp); &#125; int ans = num.top(); num.pop(); while (!num.empty()&amp;&amp;!ope.empty())&#123; op1(ans,num.top(),ope.top()); ope.pop(); num.pop(); &#125; cout &lt;&lt; ans &lt;&lt; endl; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[条款01：视 C++ 为一个语言联邦]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE01%EF%BC%9A%E8%A7%86%20C%2B%2B%20%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AF%AD%E8%A8%80%E8%81%94%E9%82%A6%2F</url>
     <content type="text"><![CDATA[现在发展的C++已经是一个多重泛型编程语言。 一个同时支持过程形式、支持面向对象形式、函数形式、泛型形式、元编程形式的语言，这些能力和弹性使 C++成为了一个无可匹敌的工具。对待其的方式最简单的方法是将其看做是一个由相关语言组成的一个联邦而不是某个次语言。 C 说到底 C++ 仍然是 C 的一个延伸，面对过程的编程思想仍然在某些时候很受用，而某些时刻 C++ 的解法只不过就是比 C 高级了一点点，但是当你以 C++的内 C 成分的工作的时候，高效编程则映照出了 C 语言的局限，没有模板，没有异常，没有重载。 Object-Oriented C++ 这部分也就是 C++ 中面对对象编程思想的直接体现，简单来说就是 C with class 比如 类，封装，继承，多态，虚函数的动态绑定。 Template C++ 这是 C++中的泛型编程部分，template 的相关考虑与设计已经弥漫了整个 C++ 而这种编程思想的强大，直接带来了全新的名字 模板元编程，后面得花上大部分时间去专研这个。 STL 基本上包括 容器，迭代器，算法以及相应的函数对象，一般竞赛可能会直接用到里面的相关容器以及相关算法，熟练使用 STL 也是一名 C++ 程序员应该必备的素质。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -289,33 +315,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[条款05：了解 C++默默编写并调用了哪些函数]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3%20C%2B%2B%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。 千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而且此类问题会造成很多方面上的无法适应问题。 另外这里额外需要注意的是 C++11上增加的移动语义，只有在拥有了拷贝构造函数和拷贝赋值运算符之后，编译器才会自动生成移动构造函数，和移动赋值运算符。 最后这个条款需要注意的就是编译器自动生成的函数具有普遍性，所以就不具有特异性，一些特殊的操作在合成版本上面可能会出现大问题。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款06：若不想使用编译器自动生成的函数，就应该明确拒绝]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D%2F</url>
-    <content type="text"><![CDATA[有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。 把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。 继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。 C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -337,6 +339,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[条款06：若不想使用编译器自动生成的函数，就应该明确拒绝]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%B0%B1%E5%BA%94%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D%2F</url>
+    <content type="text"><![CDATA[有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。 把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内部定义中仍然是可以使用拷贝与赋值功能的。 继承一个基类，使用 private 继承方法，然后将这个基类的函数放入私有成员中，这样就可以保证万无一失的方法，但是缺点就是太复杂，还需要定一个基类。 C++11 提出的新办法将函数声明出来，不仅不去定义，而且直接声明成 delete。这样更便捷。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[条款08：别让异常逃离析构函数]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE08%EF%BC%9A%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[其实这一项条款没有领悟的很深刻，可以理解成不要再析构函数里面写捕获异常之类的代码。因为某些时候，如果在析构函数里面抓获异常导致程序终止的话，那么就可能造成对象不能完全被销毁 析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常的话，析构函数应该做的应该是捕捉任何异常，然后吞下他们（不传播）或者结束程序。 如果对象需要对摸个操作函数运行期间抛出的异常做出反应，那么 class 应该提供一个普通函数（不应该在析构函数里面）执行该任务。但是该析构函数里面仍然要进行双保险的析构过程，可以在类的内部定义里面加上一个 bool 变量来判断到底有没有运行析构行为，相当于一般写程序的一个 flag。]]></content>
@@ -349,22 +363,21 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[树相关题目]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
+    <title><![CDATA[贪心算法]]></title>
+    <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
       <categories>
         <category>算法</category>
       </categories>
       <tags>
         <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>树</tag>
+        <tag>贪心</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款10：令 operator= 返回一个 自身的返回]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator%3D%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E%2F</url>
-    <content type="text"><![CDATA[一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。]]></content>
+    <title><![CDATA[条款09：绝不在构造和析构的过程中调用 virtual 函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8%20virtual%20%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。 基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。 相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。 如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。 唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。 由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -374,9 +387,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款11：在 operator 中处理自我赋值的情况]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator%E4%B8%AD%E5%A4%84%E7%90%86%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E7%9A%84%E6%83%85%E5%86%B5%2F</url>
-    <content type="text"><![CDATA[本来是可以不用担心拷贝过程中发生自我赋值的情况，但是就是为了防止用户，或者对象自身的这种情况，所以需要完成避免自赋值的情况 比如两个指针对象进行自赋值的时候，为了防止多次删除，需要检查一下自赋值的情况。 同时不仅要考虑的是自我赋值的安全性，仍然需要考虑的是异常的安全，也就是前者是需要判断如果前者的地址等于后者的地址话 就直接返回不作为，并且先删除原本的，再赋值新的，而后者则是先构造一个对象赋值给另外一个，然后先赋值，再删除。 就类似于这样，这样既能保证自赋值的情况，但是又能保证异常安全，不会在new对象的时候发生错误。 还要记住的是一般在移动赋值运算符的时候也应该注意一下自赋值的情况，不过上面的异常安全很少涉及到，因为上面的相比于前者更费点时间。 或者是直接使用自定义的 swap 功能，这样的话对于自赋值的情况以及异常安全的情况来比，更加省事和高效。]]></content>
+    <title><![CDATA[条款10：令 operator= 返回一个 自身的返回]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4%20operator%3D%20%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%20%E8%87%AA%E8%BA%AB%E7%9A%84%E8%BF%94%E5%9B%9E%2F</url>
+    <content type="text"><![CDATA[一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -398,9 +411,22 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款13：以对象管理资源]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90%2F</url>
-    <content type="text"><![CDATA[系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。 使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数） 获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。 需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。]]></content>
+    <title><![CDATA[一道计算机几何算法相关题目]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%87%A0%E4%BD%95%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[题目： 代码如下：1234567891011121314151617181920212223242526272829303132#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;#include&lt;cmath&gt;using namespace std;double v,s,b;const double pi = acos(-1.0);int main()&#123; while(cin&gt;&gt;v&gt;&gt;s&gt;&gt;b)&#123; if (s&lt;b)&#123; cout&lt;&lt;-1&lt;&lt;endl; continue; &#125; double x = (v * v) / 9.8; if ( x &lt; s ) &#123; cout&lt;&lt;"move "&lt;&lt;fixed&lt;&lt;setprecision(2)&lt;&lt;s-x&lt;&lt;endl; &#125; else &#123; double b = (s * 9.8) / (v * v); //注意反函数的转换。 double a = asin(b) * 90 / pi; //这里有一个进一的操作，因为此题不太会去四舍五入。 int a_ = a; if (a-a_ &gt;= 0.5) a_++; cout&lt;&lt;"a "&lt;&lt;a_&lt;&lt;endl; &#125; &#125; return 0;&#125; 关于这道题目的相关要点 反函数相关要点。注意 反函数最后输出的是 一个弧度值，根据相应数学的算法而言记住 ==弧度值=角度*pi/180== 关于输出中进1的相关操作。按照第几位，先换算成相应的整形数，最后再强转成int型 最后在判断是否大于0.5来考虑时候来加一。]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款16：成对使用new和delete时需要采取相同的形式]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E9%9C%80%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E7%9A%84%E5%BD%A2%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话： new 一个数组，那么一定要 delete 一个数组 智能指针默认没有 delete 数组，所以需要自定义删除器。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -410,9 +436,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款14：在资源管理类中小心拷贝行为]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83%E6%8B%B7%E8%B4%9D%E8%A1%8C%E4%B8%BA%2F</url>
-    <content type="text"><![CDATA[一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略 禁止复制 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。 对底层数据的共享控制 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是释放内存、销毁对象。 转移底部资源的拥有权 移动操作，C++11 右值引用的移动过程。 复制分为浅层复制以及深层复制 前者是复制其的指针或者引用，达到共享资源的目的，这个时候使用 share_ptr 来进行控制，后者赋值的是全部内存，最好是用 unique_ptr 来保管，但是复制操作得把每一个对象所指向的对象进行拷贝之后，放进 unique_ptr 中进行管理。]]></content>
+    <title><![CDATA[条款13：以对象管理资源]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90%2F</url>
+    <content type="text"><![CDATA[系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。 使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数） 获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。 需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -434,18 +460,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款16：成对使用new和delete时需要采取相同的形式]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E9%9C%80%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E7%9A%84%E5%BD%A2%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话： new 一个数组，那么一定要 delete 一个数组 智能指针默认没有 delete 数组，所以需要自定义删除器。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[条款17：以独立语句将new过得对象放入智能指针中]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-new-%E8%BF%87%E5%BE%97%E5%AF%B9%E8%B1%A1%E6%94%BE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E4%B8%AD%2F</url>
     <content type="text"><![CDATA[编译器的编译次序是说不定的，就想下图的 上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示： 先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。 上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句]]></content>
@@ -458,9 +472,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款18：让接口容易被正确使用，不易被误用]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE18%EF%BC%9A%E8%AE%A9%E6%8E%A5%E5%8F%A3%E5%AE%B9%E6%98%93%E8%A2%AB%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%B8%8D%E6%98%93%E8%A2%AB%E8%AF%AF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[注意类的隐式转换，并且智能指针与内置指针的区别，以及以对象管理的思想来管理资源。 好的接口很容易被正确使用，不容易被误用，应该在接口里面努力达成这些性质。 促进正确使用的办法 包括接口的一致性，与其内置类型的行为一致。 阻止误用的办法包括建立新类型，限制类型上面的操作，以及束缚对象值，以及消除客户的资源管理责任 智能指针支持定制删除器，这样可以防范动态链接程序库的问题]]></content>
+    <title><![CDATA[条款14：在资源管理类中小心拷贝行为]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83%E6%8B%B7%E8%B4%9D%E8%A1%8C%E4%B8%BA%2F</url>
+    <content type="text"><![CDATA[一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略 禁止复制 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。 对底层数据的共享控制 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是释放内存、销毁对象。 转移底部资源的拥有权 移动操作，C++11 右值引用的移动过程。 复制分为浅层复制以及深层复制 前者是复制其的指针或者引用，达到共享资源的目的，这个时候使用 share_ptr 来进行控制，后者赋值的是全部内存，最好是用 unique_ptr 来保管，但是复制操作得把每一个对象所指向的对象进行拷贝之后，放进 unique_ptr 中进行管理。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -470,9 +484,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款19：设计 class 犹如设计 type]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE19%EF%BC%9A%E8%AE%BE%E8%AE%A1%20class%20%E7%8A%B9%E5%A6%82%E8%AE%BE%E8%AE%A1%20type%2F</url>
-    <content type="text"><![CDATA[一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。 新 type 对象应该如何创建和销毁 关系到类的构造函数与析构函数如何建立 对象的初始化和对象的赋值之间的差别 主要是为了区分构造函数与赋值运算符之间的区别 该类参数传递中有传值也有传引用 传引用与传值之间的区别，以及如何实现，以及究竟何时会去调用这一类的函数。 新 type 的和法制 构造这个类的时候一些合法值，要不要对应自己的私有数据成员，或者是类型转换，通常其都会影响构造函数、赋值操作，以及 setter 函数，甚至还会影响到函数抛出的异常。 是否需要配合某一个继承体系 需要记住的是继承体系的构成一定要满足的是 is - a 的条件，另外虚函数与非虚函数之间的影响，并且还要考虑的时候 是否应该把自己的析构函数也设计成虚函数。 是否需要类型转换 类型转换一般会分为显式转换和隐式转换，实现方式一般有直接在其中一个函数内些类型转换的重载运算符函数，和没有声明 explicit 的单一参数的构造函数。 重载的操作符以及其他相应的函数，是否合理 这里看重载的函数是否符合逻辑条件，不仅仅是代码之间的严禁性质，还需要考虑的就是生活层面的实用性。 哪些成员应该封装？ 这里就设计到哪些成员应该设置成私有，而哪一些函数应该设置成公有函数，并且一些不想编译器生成的函数应该定义成删除。 类型的未声明接口 它对效率、异常安全性以及资源运用提供什么样保证，以及为类的实现代码应该提供什么的约束条件。 是否应该定义成模板 这里就看类的一般性究竟有多大，是否具有普遍价值。 考虑是否会继承与其他的类 有的时候考虑过后，也许这个类就不需要凭空创造出，仅仅只是需要从其他类上面派生出来即可。]]></content>
+    <title><![CDATA[条款18：让接口容易被正确使用，不易被误用]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE18%EF%BC%9A%E8%AE%A9%E6%8E%A5%E5%8F%A3%E5%AE%B9%E6%98%93%E8%A2%AB%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%B8%8D%E6%98%93%E8%A2%AB%E8%AF%AF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[注意类的隐式转换，并且智能指针与内置指针的区别，以及以对象管理的思想来管理资源。 好的接口很容易被正确使用，不容易被误用，应该在接口里面努力达成这些性质。 促进正确使用的办法 包括接口的一致性，与其内置类型的行为一致。 阻止误用的办法包括建立新类型，限制类型上面的操作，以及束缚对象值，以及消除客户的资源管理责任 智能指针支持定制删除器，这样可以防范动态链接程序库的问题]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -506,9 +520,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款22：将成员变量声明为 private]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BA%20private%2F</url>
-    <content type="text"><![CDATA[这里就是要记住封装的好处 切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。 protected 并不比 public 更具有封装性]]></content>
+    <title><![CDATA[条款19：设计 class 犹如设计 type]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE19%EF%BC%9A%E8%AE%BE%E8%AE%A1%20class%20%E7%8A%B9%E5%A6%82%E8%AE%BE%E8%AE%A1%20type%2F</url>
+    <content type="text"><![CDATA[一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。 新 type 对象应该如何创建和销毁 关系到类的构造函数与析构函数如何建立 对象的初始化和对象的赋值之间的差别 主要是为了区分构造函数与赋值运算符之间的区别 该类参数传递中有传值也有传引用 传引用与传值之间的区别，以及如何实现，以及究竟何时会去调用这一类的函数。 新 type 的和法制 构造这个类的时候一些合法值，要不要对应自己的私有数据成员，或者是类型转换，通常其都会影响构造函数、赋值操作，以及 setter 函数，甚至还会影响到函数抛出的异常。 是否需要配合某一个继承体系 需要记住的是继承体系的构成一定要满足的是 is - a 的条件，另外虚函数与非虚函数之间的影响，并且还要考虑的时候 是否应该把自己的析构函数也设计成虚函数。 是否需要类型转换 类型转换一般会分为显式转换和隐式转换，实现方式一般有直接在其中一个函数内些类型转换的重载运算符函数，和没有声明 explicit 的单一参数的构造函数。 重载的操作符以及其他相应的函数，是否合理 这里看重载的函数是否符合逻辑条件，不仅仅是代码之间的严禁性质，还需要考虑的就是生活层面的实用性。 哪些成员应该封装？ 这里就设计到哪些成员应该设置成私有，而哪一些函数应该设置成公有函数，并且一些不想编译器生成的函数应该定义成删除。 类型的未声明接口 它对效率、异常安全性以及资源运用提供什么样保证，以及为类的实现代码应该提供什么的约束条件。 是否应该定义成模板 这里就看类的一般性究竟有多大，是否具有普遍价值。 考虑是否会继承与其他的类 有的时候考虑过后，也许这个类就不需要凭空创造出，仅仅只是需要从其他类上面派生出来即可。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -530,9 +544,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款24：若所有参数需要类型转换的时候，请设置非成员函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE24%EF%BC%9A%E8%8B%A5%E6%89%80%E6%9C%89%E5%8F%82%E6%95%B0%E9%9C%80%E8%A6%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E8%AF%B7%E8%AE%BE%E7%BD%AE%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[该条款就是需要注意一点 如果需要为某个函数的所有参数，包括this 指针所指的隐喻参数，进行类型转换的时候，那么这个函数就必须是非成员函数]]></content>
+    <title><![CDATA[条款22：将成员变量声明为 private]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BA%20private%2F</url>
+    <content type="text"><![CDATA[这里就是要记住封装的好处 切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。 protected 并不比 public 更具有封装性]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -554,9 +568,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款25：考虑写出一个不抛异常的 swap 函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE26%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%BB%B6%E5%90%8E%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E5%BC%8F%E5%87%BA%E7%8E%B0%E7%9A%84%E6%97%B6%E9%97%B4%2F</url>
-    <content type="text"><![CDATA[其实该条款总结下来就是再讲一个东西，而这个东西分成两点： 如果类的赋值成本低于一组构造和析构成本，那么将对象的定义定义到循环体外部去，尤其是在循环次数很多的情况下。否则就是将定义循环体内部中去。 尽可能延后变量定义式出现的时间，最好达到需要什么才去定义什么，这样做可以增加程序的清晰度并改善程序效率。另外最好在程序定义的时候就直接构造（初始化）。]]></content>
+    <title><![CDATA[条款24：若所有参数需要类型转换的时候，请设置非成员函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE24%EF%BC%9A%E8%8B%A5%E6%89%80%E6%9C%89%E5%8F%82%E6%95%B0%E9%9C%80%E8%A6%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E8%AF%B7%E8%AE%BE%E7%BD%AE%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[该条款就是需要注意一点 如果需要为某个函数的所有参数，包括this 指针所指的隐喻参数，进行类型转换的时候，那么这个函数就必须是非成员函数]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -569,6 +583,31 @@
     <title><![CDATA[条款27：尽量少做转型动作]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE27%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%B0%91%E5%81%9A%E8%BD%AC%E5%9E%8B%E5%8A%A8%E4%BD%9C%2F</url>
     <content type="text"><![CDATA[C++ 规则的设计目标之一就是，保证“类型错误” 绝不可能发生，但是在 C++的某些特殊的情形下面不得不去使用转型这一特性，而 C 语言的转型语句则类似于以下： 然而 C++提供四种新式的类型转换 注意 在真正进行类型转换的时候，我们不能仅仅认为编译器到最后仅仅只是更改一个文件名字，编译器改变的底层的编码，比如 int 转型到 double 之间底层描述是不一样的。 另外 C++中的一个特性使得多重继承的时候，一个对象含有多个地址。 所以需要注意的是以下几点，如果可以的话，尽量避免转型，特别是在注重代码中避免dynamic_cast. 如果有设计需要转型动作的话，去试试无需转型的替代设计。 如果转型是必要的，那么试着将其隐藏在某个函数背后。客户随后可以调用该函数，而不需要讲转型放进他们自己的代码中。 宁可使用 C++新式的转型，也不要使用旧式的转型，前者很容易识别出来，而且也有着不叫分们别类的职掌。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[树相关题目]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款25：考虑写出一个不抛异常的 swap 函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE26%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%BB%B6%E5%90%8E%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E5%BC%8F%E5%87%BA%E7%8E%B0%E7%9A%84%E6%97%B6%E9%97%B4%2F</url>
+    <content type="text"><![CDATA[其实该条款总结下来就是再讲一个东西，而这个东西分成两点： 如果类的赋值成本低于一组构造和析构成本，那么将对象的定义定义到循环体外部去，尤其是在循环次数很多的情况下。否则就是将定义循环体内部中去。 尽可能延后变量定义式出现的时间，最好达到需要什么才去定义什么，这样做可以增加程序的清晰度并改善程序效率。另外最好在程序定义的时候就直接构造（初始化）。]]></content>
       <categories>
         <category>C++</category>
       </categories>
