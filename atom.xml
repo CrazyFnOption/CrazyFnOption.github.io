@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wsx1128.xyz/"/>
-  <updated>2019-03-05T08:04:35.047Z</updated>
+  <updated>2019-03-05T11:28:37.369Z</updated>
   <id>http://wsx1128.xyz/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>质数筛选问题</title>
+    <link href="http://wsx1128.xyz/2019/03/05/%E8%B4%A8%E6%95%B0%E7%AD%9B%E9%80%89%E9%97%AE%E9%A2%98/"/>
+    <id>http://wsx1128.xyz/2019/03/05/质数筛选问题/</id>
+    <published>2019-03-05T10:25:53.000Z</published>
+    <updated>2019-03-05T11:28:37.369Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>关于质数的筛选问题，就像最先开始学习C语言一样，最先开始都是从1遍历到本身。</p><p>后来的优化版本就体现在遍历到本身的 根号下的倍数关系。但是 后来则发现有太多的重复循环次数，这里反而显得不是特别好，所以就出来一种新的筛选方法。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最普通的埃式筛法</span></span><br><span class="line"><span class="built_in">memset</span>(check, <span class="number">0</span>, <span class="keyword">sizeof</span>(check));</span><br><span class="line"><span class="keyword">int</span> tot = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!check[i])</span><br><span class="line">    &#123;</span><br><span class="line">        prime[tot++] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 下面其实用乘法和用加法都是一样的，而这里就是乘法的原因就在于，减少了循环次数</span></span><br><span class="line">    <span class="comment">// 唯一没有被优化的地方就在于 每一个数字被重复标记了很多次，而后面的欧拉筛就会限制标记次数为一次</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i * i; j &lt;= n; j *= i)</span><br><span class="line">    &#123;</span><br><span class="line">        check[j] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>鉴于上面所说的在进行一次优化，则优化体现在了减少重复次数</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//进阶版的线性筛法</span></span><br><span class="line"><span class="comment">//质数数组</span></span><br><span class="line"><span class="keyword">int</span> prime[MAXN];</span><br><span class="line"><span class="comment">//判断每一个数 数组</span></span><br><span class="line"><span class="keyword">int</span> check[MAXL];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tot = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">memset</span>(check, <span class="number">0</span>, <span class="keyword">sizeof</span>(check));</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; MAXL; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!check[i])</span><br><span class="line">    &#123;</span><br><span class="line">        prime[tot++] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; tot; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//大致意思就在于 将每一个数的与质数数组里面的数进行相乘，最后得到的结果存在check中去</span></span><br><span class="line">        <span class="comment">//需要注意的就是 一旦当前的数能被整除的时候 就立马退出，这样代表每一个数字都会被自己的最小质因数给整除出来。</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (i * prime[j] &gt; MAXL)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        check[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>接下来就是区间筛</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="算法" scheme="http://wsx1128.xyz/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="http://wsx1128.xyz/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="质数筛选" scheme="http://wsx1128.xyz/tags/%E8%B4%A8%E6%95%B0%E7%AD%9B%E9%80%89/"/>
+    
+      <category term="欧拉筛" scheme="http://wsx1128.xyz/tags/%E6%AC%A7%E6%8B%89%E7%AD%9B/"/>
+    
+  </entry>
   
   <entry>
     <title>分享几道简单搜索题目</title>
@@ -417,35 +446,6 @@
       <category term="书评" scheme="http://wsx1128.xyz/tags/%E4%B9%A6%E8%AF%84/"/>
     
       <category term="村上春树" scheme="http://wsx1128.xyz/tags/%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于STL里面函数简单的应用</title>
-    <link href="http://wsx1128.xyz/2018/12/01/%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8/"/>
-    <id>http://wsx1128.xyz/2018/12/01/关于STL里面函数简单的应用/</id>
-    <published>2018-12-01T15:26:24.000Z</published>
-    <updated>2019-02-23T16:42:30.531Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img src="/2018/12/01/关于STL里面函数简单的应用/15334646368898.jpg" alt=""></p><p><strong>代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s;</span><br><span class="line">    s.insert(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>;i!=n;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//这道题目的主要做法是记住几个upper_bound 的STL函数</span></span><br><span class="line">        <span class="keyword">if</span>(t &lt; *s.rbegin()) &#123;</span><br><span class="line">            s.erase(*(s.upper_bound(t)));</span><br><span class="line">        &#125;</span><br><span class="line">        s.insert(t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; s.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="算法" scheme="http://wsx1128.xyz/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="acm" scheme="http://wsx1128.xyz/tags/acm/"/>
-    
-      <category term="c++" scheme="http://wsx1128.xyz/tags/c/"/>
-    
-      <category term="STL" scheme="http://wsx1128.xyz/tags/STL/"/>
     
   </entry>
   
