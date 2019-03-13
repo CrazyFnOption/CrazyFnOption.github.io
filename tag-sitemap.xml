@@ -192,13 +192,6 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/tags/java/</loc>
-        <lastmod>2019-02-26T15:08:43.128Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://wsx1128.xyz/tags/%E7%89%A9%E7%90%86%E5%BC%95%E6%93%8E/</loc>
         <lastmod>2019-02-26T15:08:43.128Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -227,13 +220,6 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/tags/%E7%AE%97%E6%B3%95/</loc>
-        <lastmod>2019-03-05T11:28:37.369Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://wsx1128.xyz/tags/%E8%B4%A8%E6%95%B0%E7%AD%9B%E9%80%89/</loc>
         <lastmod>2019-03-05T11:28:37.369Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -243,6 +229,41 @@
     <url>
         <loc>http://wsx1128.xyz/tags/%E6%AC%A7%E6%8B%89%E7%AD%9B/</loc>
         <lastmod>2019-03-05T11:28:37.369Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/BFS/</loc>
+        <lastmod>2019-03-13T05:18:53.211Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/%E7%AE%97%E6%B3%95/</loc>
+        <lastmod>2019-03-13T05:36:06.724Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/%E9%A2%98%E8%A7%A3/</loc>
+        <lastmod>2019-03-13T05:36:06.724Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/java/</loc>
+        <lastmod>2019-03-13T14:51:06.347Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/effective-java/</loc>
+        <lastmod>2019-03-13T14:51:06.347Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
