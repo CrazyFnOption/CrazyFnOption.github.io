@@ -545,7 +545,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款27：尽量少做转型动作/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -564,7 +564,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款27：尽量少做转型动作/" itemprop="url">条款27：尽量少做转型动作</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/" itemprop="url">条款25：考虑写出一个不抛异常的swap函数</a></h1>
         
 
         <div class="post-meta">
@@ -593,7 +593,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:12+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:14+08:00">
                 2019-02-24
               </time>
             
@@ -643,7 +643,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  331
+                  504
                 </span>
               
 
@@ -682,217 +682,15 @@
       
         
           
-          C++ 规则的设计目标之一就是，保证“类型错误” 绝不可能发生，但是在 C++的某些特殊的情形下面不得不去使用转型这一特性，而 C 语言的转型语句则类似于以下：
-然而 C++提供四种新式的类型转换
+          所谓 swap 两对象值，意思就是将两个对象的值彼此赋予对方，缺省的情况下 swap 的动作可以由标准库程序提供的 swap来完成。
 
-注意 在真正进行类型转换的时候，我们不能仅仅认为编译器到最后仅仅只是更改一个文件名字，编译器改变的底
+其中有一个最主要的方法就是，以指针指向一个对象，内含真正的数据“ 即”pimpl 手法”所以一般对于一个对象而言，直接交换里面的指针对象即可。就如同以下的写法：
+
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款27：尽量少做转型动作/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/树相关题目/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Bean">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/树相关题目/" itemprop="url">树相关题目</a></h1>
-        
-
-        <div class="post-meta">
-		
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:05+08:00">
-                2019-02-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  839
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          复原二叉树
-题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点）
-代码如下：
-12345678910111213141516171819202122232425262728
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/树相关题目/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款25：考虑写出一个不抛异常的swap函数/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1152,7 +950,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款27：尽量少做转型动作/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1171,7 +969,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/" itemprop="url">关于组合数学，两道思维题目，这里贴两道题目</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款27：尽量少做转型动作/" itemprop="url">条款27：尽量少做转型动作</a></h1>
         
 
         <div class="post-meta">
@@ -1200,7 +998,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:09+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:12+08:00">
                 2019-02-24
               </time>
             
@@ -1219,8 +1017,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -1250,7 +1048,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  816
+                  331
                 </span>
               
 
@@ -1266,7 +1064,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  1
                 </span>
               
             </div>
@@ -1289,14 +1087,14 @@
       
         
           
-          第一道 简单的排列组合：
-题解如下：
+          C++ 规则的设计目标之一就是，保证“类型错误” 绝不可能发生，但是在 C++的某些特殊的情形下面不得不去使用转型这一特性，而 C 语言的转型语句则类似于以下：
+然而 C++提供四种新式的类型转换
 
-题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是==C(b,a+b)==;那么三堆的话我们可以
+注意 在真正进行类型转换的时候，我们不能仅仅认为编译器到最后仅仅只是更改一个文件名字，编译器改变的底
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款27：尽量少做转型动作/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1565,6 +1363,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/树相关题目/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/树相关题目/" itemprop="url">树相关题目</a></h1>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:05+08:00">
+                2019-02-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  839
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          复原二叉树
+题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点）
+代码如下：
+12345678910111213141516171819202122232425262728
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/树相关题目/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/贪心算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1769,7 +1770,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/一道计算机几何算法相关题目/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1788,7 +1789,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/一道计算机几何算法相关题目/" itemprop="url">一道计算机几何算法相关题目</a></h1>
+                <a class="post-title-link" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/" itemprop="url">关于组合数学，两道思维题目，这里贴两道题目</a></h1>
         
 
         <div class="post-meta">
@@ -1817,7 +1818,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:11+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:09+08:00">
                 2019-02-24
               </time>
             
@@ -1867,7 +1868,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  273
+                  816
                 </span>
               
 
@@ -1883,7 +1884,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  4
                 </span>
               
             </div>
@@ -1906,13 +1907,14 @@
       
         
           
-          题目：
+          第一道 简单的排列组合：
+题解如下：
 
-代码如下：1234567891011121314151617181920212223242526272829303132#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;#include&lt;c
+题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是==C(b,a+b)==;那么三堆的话我们可以
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/一道计算机几何算法相关题目/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1971,7 +1973,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/ACM集训相关知识/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/一道有趣的题目——逆波兰计算器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1990,7 +1992,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/ACM集训相关知识/" itemprop="url">ACM集训相关知识</a></h1>
+                <a class="post-title-link" href="/2018/12/01/一道有趣的题目——逆波兰计算器/" itemprop="url">一道有趣的题目——逆波兰计算器</a></h1>
         
 
         <div class="post-meta">
@@ -2003,7 +2005,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T21:21:50+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
                 2018-12-01
               </time>
             
@@ -2019,7 +2021,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:04+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:07+08:00">
                 2019-02-24
               </time>
             
@@ -2069,7 +2071,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  575
+                  727
                 </span>
               
 
@@ -2085,7 +2087,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  2
+                  3
                 </span>
               
             </div>
@@ -2108,17 +2110,14 @@
       
         
           
-          基本的数据结构 扩充顺序表 （我的理解就是连续的顺序容器）存储方法就是在内存中开辟一段连续的空间。
-而数据元素的位置确认：
-常见的线性表运算：
-此处一般都是用数组来实现，其的插入运算和删除运算都是基于连续内存空间上面所实现的。
-单链表定义：链表的存储方式：
-双向链表
-循环链表简单来说就是首尾相连接的
+          
+题解首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。==注意以下几个地方==
+
+注意输入cin&gt;&gt;t以后，需要用getchar()来清空上一个步骤留下来
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/ACM集训相关知识/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/一道有趣的题目——逆波兰计算器/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2177,7 +2176,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/11/30/2018年生日重庆之旅/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/数据结构相应总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -2196,7 +2195,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/30/2018年生日重庆之旅/" itemprop="url">2018年生日重庆之旅</a></h1>
+                <a class="post-title-link" href="/2018/12/01/数据结构相应总结/" itemprop="url">数据结构相应总结</a></h1>
         
 
         <div class="post-meta">
@@ -2209,8 +2208,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-30T23:26:24+08:00">
-                2018-11-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
               </time>
             
 
@@ -2225,8 +2224,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-01-05T11:13:39+08:00">
-                2019-01-05
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:09+08:00">
+                2019-02-24
               </time>
             
           </span>
@@ -2244,8 +2243,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/成长/" itemprop="url" rel="index">
-                    <span itemprop="name">成长</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -2275,7 +2274,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.8k
+                  1.4k
                 </span>
               
 
@@ -2314,16 +2313,19 @@
       
         
           
-          说句实话，自己也不知道应该写些什么东西，转眼之间似乎已经21岁了，知道自己内心不甘心的地方，但是唯一不太知道的是如何去改善这些不甘心的地方。问问自己的内心，其实自己一直想要的就是别人的关注。我觉得我个人的心路成长分成了几个阶段。
+          栈
+栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。
 
-第一个阶段就是拼命的展现自我，追求其他人的认可与关爱。
+两种方法表示这种栈的实现
 
 
-如果在这
+
+第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。
+第二种就是直接用C
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/30/2018年生日重庆之旅/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/数据结构相应总结/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2421,7 +2423,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2553,7 +2555,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">56.6k</span>
+    <span title="Site words total count">59.5k</span>
   
 </div>
 
