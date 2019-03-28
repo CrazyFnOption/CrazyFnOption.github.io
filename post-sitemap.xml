@@ -8,8 +8,48 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/2019/03/13/effective-java-%E6%9D%A1%E6%AC%BE%E4%B8%80/</loc>
-        <lastmod>2019-03-13T14:51:06.347Z</lastmod>
+        <loc>http://wsx1128.xyz/2019/03/28/effective-java-item-6/</loc>
+        <lastmod>2019-03-28T13:43:08.059Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/2019/03/26/effective-java-item-5/</loc>
+        <lastmod>2019-03-26T13:45:50.467Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/2019/03/13/effective-java-item-1/</loc>
+        <lastmod>2019-03-26T13:20:15.225Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/2019/03/16/effective-java-item-4/</loc>
+        <lastmod>2019-03-16T01:37:00.577Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/2019/03/15/effective-java-item-3/</loc>
+        <lastmod>2019-03-15T13:27:25.027Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/2019/03/14/effective-java-item-2/</loc>
+        <lastmod>2019-03-15T12:35:21.020Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

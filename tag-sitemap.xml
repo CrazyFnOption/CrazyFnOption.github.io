@@ -241,13 +241,6 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/tags/%E7%AE%97%E6%B3%95/</loc>
-        <lastmod>2019-03-13T05:36:06.724Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://wsx1128.xyz/tags/%E9%A2%98%E8%A7%A3/</loc>
         <lastmod>2019-03-13T05:36:06.724Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -256,14 +249,21 @@
 
     <url>
         <loc>http://wsx1128.xyz/tags/java/</loc>
-        <lastmod>2019-03-13T14:51:06.347Z</lastmod>
+        <lastmod>2019-03-28T13:43:08.059Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/%E7%AE%97%E6%B3%95/</loc>
+        <lastmod>2019-03-28T13:43:08.059Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://wsx1128.xyz/tags/effective-java/</loc>
-        <lastmod>2019-03-13T14:51:06.347Z</lastmod>
+        <lastmod>2019-03-28T13:43:08.059Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
