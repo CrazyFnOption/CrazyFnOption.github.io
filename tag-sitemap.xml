@@ -178,13 +178,6 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/tags/%E7%89%A9%E7%90%86%E5%BC%95%E6%93%8E/</loc>
-        <lastmod>2019-02-26T15:08:43.128Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://wsx1128.xyz/tags/bfs/</loc>
         <lastmod>2019-03-05T08:04:35.047Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -234,13 +227,6 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/tags/java/</loc>
-        <lastmod>2019-03-28T13:43:08.059Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://wsx1128.xyz/tags/effective-java/</loc>
         <lastmod>2019-03-28T13:43:08.059Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -276,15 +262,36 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/tags/%E7%AE%97%E6%B3%95/</loc>
-        <lastmod>2019-07-13T13:07:12.860Z</lastmod>
+        <loc>http://wsx1128.xyz/tags/PAT/</loc>
+        <lastmod>2019-07-24T13:52:16.997Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://wsx1128.xyz/tags/PAT/</loc>
-        <lastmod>2019-07-13T13:07:12.860Z</lastmod>
+        <loc>http://wsx1128.xyz/tags/java/</loc>
+        <lastmod>2019-07-26T09:54:52.089Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/%E7%89%A9%E7%90%86%E5%BC%95%E6%93%8E/</loc>
+        <lastmod>2019-07-26T09:54:52.089Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/%E7%AE%97%E6%B3%95/</loc>
+        <lastmod>2019-07-26T10:10:28.840Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.xyz/tags/%E4%B9%A0%E9%A2%98%E8%A7%A3%E6%9E%90/</loc>
+        <lastmod>2019-07-26T10:10:28.840Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
