@@ -341,7 +341,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款23：宁以非成员友元函数代替成员函数/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款27：尽量少做转型动作/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -360,7 +360,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款23：宁以非成员友元函数代替成员函数/" itemprop="url">条款23：宁以非成员友元函数代替成员函数</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款27：尽量少做转型动作/" itemprop="url">条款27：尽量少做转型动作</a></h2>
         
 
         <div class="post-meta">
@@ -389,7 +389,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:15+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:12+08:00">
                 2019-02-24
               </time>
             
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  48
+                  331
                 </span>
               
 
@@ -478,15 +478,14 @@
       
         
           
-          同样还是为了封装
+          C++ 规则的设计目标之一就是，保证“类型错误” 绝不可能发生，但是在 C++的某些特殊的情形下面不得不去使用转型这一特性，而 C 语言的转型语句则类似于以下：
+然而 C++提供四种新式的类型转换
 
-宁可拿非成员非友元函数来代替成员函数，这样做可以增加封装性，和包裹弹性，以及机能扩充性。
-
-
-          
+注意 在真正进行类型转换的时候，我们不能仅仅认为编译器到最后仅仅只是更改一个文件名字，编译器改变的底
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款23：宁以非成员友元函数代替成员函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款27：尽量少做转型动作/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
