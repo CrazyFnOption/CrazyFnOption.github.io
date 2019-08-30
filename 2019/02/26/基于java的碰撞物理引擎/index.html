@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="2abIo_A5nMhdTOncpCpNSXNLFkH93A_Xns3iOs7LWKI">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="WwJNi7FIvf">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,java,物理引擎,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Bean" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7c502428"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+<meta name="description" content="首先，贴出效果图，基于java的物理引擎。 完成这个效果需要考虑几件事情。 第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…具体API如下： 其实这里最关键的是上面的预测碰撞时间的算法，应用了大学物理的相关知识。将三种碰撞的预测时间算出来，另外并依次赋予三种碰撞的效果。然后将其放入一个可比较的事件中，通过遍历每一个球与其他球预测碰撞情况，放入优先队列中再依次处理。 第一种 两球相撞123">
+<meta name="keywords" content="算法,java,物理引擎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于java的碰撞物理引擎">
+<meta property="og:url" content="http://wsx1128.xyz/2019/02/26/基于java的碰撞物理引擎/index.html">
+<meta property="og:site_name" content="Magical Bean">
+<meta property="og:description" content="首先，贴出效果图，基于java的物理引擎。 完成这个效果需要考虑几件事情。 第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…具体API如下： 其实这里最关键的是上面的预测碰撞时间的算法，应用了大学物理的相关知识。将三种碰撞的预测时间算出来，另外并依次赋予三种碰撞的效果。然后将其放入一个可比较的事件中，通过遍历每一个球与其他球预测碰撞情况，放入优先队列中再依次处理。 第一种 两球相撞123">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wsx1128.xyz/2019/02/26/基于java的碰撞物理引擎/11.png">
+<meta property="og:image" content="http://wsx1128.xyz/2019/02/26/基于java的碰撞物理引擎/22.png">
+<meta property="og:updated_time" content="2019-07-26T09:54:52.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于java的碰撞物理引擎">
+<meta name="twitter:description" content="首先，贴出效果图，基于java的物理引擎。 完成这个效果需要考虑几件事情。 第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…具体API如下： 其实这里最关键的是上面的预测碰撞时间的算法，应用了大学物理的相关知识。将三种碰撞的预测时间算出来，另外并依次赋予三种碰撞的效果。然后将其放入一个可比较的事件中，通过遍历每一个球与其他球预测碰撞情况，放入优先队列中再依次处理。 第一种 两球相撞123">
+<meta name="twitter:image" content="http://wsx1128.xyz/2019/02/26/基于java的碰撞物理引擎/11.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wsx1128.xyz/2019/02/26/基于java的碰撞物理引擎/">
+
+
+
+
+
+  <title>基于java的碰撞物理引擎 | Magical Bean</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Bean</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2019/02/26/基于java的碰撞物理引擎/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">基于java的碰撞物理引擎</h2>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T00:44:48+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-07-26T17:54:52+08:00">
+                2019-07-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="首先，贴出效果图，基于java的物理引擎。"><a href="#首先，贴出效果图，基于java的物理引擎。" class="headerlink" title="首先，贴出效果图，基于java的物理引擎。"></a>首先，贴出效果图，基于java的物理引擎。</h3><p><img src="/2019/02/26/基于java的碰撞物理引擎/11.png" alt="11"></p>
+<p><strong>完成这个效果需要考虑几件事情。</strong></p>
+<h3 id="第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…"><a href="#第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…" class="headerlink" title="第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…"></a>第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…</h3><p>具体API如下：<br><img src="/2019/02/26/基于java的碰撞物理引擎/22.png" alt="22"></p>
+<p>其实这里最关键的是上面的预测碰撞时间的算法，应用了大学物理的相关知识。<br>将三种碰撞的预测时间算出来，另外并依次赋予三种碰撞的效果。<br>然后将其放入一个可比较的事件中，通过遍历每一个球与其他球预测碰撞情况，放入优先队列中再依次处理。</p>
+<h4 id="第一种-两球相撞"><a href="#第一种-两球相撞" class="headerlink" title="第一种 两球相撞"></a>第一种 两球相撞</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//时间</span></span><br><span class="line"><span class="comment">//注意下面几个地方的剪枝</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">timeToHitBall</span> <span class="params">(Ball that)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == that) <span class="keyword">return</span> INFINITY;</span><br><span class="line">        <span class="keyword">double</span> dx = that.pos_x - <span class="keyword">this</span>.pos_x;</span><br><span class="line">        <span class="keyword">double</span> dy = that.pos_y - <span class="keyword">this</span>.pos_y;</span><br><span class="line">        <span class="keyword">double</span> dvx = that.vec_x - <span class="keyword">this</span>.vec_x;</span><br><span class="line">        <span class="keyword">double</span> dvy = that.vec_y - <span class="keyword">this</span>.vec_y;</span><br><span class="line">        <span class="keyword">double</span> dvdr = dx * dvx + dy * dvy;</span><br><span class="line">        <span class="keyword">if</span> (dvdr &gt; <span class="number">0</span>) <span class="keyword">return</span> INFINITY;</span><br><span class="line">        <span class="keyword">double</span> dvdv = dvx * dvx + dvy * dvy;</span><br><span class="line">        <span class="keyword">if</span> (dvdv == <span class="number">0</span>) <span class="keyword">return</span> INFINITY;</span><br><span class="line">        <span class="keyword">double</span> drdr = dx * dx + dy * dy;</span><br><span class="line">        <span class="keyword">double</span> sigma = <span class="keyword">this</span>.radius + that.radius;</span><br><span class="line">        <span class="keyword">double</span> d = (dvdr * dvdr) - dvdv * (drdr - sigma * sigma);</span><br><span class="line">        <span class="keyword">if</span> (d &lt; <span class="number">0</span>) <span class="keyword">return</span> INFINITY;</span><br><span class="line">        <span class="keyword">return</span> -(dvdr + Math.sqrt(d)) / dvdv;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//碰撞后的效果</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bounceOff</span> <span class="params">(Ball that)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> dx = that.pos_x - <span class="keyword">this</span>.pos_x;</span><br><span class="line">        <span class="keyword">double</span> dy = that.pos_y - <span class="keyword">this</span>.pos_y;</span><br><span class="line">        <span class="keyword">double</span> dvx = that.vec_x - <span class="keyword">this</span>.vec_x;</span><br><span class="line">        <span class="keyword">double</span> dvy = that.vec_y - <span class="keyword">this</span>.vec_y;</span><br><span class="line">        <span class="keyword">double</span> dvdr = dx * dvx + dy * dvy;</span><br><span class="line">        <span class="keyword">double</span> dist = <span class="keyword">this</span>.radius + that.radius;</span><br><span class="line">        <span class="keyword">double</span> J = <span class="number">2</span> * <span class="keyword">this</span>.mass * that.mass * dvdr / ((<span class="keyword">this</span>.mass + that.mass) * dist);</span><br><span class="line">        <span class="keyword">double</span> Jx = J * dx / dist;</span><br><span class="line">        <span class="keyword">double</span> Jy = J * dy / dist;</span><br><span class="line">        <span class="keyword">this</span>.vec_x += Jx / <span class="keyword">this</span>.mass;</span><br><span class="line">        <span class="keyword">this</span>.vec_y += Jy / <span class="keyword">this</span>.mass;</span><br><span class="line">        that.vec_x -= Jx / that.mass;</span><br><span class="line">        that.vec_y -= Jy / that.mass;</span><br><span class="line">        <span class="keyword">this</span>.cnt ++;</span><br><span class="line">        that.cnt ++;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="第二种与墙体发生碰撞"><a href="#第二种与墙体发生碰撞" class="headerlink" title="第二种与墙体发生碰撞"></a>第二种与墙体发生碰撞</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//碰撞垂直墙的时间</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">timeToHitVerticalWall</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (vec_x &gt; <span class="number">0</span>)  <span class="keyword">return</span> (border - pos_x - radius) / vec_x;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (vec_x &lt; <span class="number">0</span>) <span class="keyword">return</span> (radius - pos_x) / vec_x;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> INFINITY;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//碰撞水平墙的时间</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">timeToHitHorizontalWall</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (vec_y &gt; <span class="number">0</span>)  <span class="keyword">return</span> (border - pos_y - radius) / vec_y;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (vec_y &lt; <span class="number">0</span>) <span class="keyword">return</span> (radius - pos_y) / vec_y;</span><br><span class="line">    <span class="keyword">return</span>  INFINITY;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//碰撞效果</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bounceOffVerticalWall</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.cnt ++;</span><br><span class="line">   <span class="keyword">this</span>.vec_x = - <span class="keyword">this</span>.vec_x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bounceoffHorizontalWall</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.cnt ++;</span><br><span class="line">    <span class="keyword">this</span>.vec_y = - <span class="keyword">this</span>.vec_y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="以下便是第一个球体类型的完整代码"><a href="#以下便是第一个球体类型的完整代码" class="headerlink" title="以下便是第一个球体类型的完整代码"></a>以下便是第一个球体类型的完整代码</h3><p><strong>Ball.java</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdDraw;</span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdRandom;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ball</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//球的横纵坐标</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> pos_x;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> pos_y;</span><br><span class="line">    <span class="comment">//球的横纵方向上面的速度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> vec_x;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> vec_y;</span><br><span class="line">    <span class="comment">//球的半径</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> radius;</span><br><span class="line">    <span class="comment">//球的质量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> mass;</span><br><span class="line">    <span class="comment">//边界长度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> border;</span><br><span class="line">    <span class="comment">//球的颜色</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Color color;</span><br><span class="line">    <span class="comment">//碰撞次数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//限定一个最大值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> INFINITY = Double.POSITIVE_INFINITY;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Ball</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        pos_x     = StdRandom.uniform(<span class="number">0.0</span>, <span class="number">1.0</span>);</span><br><span class="line">        pos_y     = StdRandom.uniform(<span class="number">0.0</span>, <span class="number">1.0</span>);</span><br><span class="line">        vec_x     = StdRandom.uniform(-<span class="number">0.005</span>, <span class="number">0.005</span>);</span><br><span class="line">        vec_y     = StdRandom.uniform(-<span class="number">0.005</span>, <span class="number">0.005</span>);</span><br><span class="line">        radius    = <span class="number">0.01</span>;</span><br><span class="line">        mass      = <span class="number">0.5</span>;</span><br><span class="line">        border    = <span class="number">1</span>;</span><br><span class="line">        color     = Color.BLACK;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Ball</span> <span class="params">(<span class="keyword">double</span> px,<span class="keyword">double</span> py,<span class="keyword">double</span> vx,<span class="keyword">double</span> vy,<span class="keyword">double</span> radius,<span class="keyword">double</span> mass,<span class="keyword">double</span> border,Color color)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.pos_x = px;</span><br><span class="line">        <span class="keyword">this</span>.pos_y = py;</span><br><span class="line">        <span class="keyword">this</span>.vec_x = vx;</span><br><span class="line">        <span class="keyword">this</span>.vec_y = vy;</span><br><span class="line">        <span class="keyword">this</span>.radius = radius;</span><br><span class="line">        <span class="keyword">this</span>.mass = mass;</span><br><span class="line">        <span class="keyword">this</span>.border = border;</span><br><span class="line">        <span class="keyword">this</span>.color = color;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StdDraw.filledCircle(pos_x,pos_y,radius);</span><br><span class="line">        StdDraw.setPenColor(color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span> <span class="params">(<span class="keyword">double</span> dt)</span> </span>&#123;</span><br><span class="line">        pos_x = pos_x + vec_x * dt;</span><br><span class="line">        pos_y = pos_y + vec_y * dt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">timeToHitBall</span> <span class="params">(Ball that)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == that) <span class="keyword">return</span> INFINITY;</span><br><span class="line">        <span class="keyword">double</span> dx = that.pos_x - <span class="keyword">this</span>.pos_x;</span><br><span class="line">        <span class="keyword">double</span> dy = that.pos_y - <span class="keyword">this</span>.pos_y;</span><br><span class="line">        <span class="keyword">double</span> dvx = that.vec_x - <span class="keyword">this</span>.vec_x;</span><br><span class="line">        <span class="keyword">double</span> dvy = that.vec_y - <span class="keyword">this</span>.vec_y;</span><br><span class="line">        <span class="keyword">double</span> dvdr = dx * dvx + dy * dvy;</span><br><span class="line">        <span class="keyword">if</span> (dvdr &gt; <span class="number">0</span>) <span class="keyword">return</span> INFINITY;</span><br><span class="line">        <span class="keyword">double</span> dvdv = dvx * dvx + dvy * dvy;</span><br><span class="line">        <span class="keyword">if</span> (dvdv == <span class="number">0</span>) <span class="keyword">return</span> INFINITY;</span><br><span class="line">        <span class="keyword">double</span> drdr = dx * dx + dy * dy;</span><br><span class="line">        <span class="keyword">double</span> sigma = <span class="keyword">this</span>.radius + that.radius;</span><br><span class="line">        <span class="keyword">double</span> d = (dvdr * dvdr) - dvdv * (drdr - sigma * sigma);</span><br><span class="line">        <span class="keyword">if</span> (d &lt; <span class="number">0</span>) <span class="keyword">return</span> INFINITY;</span><br><span class="line">        <span class="keyword">return</span> -(dvdr + Math.sqrt(d)) / dvdv;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">timeToHitVerticalWall</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (vec_x &gt; <span class="number">0</span>)  <span class="keyword">return</span> (border - pos_x - radius) / vec_x;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (vec_x &lt; <span class="number">0</span>) <span class="keyword">return</span> (radius - pos_x) / vec_x;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> INFINITY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">timeToHitHorizontalWall</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (vec_y &gt; <span class="number">0</span>)  <span class="keyword">return</span> (border - pos_y - radius) / vec_y;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (vec_y &lt; <span class="number">0</span>) <span class="keyword">return</span> (radius - pos_y) / vec_y;</span><br><span class="line">        <span class="keyword">return</span>  INFINITY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bounceOff</span> <span class="params">(Ball that)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> dx = that.pos_x - <span class="keyword">this</span>.pos_x;</span><br><span class="line">        <span class="keyword">double</span> dy = that.pos_y - <span class="keyword">this</span>.pos_y;</span><br><span class="line">        <span class="keyword">double</span> dvx = that.vec_x - <span class="keyword">this</span>.vec_x;</span><br><span class="line">        <span class="keyword">double</span> dvy = that.vec_y - <span class="keyword">this</span>.vec_y;</span><br><span class="line">        <span class="keyword">double</span> dvdr = dx * dvx + dy * dvy;</span><br><span class="line">        <span class="keyword">double</span> dist = <span class="keyword">this</span>.radius + that.radius;</span><br><span class="line">        <span class="keyword">double</span> J = <span class="number">2</span> * <span class="keyword">this</span>.mass * that.mass * dvdr / ((<span class="keyword">this</span>.mass + that.mass) * dist);</span><br><span class="line">        <span class="keyword">double</span> Jx = J * dx / dist;</span><br><span class="line">        <span class="keyword">double</span> Jy = J * dy / dist;</span><br><span class="line">        <span class="keyword">this</span>.vec_x += Jx / <span class="keyword">this</span>.mass;</span><br><span class="line">        <span class="keyword">this</span>.vec_y += Jy / <span class="keyword">this</span>.mass;</span><br><span class="line">        that.vec_x -= Jx / that.mass;</span><br><span class="line">        that.vec_y -= Jy / that.mass;</span><br><span class="line">        <span class="keyword">this</span>.cnt ++;</span><br><span class="line">        that.cnt ++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bounceOffVerticalWall</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cnt ++;</span><br><span class="line">        <span class="keyword">this</span>.vec_x = - <span class="keyword">this</span>.vec_x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bounceoffHorizontalWall</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cnt ++;</span><br><span class="line">        <span class="keyword">this</span>.vec_y = - <span class="keyword">this</span>.vec_y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="其次，我们需要对以上球体类进行一个包装，将其赋予可比较的特性。"><a href="#其次，我们需要对以上球体类进行一个包装，将其赋予可比较的特性。" class="headerlink" title="其次，我们需要对以上球体类进行一个包装，将其赋予可比较的特性。"></a>其次，我们需要对以上球体类进行一个包装，将其赋予可比较的特性。</h3><p>因为从宏观上来看，我们需要比较的是每一个球体的碰撞情况，所以，用一个事件包含其诸多特性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Collison_Event</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Collison_Event</span>&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Ball a,b;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> time;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> countA,countB;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Collison_Event</span> <span class="params">(Ball a,Ball b,<span class="keyword">double</span> time)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.time = time;</span><br><span class="line">            <span class="keyword">this</span>.a = a;</span><br><span class="line">            <span class="keyword">this</span>.b = b;</span><br><span class="line">            <span class="keyword">if</span> (a != <span class="keyword">null</span>) countA = a.count();</span><br><span class="line">            <span class="keyword">else</span>           countA = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (b != <span class="keyword">null</span>) countB = b.count();</span><br><span class="line">            <span class="keyword">else</span>           countB = -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Collison_Event that)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> Double.compare(<span class="keyword">this</span>.time,that.time);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.time == Double.POSITIVE_INFINITY) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (a != <span class="keyword">null</span> &amp;&amp; a.count() != countA) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">if</span> (b != <span class="keyword">null</span> &amp;&amp; b.count() != countB) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最后就是整个包含类，就称为一个系统"><a href="#最后就是整个包含类，就称为一个系统" class="headerlink" title="最后就是整个包含类，就称为一个系统"></a>最后就是整个包含类，就称为一个系统</h3><p>思路就是预测碰撞的时间，放入优先队列中，另外，需要注意的核心的一点就是，其采用了时间限制，大于某个时间的球体碰撞即不放进队列中，避免开销。<br>还有，不要忘记重绘的条件，在这里加入一个HZ变量控制帧数。</p>
+<h4 id="以下是第二个类的全部代码"><a href="#以下是第二个类的全部代码" class="headerlink" title="以下是第二个类的全部代码"></a>以下是第二个类的全部代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.MinPQ;</span><br><span class="line"><span class="keyword">import</span> edu.princeton.cs.algs4.StdDraw;</span><br><span class="line"><span class="keyword">import</span> java.awt.Color;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollisionSystem</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> MinPQ&lt;Collison_Event&gt; pq;</span><br><span class="line">    <span class="comment">//相当于一个总控时间的一个参数，后面所有关于时间的参数都需要加上一个这个</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">double</span> t = <span class="number">0.0</span>;</span><br><span class="line">    <span class="keyword">protected</span> Ball[] balls;</span><br><span class="line">    <span class="comment">//这里就相当于一个控制每一帧数的频率控制</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> HZ = <span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CollisionSystem</span><span class="params">(Ball[] balls)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.balls = balls.clone();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//这里新加上的一个参数 limit 是控制一些完全没必要的事件</span></span><br><span class="line">    <span class="comment">//意思就是剔除那些需要太长时间才会相撞的球体</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">pridict</span> <span class="params">(Ball b,<span class="keyword">double</span> limit)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (b == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; balls.length;i++)&#123;</span><br><span class="line">            <span class="keyword">double</span> dt = b.timeToHitBall(balls[i]);</span><br><span class="line">            <span class="keyword">if</span> (t + dt &lt;= limit)</span><br><span class="line">                pq.insert(<span class="keyword">new</span> Collison_Event(b,balls[i],dt + t));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">double</span> dxt = b.timeToHitHorizontalWall() + t;</span><br><span class="line">        <span class="keyword">double</span> dyt = b.timeToHitVerticalWall() + t;</span><br><span class="line">        <span class="keyword">if</span> (dxt &lt;= limit)</span><br><span class="line">            pq.insert(<span class="keyword">new</span> Collison_Event(b,<span class="keyword">null</span>,dxt));</span><br><span class="line">        <span class="keyword">if</span> (dyt &lt;= limit)</span><br><span class="line">            pq.insert(<span class="keyword">new</span> Collison_Event(<span class="keyword">null</span>,b,dyt));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">redrew</span><span class="params">(<span class="keyword">double</span> limit)</span> </span>&#123;</span><br><span class="line">        StdDraw.clear();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; balls.length;i++) &#123;</span><br><span class="line">            balls[i].draw();</span><br><span class="line">        &#125;</span><br><span class="line">        StdDraw.show();</span><br><span class="line">        StdDraw.pause(<span class="number">20</span>);</span><br><span class="line">        <span class="keyword">if</span> (t &lt; limit) &#123;</span><br><span class="line">            pq.insert(<span class="keyword">new</span> Collison_Event(<span class="keyword">null</span>,<span class="keyword">null</span>,t + <span class="number">1.0</span> / HZ));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">simulate</span> <span class="params">(<span class="keyword">double</span> limit)</span> </span>&#123;</span><br><span class="line">        pq = <span class="keyword">new</span> MinPQ&lt;Collison_Event&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; balls.length; i++) &#123;</span><br><span class="line">            pridict(balls[i],limit);</span><br><span class="line">        &#125;</span><br><span class="line">        pq.insert(<span class="keyword">new</span> Collison_Event(<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">            Collison_Event event = pq.delMin();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!event.isValid()) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//将其他的点全部移动</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; balls.length; i++) &#123;</span><br><span class="line">                balls[i].move(event.time - t);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            t = event.time;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (event.a != <span class="keyword">null</span> &amp;&amp; event.b != <span class="keyword">null</span>) event.a.bounceOff(event.b);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (event.a == <span class="keyword">null</span> &amp;&amp; event.b != <span class="keyword">null</span>) event.b.bounceOffVerticalWall();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (event.a != <span class="keyword">null</span> &amp;&amp; event.b == <span class="keyword">null</span>) event.a.bounceoffHorizontalWall();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (event.a == <span class="keyword">null</span> &amp;&amp; event.b == <span class="keyword">null</span>) redrew(limit);</span><br><span class="line"></span><br><span class="line">            pridict(event.a,limit);</span><br><span class="line">            pridict(event.b,limit);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Collison_Event</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Collison_Event</span>&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Ball a,b;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> time;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> countA,countB;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Collison_Event</span> <span class="params">(Ball a,Ball b,<span class="keyword">double</span> time)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.time = time;</span><br><span class="line">            <span class="keyword">this</span>.a = a;</span><br><span class="line">            <span class="keyword">this</span>.b = b;</span><br><span class="line">            <span class="keyword">if</span> (a != <span class="keyword">null</span>) countA = a.count();</span><br><span class="line">            <span class="keyword">else</span>           countA = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (b != <span class="keyword">null</span>) countB = b.count();</span><br><span class="line">            <span class="keyword">else</span>           countB = -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Collison_Event that)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> Double.compare(<span class="keyword">this</span>.time,that.time);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.time == Double.POSITIVE_INFINITY) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (a != <span class="keyword">null</span> &amp;&amp; a.count() != countA) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">if</span> (b != <span class="keyword">null</span> &amp;&amp; b.count() != countB) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span>  <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line">        StdDraw.setCanvasSize(<span class="number">600</span>,<span class="number">600</span>);</span><br><span class="line">        <span class="comment">//这个是清楚缓冲 帮助改善运动的</span></span><br><span class="line">        StdDraw.enableDoubleBuffering();</span><br><span class="line">        Ball[] balls = <span class="keyword">new</span> Ball[<span class="number">100</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            balls[i] = <span class="keyword">new</span> Ball();</span><br><span class="line">        &#125;</span><br><span class="line">        CollisionSystem system = <span class="keyword">new</span> CollisionSystem(balls);</span><br><span class="line">        system.simulate(<span class="number">100000</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/26/基于java的碰撞物理引擎/">基于java的碰撞物理引擎</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
+  <p><span>发布时间:</span>2019年02月26日 - 00:02</p>
+  <p><span>最后更新:</span>2019年07月26日 - 17:07</p>
+  <p><span>原始链接:</span><a href="/2019/02/26/基于java的碰撞物理引擎/" title="基于java的碰撞物理引擎">http://wsx1128.xyz/2019/02/26/基于java的碰撞物理引擎/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.xyz/2019/02/26/基于java的碰撞物理引擎/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+
+		
+	</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/物理引擎/" rel="tag"><i class="fa fa-tag"></i> 物理引擎</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/24/普林斯顿算法课第四周小作业/" rel="next" title="普林斯顿算法课第四周小作业">
+                <i class="fa fa-chevron-left"></i> 普林斯顿算法课第四周小作业
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/26/8-pazzle/" rel="prev" title="8_pazzle">
+                8_pazzle <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+
+  
+</div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/good.jpg" alt="五光君">
+            
+              <p class="site-author-name" itemprop="name">五光君</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CrazyFnOption" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wsx1128@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="V2EX" target="_blank">V2EX</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+
+
+
+
+    <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=29089377&auto=1&height=66"></iframe>
+		</div>
+		
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先，贴出效果图，基于java的物理引擎。"><span class="nav-number">1.</span> <span class="nav-text">首先，贴出效果图，基于java的物理引擎。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…"><span class="nav-number">2.</span> <span class="nav-text">第一步显示定义出每一个颗粒，具体的形状，颜色，位置，速度…</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种-两球相撞"><span class="nav-number">2.1.</span> <span class="nav-text">第一种 两球相撞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种与墙体发生碰撞"><span class="nav-number">2.2.</span> <span class="nav-text">第二种与墙体发生碰撞</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以下便是第一个球体类型的完整代码"><span class="nav-number">3.</span> <span class="nav-text">以下便是第一个球体类型的完整代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次，我们需要对以上球体类进行一个包装，将其赋予可比较的特性。"><span class="nav-number">4.</span> <span class="nav-text">其次，我们需要对以上球体类进行一个包装，将其赋予可比较的特性。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后就是整个包含类，就称为一个系统"><span class="nav-number">5.</span> <span class="nav-text">最后就是整个包含类，就称为一个系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以下是第二个类的全部代码"><span class="nav-number">5.1.</span> <span class="nav-text">以下是第二个类的全部代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+	
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五光君</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">79.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+         
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+        <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+    
+<!-- END LOCAL --> 
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1551113088000', 
+            owner: 'CrazyFnOption',
+            repo: 'CrazyFnOption.github.io',
+            
+            oauth: {
+            
+            
+                client_secret: 'e1683540f3255e595e4356dab54ec1e9cafe2f39',
+            
+                client_id: '26571a3bc02ea769bb54'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+
+	
+  
+
+
+</body>
+</html>
