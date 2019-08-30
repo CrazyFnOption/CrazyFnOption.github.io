@@ -543,7 +543,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款14：在资源管理类中小心拷贝行为/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -562,7 +562,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="url">条款16：成对使用new和delete时需要采取相同的形式</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款14：在资源管理类中小心拷贝行为/" itemprop="url">条款14：在资源管理类中小心拷贝行为</a></h2>
         
 
         <div class="post-meta">
@@ -591,7 +591,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:20+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:21+08:00">
                 2019-02-24
               </time>
             
@@ -641,7 +641,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  72
+                  260
                 </span>
               
 
@@ -680,20 +680,14 @@
       
         
           
-          其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话：
+          一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略
+禁止复制 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。
 
-new 一个数组，那么一定要 delete 一个数组
-
-智能指针默认没有 delete 数组，所以需要自定义删除器。
-
-
-
-
-
-          
+对底层数据的共享控制 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款14：在资源管理类中小心拷贝行为/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -957,7 +951,7 @@ new 一个数组，那么一定要 delete 一个数组
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款19：设计 class 犹如设计 type/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -976,7 +970,7 @@ new 一个数组，那么一定要 delete 一个数组
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款19：设计 class 犹如设计 type/" itemprop="url">条款19：设计 class 犹如设计 type</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="url">条款16：成对使用new和delete时需要采取相同的形式</a></h2>
         
 
         <div class="post-meta">
@@ -1005,7 +999,7 @@ new 一个数组，那么一定要 delete 一个数组
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:18+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:20+08:00">
                 2019-02-24
               </time>
             
@@ -1055,7 +1049,7 @@ new 一个数组，那么一定要 delete 一个数组
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  641
+                  72
                 </span>
               
 
@@ -1071,7 +1065,7 @@ new 一个数组，那么一定要 delete 一个数组
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  2
+                  1
                 </span>
               
             </div>
@@ -1094,24 +1088,20 @@ new 一个数组，那么一定要 delete 一个数组
       
         
           
-          一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。
-新 type 对象应该如何创建和销毁
+          其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话：
 
-关系到类的构造函数与析构函数如何建立
+new 一个数组，那么一定要 delete 一个数组
 
-
-对象的初始化和对象的赋值之间的差别
-
-主要是为了区分构造函数与赋值运算符之间的区别
+智能指针默认没有 delete 数组，所以需要自定义删除器。
 
 
-该类参数传递中有传值也有传引用
 
-传引用与传值
-          ...
+
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款19：设计 class 犹如设计 type/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1318,6 +1308,219 @@ new 一个数组，那么一定要 delete 一个数组
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/12/01/条款18：让接口容易被正确使用，不易被误用/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款19：设计 class 犹如设计 type/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款19：设计 class 犹如设计 type/" itemprop="url">条款19：设计 class 犹如设计 type</a></h2>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:18+08:00">
+                2019-02-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  641
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。
+新 type 对象应该如何创建和销毁
+
+关系到类的构造函数与析构函数如何建立
+
+
+对象的初始化和对象的赋值之间的差别
+
+主要是为了区分构造函数与赋值运算符之间的区别
+
+
+该类参数传递中有传值也有传引用
+
+传引用与传值
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/条款19：设计 class 犹如设计 type/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1783,211 +1986,6 @@ new 一个数组，那么一定要 delete 一个数组
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款22：将成员变量声明为 private/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Bean">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款22：将成员变量声明为 private/" itemprop="url">条款22：将成员变量声明为 private</a></h2>
-        
-
-        <div class="post-meta">
-		
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:16+08:00">
-                2019-02-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  84
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          这里就是要记住封装的好处
-
-切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。
-protected 并不比 public 更具有封装性
-
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款22：将成员变量声明为 private/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款23：宁以非成员友元函数代替成员函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2192,7 +2190,7 @@ protected 并不比 public 更具有封装性
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款22：将成员变量声明为 private/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -2211,7 +2209,7 @@ protected 并不比 public 更具有封装性
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/" itemprop="url">条款24：若所有参数需要类型转换的时候，请设置非成员函数</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款22：将成员变量声明为 private/" itemprop="url">条款22：将成员变量声明为 private</a></h2>
         
 
         <div class="post-meta">
@@ -2240,7 +2238,7 @@ protected 并不比 public 更具有封装性
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:14+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:16+08:00">
                 2019-02-24
               </time>
             
@@ -2290,7 +2288,7 @@ protected 并不比 public 更具有封装性
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  61
+                  84
                 </span>
               
 
@@ -2329,14 +2327,16 @@ protected 并不比 public 更具有封装性
       
         
           
-          该条款就是需要注意一点
-如果需要为某个函数的所有参数，包括this 指针所指的隐喻参数，进行类型转换的时候，那么这个函数就必须是非成员函数
+          这里就是要记住封装的好处
+
+切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。
+protected 并不比 public 更具有封装性
 
 
           
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款24：若所有参数需要类型转换的时候，请设置非成员函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款22：将成员变量声明为 private/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2434,7 +2434,7 @@ protected 并不比 public 更具有封装性
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2483,7 +2483,7 @@ protected 并不比 public 更具有封装性
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="wsx1128@outlook.com" target="_blank" title="E-Mail">
+                    <a href="mailto:wsx1128@outlook.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
