@@ -341,7 +341,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款27：尽量少做转型动作/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款14：在资源管理类中小心拷贝行为/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -360,7 +360,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款27：尽量少做转型动作/" itemprop="url">条款27：尽量少做转型动作</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款14：在资源管理类中小心拷贝行为/" itemprop="url">条款14：在资源管理类中小心拷贝行为</a></h1>
         
 
         <div class="post-meta">
@@ -389,7 +389,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:12+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:21+08:00">
                 2019-02-24
               </time>
             
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  331
+                  260
                 </span>
               
 
@@ -478,14 +478,14 @@
       
         
           
-          C++ 规则的设计目标之一就是，保证“类型错误” 绝不可能发生，但是在 C++的某些特殊的情形下面不得不去使用转型这一特性，而 C 语言的转型语句则类似于以下：
-然而 C++提供四种新式的类型转换
+          一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略
+禁止复制 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。
 
-注意 在真正进行类型转换的时候，我们不能仅仅认为编译器到最后仅仅只是更改一个文件名字，编译器改变的底
+对底层数据的共享控制 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款27：尽量少做转型动作/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款14：在资源管理类中小心拷贝行为/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -544,7 +544,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/树相关题目/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -563,7 +563,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/树相关题目/" itemprop="url">树相关题目</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/" itemprop="url">条款15：在资源管理类中提供对原始资源的访问</a></h1>
         
 
         <div class="post-meta">
@@ -592,7 +592,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:05+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:20+08:00">
                 2019-02-24
               </time>
             
@@ -611,8 +611,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -642,210 +642,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  839
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          复原二叉树
-题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点）
-代码如下：
-12345678910111213141516171819202122232425262728
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/树相关题目/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Bean">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/" itemprop="url">一道STL的题解题目，需要以后花时间理解题目意思</a></h1>
-        
-
-        <div class="post-meta">
-		
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:06+08:00">
-                2019-02-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  266
+                  243
                 </span>
               
 
@@ -884,13 +681,13 @@
       
         
           
-          
-代码如下：
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&l
+          一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是
+在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。
+另外除了返回内置指针这种方式来进行对原始资源的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/一道STL的题解题目，需要以后花时间理解题目意思/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款15：在资源管理类中提供对原始资源的访问/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -949,7 +746,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/关于模拟与搜索的相应简单题目/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -968,7 +765,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/关于模拟与搜索的相应简单题目/" itemprop="url">关于模拟与搜索的相应简单题目</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/" itemprop="url">条款16：成对使用new和delete时需要采取相同的形式</a></h1>
         
 
         <div class="post-meta">
@@ -997,7 +794,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:29+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:20+08:00">
                 2019-02-24
               </time>
             
@@ -1016,8 +813,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -1047,7 +844,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2k
+                  72
                 </span>
               
 
@@ -1063,7 +860,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  11
+                  1
                 </span>
               
             </div>
@@ -1086,12 +883,20 @@
       
         
           
-          题目
-代码如下：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757
-          ...
+          其实我根本不知道这个为什么会成为一个单独的条款鉴于此，所以就简单的讲两句话：
+
+new 一个数组，那么一定要 delete 一个数组
+
+智能指针默认没有 delete 数组，所以需要自定义删除器。
+
+
+
+
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/关于模拟与搜索的相应简单题目/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款16：成对使用new和delete时需要采取相同的形式/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1150,7 +955,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1169,7 +974,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/" itemprop="url">关于组合数学，两道思维题目，这里贴两道题目</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/" itemprop="url">条款17：以独立语句将new过得对象放入智能指针中</a></h1>
         
 
         <div class="post-meta">
@@ -1198,7 +1003,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:09+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:19+08:00">
                 2019-02-24
               </time>
             
@@ -1217,8 +1022,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -1248,7 +1053,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  816
+                  122
                 </span>
               
 
@@ -1264,7 +1069,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  1
                 </span>
               
             </div>
@@ -1287,14 +1092,16 @@
       
         
           
-          第一道 简单的排列组合：
-题解如下：
+          编译器的编译次序是说不定的，就想下图的
 
-题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是==C(b,a+b)==;那么三堆的话我们可以
-          ...
+上述的三个次序一旦顺序不对就会发生错误，所以一个最好避免的办法就是想如图所示：
+
+先将对象存储在智能指针中（先完成智能指针的构造），在完成对智能指针的调用。
+上述举的例子说明的问题是一定要把对象存入智能指针的过程独立成一个语句
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款17：以独立语句将-new-过得对象放入智能指针中/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1353,7 +1160,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/贪心算法/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款18：让接口容易被正确使用，不易被误用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1372,7 +1179,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/贪心算法/" itemprop="url">贪心算法</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款18：让接口容易被正确使用，不易被误用/" itemprop="url">条款18：让接口容易被正确使用，不易被误用</a></h1>
         
 
         <div class="post-meta">
@@ -1401,7 +1208,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:12+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:18+08:00">
                 2019-02-24
               </time>
             
@@ -1420,8 +1227,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -1451,7 +1258,213 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  541
+                  168
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          注意类的隐式转换，并且智能指针与内置指针的区别，以及以对象管理的思想来管理资源。
+
+好的接口很容易被正确使用，不容易被误用，应该在接口里面努力达成这些性质。
+
+促进正确使用的办法 包括接口的一致性，与其内置类型的行为一致。
+
+阻止误用的办法包括建立新类型，限制类型上面的操作，以及束缚对象值，以及消除
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/条款18：让接口容易被正确使用，不易被误用/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款19：设计 class 犹如设计 type/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款19：设计 class 犹如设计 type/" itemprop="url">条款19：设计 class 犹如设计 type</a></h1>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:18+08:00">
+                2019-02-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  641
                 </span>
               
 
@@ -1490,15 +1503,24 @@
       
         
           
-          贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。
-三个经典的贪心算法问题
-事件的序列问题： 
+          一般设计一个优秀的类，实际上也就是设计一个优秀的类型，而往往需要满足下面这些疑问。
+新 type 对象应该如何创建和销毁
 
-遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序
+关系到类的构造函数与析构函数如何建立
+
+
+对象的初始化和对象的赋值之间的差别
+
+主要是为了区分构造函数与赋值运算符之间的区别
+
+
+该类参数传递中有传值也有传引用
+
+传引用与传值
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/贪心算法/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款19：设计 class 犹如设计 type/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1557,7 +1579,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/一道有趣的题目——逆波兰计算器/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款20：宁以传 const 引用也不要传值/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1576,7 +1598,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/一道有趣的题目——逆波兰计算器/" itemprop="url">一道有趣的题目——逆波兰计算器</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款20：宁以传 const 引用也不要传值/" itemprop="url">条款20：宁以传 const 引用也不要传值</a></h1>
         
 
         <div class="post-meta">
@@ -1605,7 +1627,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:07+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:17+08:00">
                 2019-02-24
               </time>
             
@@ -1624,8 +1646,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -1655,418 +1677,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  727
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-题解首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。==注意以下几个地方==
-
-注意输入cin&gt;&gt;t以后，需要用getchar()来清空上一个步骤留下来
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/一道有趣的题目——逆波兰计算器/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/数据结构相应总结/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Bean">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/数据结构相应总结/" itemprop="url">数据结构相应总结</a></h1>
-        
-
-        <div class="post-meta">
-		
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:09+08:00">
-                2019-02-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1.4k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          栈
-栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。
-
-两种方法表示这种栈的实现
-
-
-
-第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。
-第二种就是直接用C
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/数据结构相应总结/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/数论基础第一节/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Bean">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/数论基础第一节/" itemprop="url">数论基础第一节</a></h1>
-        
-
-        <div class="post-meta">
-		
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:11+08:00">
-                2019-02-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  359
+                  159
                 </span>
               
 
@@ -2105,21 +1716,14 @@
       
         
           
-          初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。
-整除问题引申到同余问题
-同余的性质
+          这个传值行为是继承与 C 语言的，基本上传引用更加方便，且付出的代价更小，不过需要注意下面了两点。
+传引用有的时候会碰到切割问题，比如传参的时候，本来应该传入一个基类对象，但是实际上传入了一个派生类对象，这个时候就会把派生类基类的部分切割出去，其他部分就直接丢了
 
-可以换算成以下式子：a=c(modb) 这里c为余数，而b为除数
-
-同余的性质
-
-
-自反性 a=a mod m
-对称性 a=b mod m 
+以上规则不适合某些特殊规则，比如内
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/数论基础第一节/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款20：宁以传 const 引用也不要传值/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2178,7 +1782,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/一道计算机几何算法相关题目/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款21：必须返回对象的时候，不要妄想返回其的引用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -2197,7 +1801,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/一道计算机几何算法相关题目/" itemprop="url">一道计算机几何算法相关题目</a></h1>
+                <a class="post-title-link" href="/2018/12/01/条款21：必须返回对象的时候，不要妄想返回其的引用/" itemprop="url">条款21：必须返回对象的时候，不要妄想返回其的引用</a></h1>
         
 
         <div class="post-meta">
@@ -2226,7 +1830,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:11+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:16+08:00">
                 2019-02-24
               </time>
             
@@ -2245,8 +1849,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -2276,7 +1880,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  273
+                  106
                 </span>
               
 
@@ -2315,13 +1919,424 @@
       
         
           
-          题目：
+          该条款一般适用于某些特殊情况下必须返回值的情况
 
-代码如下：1234567891011121314151617181920212223242526272829303132#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;#include&lt;c
-          ...
+关于这个条款只需要注意一点，绝不要返回 pointer 或 reference 或者返回引用指向一个全局变量，或者返回指针引用指向一个静态成员，但是同时又需要多个这样的静态成员。在条款4中已经提供了一份设计实例。
+
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/一道计算机几何算法相关题目/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款21：必须返回对象的时候，不要妄想返回其的引用/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款22：将成员变量声明为 private/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款22：将成员变量声明为 private/" itemprop="url">条款22：将成员变量声明为 private</a></h1>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:16+08:00">
+                2019-02-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  84
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          这里就是要记住封装的好处
+
+切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。
+protected 并不比 public 更具有封装性
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/条款22：将成员变量声明为 private/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款23：宁以非成员友元函数代替成员函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款23：宁以非成员友元函数代替成员函数/" itemprop="url">条款23：宁以非成员友元函数代替成员函数</a></h1>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:15+08:00">
+                2019-02-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  48
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          同样还是为了封装
+
+宁可拿非成员非友元函数来代替成员函数，这样做可以增加封装性，和包裹弹性，以及机能扩充性。
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/条款23：宁以非成员友元函数代替成员函数/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2468,7 +2483,7 @@
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="785988220@qq.com" target="_blank" title="E-Mail">
+                    <a href="wsx1128@outlook.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
@@ -2551,7 +2566,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">79.6k</span>
+    <span title="Site words total count">79.7k</span>
   
 </div>
 

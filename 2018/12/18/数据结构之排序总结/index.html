@@ -139,7 +139,7 @@
 <meta property="og:image" content="http://wsx1128.xyz/2018/12/18/数据结构之排序总结/16.png">
 <meta property="og:image" content="http://wsx1128.xyz/2018/12/18/数据结构之排序总结/17.png">
 <meta property="og:image" content="http://wsx1128.xyz/2018/12/18/数据结构之排序总结/18.png">
-<meta property="og:updated_time" content="2019-02-23T16:42:10.414Z">
+<meta property="og:updated_time" content="2019-08-19T14:51:46.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构之排序总结">
 <meta name="twitter:description" content="数据结构的排序总结首先先展示一张图，来说明每一个排序之间的复杂度和稳定性  冒泡排序这种排序往往属于最基本的排序了，比较稳定，而且代码也比较简单，这里不做多讲，直接贴代码 123456789101112131415void maopao(int *p)&amp;#123;	for (int i=0;i!=maxn;i++)	&amp;#123;		for (int j=i+1;j!=maxn;j++)		&amp;#12">
@@ -406,8 +406,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:10+08:00">
-                2019-02-24
+              <time title="Post modified" itemprop="dateModified" datetime="2019-08-19T22:51:46+08:00">
+                2019-08-19
               </time>
             
           </span>
@@ -456,7 +456,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  4.1k
+                  4.2k
                 </span>
               
 
@@ -472,7 +472,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  18
+                  19
                 </span>
               
             </div>
@@ -542,7 +542,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">adjust</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> root,<span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp = a[root];</span><br><span class="line">	<span class="keyword">int</span> child = <span class="number">2</span> * root + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (child &lt; len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (child + <span class="number">1</span> &lt; len &amp;&amp; a[child] &lt; a[child + <span class="number">1</span>])</span><br><span class="line">			child ++;</span><br><span class="line">		<span class="keyword">if</span> (temp &gt;= a[child]) <span class="keyword">break</span>;</span><br><span class="line">		a[root] = a[child];</span><br><span class="line">		root = child;</span><br><span class="line">		child = <span class="number">2</span> * child;</span><br><span class="line">	&#125;</span><br><span class="line">	a[root] = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">adjust</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> root,<span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp = a[root];</span><br><span class="line">	<span class="comment">//堆排序这里如果是数组是从0开始计数的话 这里必须加上一个1</span></span><br><span class="line">	<span class="comment">//但是如果是从0开始计数的话，那么这里就这样写</span></span><br><span class="line">	<span class="keyword">int</span> child = <span class="number">2</span> * root;</span><br><span class="line">	<span class="keyword">while</span> (child &lt; len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (child + <span class="number">1</span> &lt; len &amp;&amp; a[child] &lt; a[child + <span class="number">1</span>])</span><br><span class="line">			child ++;</span><br><span class="line">		<span class="keyword">if</span> (temp &gt;= a[child]) <span class="keyword">break</span>;</span><br><span class="line">		a[root] = a[child];</span><br><span class="line">		root = child;</span><br><span class="line">		child = <span class="number">2</span> * child;</span><br><span class="line">	&#125;</span><br><span class="line">	a[root] = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>将栈顶元素与最后一个元素进行交换，使末尾元素最大，然后再来慢慢调整。</li>
 </ol>
@@ -550,7 +550,7 @@
 <p><img src="/2018/12/18/数据结构之排序总结/10.png" alt=""></p>
 <p><img src="/2018/12/18/数据结构之排序总结/11.png" alt=""></p>
 <p><img src="/2018/12/18/数据结构之排序总结/12.png" alt=""></p>
-<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">heap_sort</span><span class="params">(<span class="keyword">int</span> *a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//注意这里必须从后面开始往前面递归的意思就在于便于改变上面之后可以有效的推至下面，相当于一个小型递归</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = maxn / <span class="number">2</span>;i &gt;= <span class="number">0</span>;i--)</span><br><span class="line">		adjust(a,i,maxn);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = maxn - <span class="number">1</span>;i &gt; <span class="number">0</span>;i--)&#123;</span><br><span class="line">		swap (a[<span class="number">0</span>],a[i]);</span><br><span class="line">		adjust(a,<span class="number">0</span>,i);</span><br><span class="line">	&#125;</span><br><span class="line">	print (a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">heap_sort</span><span class="params">(<span class="keyword">int</span> *a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//注意这里必须从后面开始往前面递归的意思就在于便于改变上面之后可以有效的推至下面，相当于一个小型递归</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = maxn / <span class="number">2</span>;i &gt;= <span class="number">0</span>;i--)</span><br><span class="line">		adjust(a,i,maxn);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = maxn - <span class="number">1</span>;i &gt; <span class="number">0</span>;i--)&#123;</span><br><span class="line">		swap (a[<span class="number">0</span>],a[i]);</span><br><span class="line">		<span class="comment">//这里需不需要减1 是根据上面的adjust里面对于上限值的处理 如果是大于等于就需要减去1 如果仅仅只是小于，那么就不需要减去1</span></span><br><span class="line">		adjust(a,<span class="number">0</span>,i);</span><br><span class="line">	&#125;</span><br><span class="line">	print (a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="算法思想：-1"><a href="#算法思想：-1" class="headerlink" title="算法思想："></a>算法思想：</h3><blockquote>
 <p>从后面往前面递进，将每一个树直接插入到前面已经排好序的序列里面去。(后面再详细阐明)</p>
@@ -611,7 +611,7 @@
   <p><span>本文标题:</span><a href="/2018/12/18/数据结构之排序总结/">数据结构之排序总结</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
   <p><span>发布时间:</span>2018年12月18日 - 09:12</p>
-  <p><span>最后更新:</span>2019年02月24日 - 00:02</p>
+  <p><span>最后更新:</span>2019年08月19日 - 22:08</p>
   <p><span>原始链接:</span><a href="/2018/12/18/数据结构之排序总结/" title="数据结构之排序总结">http://wsx1128.xyz/2018/12/18/数据结构之排序总结/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.xyz/2018/12/18/数据结构之排序总结/" aria-label="复制成功！"></i></span>
   </p>
@@ -850,7 +850,7 @@
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="785988220@qq.com" target="_blank" title="E-Mail">
+                    <a href="wsx1128@outlook.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
@@ -949,7 +949,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">79.6k</span>
+    <span title="Site words total count">79.7k</span>
   
 </div>
 
