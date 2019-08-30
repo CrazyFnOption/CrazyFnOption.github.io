@@ -939,7 +939,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款07：为多态基类声明 virtual 析构函数/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -958,7 +958,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" itemprop="url">条款07：为多态基类声明 virtual 析构函数</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h2>
         
 
         <div class="post-meta">
@@ -987,7 +987,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:25+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:23+08:00">
                 2019-02-24
               </time>
             
@@ -1037,7 +1037,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  457
+                  103
                 </span>
               
 
@@ -1076,12 +1076,12 @@
       
         
           
-          在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。
-C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就
-          ...
+          一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1341,7 +1341,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/数据结构相应总结/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/数论基础第一节/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1360,7 +1360,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/数据结构相应总结/" itemprop="url">数据结构相应总结</a></h2>
+                <a class="post-title-link" href="/2018/12/01/数论基础第一节/" itemprop="url">数论基础第一节</a></h2>
         
 
         <div class="post-meta">
@@ -1389,7 +1389,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:09+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:11+08:00">
                 2019-02-24
               </time>
             
@@ -1439,7 +1439,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.4k
+                  359
                 </span>
               
 
@@ -1455,7 +1455,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  1
                 </span>
               
             </div>
@@ -1478,19 +1478,21 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
       
         
           
-          栈
-栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。
+          初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。
+整除问题引申到同余问题
+同余的性质
 
-两种方法表示这种栈的实现
+可以换算成以下式子：a=c(modb) 这里c为余数，而b为除数
+
+同余的性质
 
 
-
-第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。
-第二种就是直接用C
+自反性 a=a mod m
+对称性 a=b mod m 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/数据结构相应总结/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/数论基础第一节/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2687,7 +2689,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
     
         
         
-        <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+        <link rel="stylesheet" href="https://www.wenjunjiang.win/css/gitment.css">
         <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
     
 <!-- END LOCAL -->
