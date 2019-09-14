@@ -6,7 +6,7 @@
 
 
 <html class="theme-next mist use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,7 +19,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
 <script>
     (function(){
         if(''){
@@ -525,8 +525,6 @@
 <li>先求出 b % gcd(a,m)  判断其是否为0，如果不为0，那么以上的同余方程式或者不定方程式无解。如果 得到的结果为j，那么说明该方程有 j个 mod m 不同余的解 d = gcd(a,m);</li>
 <li>当用欧几里得算法求出以上的解之后 得到其实是  ax=- d(mod m) 这一同余方程中 x 的解。所以说人话就是 当求出了那个特解之后 再去乘以之前 的 B 值 最后mod m得到最终同余方程的解。<br>2</li>
 </ol>
-</blockquote>
-<blockquote>
 <p>关于计算同余方程，其实与求解扩展欧几里得通解的效果是一样的，</p>
 </blockquote>
 <p><em>C_Loop poj2115</em></p>
@@ -1467,6 +1465,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
