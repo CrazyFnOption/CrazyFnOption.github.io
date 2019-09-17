@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="2abIo_A5nMhdTOncpCpNSXNLFkH93A_Xns3iOs7LWKI">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="WwJNi7FIvf">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,java,字符串,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Bean" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7c502428"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+<meta name="description" content="基数排序课程地址 String in javaChar Data TypeC 语言中的字符数据类型占一个字节（8 比特），最多只能表示 256 个字符。支持 7 位的标准 ASCII(American Standard Code for Information Interchange，美国标准信息交换编码)，最高位用于奇偶校验。或是拓展的 ASCII，最高位用来确定附加的 128 个特殊的字符。">
+<meta name="keywords" content="算法,java,字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Radix Sort --- the course of algorithm">
+<meta property="og:url" content="http://wsx1128.xyz/2019/09/17/Radix-Sort-the-course-of-algorithm/index.html">
+<meta property="og:site_name" content="Magical Bean">
+<meta property="og:description" content="基数排序课程地址 String in javaChar Data TypeC 语言中的字符数据类型占一个字节（8 比特），最多只能表示 256 个字符。支持 7 位的标准 ASCII(American Standard Code for Information Interchange，美国标准信息交换编码)，最高位用于奇偶校验。或是拓展的 ASCII，最高位用来确定附加的 128 个特殊的字符。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180721162521004-905655523.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180721174333877-1881107237.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180721174344508-415087789.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180723155344760-2032525065.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180723172529187-913394612.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180723204033182-1142104535.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180724163107802-1133643500.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180727212115060-421776584.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180727212127781-214870736.png">
+<meta property="og:updated_time" content="2019-09-17T08:09:50.581Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Radix Sort --- the course of algorithm">
+<meta name="twitter:description" content="基数排序课程地址 String in javaChar Data TypeC 语言中的字符数据类型占一个字节（8 比特），最多只能表示 256 个字符。支持 7 位的标准 ASCII(American Standard Code for Information Interchange，美国标准信息交换编码)，最高位用于奇偶校验。或是拓展的 ASCII，最高位用来确定附加的 128 个特殊的字符。">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/886021/201807/886021-20180721162521004-905655523.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wsx1128.xyz/2019/09/17/Radix-Sort-the-course-of-algorithm/">
+
+
+
+
+
+  <title>Radix Sort --- the course of algorithm | Magical Bean</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Bean</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2019/09/17/Radix-Sort-the-course-of-algorithm/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Radix Sort --- the course of algorithm</h2>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-17T15:09:25+08:00">
+                2019-09-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-09-17T16:09:50+08:00">
+                2019-09-17
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p><a href="https://www.coursera.org/learn/algorithms-part2/supplement/v5gBy/lecture-slides" target="_blank" rel="noopener">课程地址</a></p>
+<h3 id="String-in-java"><a href="#String-in-java" class="headerlink" title="String in java"></a>String in java</h3><h4 id="Char-Data-Type"><a href="#Char-Data-Type" class="headerlink" title="Char Data Type"></a>Char Data Type</h4><p>C 语言中的字符数据类型占一个字节（8 比特），最多只能表示 256 个字符。支持 7 位的标准 ASCII(American Standard Code for Information Interchange，美国标准信息交换编码)，最高位用于奇偶校验。或是拓展的 ASCII，最高位用来确定附加的 128 个特殊的字符。</p>
+<p>而java中的字符数据类型占两个字节，支持16位的Unicode编码。</p>
+<h4 id="String-Data-Type"><a href="#String-Data-Type" class="headerlink" title="String Data Type"></a>String Data Type</h4><p>java String api</p>
+<p><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180721162521004-905655523.png" alt="api"></p>
+<p>接下来就是java中两种字符串类型的比较，一种是String，另外一种就是StringBuilder 这两种之间的区别就在于 一个是内部可变，另外一种就是内部不可变。</p>
+<p>然而 还有一种StringBuffer 这种与前面后者的相比就是线程安全与否的区别了。</p>
+<h3 id="Key-indexed-counting"><a href="#Key-indexed-counting" class="headerlink" title="Key-indexed counting"></a>Key-indexed counting</h3><p>因为一般字符串中基于排序的比较 基本上至少都是需要NlgN的比较，然后有一种基数比较的办法诞生，称作<strong>键索引计数比较法</strong></p>
+<p>设想有个数组 a = {d, a, c, f, f, b, d, b, f, b, e, a} 要排序，知道总共有 6 个不同的字母，要先统计它们出现的频数。</p>
+<p>字母 a 的键为 0 （a[i] - ‘a’），出现的次数在 count 数组中的索引为键值加一。</p>
+<p><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180721174333877-1881107237.png" alt=""></p>
+<p><strong>java implements</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> R = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">int</span> N = a.length;</span><br><span class="line"><span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[R + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">    count[a[i] - <span class="string">'a'</span> + <span class="number">1</span>]++;</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历一遍count数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; R; i++)</span><br><span class="line">    count[i + <span class="number">1</span>] += count[i];</span><br><span class="line"></span><br><span class="line"><span class="comment">//现在 count 数组中保存的即对应字母在排好序的数组中开始的索引值，像两个 d 应该放在 a[6] 和 a[7]。</span></span><br><span class="line"><span class="keyword">char</span>[] aux = <span class="keyword">new</span> <span class="keyword">char</span>[N];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">    aux[count[a[i] - <span class="string">'a'</span>]++] = a[i];</span><br></pre></td></tr></table></figure>
+<p>辅助数组 aux 借助 count 数组找到了每个 a[i] 的位置。注意 count 数组在这一步中还会改变，每次要加一，下次相同的 a[i] 就会放在下一个位置。所以这个算法也是稳定的（stable），相同元素间的相对顺序不会改变。</p>
+<p><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180721174344508-415087789.png" alt=""></p>
+<p>最后把 aux 数组一个个赋值回原数组，即完成了排序。</p>
+<p>键索引计数法排序只需要几个一重循环，不需要比较，只要 R 在 N 的一个常数因子范围内，它就是一个线性时间级别的排序方法。</p>
+<h3 id="LSD-Radix-Sort"><a href="#LSD-Radix-Sort" class="headerlink" title="LSD Radix Sort"></a>LSD Radix Sort</h3><p>低位优先排序，就是将等长的字符串进行排序，必须是等长的字符串进行排序，需要做的是从右向左进行排序</p>
+<p><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180723155344760-2032525065.png" alt=""></p>
+<p>这个排序是稳定的，相同键之间的相对顺序是不会改变的，意思就是在i前面的，在i + 1排完字后，依然还是在i前面，如果是相同键的情况下。</p>
+<h4 id="LSD-Java-Implementation"><a href="#LSD-Java-Implementation" class="headerlink" title="LSD: Java Implementation"></a>LSD: Java Implementation</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LSD</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String []a,<span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> R = <span class="number">256</span>;</span><br><span class="line">        <span class="keyword">int</span> N = a.length;</span><br><span class="line">        String[] aux = <span class="keyword">new</span> String[N];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//从后往前面依次进行排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> d = w - <span class="number">1</span>; d &gt;= <span class="number">0</span>; d--) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span> [R + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">                count[a[i].charAt(d) + <span class="number">1</span>] ++;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> r = <span class="number">0</span>; r &lt; R; r++) </span><br><span class="line">                count[r + <span class="number">1</span>] += count[r];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">                aux[count[a[i].charAt(d)]++] = a[i];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">                a[i] = aux[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>对于典型的应用,R(基数)远小于N(总数),对定长(W)的字符串排序的时间是MN级别。</strong></p>
+<h3 id="MSD-Radix-Sort"><a href="#MSD-Radix-Sort" class="headerlink" title="MSD Radix Sort"></a>MSD Radix Sort</h3><p>高位排序，有别于低位排序的是，其可以对不等长的字符串进行排序，从左向右进行一位一位的扫描，然后再递归的对子字符串进行基数排序。</p>
+<p>就像这样：<br><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180723172529187-913394612.png" alt=""></p>
+<p>因为涉及到递归，所以必须得设置一下递归出口，用一下函数直接设置递归出口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">charAt</span><span class="params">(String s, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (d &lt; s.length) <span class="keyword">return</span> s.charAt(d);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="MSD-Java-Implementation"><a href="#MSD-Java-Implementation" class="headerlink" title="MSD: Java Implementation"></a>MSD: Java Implementation</h4><p>由于上面多了一个键，所以现在count的数组大小必须是R + 2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a)</span> </span>&#123;</span><br><span class="line">    aux = <span class="keyword">new</span> String[a.length];</span><br><span class="line">    sort(a, aux, <span class="number">0</span>, a.length - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a, String[] aux, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (hi &lt;= lo) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[R + <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = lo; i &lt;= hi; i++)</span><br><span class="line">        count[charAt(a[i], d) + <span class="number">2</span>]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> r = <span class="number">0</span>; r &lt; R + <span class="number">1</span>; r++)</span><br><span class="line">        count[r + <span class="number">1</span>] += count[r];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = lo; i &lt;= h; i++)</span><br><span class="line">        aux[count[charAt(a[i], d) + <span class="number">1</span>]++] = a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = lo; i &lt;= hi; i++)</span><br><span class="line">        a[i] = aux[i -lo];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// sort R subarrays recursively</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> r = <span class="number">0</span>; r &lt; R; r++)</span><br><span class="line">        sort(a, aux, lo + count[r], lo + count[r + <span class="number">1</span>] - <span class="number">1</span>, d + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//另外用于辅助的数组aux可以重复使用，但是每一次都需要新的count数组，不仅耗费空间，还需要时间去初始化，所以对于小型的子数组，可以直接使用插入排序直接进行改善</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = lo; i &lt;= hi; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; lo &amp;&amp; less(a[j], a[j - <span class="number">1</span>], d); j--)</span><br><span class="line">            exch(a, j, j -<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">less</span><span class="params">(String v, String w, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> v.substring(d).compareTo(w.substring(d)) &lt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MSD算法的性能取决于要输入的数据，最坏的情况下需要检查的所有的字符，和LSD一样都是线性的时间级别。<br><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180723204033182-1142104535.png" alt=""></p>
+<h3 id="3-way-Radix-Quicksort"><a href="#3-way-Radix-Quicksort" class="headerlink" title="3-way Radix Quicksort"></a>3-way Radix Quicksort</h3><p>三相切分的思想其实很简单，基于MSD的思想，加入了快排，将第一个字符串的首字母，进行切分，分成大于，小于，等于该字母的组合，然后再分别进入到子字符串中进行递归使用。</p>
+<p><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180724163107802-1133643500.png" alt=""></p>
+<h4 id="3-way-String-Quicksort-Java-Implementation"><a href="#3-way-String-Quicksort-Java-Implementation" class="headerlink" title="3-way String Quicksort: Java Implementation"></a>3-way String Quicksort: Java Implementation</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String[] a)</span> </span>&#123;</span><br><span class="line">    sort(a, <span class="number">0</span>, a.length - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(String []a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (lo &gt;= hi) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> lt = lo, gt = hi;</span><br><span class="line">    <span class="keyword">int</span> v = charAt(a[lo], d);</span><br><span class="line">    <span class="keyword">int</span> i = lo + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt;= gt) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = charAt(a[i], d);</span><br><span class="line">        <span class="keyword">if</span> (t &lt; v) exch(a, lt++, i++);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (t &gt; v) exch(a,i,gt--);</span><br><span class="line">        <span class="keyword">else</span> i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//这里是再次比较前面的数组进行三相切分。</span></span><br><span class="line">    sort(a, lo, lt - <span class="number">1</span>, d);</span><br><span class="line">    <span class="comment">//这里的意思第一个字母是相同的，所以可以开始递归第二个字母了</span></span><br><span class="line">    <span class="keyword">if</span> (v &gt;= <span class="number">0</span>) sort(a, lt, gt, d + <span class="number">1</span>); </span><br><span class="line">    sort(a, gt + <span class="number">1</span>, hi, d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Suffix-Arrays"><a href="#Suffix-Arrays" class="headerlink" title="Suffix Arrays"></a>Suffix Arrays</h3><p>字符串后缀数组 有很多应用，比如关键词查找，最长重复子字符等等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String[] suffixes(String s) &#123;</span><br><span class="line">    <span class="keyword">int</span> N = s.length();</span><br><span class="line">    String[] suffixes = <span class="keyword">new</span> String[N];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">        suffixes[i] = s.substring(i, N);</span><br><span class="line">    <span class="keyword">return</span> suffixes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于后缀数组进行排序，就可以把相同的字符串给安排到一起了，这样的话查找关键词也就快了很多。</p>
+<p><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180727212115060-421776584.png" alt=""></p>
+<p>就像这样，最长重复子字符串也差不多<br><img src="https://images2018.cnblogs.com/blog/886021/201807/886021-20180727212127781-214870736.png" alt=""></p>
+<h4 id="LRS-Java-Implementation"><a href="#LRS-Java-Implementation" class="headerlink" title="LRS: Java Implementation"></a>LRS: Java Implementation</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">lrs</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N = s.length();</span><br><span class="line"></span><br><span class="line">    String[] suffixes = <span class="keyword">new</span> String[N];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">        suffixes[i] =s.substring(i, N);</span><br><span class="line"></span><br><span class="line">    Arrays.sort(suffixes);</span><br><span class="line"></span><br><span class="line">    String lrs = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="comment">// compute longest common prefix</span></span><br><span class="line">        <span class="comment">// between adjacent suffixes insorted order</span></span><br><span class="line">        <span class="keyword">int</span> len = lcp(suffixes[i], suffixes[i + <span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span> (len &gt; lrs.length())</span><br><span class="line">           lrs = suffixes[i].substring(<span class="number">0</span>, len);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lrs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过最坏的情况,应该会达到 n$^{2}$。<br>因为输入字符串重复时，需要很多次比较才能完成排序，所以这里介绍了另外一种算法 Manber-Myer MSD 算法</p>
+<p>有兴趣的话 可以自己去查一查 这里就不在多说了。</p>
+<p>本篇文章借鉴该<a href="https://www.cnblogs.com/mingyueanyao/p/9347094.html" target="_blank" rel="noopener">博客</a></p>
+<p>若侵删。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/09/17/Radix-Sort-the-course-of-algorithm/">Radix Sort --- the course of algorithm</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
+  <p><span>发布时间:</span>2019年09月17日 - 15:09</p>
+  <p><span>最后更新:</span>2019年09月17日 - 16:09</p>
+  <p><span>原始链接:</span><a href="/2019/09/17/Radix-Sort-the-course-of-algorithm/" title="Radix Sort --- the course of algorithm">http://wsx1128.xyz/2019/09/17/Radix-Sort-the-course-of-algorithm/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.xyz/2019/09/17/Radix-Sort-the-course-of-algorithm/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+
+		
+	</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/字符串/" rel="tag"><i class="fa fa-tag"></i> 字符串</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/14/BaseballElimination/" rel="next" title="BaseballElimination">
+                <i class="fa fa-chevron-left"></i> BaseballElimination
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+
+  
+</div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/good.jpg" alt="五光君">
+            
+              <p class="site-author-name" itemprop="name">五光君</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CrazyFnOption" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wsx1128@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="V2EX" target="_blank">V2EX</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+
+
+
+
+    <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=29089377&auto=1&height=66"></iframe>
+		</div>
+		
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基数排序"><span class="nav-number">1.</span> <span class="nav-text">基数排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String-in-java"><span class="nav-number">1.1.</span> <span class="nav-text">String in java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Char-Data-Type"><span class="nav-number">1.1.1.</span> <span class="nav-text">Char Data Type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-Data-Type"><span class="nav-number">1.1.2.</span> <span class="nav-text">String Data Type</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-indexed-counting"><span class="nav-number">1.2.</span> <span class="nav-text">Key-indexed counting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSD-Radix-Sort"><span class="nav-number">1.3.</span> <span class="nav-text">LSD Radix Sort</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LSD-Java-Implementation"><span class="nav-number">1.3.1.</span> <span class="nav-text">LSD: Java Implementation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSD-Radix-Sort"><span class="nav-number">1.4.</span> <span class="nav-text">MSD Radix Sort</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MSD-Java-Implementation"><span class="nav-number">1.4.1.</span> <span class="nav-text">MSD: Java Implementation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-way-Radix-Quicksort"><span class="nav-number">1.5.</span> <span class="nav-text">3-way Radix Quicksort</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-way-String-Quicksort-Java-Implementation"><span class="nav-number">1.5.1.</span> <span class="nav-text">3-way String Quicksort: Java Implementation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Suffix-Arrays"><span class="nav-number">1.6.</span> <span class="nav-text">Suffix Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LRS-Java-Implementation"><span class="nav-number">1.6.1.</span> <span class="nav-text">LRS: Java Implementation</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+	
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五光君</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">86.9k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+         
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+        <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+    
+<!-- END LOCAL --> 
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1568704165000', 
+            owner: 'CrazyFnOption',
+            repo: 'CrazyFnOption.github.io',
+            
+            oauth: {
+            
+            
+                client_secret: 'e1683540f3255e595e4356dab54ec1e9cafe2f39',
+            
+                client_id: '26571a3bc02ea769bb54'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+
+	
+  
+
+
+</body>
+</html>
