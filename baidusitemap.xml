@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://wsx1128.xyz/2019/10/09/Regular-Expressions-the-course-of-algorithm/</loc>
+    <lastmod>2019-10-09T12:51:01.934Z</lastmod>
+  </url>  <url>
     <loc>http://wsx1128.xyz/2019/09/28/BoggleSolver/</loc>
-    <lastmod>2019-09-28T14:19:49.642Z</lastmod>
+    <lastmod>2019-10-09T12:50:55.537Z</lastmod>
   </url>  <url>
     <loc>http://wsx1128.xyz/2019/09/20/Substring-Search-kmp/</loc>
     <lastmod>2019-09-23T03:34:32.758Z</lastmod>
