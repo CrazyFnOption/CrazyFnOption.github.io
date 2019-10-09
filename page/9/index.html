@@ -341,7 +341,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款01：视 C++ 为一个语言联邦/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -360,7 +360,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款01：视 C++ 为一个语言联邦/" itemprop="url">条款01：视 C++ 为一个语言联邦</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/" itemprop="url">条款02：尽量以const,enum,inline 替换掉#define</a></h2>
         
 
         <div class="post-meta">
@@ -389,7 +389,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:29+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:28+08:00">
                 2019-02-24
               </time>
             
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  399
+                  170
                 </span>
               
 
@@ -478,15 +478,13 @@
       
         
           
-          现在发展的C++已经是一个多重泛型编程语言。
-
-一个同时支持过程形式、支持面向对象形式、函数形式、泛型形式、元编程形式的语言，这些能力和弹性使 C++成为了一个无可匹敌的工具。对待其的方式最简单的方法是将其看做是一个由相关语言组成的一个联邦而不是某个次语言。
-
-C 说到底 C++ 仍然是 C 的一个
+          这个条款其实也就相当于宁可编译器替换预处理器比较好
+1. 对于单纯常量而言，使用 const 对象或者是 enums 比 #define 更加省时间
+时间上更为节省 作为一个语言常量而不是名称记号，由于在函数体中分配了内存，追寻起来消耗的时间比在函数中使用名称记号所花的时间更少，因为有实处更容易寻找
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款01：视 C++ 为一个语言联邦/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款02：尽量以const,enum,inline 替换掉#define/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
