@@ -118,7 +118,7 @@
 <meta name="keywords" content="c++,effective C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="条款09：绝不在构造和析构的过程中调用 virtual 函数">
-<meta property="og:url" content="http://wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/index.html">
+<meta property="og:url" content="http://wsx1128.cn/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/index.html">
 <meta property="og:site_name" content="Magical Bean">
 <meta property="og:description" content="绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。 基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。  相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。">
 <meta property="og:locale" content="en">
@@ -155,7 +155,7 @@
 
 
 
-  <link rel="canonical" href="http://wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
+  <link rel="canonical" href="http://wsx1128.cn/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
 
 
 
@@ -342,7 +342,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.xyz/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -567,8 +567,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" rel="prev" title="条款07：为多态基类声明 virtual 析构函数">
-                条款07：为多态基类声明 virtual 析构函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/条款08：别让异常逃离析构函数/" rel="prev" title="条款08：别让异常逃离析构函数">
+                条款08：别让异常逃离析构函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
