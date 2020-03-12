@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="2abIo_A5nMhdTOncpCpNSXNLFkH93A_Xns3iOs7LWKI">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="WwJNi7FIvf">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Kaggle,机器学习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Bean" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7c502428"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+<meta name="description" content="这是一篇入门的kaggle的初级案例。 本来自己第一遍去做的时候，发现预测的正确率只能够达到77%，经过了无数次调参，最后也只能到达79%，于是自己决定花点时间按照流程写一遍，并且记录下来 题目比较具有趣味性。给你两个数据集合，其中一个有标签值，另外一个没有标签值，然后给出了姓名，性别，船费，年龄，以及船仓位相关的数据 然后预测这个人是否能够存活 按照相关的步骤来： 分析题目首先这道题就是一个让你">
+<meta name="keywords" content="Kaggle,机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle Titanic 生存预测">
+<meta property="og:url" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/index.html">
+<meta property="og:site_name" content="Magical Bean">
+<meta property="og:description" content="这是一篇入门的kaggle的初级案例。 本来自己第一遍去做的时候，发现预测的正确率只能够达到77%，经过了无数次调参，最后也只能到达79%，于是自己决定花点时间按照流程写一遍，并且记录下来 题目比较具有趣味性。给你两个数据集合，其中一个有标签值，另外一个没有标签值，然后给出了姓名，性别，船费，年龄，以及船仓位相关的数据 然后预测这个人是否能够存活 按照相关的步骤来： 分析题目首先这道题就是一个让你">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/1.jpg">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/2.jpg">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/3.jpg">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/4.jpg">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/5.jpg">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/6.jpg">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/7.jpg">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/8.jpg">
+<meta property="og:updated_time" content="2020-03-12T14:45:30.189Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kaggle Titanic 生存预测">
+<meta name="twitter:description" content="这是一篇入门的kaggle的初级案例。 本来自己第一遍去做的时候，发现预测的正确率只能够达到77%，经过了无数次调参，最后也只能到达79%，于是自己决定花点时间按照流程写一遍，并且记录下来 题目比较具有趣味性。给你两个数据集合，其中一个有标签值，另外一个没有标签值，然后给出了姓名，性别，船费，年龄，以及船仓位相关的数据 然后预测这个人是否能够存活 按照相关的步骤来： 分析题目首先这道题就是一个让你">
+<meta name="twitter:image" content="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/">
+
+
+
+
+
+  <title>Kaggle Titanic 生存预测 | Magical Bean</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Bean</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Kaggle Titanic 生存预测</h2>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-11T23:02:08+08:00">
+                2020-03-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-03-12T22:45:30+08:00">
+                2020-03-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  6.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  30
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是一篇入门的kaggle的初级案例。</p>
+<p>本来自己第一遍去做的时候，发现预测的正确率只能够达到77%，经过了无数次调参，最后也只能到达79%，于是自己决定花点时间按照流程写一遍，并且记录下来</p>
+<p>题目比较具有趣味性。给你两个数据集合，其中一个有标签值，另外一个没有标签值，然后给出了姓名，性别，船费，年龄，以及船仓位相关的数据</p>
+<p>然后预测这个人是否能够存活</p>
+<p>按照相关的步骤来：</p>
+<h3 id="分析题目"><a href="#分析题目" class="headerlink" title="分析题目"></a>分析题目</h3><p>首先这道题就是一个让你预测test数据组里面的人能否存活，其实就是一个二分类问题，如果存活最后的结果输出1，如果没有存活，那么最后的结果输出0</p>
+<p>确认这是一个二分类问题，接下来就可以去整理数据了</p>
+<h3 id="数据总览"><a href="#数据总览" class="headerlink" title="数据总览"></a>数据总览</h3><p>Titanic 生存模型预测，其中包含了两组数据：train.csv 和 test.csv，分别为训练集合和测试集合。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面这函数就是在jupyter notbook里面，</span></span><br><span class="line"><span class="comment"># 可以不必写show函数，可以直接显示出来</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<p>运用pandas里面的函数，去进行观测数据，并且开始着手数据的处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">train_data = pd.read_csv(<span class="string">'data/train.csv'</span>)</span><br><span class="line">test_data = pd.read_csv(<span class="string">'data/test.csv'</span>)</span><br><span class="line"></span><br><span class="line">sns.set_style(<span class="string">'whitegrid'</span>)</span><br><span class="line">train_data.head()</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/11/Kaggle-Titanic-生存预测/1.jpg" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">train_data.info()</span><br><span class="line">print(<span class="string">"-"</span> * <span class="number">40</span>)</span><br><span class="line">test_data.info()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>'&gt;</span></span><br><span class="line"><span class="class">    <span class="title">RangeIndex</span>:</span> <span class="number">891</span> entries, <span class="number">0</span> to <span class="number">890</span></span><br><span class="line">    Data columns (total <span class="number">12</span> columns):</span><br><span class="line">    PassengerId    <span class="number">891</span> non-null int64</span><br><span class="line">    Survived       <span class="number">891</span> non-null int64</span><br><span class="line">    Pclass         <span class="number">891</span> non-null int64</span><br><span class="line">    Name           <span class="number">891</span> non-null object</span><br><span class="line">    Sex            <span class="number">891</span> non-null object</span><br><span class="line">    Age            <span class="number">714</span> non-null float64</span><br><span class="line">    SibSp          <span class="number">891</span> non-null int64</span><br><span class="line">    Parch          <span class="number">891</span> non-null int64</span><br><span class="line">    Ticket         <span class="number">891</span> non-null object</span><br><span class="line">    Fare           <span class="number">891</span> non-null float64</span><br><span class="line">    Cabin          <span class="number">204</span> non-null object</span><br><span class="line">    Embarked       <span class="number">889</span> non-null object</span><br><span class="line">    dtypes: float64(<span class="number">2</span>), int64(<span class="number">5</span>), object(<span class="number">5</span>)</span><br><span class="line">    memory usage: <span class="number">83.6</span>+ KB</span><br><span class="line">    ----------------------------------------</span><br><span class="line">    &lt;<span class="class"><span class="keyword">class</span> '<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>'&gt;</span></span><br><span class="line"><span class="class">    <span class="title">RangeIndex</span>:</span> <span class="number">418</span> entries, <span class="number">0</span> to <span class="number">417</span></span><br><span class="line">    Data columns (total <span class="number">11</span> columns):</span><br><span class="line">    PassengerId    <span class="number">418</span> non-null int64</span><br><span class="line">    Pclass         <span class="number">418</span> non-null int64</span><br><span class="line">    Name           <span class="number">418</span> non-null object</span><br><span class="line">    Sex            <span class="number">418</span> non-null object</span><br><span class="line">    Age            <span class="number">332</span> non-null float64</span><br><span class="line">    SibSp          <span class="number">418</span> non-null int64</span><br><span class="line">    Parch          <span class="number">418</span> non-null int64</span><br><span class="line">    Ticket         <span class="number">418</span> non-null object</span><br><span class="line">    Fare           <span class="number">417</span> non-null float64</span><br><span class="line">    Cabin          <span class="number">91</span> non-null object</span><br><span class="line">    Embarked       <span class="number">418</span> non-null object</span><br><span class="line">    dtypes: float64(<span class="number">2</span>), int64(<span class="number">4</span>), object(<span class="number">5</span>)</span><br><span class="line">    memory usage: <span class="number">36.0</span>+ KB</span><br></pre></td></tr></table></figure>
+<p>从上面我们可以看出，Age、Cabin、Embarked、Fare几个特征存在缺失值。</p>
+<p>绘制存活的比例：</p>
+<p>下面先来一个可视化：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_data[<span class="string">'Survived'</span>].value_counts().plot.pie(autopct = <span class="string">'%1.2f%%'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/03/11/Kaggle-Titanic-生存预测/2.jpg" alt=""></p>
+<p>由上面这张图，我们可以得知 活下来的人与没有活下来的人总体比例，就开始对数据有一个整体的认知</p>
+<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><p>接下来，我们就要开始准备数据的处理，一般数据存在的问题，要么就是离群点问题，要么就是缺失值问题，要么就是数据变换的问题。</p>
+<h4 id="数值变换"><a href="#数值变换" class="headerlink" title="数值变换"></a>数值变换</h4><p><strong>变量转换的目的是将数据转换为适用于模型使用的数据，不同模型接受不同类型的数据，Scikit-learn要求数据都是数字型numeric，所以我们要将一些非数字型的原始数据转换为数字型numeric。</strong></p>
+<p>所有的数据可以分为两类：</p>
+<ol>
+<li>定性(Quantitative)变量可以以某种方式排序，Age就是一个很好的列子。</li>
+<li>定量(Qualitative)变量描述了物体的某一（不能被数学表示的）方面，Embarked就是一个例子。</li>
+</ol>
+<p>针对上面不可以被数学数字表示的数据，下面采取：</p>
+<h5 id="Dummy-Variables"><a href="#Dummy-Variables" class="headerlink" title="Dummy Variables"></a>Dummy Variables</h5><p>就是类别变量或者二元变量，当qualitative variable是一些频繁出现的几个独立变量时，Dummy Variables比较适合使用。我们以Embarked为例，Embarked只包含三个值’S’,’C’,’Q’，我们可以使用下面的代码将其转换为dummies:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">embark_dummies  = pd.get_dummies(train_data[<span class="string">'Embarked'</span>])</span><br><span class="line">train_data = train_data.join(embark_dummies)</span><br><span class="line">train_data.drop([<span class="string">'Embarked'</span>], axis=<span class="number">1</span>,inplace=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">embark_dummies = train_data[[<span class="string">'S'</span>, <span class="string">'C'</span>, <span class="string">'Q'</span>]]</span><br><span class="line">embark_dummies.head()</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/11/Kaggle-Titanic-生存预测/3.jpg" alt=""></p>
+<p>其实上面的这种方法有点特别像RNN中词向量。给每一个词加上相应的特征，应用one-hot编码形式</p>
+<h5 id="Factorizing"><a href="#Factorizing" class="headerlink" title="Factorizing"></a>Factorizing</h5><p>dummy不好处理Cabin（船舱号）这种标称属性，因为他出现的变量比较多。所以Pandas有一个方法叫做factorize()，它可以创建一些数字，来表示类别变量，对每一个类别映射一个ID，这种映射最后只生成一个特征，不像dummy那样生成多个特征。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Replace missing values with "U0"</span></span><br><span class="line">train_data[<span class="string">'Cabin'</span>][train_data.Cabin.isnull()] = <span class="string">'U0'</span></span><br><span class="line"><span class="comment"># create feature for the alphabetical part of the cabin number</span></span><br><span class="line">train_data[<span class="string">'CabinLetter'</span>] = train_data[<span class="string">'Cabin'</span>].map( <span class="keyword">lambda</span> x : re.compile(<span class="string">"([a-zA-Z]+)"</span>).search(x).group())</span><br><span class="line"><span class="comment"># convert the distinct cabin letters with incremental integer values</span></span><br><span class="line">train_data[<span class="string">'CabinLetter'</span>] = pd.factorize(train_data[<span class="string">'CabinLetter'</span>])[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">train_data[<span class="string">'CabinLetter'</span>].head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">0</span>    <span class="number">0</span></span><br><span class="line"> <span class="number">1</span>    <span class="number">1</span></span><br><span class="line"> <span class="number">2</span>    <span class="number">0</span></span><br><span class="line"> <span class="number">3</span>    <span class="number">1</span></span><br><span class="line"> <span class="number">4</span>    <span class="number">0</span></span><br><span class="line"> Name: CabinLetter, dtype: int64</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="comment">##### Scaling</span></span><br><span class="line">Scaling可以将一个很大范围的数值映射到一个很小的范围(通常是<span class="number">-1</span> - <span class="number">1</span>，或则是<span class="number">0</span> - <span class="number">1</span>)，很多情况下我们需要将数值做Scaling使其范围大小一样，否则大范围数值特征将会由更高的权重。比如：Age的范围可能只是<span class="number">0</span><span class="number">-100</span>，而income的范围可能是<span class="number">0</span><span class="number">-10000000</span>，在某些对数组大小敏感的模型中会影响其结果。</span><br><span class="line"></span><br><span class="line">下面对Age进行Scaling：</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> np.size(train_data[<span class="string">'Age'</span>]) == <span class="number">891</span></span><br><span class="line"><span class="comment"># StandardScaler will subtract the mean from each value then scale to the unit variance</span></span><br><span class="line">scaler = preprocessing.StandardScaler()</span><br><span class="line">train_data[<span class="string">'Age_scaled'</span>] = scaler.fit_transform(train_data[<span class="string">'Age'</span>].values.reshape(<span class="number">-1</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_data[<span class="string">'Age_scaled'</span>].head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>   <span class="number">-0.558449</span></span><br><span class="line"><span class="number">1</span>    <span class="number">0.606773</span></span><br><span class="line"><span class="number">2</span>   <span class="number">-0.267144</span></span><br><span class="line"><span class="number">3</span>    <span class="number">0.388293</span></span><br><span class="line"><span class="number">4</span>    <span class="number">0.388293</span></span><br><span class="line">Name: Age_scaled, dtype: float64</span><br></pre></td></tr></table></figure>
+<h5 id="Binning"><a href="#Binning" class="headerlink" title="Binning"></a>Binning</h5><p>Binning通过观察“邻居”(即周围的值)将连续数据离散化。存储的值被分布到一些“桶”或“箱“”中，就像直方图的bin将数据划分成几块一样。下面的代码对Fare进行Binning。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Divide all fares into quartiles</span></span><br><span class="line">train_data[<span class="string">'Fare_bin'</span>] = pd.qcut(train_data[<span class="string">'Fare'</span>], <span class="number">5</span>)</span><br><span class="line">train_data[<span class="string">'Fare_bin'</span>].head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>      (<span class="number">-0.001</span>, <span class="number">7.854</span>]</span><br><span class="line"><span class="number">1</span>    (<span class="number">39.688</span>, <span class="number">512.329</span>]</span><br><span class="line"><span class="number">2</span>        (<span class="number">7.854</span>, <span class="number">10.5</span>]</span><br><span class="line"><span class="number">3</span>    (<span class="number">39.688</span>, <span class="number">512.329</span>]</span><br><span class="line"><span class="number">4</span>        (<span class="number">7.854</span>, <span class="number">10.5</span>]</span><br><span class="line">Name: Fare_bin, dtype: category</span><br><span class="line">Categories (<span class="number">5</span>, interval[float64]): [(<span class="number">-0.001</span>, <span class="number">7.854</span>] &lt; (<span class="number">7.854</span>, <span class="number">10.5</span>] &lt; (<span class="number">10.5</span>, <span class="number">21.679</span>] &lt; (<span class="number">21.679</span>, <span class="number">39.688</span>] &lt; (<span class="number">39.688</span>, <span class="number">512.329</span>]]</span><br></pre></td></tr></table></figure>
+<p>一般这里比较好的使用这个算法的位置是给范围值进行等级的划分，这样以来，然而就会有更好的结果</p>
+<p>在将数据Bining化后，要么将数据factorize化，要么dummies化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># factorize</span></span><br><span class="line">train_data[<span class="string">'Fare_bin_id'</span>] = pd.factorize(train_data[<span class="string">'Fare_bin'</span>])[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># dummies</span></span><br><span class="line">fare_bin_dummies_df = pd.get_dummies(train_data[<span class="string">'Fare_bin'</span>]).rename(columns=<span class="keyword">lambda</span> x: <span class="string">'Fare_'</span> + str(x))</span><br><span class="line">train_data = pd.concat([train_data, fare_bin_dummies_df], axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="缺失值处理"><a href="#缺失值处理" class="headerlink" title="缺失值处理"></a>缺失值处理</h4><p>一些机器学习算法能够处理缺失值，比如神经网络，一些则不能。对于缺失值，一般有以下几种处理方法：</p>
+<ul>
+<li>如果数据集很多，但有很少的缺失值，可以删掉带缺失值的行；</li>
+<li>如果该属性相对学习来说不是很重要，可以对缺失值赋均值或者众数。比如在哪儿上船Embarked这一属性（共有三个上船地点），缺失俩值，可以用众数赋值</li>
+</ul>
+<p>因为“Embarked”项的缺失值不多，所以这里我们以众数来填充：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combined_train_test[<span class="string">'Embarked'</span>].fillna(combined_train_test[<span class="string">'Embarked'</span>].mode().iloc[<span class="number">0</span>], inplace=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>对于三种不同的港口，由上面介绍的数值转换，我们知道可以有两种特征处理方式：dummy和facrorizing。因为只有三个港口，所以我们可以直接用dummy来处理：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为了后面的特征分析，这里我们将 Embarked 特征进行facrorizing</span></span><br><span class="line">combined_train_test[<span class="string">'Embarked'</span>] = pd.factorize(combined_train_test[<span class="string">'Embarked'</span>])[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 pd.get_dummies 获取one-hot 编码</span></span><br><span class="line">emb_dummies_df = pd.get_dummies(combined_train_test[<span class="string">'Embarked'</span>], prefix=combined_train_test[[<span class="string">'Embarked'</span>]].columns[<span class="number">0</span>])</span><br><span class="line">combined_train_test = pd.concat([combined_train_test, emb_dummies_df], axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>因为Age项的缺失值较多，所以不能直接填充age的众数或者平均数。</p>
+<p>常见的有两种对年龄的填充方式：一种是根据Title中的称呼，如Mr，Master、Miss等称呼不同类别的人的平均年龄来填充；一种是综合几项如Sex、Title、Pclass等其他没有缺失值的项，使用机器学习算法来预测Age。</p>
+<p>这里我们使用后者来处理。以Age为目标值，将Age完整的项作为训练集，将Age缺失的项作为测试集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">missing_age_df = pd.DataFrame(combined_train_test[</span><br><span class="line"> [<span class="string">'Age'</span>, <span class="string">'Embarked'</span>, <span class="string">'Sex'</span>, <span class="string">'Title'</span>, <span class="string">'Name_length'</span>, <span class="string">'Family_Size'</span>, <span class="string">'Family_Size_Category'</span>,<span class="string">'Fare'</span>, <span class="string">'Fare_bin_id'</span>, <span class="string">'Pclass'</span>]])</span><br><span class="line"></span><br><span class="line">missing_age_train = missing_age_df[missing_age_df[<span class="string">'Age'</span>].notnull()]</span><br><span class="line">missing_age_test = missing_age_df[missing_age_df[<span class="string">'Age'</span>].isnull()]</span><br><span class="line"></span><br><span class="line">missing_age_test.head()</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/11/Kaggle-Titanic-生存预测/4.jpg" alt=""></p>
+<p>建立Age的预测模型，我们可以多模型预测，然后再做模型的融合，提高预测的精度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> ensemble</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> model_selection</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestRegressor</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fill_missing_age</span><span class="params">(missing_age_train, missing_age_test)</span>:</span></span><br><span class="line">    missing_age_X_train = missing_age_train.drop([<span class="string">'Age'</span>], axis=<span class="number">1</span>)</span><br><span class="line">    missing_age_Y_train = missing_age_train[<span class="string">'Age'</span>]</span><br><span class="line">    missing_age_X_test = missing_age_test.drop([<span class="string">'Age'</span>], axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># model 1  gbm</span></span><br><span class="line">    gbm_reg = GradientBoostingRegressor(random_state=<span class="number">42</span>)</span><br><span class="line">    gbm_reg_param_grid = &#123;<span class="string">'n_estimators'</span>: [<span class="number">2000</span>], <span class="string">'max_depth'</span>: [<span class="number">4</span>], <span class="string">'learning_rate'</span>: [<span class="number">0.01</span>], <span class="string">'max_features'</span>: [<span class="number">3</span>]&#125;</span><br><span class="line">    gbm_reg_grid = model_selection.GridSearchCV(gbm_reg, gbm_reg_param_grid, cv=<span class="number">10</span>, n_jobs=<span class="number">25</span>, verbose=<span class="number">1</span>, scoring=<span class="string">'neg_mean_squared_error'</span>)</span><br><span class="line">    gbm_reg_grid.fit(missing_age_X_train, missing_age_Y_train)</span><br><span class="line">    print(<span class="string">'Age feature Best GB Params:'</span> + str(gbm_reg_grid.best_params_))</span><br><span class="line">    print(<span class="string">'Age feature Best GB Score:'</span> + str(gbm_reg_grid.best_score_))</span><br><span class="line">    print(<span class="string">'GB Train Error for "Age" Feature Regressor:'</span> + str(gbm_reg_grid.score(missing_age_X_train, missing_age_Y_train)))</span><br><span class="line">    missing_age_test.loc[:, <span class="string">'Age_GB'</span>] = gbm_reg_grid.predict(missing_age_X_test)</span><br><span class="line">    print(missing_age_test[<span class="string">'Age_GB'</span>][:<span class="number">4</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># model 2 rf</span></span><br><span class="line">    rf_reg = RandomForestRegressor()</span><br><span class="line">    rf_reg_param_grid = &#123;<span class="string">'n_estimators'</span>: [<span class="number">200</span>], <span class="string">'max_depth'</span>: [<span class="number">5</span>], <span class="string">'random_state'</span>: [<span class="number">0</span>]&#125;</span><br><span class="line">    rf_reg_grid = model_selection.GridSearchCV(rf_reg, rf_reg_param_grid, cv=<span class="number">10</span>, n_jobs=<span class="number">25</span>, verbose=<span class="number">1</span>, scoring=<span class="string">'neg_mean_squared_error'</span>)</span><br><span class="line">    rf_reg_grid.fit(missing_age_X_train, missing_age_Y_train)</span><br><span class="line">    print(<span class="string">'Age feature Best RF Params:'</span> + str(rf_reg_grid.best_params_))</span><br><span class="line">    print(<span class="string">'Age feature Best RF Score:'</span> + str(rf_reg_grid.best_score_))</span><br><span class="line">    print(<span class="string">'RF Train Error for "Age" Feature Regressor'</span> + str(rf_reg_grid.score(missing_age_X_train, missing_age_Y_train)))</span><br><span class="line">    missing_age_test.loc[:, <span class="string">'Age_RF'</span>] = rf_reg_grid.predict(missing_age_X_test)</span><br><span class="line">    print(missing_age_test[<span class="string">'Age_RF'</span>][:<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># two models merge</span></span><br><span class="line">    print(<span class="string">'shape1'</span>, missing_age_test[<span class="string">'Age'</span>].shape, missing_age_test[[<span class="string">'Age_GB'</span>, <span class="string">'Age_RF'</span>]].mode(axis=<span class="number">1</span>).shape)</span><br><span class="line">    <span class="comment"># missing_age_test['Age'] = missing_age_test[['Age_GB', 'Age_LR']].mode(axis=1)</span></span><br><span class="line"></span><br><span class="line">    missing_age_test.loc[:, <span class="string">'Age'</span>] = np.mean([missing_age_test[<span class="string">'Age_GB'</span>], missing_age_test[<span class="string">'Age_RF'</span>]])</span><br><span class="line">    print(missing_age_test[<span class="string">'Age'</span>][:<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line">    missing_age_test.drop([<span class="string">'Age_GB'</span>, <span class="string">'Age_RF'</span>], axis=<span class="number">1</span>, inplace=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> missing_age_test</span><br></pre></td></tr></table></figure>
+<p>利用融合模型预测的结果填充Age的缺失值：</p>
+<p>其实这个地方需要注意的，上面是将trainset与testset进行一个有效的拼接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combined_train_test.loc[(combined_train_test.Age.isnull()), <span class="string">'Age'</span>] = fill_missing_age(missing_age_train, missing_age_test)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Fitting <span class="number">10</span> folds <span class="keyword">for</span> each of <span class="number">1</span> candidates, totalling <span class="number">10</span> fits</span><br><span class="line"></span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done   <span class="number">5</span> out of  <span class="number">10</span> | elapsed:    <span class="number">3.9</span>s remaining:    <span class="number">3.9</span>s</span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">10</span> out of  <span class="number">10</span> | elapsed:    <span class="number">6.9</span>s finished</span><br><span class="line"></span><br><span class="line"> Age feature Best GB Params:&#123;<span class="string">'n_estimators'</span>: <span class="number">2000</span>, <span class="string">'learning_rate'</span>: <span class="number">0.01</span>, <span class="string">'max_features'</span>: <span class="number">3</span>, <span class="string">'max_depth'</span>: <span class="number">4</span>&#125;</span><br><span class="line"> Age feature Best GB Score:<span class="number">-130.295677599</span></span><br><span class="line"> GB Train Error <span class="keyword">for</span> <span class="string">"Age"</span> Feature Regressor:<span class="number">-64.6566961723</span></span><br><span class="line"> <span class="number">5</span>     <span class="number">35.773942</span></span><br><span class="line"> <span class="number">17</span>    <span class="number">31.489153</span></span><br><span class="line"> <span class="number">19</span>    <span class="number">34.113840</span></span><br><span class="line"> <span class="number">26</span>    <span class="number">28.621281</span></span><br><span class="line"> Name: Age_GB, dtype: float64</span><br><span class="line"> Fitting <span class="number">10</span> folds <span class="keyword">for</span> each of <span class="number">1</span> candidates, totalling <span class="number">10</span> fits</span><br><span class="line"></span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done   <span class="number">5</span> out of  <span class="number">10</span> | elapsed:    <span class="number">6.2</span>s remaining:    <span class="number">6.2</span>s</span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">10</span> out of  <span class="number">10</span> | elapsed:   <span class="number">10.7</span>s finished</span><br><span class="line"></span><br><span class="line"> Age feature Best RF Params:&#123;<span class="string">'n_estimators'</span>: <span class="number">200</span>, <span class="string">'random_state'</span>: <span class="number">0</span>, <span class="string">'max_depth'</span>: <span class="number">5</span>&#125;</span><br><span class="line"> Age feature Best RF Score:<span class="number">-119.094956052</span></span><br><span class="line"> RF Train Error <span class="keyword">for</span> <span class="string">"Age"</span> Feature Regressor<span class="number">-96.0603148448</span></span><br><span class="line"> <span class="number">5</span>     <span class="number">33.459421</span></span><br><span class="line"> <span class="number">17</span>    <span class="number">33.076798</span></span><br><span class="line"> <span class="number">19</span>    <span class="number">34.855942</span></span><br><span class="line"> <span class="number">26</span>    <span class="number">28.146718</span></span><br><span class="line"> Name: Age_RF, dtype: float64</span><br><span class="line"> shape1 (<span class="number">263</span>,) (<span class="number">263</span>, <span class="number">2</span>)</span><br><span class="line"> <span class="number">5</span>     <span class="number">30.000675</span></span><br><span class="line"> <span class="number">17</span>    <span class="number">30.000675</span></span><br><span class="line"> <span class="number">19</span>    <span class="number">30.000675</span></span><br><span class="line"> <span class="number">26</span>    <span class="number">30.000675</span></span><br><span class="line"> Name: Age, dtype: float64</span><br></pre></td></tr></table></figure>
+<p>最后一项缺失值处理</p>
+<p>因为Cabin项的缺失值确实太多了，我们很难对其进行分析，或者预测。所以这里我们可以直接将Cabin这一项特征去除。但通过上面的分析，可以知道，该特征信息的有无也与生存率有一定的关系，所以这里我们暂时保留该特征，并将其分为有和无两类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">combined_train_test.loc[combined_train_test.Cabin.isnull(), <span class="string">'Cabin'</span>] = <span class="string">'U0'</span></span><br><span class="line">combined_train_test[<span class="string">'Cabin'</span>] = combined_train_test[<span class="string">'Cabin'</span>].apply(<span class="keyword">lambda</span> x: <span class="number">0</span> <span class="keyword">if</span> x == <span class="string">'U0'</span> <span class="keyword">else</span> <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="特征处理"><a href="#特征处理" class="headerlink" title="特征处理"></a>特征处理</h3><p>上面已经处理了一些数据，现在我需要增强一些特征，以便与后面特征的变化</p>
+<h4 id="Sex"><a href="#Sex" class="headerlink" title="Sex"></a>Sex</h4><p>对Sex也进行one-hot编码，也就是dummy处理：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为了后面的特征分析，这里我们也将 Sex 特征进行facrorizing</span></span><br><span class="line">combined_train_test[<span class="string">'Sex'</span>] = pd.factorize(combined_train_test[<span class="string">'Sex'</span>])[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">sex_dummies_df = pd.get_dummies(combined_train_test[<span class="string">'Sex'</span>], prefix=combined_train_test[[<span class="string">'Sex'</span>]].columns[<span class="number">0</span>])</span><br><span class="line">combined_train_test = pd.concat([combined_train_test, sex_dummies_df], axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="Name"><a href="#Name" class="headerlink" title="Name"></a>Name</h4><p>首先先从名字中提取各种称呼：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># what is each person's title? </span></span><br><span class="line">combined_train_test[<span class="string">'Title'</span>] = combined_train_test[<span class="string">'Name'</span>].map(<span class="keyword">lambda</span> x: re.compile(<span class="string">", (.*?)\."</span>).findall(x)[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<p>将各式称呼进行统一化处理：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">title_Dict = &#123;&#125;</span><br><span class="line">title_Dict.update(dict.fromkeys([<span class="string">'Capt'</span>, <span class="string">'Col'</span>, <span class="string">'Major'</span>, <span class="string">'Dr'</span>, <span class="string">'Rev'</span>], <span class="string">'Officer'</span>))</span><br><span class="line">title_Dict.update(dict.fromkeys([<span class="string">'Don'</span>, <span class="string">'Sir'</span>, <span class="string">'the Countess'</span>, <span class="string">'Dona'</span>, <span class="string">'Lady'</span>], <span class="string">'Royalty'</span>))</span><br><span class="line">title_Dict.update(dict.fromkeys([<span class="string">'Mme'</span>, <span class="string">'Ms'</span>, <span class="string">'Mrs'</span>], <span class="string">'Mrs'</span>))</span><br><span class="line">title_Dict.update(dict.fromkeys([<span class="string">'Mlle'</span>, <span class="string">'Miss'</span>], <span class="string">'Miss'</span>))</span><br><span class="line">title_Dict.update(dict.fromkeys([<span class="string">'Mr'</span>], <span class="string">'Mr'</span>))</span><br><span class="line">title_Dict.update(dict.fromkeys([<span class="string">'Master'</span>,<span class="string">'Jonkheer'</span>], <span class="string">'Master'</span>))</span><br><span class="line"></span><br><span class="line">combined_train_test[<span class="string">'Title'</span>] = combined_train_test[<span class="string">'Title'</span>].map(title_Dict)</span><br></pre></td></tr></table></figure></p>
+<p>使用dummy对不同的称呼进行分列：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为了后面的特征分析，这里我们也将 Title 特征进行facrorizing</span></span><br><span class="line">combined_train_test[<span class="string">'Title'</span>] = pd.factorize(combined_train_test[<span class="string">'Title'</span>])[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">title_dummies_df = pd.get_dummies(combined_train_test[<span class="string">'Title'</span>], prefix=combined_train_test[[<span class="string">'Title'</span>]].columns[<span class="number">0</span>])</span><br><span class="line">combined_train_test = pd.concat([combined_train_test, title_dummies_df], axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>下面开始就不准备贴代码了，可以去GitHub上面去看</p>
+<h4 id="Fare"><a href="#Fare" class="headerlink" title="Fare"></a>Fare</h4><p>由前面分析可以知道，Fare项在测试数据中缺少一个值，所以需要对该值进行填充。</p>
+<p>我们按照一二三等舱各自的均价来填充：</p>
+<p>下面transform将函数np.mean应用到各个group中</p>
+<p>通过对Ticket数据的分析，我们可以看到部分票号数据有重复，同时结合亲属人数及名字的数据，和票价船舱等级对比，我们可以知道购买的票中有家庭票和团体票，所以我们需要将团体票的票价分配到每个人的头上。</p>
+<p>使用binning给票价分等级，对于5个等级的票价我们也可以继续使用dummy为票价等级分列。</p>
+<h4 id="Pclass"><a href="#Pclass" class="headerlink" title="Pclass"></a>Pclass</h4><p>这里是神来之笔，我看到别人在这个地方有出奇的特征增强方法：</p>
+<p>Pclass这一项，其实已经可以不用继续处理了，我们只需要将其转换为dummy形式即可。</p>
+<p>但是为了更好的分析问题，我们这里假设对于不同等级的船舱，各船舱内部的票价也说明了各等级舱的位置，那么也就很有可能与逃生的顺序有关系。所以这里分出每等舱里的高价和低价位。</p>
+<h4 id="Parch-and-SibSp"><a href="#Parch-and-SibSp" class="headerlink" title="Parch and SibSp"></a>Parch and SibSp</h4><p>对于这两个参数，大佬们的处理就是 <strong>将这两个特征整合成一个特征，牛逼了大佬</strong></p>
+<h3 id="特征间相关性分析"><a href="#特征间相关性分析" class="headerlink" title="特征间相关性分析"></a>特征间相关性分析</h3><p>我们挑选一些主要的特征，生成特征之间的关联图，查看特征与特征之间的相关性：<br>将上述所有特征去看看相互之间的关系或者与结果之间的关系</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Correlation = pd.DataFrame(combined_train_test[</span><br><span class="line"> [<span class="string">'Embarked'</span>, <span class="string">'Sex'</span>, <span class="string">'Title'</span>, <span class="string">'Name_length'</span>, <span class="string">'Family_Size'</span>, <span class="string">'Family_Size_Category'</span>,<span class="string">'Fare'</span>, <span class="string">'Fare_bin_id'</span>, <span class="string">'Pclass'</span>, </span><br><span class="line">  <span class="string">'Pclass_Fare_Category'</span>, <span class="string">'Age'</span>, <span class="string">'Ticket_Letter'</span>, <span class="string">'Cabin'</span>]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">colormap = plt.cm.viridis</span><br><span class="line">plt.figure(figsize=(<span class="number">14</span>,<span class="number">12</span>))</span><br><span class="line">plt.title(<span class="string">'Pearson Correlation of Features'</span>, y=<span class="number">1.05</span>, size=<span class="number">15</span>)</span><br><span class="line">sns.heatmap(Correlation.astype(float).corr(),linewidths=<span class="number">0.1</span>,vmax=<span class="number">1.0</span>, square=<span class="keyword">True</span>, cmap=colormap, linecolor=<span class="string">'white'</span>, annot=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/11/Kaggle-Titanic-生存预测/5.jpg" alt=""></p>
+<p><strong>特征之间的数据分布图</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g = sns.pairplot(combined_train_test[[<span class="string">u'Survived'</span>, <span class="string">u'Pclass'</span>, <span class="string">u'Sex'</span>, <span class="string">u'Age'</span>, <span class="string">u'Fare'</span>, <span class="string">u'Embarked'</span>,</span><br><span class="line">    <span class="string">u'Family_Size'</span>, <span class="string">u'Title'</span>, <span class="string">u'Ticket_Letter'</span>]], hue=<span class="string">'Survived'</span>, palette = <span class="string">'seismic'</span>,size=<span class="number">1.2</span>,diag_kind = <span class="string">'kde'</span>,diag_kws=dict(shade=<span class="keyword">True</span>),plot_kws=dict(s=<span class="number">10</span>) )</span><br><span class="line">g.set(xticklabels=[])</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/11/Kaggle-Titanic-生存预测/6.jpg" alt=""></p>
+<h4 id="输入模型前的一些处理"><a href="#输入模型前的一些处理" class="headerlink" title="输入模型前的一些处理"></a>输入模型前的一些处理</h4><p>这里我们将Age和fare进行<strong>正则化</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scale_age_fare = preprocessing.StandardScaler().fit(combined_train_test[[<span class="string">'Age'</span>,<span class="string">'Fare'</span>, <span class="string">'Name_length'</span>]])</span><br><span class="line">combined_train_test[[<span class="string">'Age'</span>,<span class="string">'Fare'</span>, <span class="string">'Name_length'</span>]] = scale_age_fare.transform(combined_train_test[[<span class="string">'Age'</span>,<span class="string">'Fare'</span>, <span class="string">'Name_length'</span>]])</span><br></pre></td></tr></table></figure>
+<p>丢弃掉一些无用的特征</p>
+<p>对于上面的特征工程中，我们从一些原始的特征中提取出了很多要融合到模型中的特征，但是我们需要剔除那些原本的我们用不到的或者非数值特征。</p>
+<p><strong>首先对我们的数据先进行一下备份，以便后期的再次分析：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">combined_data_backup = combined_train_test</span><br><span class="line">combined_train_test.drop([<span class="string">'PassengerId'</span>, <span class="string">'Embarked'</span>, <span class="string">'Sex'</span>, <span class="string">'Name'</span>, <span class="string">'Title'</span>, <span class="string">'Fare_bin_id'</span>, <span class="string">'Pclass_Fare_Category'</span>, </span><br><span class="line">                       <span class="string">'Parch'</span>, <span class="string">'SibSp'</span>, <span class="string">'Family_Size_Category'</span>, <span class="string">'Ticket'</span>],axis=<span class="number">1</span>,inplace=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>将训练数据和测试数据分开：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">train_data = combined_train_test[:<span class="number">891</span>]</span><br><span class="line">test_data = combined_train_test[<span class="number">891</span>:]</span><br><span class="line"></span><br><span class="line">titanic_train_data_X = train_data.drop([<span class="string">'Survived'</span>],axis=<span class="number">1</span>)</span><br><span class="line">titanic_train_data_Y = train_data[<span class="string">'Survived'</span>]</span><br><span class="line">titanic_test_data_X = test_data.drop([<span class="string">'Survived'</span>],axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">titanic_train_data_X.shape</span><br></pre></td></tr></table></figure>
+<h3 id="模型融合以及测试"><a href="#模型融合以及测试" class="headerlink" title="模型融合以及测试"></a>模型融合以及测试</h3><p>需要按照下面的这些步骤来进行：</p>
+<h4 id="利用不同的模型来对特征进行筛选，选出较为重要的特征："><a href="#利用不同的模型来对特征进行筛选，选出较为重要的特征：" class="headerlink" title="利用不同的模型来对特征进行筛选，选出较为重要的特征："></a>利用不同的模型来对特征进行筛选，选出较为重要的特征：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> AdaBoostClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> ExtraTreesClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_top_n_features</span><span class="params">(titanic_train_data_X, titanic_train_data_Y, top_n_features)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># random forest</span></span><br><span class="line">    rf_est = RandomForestClassifier(random_state=<span class="number">0</span>)</span><br><span class="line">    rf_param_grid = &#123;<span class="string">'n_estimators'</span>: [<span class="number">500</span>], <span class="string">'min_samples_split'</span>: [<span class="number">2</span>, <span class="number">3</span>], <span class="string">'max_depth'</span>: [<span class="number">20</span>]&#125;</span><br><span class="line">    rf_grid = model_selection.GridSearchCV(rf_est, rf_param_grid, n_jobs=<span class="number">25</span>, cv=<span class="number">10</span>, verbose=<span class="number">1</span>)</span><br><span class="line">    rf_grid.fit(titanic_train_data_X, titanic_train_data_Y)</span><br><span class="line">    print(<span class="string">'Top N Features Best RF Params:'</span> + str(rf_grid.best_params_))</span><br><span class="line">    print(<span class="string">'Top N Features Best RF Score:'</span> + str(rf_grid.best_score_))</span><br><span class="line">    print(<span class="string">'Top N Features RF Train Score:'</span> + str(rf_grid.score(titanic_train_data_X, titanic_train_data_Y)))</span><br><span class="line">    feature_imp_sorted_rf = pd.DataFrame(&#123;<span class="string">'feature'</span>: list(titanic_train_data_X),</span><br><span class="line">                                          <span class="string">'importance'</span>: rf_grid.best_estimator_.feature_importances_&#125;).sort_values(<span class="string">'importance'</span>, ascending=<span class="keyword">False</span>)</span><br><span class="line">    features_top_n_rf = feature_imp_sorted_rf.head(top_n_features)[<span class="string">'feature'</span>]</span><br><span class="line">    print(<span class="string">'Sample 10 Features from RF Classifier'</span>)</span><br><span class="line">    print(str(features_top_n_rf[:<span class="number">10</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># AdaBoost</span></span><br><span class="line">    ada_est =AdaBoostClassifier(random_state=<span class="number">0</span>)</span><br><span class="line">    ada_param_grid = &#123;<span class="string">'n_estimators'</span>: [<span class="number">500</span>], <span class="string">'learning_rate'</span>: [<span class="number">0.01</span>, <span class="number">0.1</span>]&#125;</span><br><span class="line">    ada_grid = model_selection.GridSearchCV(ada_est, ada_param_grid, n_jobs=<span class="number">25</span>, cv=<span class="number">10</span>, verbose=<span class="number">1</span>)</span><br><span class="line">    ada_grid.fit(titanic_train_data_X, titanic_train_data_Y)</span><br><span class="line">    print(<span class="string">'Top N Features Best Ada Params:'</span> + str(ada_grid.best_params_))</span><br><span class="line">    print(<span class="string">'Top N Features Best Ada Score:'</span> + str(ada_grid.best_score_))</span><br><span class="line">    print(<span class="string">'Top N Features Ada Train Score:'</span> + str(ada_grid.score(titanic_train_data_X, titanic_train_data_Y)))</span><br><span class="line">    feature_imp_sorted_ada = pd.DataFrame(&#123;<span class="string">'feature'</span>: list(titanic_train_data_X),</span><br><span class="line">                                           <span class="string">'importance'</span>: ada_grid.best_estimator_.feature_importances_&#125;).sort_values(<span class="string">'importance'</span>, ascending=<span class="keyword">False</span>)</span><br><span class="line">    features_top_n_ada = feature_imp_sorted_ada.head(top_n_features)[<span class="string">'feature'</span>]</span><br><span class="line">    print(<span class="string">'Sample 10 Feature from Ada Classifier:'</span>)</span><br><span class="line">    print(str(features_top_n_ada[:<span class="number">10</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ExtraTree</span></span><br><span class="line">    et_est = ExtraTreesClassifier(random_state=<span class="number">0</span>)</span><br><span class="line">    et_param_grid = &#123;<span class="string">'n_estimators'</span>: [<span class="number">500</span>], <span class="string">'min_samples_split'</span>: [<span class="number">3</span>, <span class="number">4</span>], <span class="string">'max_depth'</span>: [<span class="number">20</span>]&#125;</span><br><span class="line">    et_grid = model_selection.GridSearchCV(et_est, et_param_grid, n_jobs=<span class="number">25</span>, cv=<span class="number">10</span>, verbose=<span class="number">1</span>)</span><br><span class="line">    et_grid.fit(titanic_train_data_X, titanic_train_data_Y)</span><br><span class="line">    print(<span class="string">'Top N Features Best ET Params:'</span> + str(et_grid.best_params_))</span><br><span class="line">    print(<span class="string">'Top N Features Best ET Score:'</span> + str(et_grid.best_score_))</span><br><span class="line">    print(<span class="string">'Top N Features ET Train Score:'</span> + str(et_grid.score(titanic_train_data_X, titanic_train_data_Y)))</span><br><span class="line">    feature_imp_sorted_et = pd.DataFrame(&#123;<span class="string">'feature'</span>: list(titanic_train_data_X),</span><br><span class="line">                                          <span class="string">'importance'</span>: et_grid.best_estimator_.feature_importances_&#125;).sort_values(<span class="string">'importance'</span>, ascending=<span class="keyword">False</span>)</span><br><span class="line">    features_top_n_et = feature_imp_sorted_et.head(top_n_features)[<span class="string">'feature'</span>]</span><br><span class="line">    print(<span class="string">'Sample 10 Features from ET Classifier:'</span>)</span><br><span class="line">    print(str(features_top_n_et[:<span class="number">10</span>]))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># GradientBoosting</span></span><br><span class="line">    gb_est =GradientBoostingClassifier(random_state=<span class="number">0</span>)</span><br><span class="line">    gb_param_grid = &#123;<span class="string">'n_estimators'</span>: [<span class="number">500</span>], <span class="string">'learning_rate'</span>: [<span class="number">0.01</span>, <span class="number">0.1</span>], <span class="string">'max_depth'</span>: [<span class="number">20</span>]&#125;</span><br><span class="line">    gb_grid = model_selection.GridSearchCV(gb_est, gb_param_grid, n_jobs=<span class="number">25</span>, cv=<span class="number">10</span>, verbose=<span class="number">1</span>)</span><br><span class="line">    gb_grid.fit(titanic_train_data_X, titanic_train_data_Y)</span><br><span class="line">    print(<span class="string">'Top N Features Best GB Params:'</span> + str(gb_grid.best_params_))</span><br><span class="line">    print(<span class="string">'Top N Features Best GB Score:'</span> + str(gb_grid.best_score_))</span><br><span class="line">    print(<span class="string">'Top N Features GB Train Score:'</span> + str(gb_grid.score(titanic_train_data_X, titanic_train_data_Y)))</span><br><span class="line">    feature_imp_sorted_gb = pd.DataFrame(&#123;<span class="string">'feature'</span>: list(titanic_train_data_X),</span><br><span class="line">                                           <span class="string">'importance'</span>: gb_grid.best_estimator_.feature_importances_&#125;).sort_values(<span class="string">'importance'</span>, ascending=<span class="keyword">False</span>)</span><br><span class="line">    features_top_n_gb = feature_imp_sorted_gb.head(top_n_features)[<span class="string">'feature'</span>]</span><br><span class="line">    print(<span class="string">'Sample 10 Feature from GB Classifier:'</span>)</span><br><span class="line">    print(str(features_top_n_gb[:<span class="number">10</span>]))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># DecisionTree</span></span><br><span class="line">    dt_est = DecisionTreeClassifier(random_state=<span class="number">0</span>)</span><br><span class="line">    dt_param_grid = &#123;<span class="string">'min_samples_split'</span>: [<span class="number">2</span>, <span class="number">4</span>], <span class="string">'max_depth'</span>: [<span class="number">20</span>]&#125;</span><br><span class="line">    dt_grid = model_selection.GridSearchCV(dt_est, dt_param_grid, n_jobs=<span class="number">25</span>, cv=<span class="number">10</span>, verbose=<span class="number">1</span>)</span><br><span class="line">    dt_grid.fit(titanic_train_data_X, titanic_train_data_Y)</span><br><span class="line">    print(<span class="string">'Top N Features Best DT Params:'</span> + str(dt_grid.best_params_))</span><br><span class="line">    print(<span class="string">'Top N Features Best DT Score:'</span> + str(dt_grid.best_score_))</span><br><span class="line">    print(<span class="string">'Top N Features DT Train Score:'</span> + str(dt_grid.score(titanic_train_data_X, titanic_train_data_Y)))</span><br><span class="line">    feature_imp_sorted_dt = pd.DataFrame(&#123;<span class="string">'feature'</span>: list(titanic_train_data_X),</span><br><span class="line">                                          <span class="string">'importance'</span>: dt_grid.best_estimator_.feature_importances_&#125;).sort_values(<span class="string">'importance'</span>, ascending=<span class="keyword">False</span>)</span><br><span class="line">    features_top_n_dt = feature_imp_sorted_dt.head(top_n_features)[<span class="string">'feature'</span>]</span><br><span class="line">    print(<span class="string">'Sample 10 Features from DT Classifier:'</span>)</span><br><span class="line">    print(str(features_top_n_dt[:<span class="number">10</span>]))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># merge the three models</span></span><br><span class="line">    features_top_n = pd.concat([features_top_n_rf, features_top_n_ada, features_top_n_et, features_top_n_gb, features_top_n_dt], </span><br><span class="line">                               ignore_index=<span class="keyword">True</span>).drop_duplicates()</span><br><span class="line">    </span><br><span class="line">    features_importance = pd.concat([feature_imp_sorted_rf, feature_imp_sorted_ada, feature_imp_sorted_et, </span><br><span class="line">                                   feature_imp_sorted_gb, feature_imp_sorted_dt],ignore_index=<span class="keyword">True</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> features_top_n , features_importance</span><br></pre></td></tr></table></figure>
+<p>上面的代码不需要看着害怕，其实无非就是调用一些神奇的函数而已，上面的代码就是在 多个模型中去寻找重要的特征，并且进行排序，为后面模型训练作出贡献。</p>
+<h4 id="依据我们筛选出的特征构建训练集和测试集"><a href="#依据我们筛选出的特征构建训练集和测试集" class="headerlink" title="依据我们筛选出的特征构建训练集和测试集"></a>依据我们筛选出的特征构建训练集和测试集</h4><p>但如果在进行特征工程的过程中，产生了大量的特征，而特征与特征之间会存在一定的相关性。太多的特征一方面会影响模型训练的速度，另一方面也可能会使得模型过拟合。所以在特征太多的情况下，我们可以利用不同的模型对特征进行筛选，选取出我们想要的前n个特征。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">feature_to_pick = <span class="number">30</span></span><br><span class="line">feature_top_n, feature_importance = get_top_n_features(titanic_train_data_X, titanic_train_data_Y, feature_to_pick)</span><br><span class="line">titanic_train_data_X = pd.DataFrame(titanic_train_data_X[feature_top_n])</span><br><span class="line">titanic_test_data_X = pd.DataFrame(titanic_test_data_X[feature_top_n])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">Fitting <span class="number">10</span> folds <span class="keyword">for</span> each of <span class="number">2</span> candidates, totalling <span class="number">20</span> fits</span><br><span class="line"></span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">13</span> out of  <span class="number">20</span> | elapsed:   <span class="number">13.7</span>s remaining:    <span class="number">7.3</span>s</span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">20</span> out of  <span class="number">20</span> | elapsed:   <span class="number">19.2</span>s finished</span><br><span class="line"></span><br><span class="line"> Top N Features Best RF Params:&#123;<span class="string">'n_estimators'</span>: <span class="number">500</span>, <span class="string">'min_samples_split'</span>: <span class="number">3</span>, <span class="string">'max_depth'</span>: <span class="number">20</span>&#125;</span><br><span class="line"> Top N Features Best RF Score:<span class="number">0.822671156004</span></span><br><span class="line"> Top N Features RF Train Score:<span class="number">0.979797979798</span></span><br><span class="line"> Sample <span class="number">10</span> Features <span class="keyword">from</span> RF Classifier</span><br><span class="line"> <span class="number">15</span>      Name_length</span><br><span class="line"> <span class="number">0</span>               Age</span><br><span class="line"> <span class="number">2</span>              Fare</span><br><span class="line"> <span class="number">7</span>             Sex_0</span><br><span class="line"> <span class="number">9</span>           Title_0</span><br><span class="line"> <span class="number">8</span>             Sex_1</span><br><span class="line"> <span class="number">27</span>      Family_Size</span><br><span class="line"> <span class="number">3</span>            Pclass</span><br><span class="line"> <span class="number">31</span>    Ticket_Letter</span><br><span class="line"> <span class="number">11</span>          Title_2</span><br><span class="line"> Name: feature, dtype: object</span><br><span class="line"> Fitting <span class="number">10</span> folds <span class="keyword">for</span> each of <span class="number">2</span> candidates, totalling <span class="number">20</span> fits</span><br><span class="line"></span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">13</span> out of  <span class="number">20</span> | elapsed:   <span class="number">10.3</span>s remaining:    <span class="number">5.5</span>s</span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">20</span> out of  <span class="number">20</span> | elapsed:   <span class="number">14.9</span>s finished</span><br><span class="line"></span><br><span class="line"> Top N Features Best Ada Params:&#123;<span class="string">'n_estimators'</span>: <span class="number">500</span>, <span class="string">'learning_rate'</span>: <span class="number">0.01</span>&#125;</span><br><span class="line"> Top N Features Best Ada Score:<span class="number">0.81593714927</span></span><br><span class="line"> Top N Features Ada Train Score:<span class="number">0.820426487093</span></span><br><span class="line"> Sample <span class="number">10</span> Feature <span class="keyword">from</span> Ada Classifier:</span><br><span class="line"> <span class="number">9</span>                    Title_0</span><br><span class="line"> <span class="number">2</span>                       Fare</span><br><span class="line"> <span class="number">27</span>               Family_Size</span><br><span class="line"> <span class="number">7</span>                      Sex_0</span><br><span class="line"> <span class="number">3</span>                     Pclass</span><br><span class="line"> <span class="number">28</span>    Family_Size_Category_0</span><br><span class="line"> <span class="number">1</span>                      Cabin</span><br><span class="line"> <span class="number">8</span>                      Sex_1</span><br><span class="line"> <span class="number">15</span>               Name_length</span><br><span class="line"> <span class="number">0</span>                        Age</span><br><span class="line"> Name: feature, dtype: object</span><br><span class="line"> Fitting <span class="number">10</span> folds <span class="keyword">for</span> each of <span class="number">2</span> candidates, totalling <span class="number">20</span> fits</span><br><span class="line"></span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">13</span> out of  <span class="number">20</span> | elapsed:    <span class="number">9.8</span>s remaining:    <span class="number">5.3</span>s</span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">20</span> out of  <span class="number">20</span> | elapsed:   <span class="number">14.2</span>s finished</span><br><span class="line"></span><br><span class="line"> Top N Features Best ET Params:&#123;<span class="string">'n_estimators'</span>: <span class="number">500</span>, <span class="string">'min_samples_split'</span>: <span class="number">4</span>, <span class="string">'max_depth'</span>: <span class="number">20</span>&#125;</span><br><span class="line"> Top N Features Best ET Score:<span class="number">0.828282828283</span></span><br><span class="line"> Top N Features ET Train Score:<span class="number">0.971941638608</span></span><br><span class="line"> Sample <span class="number">10</span> Features <span class="keyword">from</span> ET Classifier:</span><br><span class="line"> <span class="number">9</span>           Title_0</span><br><span class="line"> <span class="number">8</span>             Sex_1</span><br><span class="line"> <span class="number">7</span>             Sex_0</span><br><span class="line"> <span class="number">15</span>      Name_length</span><br><span class="line"> <span class="number">0</span>               Age</span><br><span class="line"> <span class="number">2</span>              Fare</span><br><span class="line"> <span class="number">1</span>             Cabin</span><br><span class="line"> <span class="number">31</span>    Ticket_Letter</span><br><span class="line"> <span class="number">11</span>          Title_2</span><br><span class="line"> <span class="number">10</span>          Title_1</span><br><span class="line"> Name: feature, dtype: object</span><br><span class="line"> Fitting <span class="number">10</span> folds <span class="keyword">for</span> each of <span class="number">2</span> candidates, totalling <span class="number">20</span> fits</span><br><span class="line"></span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">13</span> out of  <span class="number">20</span> | elapsed:   <span class="number">25.9</span>s remaining:   <span class="number">13.9</span>s</span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">20</span> out of  <span class="number">20</span> | elapsed:   <span class="number">27.9</span>s finished</span><br><span class="line"></span><br><span class="line"> Top N Features Best GB Params:&#123;<span class="string">'n_estimators'</span>: <span class="number">500</span>, <span class="string">'learning_rate'</span>: <span class="number">0.1</span>, <span class="string">'max_depth'</span>: <span class="number">20</span>&#125;</span><br><span class="line"> Top N Features Best GB Score:<span class="number">0.789001122334</span></span><br><span class="line"> Top N Features GB Train Score:<span class="number">0.996632996633</span></span><br><span class="line"> Sample <span class="number">10</span> Feature <span class="keyword">from</span> GB Classifier:</span><br><span class="line"> <span class="number">0</span>               Age</span><br><span class="line"> <span class="number">2</span>              Fare</span><br><span class="line"> <span class="number">15</span>      Name_length</span><br><span class="line"> <span class="number">31</span>    Ticket_Letter</span><br><span class="line"> <span class="number">9</span>           Title_0</span><br><span class="line"> <span class="number">27</span>      Family_Size</span><br><span class="line"> <span class="number">23</span>         Pclass_2</span><br><span class="line"> <span class="number">3</span>            Pclass</span><br><span class="line"> <span class="number">18</span>           Fare_2</span><br><span class="line"> <span class="number">14</span>          Title_5</span><br><span class="line"> Name: feature, dtype: object</span><br><span class="line"> Fitting <span class="number">10</span> folds <span class="keyword">for</span> each of <span class="number">2</span> candidates, totalling <span class="number">20</span> fits</span><br><span class="line"></span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">13</span> out of  <span class="number">20</span> | elapsed:    <span class="number">6.3</span>s remaining:    <span class="number">3.3</span>s</span><br><span class="line"> [Parallel(n_jobs=<span class="number">25</span>)]: Done  <span class="number">20</span> out of  <span class="number">20</span> | elapsed:    <span class="number">9.6</span>s finished</span><br><span class="line"></span><br><span class="line"> Top N Features Best DT Params:&#123;<span class="string">'min_samples_split'</span>: <span class="number">4</span>, <span class="string">'max_depth'</span>: <span class="number">20</span>&#125;</span><br><span class="line"> Top N Features Best DT Score:<span class="number">0.784511784512</span></span><br><span class="line"> Top N Features DT Train Score:<span class="number">0.959595959596</span></span><br><span class="line"> Sample <span class="number">10</span> Features <span class="keyword">from</span> DT Classifier:</span><br><span class="line"> <span class="number">9</span>           Title_0</span><br><span class="line"> <span class="number">0</span>               Age</span><br><span class="line"> <span class="number">2</span>              Fare</span><br><span class="line"> <span class="number">15</span>      Name_length</span><br><span class="line"> <span class="number">27</span>      Family_Size</span><br><span class="line"> <span class="number">14</span>          Title_5</span><br><span class="line"> <span class="number">26</span>         Pclass_5</span><br><span class="line"> <span class="number">3</span>            Pclass</span><br><span class="line"> <span class="number">31</span>    Ticket_Letter</span><br><span class="line"> <span class="number">23</span>         Pclass_2</span><br><span class="line"> Name: feature, dtype: object</span><br></pre></td></tr></table></figure>
+<p>上面就是对之前的一个函数进行的一个调整</p>
+<p>用视图可视化不同算法筛选的特征排序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">rf_feature_imp = feature_importance[:<span class="number">10</span>]</span><br><span class="line">Ada_feature_imp = feature_importance[<span class="number">32</span>:<span class="number">32</span>+<span class="number">10</span>].reset_index(drop=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># make importances relative to max importance</span></span><br><span class="line">rf_feature_importance = <span class="number">100.0</span> * (rf_feature_imp[<span class="string">'importance'</span>] / rf_feature_imp[<span class="string">'importance'</span>].max())</span><br><span class="line">Ada_feature_importance = <span class="number">100.0</span> * (Ada_feature_imp[<span class="string">'importance'</span>] / Ada_feature_imp[<span class="string">'importance'</span>].max())</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the indexes of all features over the importance threshold</span></span><br><span class="line">rf_important_idx = np.where(rf_feature_importance)[<span class="number">0</span>]</span><br><span class="line">Ada_important_idx = np.where(Ada_feature_importance)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Adapted from Gradient Boosting regression</span></span><br><span class="line">pos = np.arange(rf_important_idx.shape[<span class="number">0</span>]) + <span class="number">.5</span></span><br><span class="line"></span><br><span class="line">plt.figure(<span class="number">1</span>, figsize = (<span class="number">18</span>, <span class="number">8</span>))</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">121</span>)</span><br><span class="line">plt.barh(pos, rf_feature_importance[rf_important_idx][::<span class="number">-1</span>])</span><br><span class="line">plt.yticks(pos, rf_feature_imp[<span class="string">'feature'</span>][::<span class="number">-1</span>])</span><br><span class="line">plt.xlabel(<span class="string">'Relative Importance'</span>)</span><br><span class="line">plt.title(<span class="string">'RandomForest Feature Importance'</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">122</span>)</span><br><span class="line">plt.barh(pos, Ada_feature_importance[Ada_important_idx][::<span class="number">-1</span>])</span><br><span class="line">plt.yticks(pos, Ada_feature_imp[<span class="string">'feature'</span>][::<span class="number">-1</span>])</span><br><span class="line">plt.xlabel(<span class="string">'Relative Importance'</span>)</span><br><span class="line">plt.title(<span class="string">'AdaBoost Feature Importance'</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/11/Kaggle-Titanic-生存预测/7.jpg" alt=""></p>
+<h4 id="模型融合"><a href="#模型融合" class="headerlink" title="模型融合"></a>模型融合</h4><p>前面已经训练了多个模型，这个时候就可以直接展开融合了。</p>
+<p>常见的模型融合方法有：Bagging、Boosting、Stacking、Blending</p>
+<p>常见的相关介绍，直接去看笔记中</p>
+<p><strong>Stacking框架融合:</strong></p>
+<p>这里我们使用了两层的模型融合，Level 1使用了：RandomForest、AdaBoost、ExtraTrees、GBDT、DecisionTree、KNN、SVM ，一共7个模型，Level 2使用了XGBoost使用第一层预测的结果作为特征对最终的结果进行预测。</p>
+<ol>
+<li><p>Stacking框架是堆叠使用基础分类器的预测作为对二级模型的训练的输入。 然而，我们不能简单地在全部训练数据上训练基本模型，产生预测，输出用于第二层的训练。如果我们在Train Data上训练，然后在Train Data上预测，就会造成标签泄露。为了避免标签泄露，我们需要对每个基学习器使用K-fold，将K个模型对Valid Set的预测结果拼起来，作为下一层学习器的输入。</p>
+<p> 所以这里我们建立输出K-fold预测的方法：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold</span><br><span class="line"></span><br><span class="line"><span class="comment"># Some useful parameters which will come in handy later on</span></span><br><span class="line">ntrain = titanic_train_data_X.shape[<span class="number">0</span>]</span><br><span class="line">ntest = titanic_test_data_X.shape[<span class="number">0</span>]</span><br><span class="line">SEED = <span class="number">0</span> <span class="comment"># for reproducibility</span></span><br><span class="line">NFOLDS = <span class="number">7</span> <span class="comment"># set folds for out-of-fold prediction</span></span><br><span class="line">kf = KFold(n_splits = NFOLDS, random_state=SEED, shuffle=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_out_fold</span><span class="params">(clf, x_train, y_train, x_test)</span>:</span></span><br><span class="line">    oof_train = np.zeros((ntrain,))</span><br><span class="line">    oof_test = np.zeros((ntest,))</span><br><span class="line">    oof_test_skf = np.empty((NFOLDS, ntest))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, (train_index, test_index) <span class="keyword">in</span> enumerate(kf.split(x_train)):</span><br><span class="line">        x_tr = x_train[train_index]</span><br><span class="line">        y_tr = y_train[train_index]</span><br><span class="line">        x_te = x_train[test_index]</span><br><span class="line"></span><br><span class="line">        clf.fit(x_tr, y_tr)</span><br><span class="line"></span><br><span class="line">        oof_train[test_index] = clf.predict(x_te)</span><br><span class="line">        oof_test_skf[i, :] = clf.predict(x_test)</span><br><span class="line"></span><br><span class="line">    oof_test[:] = oof_test_skf.mean(axis=<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> oof_train.reshape(<span class="number">-1</span>, <span class="number">1</span>), oof_test.reshape(<span class="number">-1</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>构建不同的基学习器，这里我们使用了RandomForest、AdaBoost、ExtraTrees、GBDT、DecisionTree、KNN、SVM 七个基学习器：（这里的模型可以使用如上面的GridSearch方法对模型的超参数进行搜索选择）
+
+上面GridSearch就是对参数的搜索选择
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">rf = RandomForestClassifier(n_estimators=<span class="number">500</span>, warm_start=<span class="keyword">True</span>, max_features=<span class="string">'sqrt'</span>,max_depth=<span class="number">6</span>, </span><br><span class="line">                            min_samples_split=<span class="number">3</span>, min_samples_leaf=<span class="number">2</span>, n_jobs=<span class="number">-1</span>, verbose=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">ada = AdaBoostClassifier(n_estimators=<span class="number">500</span>, learning_rate=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">et = ExtraTreesClassifier(n_estimators=<span class="number">500</span>, n_jobs=<span class="number">-1</span>, max_depth=<span class="number">8</span>, min_samples_leaf=<span class="number">2</span>, verbose=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">gb = GradientBoostingClassifier(n_estimators=<span class="number">500</span>, learning_rate=<span class="number">0.008</span>, min_samples_split=<span class="number">3</span>, min_samples_leaf=<span class="number">2</span>, max_depth=<span class="number">5</span>, verbose=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">dt = DecisionTreeClassifier(max_depth=<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">knn = KNeighborsClassifier(n_neighbors = <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">svm = SVC(kernel=<span class="string">'linear'</span>, C=<span class="number">0.025</span>)</span><br></pre></td></tr></table></figure>
+
+将pandas转换为arrays：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x_train = titanic_train_data_X.values <span class="comment"># Creates an array of the train data</span></span><br><span class="line">x_test = titanic_test_data_X.values <span class="comment"># Creats an array of the test data</span></span><br><span class="line">y_train = titanic_train_data_Y.values</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rf_oof_train, rf_oof_test = get_out_fold(rf, x_train, y_train, x_test) <span class="comment"># Random Forest</span></span><br><span class="line">ada_oof_train, ada_oof_test = get_out_fold(ada, x_train, y_train, x_test) <span class="comment"># AdaBoost </span></span><br><span class="line">et_oof_train, et_oof_test = get_out_fold(et, x_train, y_train, x_test) <span class="comment"># Extra Trees</span></span><br><span class="line">gb_oof_train, gb_oof_test = get_out_fold(gb, x_train, y_train, x_test) <span class="comment"># Gradient Boost</span></span><br><span class="line">dt_oof_train, dt_oof_test = get_out_fold(dt, x_train, y_train, x_test) <span class="comment"># Decision Tree</span></span><br><span class="line">knn_oof_train, knn_oof_test = get_out_fold(knn, x_train, y_train, x_test) <span class="comment"># KNeighbors</span></span><br><span class="line">svm_oof_train, svm_oof_test = get_out_fold(svm, x_train, y_train, x_test) <span class="comment"># Support Vector</span></span><br></pre></td></tr></table></figure>
+</code></pre><ol>
+<li><p>预测并提交文件。我们利用XGBoost，使用第一层预测的结果作为特征对最终的结果进行预测。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBClassifier</span><br><span class="line"></span><br><span class="line">gbm = XGBClassifier( n_estimators= <span class="number">2000</span>, max_depth= <span class="number">4</span>, min_child_weight= <span class="number">2</span>, gamma=<span class="number">0.9</span>, subsample=<span class="number">0.8</span>, </span><br><span class="line">                    colsample_bytree=<span class="number">0.8</span>, objective= <span class="string">'binary:logistic'</span>, nthread= <span class="number">-1</span>, scale_pos_weight=<span class="number">1</span>).fit(x_train, y_train)</span><br><span class="line">predictions = gbm.predict(x_test)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StackingSubmission = pd.DataFrame(&#123;<span class="string">'PassengerId'</span>: PassengerId, <span class="string">'Survived'</span>: predictions&#125;)</span><br><span class="line">StackingSubmission.to_csv(<span class="string">'StackingSubmission.csv'</span>,index=<span class="keyword">False</span>,sep=<span class="string">','</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>最后的步骤就是验证了</p>
+<h3 id="验证：学习曲线"><a href="#验证：学习曲线" class="headerlink" title="验证：学习曲线"></a>验证：学习曲线</h3><p>在我们对数据不断地进行特征工程，产生的特征越来越多，用大量的特征对模型进行训练，会使我们的训练集拟合得越来越好，但同时也可能会逐渐丧失泛化能力，从而在测试数据上表现不佳，发生过拟合现象。</p>
+<p>当然我们建立的模型可能不仅在预测集上表型不好，也很可能是因为在训练集上的表现就不佳，处于欠拟合状态。</p>
+<p><strong>所以我们通过学习曲线观察模型处于什么样的状态。从而决定对模型进行如何的操作。当然，我们把验证放到最后，并不是是这一步是在最后去做。对于我们的Stacking框架中第一层的各个基学习器我们都应该对其学习曲线进行观察，从而去更好地调节超参数，进而得到更好的最终结果。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.learning_curve <span class="keyword">import</span> learning_curve</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_learning_curve</span><span class="params">(estimator, title, X, y, ylim=None, cv=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                        n_jobs=<span class="number">1</span>, train_sizes=np.linspace<span class="params">(<span class="number">.1</span>, <span class="number">1.0</span>, <span class="number">5</span>)</span>, verbose=<span class="number">0</span>)</span>:</span></span><br><span class="line">    plt.figure()</span><br><span class="line">    plt.title(title)</span><br><span class="line">    <span class="keyword">if</span> ylim <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">        plt.ylim(*ylim)</span><br><span class="line">    plt.xlabel(<span class="string">"Training examples"</span>)</span><br><span class="line">    plt.ylabel(<span class="string">"Score"</span>)</span><br><span class="line">    train_sizes, train_scores, test_scores = learning_curve(</span><br><span class="line">        estimator, X, y, cv=cv, n_jobs=n_jobs, train_sizes=train_sizes)</span><br><span class="line">    train_scores_mean = np.mean(train_scores, axis=<span class="number">1</span>)</span><br><span class="line">    train_scores_std = np.std(train_scores, axis=<span class="number">1</span>)</span><br><span class="line">    test_scores_mean = np.mean(test_scores, axis=<span class="number">1</span>)</span><br><span class="line">    test_scores_std = np.std(test_scores, axis=<span class="number">1</span>)</span><br><span class="line">    plt.grid()</span><br><span class="line"></span><br><span class="line">    plt.fill_between(train_sizes, train_scores_mean - train_scores_std,</span><br><span class="line">                     train_scores_mean + train_scores_std, alpha=<span class="number">0.1</span>,</span><br><span class="line">                     color=<span class="string">"r"</span>)</span><br><span class="line">    plt.fill_between(train_sizes, test_scores_mean - test_scores_std,</span><br><span class="line">                     test_scores_mean + test_scores_std, alpha=<span class="number">0.1</span>, color=<span class="string">"g"</span>)</span><br><span class="line">    plt.plot(train_sizes, train_scores_mean, <span class="string">'o-'</span>, color=<span class="string">"r"</span>,</span><br><span class="line">             label=<span class="string">"Training score"</span>)</span><br><span class="line">    plt.plot(train_sizes, test_scores_mean, <span class="string">'o-'</span>, color=<span class="string">"g"</span>,</span><br><span class="line">             label=<span class="string">"Cross-validation score"</span>)</span><br><span class="line"></span><br><span class="line">    plt.legend(loc=<span class="string">"best"</span>)</span><br><span class="line">    <span class="keyword">return</span> plt</span><br></pre></td></tr></table></figure>
+<p>逐一观察不同模型的学习曲线</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">X = x_train</span><br><span class="line">Y = y_train</span><br><span class="line"></span><br><span class="line"><span class="comment"># RandomForest</span></span><br><span class="line">rf_parameters = &#123;<span class="string">'n_jobs'</span>: <span class="number">-1</span>, <span class="string">'n_estimators'</span>: <span class="number">500</span>, <span class="string">'warm_start'</span>: <span class="keyword">True</span>, <span class="string">'max_depth'</span>: <span class="number">6</span>, <span class="string">'min_samples_leaf'</span>: <span class="number">2</span>, </span><br><span class="line">              <span class="string">'max_features'</span> : <span class="string">'sqrt'</span>,<span class="string">'verbose'</span>: <span class="number">0</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># AdaBoost</span></span><br><span class="line">ada_parameters = &#123;<span class="string">'n_estimators'</span>:<span class="number">500</span>, <span class="string">'learning_rate'</span>:<span class="number">0.1</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># ExtraTrees</span></span><br><span class="line">et_parameters = &#123;<span class="string">'n_jobs'</span>: <span class="number">-1</span>, <span class="string">'n_estimators'</span>:<span class="number">500</span>, <span class="string">'max_depth'</span>: <span class="number">8</span>, <span class="string">'min_samples_leaf'</span>: <span class="number">2</span>, <span class="string">'verbose'</span>: <span class="number">0</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># GradientBoosting</span></span><br><span class="line">gb_parameters = &#123;<span class="string">'n_estimators'</span>: <span class="number">500</span>, <span class="string">'max_depth'</span>: <span class="number">5</span>, <span class="string">'min_samples_leaf'</span>: <span class="number">2</span>, <span class="string">'verbose'</span>: <span class="number">0</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># DecisionTree</span></span><br><span class="line">dt_parameters = &#123;<span class="string">'max_depth'</span>:<span class="number">8</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># KNeighbors</span></span><br><span class="line">knn_parameters = &#123;<span class="string">'n_neighbors'</span>:<span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># SVM</span></span><br><span class="line">svm_parameters = &#123;<span class="string">'kernel'</span>:<span class="string">'linear'</span>, <span class="string">'C'</span>:<span class="number">0.025</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># XGB</span></span><br><span class="line">gbm_parameters = &#123;<span class="string">'n_estimators'</span>: <span class="number">2000</span>, <span class="string">'max_depth'</span>: <span class="number">4</span>, <span class="string">'min_child_weight'</span>: <span class="number">2</span>, <span class="string">'gamma'</span>:<span class="number">0.9</span>, <span class="string">'subsample'</span>:<span class="number">0.8</span>, </span><br><span class="line">               <span class="string">'colsample_bytree'</span>:<span class="number">0.8</span>, <span class="string">'objective'</span>: <span class="string">'binary:logistic'</span>, <span class="string">'nthread'</span>:<span class="number">-1</span>, <span class="string">'scale_pos_weight'</span>:<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title = <span class="string">"Learning Curves"</span></span><br><span class="line">plot_learning_curve(RandomForestClassifier(**rf_parameters), title, X, Y, cv=<span class="keyword">None</span>,  n_jobs=<span class="number">4</span>, train_sizes=[<span class="number">50</span>, <span class="number">100</span>, <span class="number">150</span>, <span class="number">200</span>, <span class="number">250</span>, <span class="number">350</span>, <span class="number">400</span>, <span class="number">450</span>, <span class="number">500</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/11/Kaggle-Titanic-生存预测/8.jpg" alt=""></p>
+<p>提交结果终于到达了87左右了，后面还是可以尝试一下在模型融合这里慢慢加强。</p>
+<p>但是 后面就是无尽无尽的调整参数的过程咯</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/03/11/Kaggle-Titanic-生存预测/">Kaggle Titanic 生存预测</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
+  <p><span>发布时间:</span>2020年03月11日 - 23:03</p>
+  <p><span>最后更新:</span>2020年03月12日 - 22:03</p>
+  <p><span>原始链接:</span><a href="/2020/03/11/Kaggle-Titanic-生存预测/" title="Kaggle Titanic 生存预测">http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.cn/2020/03/11/Kaggle-Titanic-生存预测/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+
+		
+	</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kaggle/" rel="tag"><i class="fa fa-tag"></i> Kaggle</a>
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/11/改善深层神经网络/" rel="next" title="改善深层神经网络">
+                <i class="fa fa-chevron-left"></i> 改善深层神经网络
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+
+  
+</div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/good.jpg" alt="五光君">
+            
+              <p class="site-author-name" itemprop="name">五光君</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CrazyFnOption" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wsx1128@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="V2EX" target="_blank">V2EX</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+
+
+
+
+    <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=590262&auto=1&height=66"></iframe>
+</div>
+		
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析题目"><span class="nav-number">1.</span> <span class="nav-text">分析题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据总览"><span class="nav-number">2.</span> <span class="nav-text">数据总览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">3.</span> <span class="nav-text">数据处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数值变换"><span class="nav-number">3.1.</span> <span class="nav-text">数值变换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Dummy-Variables"><span class="nav-number">3.1.1.</span> <span class="nav-text">Dummy Variables</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Factorizing"><span class="nav-number">3.1.2.</span> <span class="nav-text">Factorizing</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Binning"><span class="nav-number">3.1.3.</span> <span class="nav-text">Binning</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺失值处理"><span class="nav-number">3.2.</span> <span class="nav-text">缺失值处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征处理"><span class="nav-number">4.</span> <span class="nav-text">特征处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sex"><span class="nav-number">4.1.</span> <span class="nav-text">Sex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Name"><span class="nav-number">4.2.</span> <span class="nav-text">Name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fare"><span class="nav-number">4.3.</span> <span class="nav-text">Fare</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pclass"><span class="nav-number">4.4.</span> <span class="nav-text">Pclass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parch-and-SibSp"><span class="nav-number">4.5.</span> <span class="nav-text">Parch and SibSp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征间相关性分析"><span class="nav-number">5.</span> <span class="nav-text">特征间相关性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入模型前的一些处理"><span class="nav-number">5.1.</span> <span class="nav-text">输入模型前的一些处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型融合以及测试"><span class="nav-number">6.</span> <span class="nav-text">模型融合以及测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#利用不同的模型来对特征进行筛选，选出较为重要的特征："><span class="nav-number">6.1.</span> <span class="nav-text">利用不同的模型来对特征进行筛选，选出较为重要的特征：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依据我们筛选出的特征构建训练集和测试集"><span class="nav-number">6.2.</span> <span class="nav-text">依据我们筛选出的特征构建训练集和测试集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型融合"><span class="nav-number">6.3.</span> <span class="nav-text">模型融合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证：学习曲线"><span class="nav-number">7.</span> <span class="nav-text">验证：学习曲线</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+	
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五光君</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">117k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+         
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+        <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+    
+<!-- END LOCAL --> 
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1583938928000', 
+            owner: 'CrazyFnOption',
+            repo: 'CrazyFnOption.github.io',
+            
+            oauth: {
+            
+            
+                client_secret: 'f921e00ac2d457990b50d105821daaa5ef9592ff',
+            
+                client_id: 'f295998f9beac5637d34'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+
+	
+  
+
+
+</body>
+</html>
