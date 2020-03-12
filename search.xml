@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[卷积神经网络]]></title>
+    <url>%2F2020%2F03%2F12%2F%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%2F</url>
+    <content type="text"><![CDATA[首先声明 一下博客内容，全部来自于吴恩达 deep learning 中的内容，这是第四门课的，卷积神经网络的总结。 另外再次声明本篇所用到的所有图片是来自各大博客，由于latex公式还不是特别熟悉，所以遇到数学公式多的知识点，就直接截图别人的总结了。 前面目前遇到的所有机器学习问题，只是涉及到数据，数字上面的变化，但是真实世界中不仅有一维的数字，还有高维度图片，甚至是语音，以及视频。 这个就是后面所研究的最重要的地方了。 卷积神经网络的基础计算机视觉计算机视觉（Computer Vision）包含很多不同类别的问题，如图片分类、目标检测、图片风格迁移等等。 对于小尺寸的图片问题，也许我们用深度神经网络的结构可以较为简单的解决一定的问题。但是当应用在大尺寸的图片上，输入规模将变得十分庞大，使用神经网络将会有非常多的参数需要去学习，这个时候神经网络就不再适用。 卷积神经网络在计算机视觉问题上是一个非常好的网络结构。 边缘检测实例卷积运算是卷积神经网络的基本组成部分。下面以边缘检测的例子来介绍卷积运算。 所谓边缘检测，在下面的图中，分别通过垂直边缘检测和水平边缘检测得到不同的结果： 垂直边缘检测假设对于一个 6 6 大小的图片（以数字表示），以及一个3 3大小的 filter（卷积核） 进行卷积运算，以“*” 符号表示。图片和垂直边缘检测器分别如左和中矩阵所示： 下面就相当于一个最简单最基本的卷积网络的使用 filter 不断地和其大小相同的部分做对应元素的乘法运算并求和，最终得到的数字相当于新图片的一个像素值，如右矩阵所示，最终得到一个4*4大小的图片。 说实话就是将图片中的像素点，进行一系列的数学变换，从而保留出相应的图片像素点组合，当然，其中有很多权重需要去学习。 边缘检测原理以一个有一条垂直边缘线的简单图片来说明。通过垂直边缘 filter 我们得到的最终结果图片可以明显地将边缘和非边缘区分出来： 当然，有更多样式的卷积核，这种卷积核就是弄好的，在卷积神经网络中，需要自己去训练其中的参数 对于复杂的图片，我们可以直接将 filter 中的数字直接看作是需要学习的参数，其可以学习到对于图片检测相比上面filter更好的更复杂的 filter ，如相对于水平和垂直检测器，我们训练的 filter 参数也许可以知道不同角度的边缘。 通过卷积运算，在卷积神经网络中通过反向传播算法，可以学习到相应于目标结果的 filter，将其应用于整个图片，输出其提取到的所有有用的特征。 卷积和互相关在数学定义上，矩阵的卷积操作为首先将卷积核同时在水平核垂直方向上进行翻转，构成一个卷积核的镜像，然后使用该镜像在和前面的矩阵进行移动核相乘求和操作，如下面例子所示： 在深度学习中，我们称为的卷积运算实则没有卷积核变换为镜像的这一步操作，因为在权重学习的角度，变换是没有必要的。深度学习的卷积操作在数学上准确度来说称为互相关（cross-correlation）。 padding没有Padding的缺点： 每次卷积操作，图片就会缩小 角落和边缘位置的像素可能进行的卷积运算次数少，可能会丢失有用的信息。 如果加padding 为了解决上面的两个缺点，我们在进行卷积运算前为图片加padding，包围角落和边缘的像素，使得通过filter的卷积运算后，图片大小不变，也不会丢失角落和边沿的信息。 Valid/Same卷积 前者是没有padding操作，后者就是加入padding后，正好输出图片与输入图片相同。 在计算机视觉中，一般来说padding的值为奇数 卷积步长（stride）卷积的步长是构建卷积神经网络的一个基本的操作。 如前面的例子中，我们使用的 stride=1，每次的卷积运算以1个步长进行移动。下面是 stride=2 时对图片进行卷积的结果： 当然，这只是一维的情况，正常的彩色图片，应该是三个维度的 立体卷积和卷积网络卷积核的通道数，要对于之前的输入的通道数，而卷积核的个数，最后对应输出的通道数 这里需要注意的是 单卷积核与多卷积核的区别，不过多赘述了 其实主要就是记住公式，然后将卷积操作看清楚就行了，正常的深度学习框架都已经给你封装好了操作 下面直接借用一张简单的卷积图来完成对其总结 池化层池化层就分为最大池化层，和平均池化层 这里的公式与上面卷积层基本一样 不过与上面最大的不同就是 池化层里面没有需要学习的参数 下面直接展示两张图片，来介绍一下卷积神经网络，并且讲解一下，为什么会使用卷积神经网络 LeNet-5的参数如下： 使用卷积神经网络的优势 参数少，跟同期的全链接层相比，参数是大大的减少，意思就是可以大大的增加卷积神经网络 参数共享：一个特征检测器（filter）对图片的一部分有用的同时也有可能对图片的另外一部分有用。 连接的稀疏性：在每一层中，每个输出值只取决于少量的输入。 我们将训练集输入到卷积神经网络中，对网络进行训练。利用梯度下降（Adam、momentum等优化算法）最小化代价函数来寻找网络的最优参 深度卷积模型介绍经典的卷积网络下面介绍几种经典的卷积网络，分别是LeNet, AlexNet, VGGNet LeNet-5:针对灰度图片LeNet-5主要是针对灰度设计的，所以其输入较小，为32 32 1，其结构如下： 在LetNet中，存在的经典模式： 随着网络的深度增加，图像的大小在缩小，与此同时，通道的数量却在增加； 每个卷积层后面接一个池化层。 AlexNet 一般用于彩色大图片 与LeNet相似，但网络结构更大，参数更多，表现更加出色； 使用了Relu； 使用了多个GPUs； LRN（后来发现用处不大，丢弃了） AlexNet使得深度学习在计算机视觉方面受到极大的重视。 VGG-16VGG卷积层和池化层均具有相同的卷积核大小，都使用 3 3， stride=1 的卷积和 2 2，stride = 2的池化。其结构如下： ResNetResNet是由残差块组成的 残差块下面是一个普通的神经网络块的传输： 而ResNet块则将其传播过程增加了一个从 [公式] 直接到 [公式] 的连接，将其称之为“short cut”或者“skip connection”： 直接在中间添加了一条捷径，原因是为了解决 深层次的神经网络容易造成梯度消失，以至于后面梯度为0，就不好去更新参数 增加“short cut”后，成为残差块的网络结构： Residual Network： 多个残差块堆积起来构成ResNet的网络结构，其结构如下所示： 在没有残差的普通神经网络中，训练的误差实际上是随着网络层数的加深，先减小再增加； 在有残差的ResNet中，即使网络再深，训练误差都会随着网络层数的加深逐渐减小。 ResNet对于中间的激活函数来说，有助于能够达到更深的网络，解决梯度消失和梯度爆炸的问题。 ResNet表现好的原因下面就直接贴从网站上面找到的相关原因 将普通深度神经网络变为ResNet： 1 * 1 卷积在二维上的卷积相当于图片的每个元素和一个卷积核数字相乘。 但是在三维上，与 nc 卷积核进行卷积，相当于三维图像上的 1 1 nc 的切片，也就是 nc 个点乘以卷积数值权重，通过Relu函数后，输出对应的结果。而不同的卷积核则相当于不同的隐层神经元结点与切片上的点进行一一连接。 所以根本上 1 * 1 卷积核相当于对一个切片上的 nc 个单元都应用了一个全连接的神经网络。 1x1卷积应用： 维度压缩：使用目标维度的 1 1 的卷积核个数。增加非线性：保持与原维度相同的 1 1 的卷积核个数 Inception NetworkInception Network 的作用就是使我们无需去考虑在构建深度卷积神经网络时，使用多大的卷积核以及是否添加池化层等问题。 Inception主要结构： 计算成本的问题 对于上面的 5 * 5 大小卷积核的计算成本： 对于 1 * 1 大小卷积核用作过渡的计算成本，也将下面的中间的层叫做“bottleneck layer”： 所以 1 * 1 卷积核作为“bottleneck layer”的过渡层能够有效减小卷积神经网的计算成本。事实证明，只要合理地设置“bottleneck layer”，既可以显著减小上层的规模，同时又能降低计算成本，从而不会影响网络的性能。 Inception 模块： 将上面说介绍的两种主要思想和模式结合到一起构成 Inception 模块，如下： Inception Network： 多个Inception 模块的堆叠构成Inception Network，下面是GoogleNet的结构： 迁移学习小数据集： 如今在深度学习领域，许多研究者都会将他们的工作共享到网络上。在我们实施自己的工作的时候，比如说做某种物体的识别分类，但是只有少量的数据集，对于从头开始训练一个深度网络结构是远远不够的。 但是我们可以应用迁移学习，应用其他研究者建立的模型和参数，用少量的数据仅训练最后自定义的softmax网络。从而能够在小数据集上达到很好的效果。 其实就是pytorch上面 pretrain=True 如果是自己的数据，那么就建议用他人预训练好的模型，自己再训练自己的数据就会非常省事 大数据集： 如果我们在自己的问题上也拥有大量的数据集，我们可以多训练后面的几层。总之随着数据集的增加，我们需要“ freeze”的层数越来越少。最后如果我们有十分庞大的数据集，那么我们可以训练网络模型的所有参数，将其他研究者训练的模型参数作为参数的初始化来替代随机初始化，来加速我们模型的训练。 就像最后一次pytorch训练 识别图片上面在做的事情一样，将最后一层进行一个更改就可以了。 数据增强 以及数据扩充与其他机器学习问题相比，在计算机视觉领域当下最主要的问题是没有办法得到充足的数据。所以在我们训练计算机数据模型的时候，数据的扩充就是会非常有用。 数据扩充的方法： 镜像翻转（Mirroring） 随机剪裁（Random Cropping） 色彩转换（Color shifting） 为图片的RGB三个色彩通道进行增减值，如（R：+20，G：-20，B：+20）；PCA颜色增强：对图片的主色的变化较大，图片的次色变化较小，使总体的颜色保持一致。 为了节省时间，数据扩充的过程和训练过程可以多CPU多线程来并行的实现。 数据和手工工程： 在有大量数据的时候，我们更倾向于使用简单的算法和更少的手工工程。因为此时有大量的数据，我们不需要为这个问题来精心设计特征，我们使用一个大的网络结果或者更简单的模型就能够解决。 相反，在有少量数据的时候，我们从事更多的是手工工程。因为数据量太少，较大的网络结构或者模型很难从这些少量的数据中获取足够的特征，而手工工程实际上是获得良好表现的最佳方式。 对于机器学习应用： 标记数据，（x,y） 手工特征工程/网络结构/其他构建 在基准研究和比赛中，下面的tips可能会有较好的表现： Ensembling：独立地训练多个网络模型，输出平均结果或加权平均结果； 测试时的 Multi-crop：在测试图片的多种版本上运行分类器，输出平均结果。 目标检测目标定位和特征点检测图片检测问题： 分类问题：判断图中是否为汽车； 目标定位：判断是否为汽车，并确定具体位置； 目标检测：检测不同物体并定位。 目标分类和定位： 对于目标定位问题，我们卷积神经网络模型结构可能如下： 输出：包含图片中存在的对象及定位框 行人，0 or 1；汽车，0 or 1；摩托车，0 or 1；图片背景，0 or 1； 然后根据图片中的定位框： 其中bx，by表示汽车中点，bh，bw分别表示定位框的。以左上图为（0，0），以右下图为（1，1），这些数字均为位置或长度 特征点检测： 由前面的目标定位问题，我们可以知道，神经网络可以通过输出图片上特征点的坐标（x,y），来实现对目标特征的识别和定位标记。 如对于人脸表情识别的问题中，我们通过标定训练数据集中特征点的位置信息，来对人脸进行不同位置不同特征的定位和标记。AR的应用就是基于人脸表情识别来设计的，如脸部扭曲、增加头部配饰等。 在人体姿态检测中，同样可以通过对人体不同的特征位置关键点的标注，来记录人体的姿态。 目标检测目标检测采用的是基于滑动窗口的检测算法。 滑动窗口目标检测： 首先选定一个特定大小的窗口，将窗口内的图片输入到模型中进行预测 以固定步幅滑动该窗口，遍历图像的每个区域，对窗内的各个小图不断输入模型进行预测 继续选取一个更大的窗口，再次遍历图像的每个区域，对区域内是否有车进行预测 遍历整个图像，可以保证在每个位置都能检测到是否有车 缺点：计算成本巨大，每个窗口的小图都要进行卷积运算，（但在神经网络兴起之前，使用的是线性分类器，所以滑动窗口算法的计算成本较低）。 卷积层替代全连接层：对于卷积网络中全连接层，我们可以利用1 * 1大小卷积核的卷积层来替代。 就像下面一样: 滑动窗口卷积实现 在我们实现了以卷积层替代全部的全连接层以后，在该基础上进行滑动窗口在卷积层上的操作。下面以一个小的图片为例： 我们以上面训练好的模型，输入一个16 16 3大小的整幅图片，图中蓝色部分代表滑动窗口的大小。我们以2为大小的步幅滑动窗口，分别与卷积核进行卷积运算，最后得到4幅 10 10 16 大小的特征图，然而因为在滑动窗口的操作时，输入部分有大量的重叠，也就是有很多重复的运算，导致在下一层中的特征图值也存在大量的重叠，所以最后得到的第二层激活值（特征图）构成一副 12 12 16大小的特征图。对于后面的池化层和全连接层也是同样的过程。 那么由此可知，滑动窗口在整幅图片上进行滑动卷积的操作过程，就等同于在该图片上直接进行卷积运算的过程。所以卷积层实现滑动窗口的这个过程，我们不需要把输入图片分割成四个子集分别执行前向传播，而是把他们作为一张图片输入到卷积神经网络中进行计算，其中的重叠部分（公共区域）可以共享大量的计算。 汽车目标检测： 依据上面的方法，我们将整张图片输入到训练好的卷积神经网络中。无需再利用滑动窗口分割图片，只需一次前向传播，我们就可以同时得到所有图片子集的预测值 Bounding Box 预测前面一节的卷积方式实现的滑动窗口算法，使得在预测时计算的效率大大提高。但是其存在的问题是：不能输出最精准的边界框（Bounding Box）。 在滑动窗口算法中，我们取的一些离散的图片子集的位置，在这种情况下，有可能我们没有得到一个能够完美匹配汽车位置的窗口，也有可能真实汽车的边界框为一个长方形。所以我们需要寻找更加精确的边界框。 YOLO： YOLO算法可以使得滑动窗口算法寻找到更加精准的边界框。 YOLO notation： 将对象分配到一个格子的过程是：观察对象的中点，将该对象分配到其中点所在的格子中，（即使对象横跨多个格子，也只分配到中点所在的格子中，其他格子记为无该对象，即标记为“0”）； YOLO显式地输出边界框，使得其可以具有任意宽高比，并且能输出更精确的坐标，不受滑动窗口算法滑动步幅大小的限制； YOLO是一次卷积实现，并不是在 n * n网格上进行 n 的平方运算，而是单次卷积实现，算法实现效率高，运行速度快，可以实现实时识别。 bounding boxes 细节： 利用YOLO算法实现目标探测的时候，对于存在目标对象的网格中，定义训练标签Y的时候，边界框的指定参数的不同对其预测精度有很大的影响。这里给出一个较为合理的约定：（其他参数指定方式可阅读论文） 交并比（Intersection-over-Union）交并比函数用来评价目标检测算法是否运作良好。 对于理想的边界框和目标探测算法预测得到的边界框，交并比函数计算两个边界框交集和并集之比。 IoU = 交集面积 / 并集面积 一般在目标检测任务中，约定如果IoU &gt;= 0.5 ，那么就说明检测正确。当然标准越大，则对目标检测算法越严格。得到的IoU值越大越好。 非最大值抑制（non-max suppression，NMS）对于我们前面提到的目标检测算法，可能会对同一个对象做出多次的检测，非最大值抑制可以确保我们的算法对每个对象只检测一次。 多网格检测同一物体： 对于汽车目标检测的例子中，我们将图片分成很多精细的格子。最终预测输出的结果中，可能会有相邻的多个格子里均检测出都具有同一个对象。 Anchor box通过上面的各种方法，目前我们的目标检测算法在每个格子上只能检测出一个对象。使用Anchor box可以同时检测出多个对象。 Anchor box 的选择： 一般人工指定Anchor box 的形状，选择5~10个以覆盖到多种不同的形状，可以涵盖我们想要检测的对象的形状； 高级方法：K-means 算法：将不同对象形状进行聚类，用聚类后的结果来选择一组最具代表性的Anchor box，以此来代表我们想要检测对象的形状。 YOLO算法目标检测假设我们要在图片中检测三种目标：行人、汽车和摩托车，同时使用两种不同的Anchor box。 模型预测： 输入与训练集中相同大小的图片，同时得到每个格子中不同的输出结果：3 3 2 * 8 运行非最大值抑制（NMS）： 假设使用了2个Anchor box，那么对于每一个网格，我们都会得到预测输出的2个bounding boxes，其中一个 Pc 比较高 抛弃概率 Pc 值低的预测bounding boxes 对每个对象（如行人、汽车、摩托车）分别使用NMS算法得到最终的预测边界框 候选区域（region proposals）R-CNN： R-CNN（Regions with convolutional networks），会在我们的图片中选出一些目标的候选区域，从而避免了传统滑动窗口在大量无对象区域的无用运算。 所以在使用了R-CNN后，我们不会再针对每个滑动窗口运算检测算法，而是只选择一些候选区域的窗口，在少数的窗口上运行卷积网络。 具体实现：运用图像分割算法，将图片分割成许多不同颜色的色块，然后在这些色块上放置窗口，将窗口中的内容输入网络，从而减小需要处理的窗口数量。 更快的算法： R-CNN：给出候选区域，不使用滑动窗口，对每个候选区域进行分类识别，输出对象 标签 和 bounding box，从而在确实存在对象的区域得到更精确的边界框，但速度慢； Fast R-CNN：给出候选区域，使用滑动窗口的卷积实现去分类所有的候选区域，但得到候选区的聚类步骤仍然非常慢； Faster R-CNN：使用卷积网络给出候选区域。]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>机器学习</tag>
+        <tag>卷积网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Kaggle Titanic 生存预测]]></title>
     <url>%2F2020%2F03%2F11%2FKaggle-Titanic-%E7%94%9F%E5%AD%98%E9%A2%84%E6%B5%8B%2F</url>
     <content type="text"><![CDATA[这是一篇入门的kaggle的初级案例。 本来自己第一遍去做的时候，发现预测的正确率只能够达到77%，经过了无数次调参，最后也只能到达79%，于是自己决定花点时间按照流程写一遍，并且记录下来 题目比较具有趣味性。给你两个数据集合，其中一个有标签值，另外一个没有标签值，然后给出了姓名，性别，船费，年龄，以及船仓位相关的数据 然后预测这个人是否能够存活 按照相关的步骤来： 分析题目首先这道题就是一个让你预测test数据组里面的人能否存活，其实就是一个二分类问题，如果存活最后的结果输出1，如果没有存活，那么最后的结果输出0 确认这是一个二分类问题，接下来就可以去整理数据了 数据总览Titanic 生存模型预测，其中包含了两组数据：train.csv 和 test.csv，分别为训练集合和测试集合。 12345678import numpy as npimport pandas as pdimport matplotlib.pyplot as pltimport seaborn as sns# 下面这函数就是在jupyter notbook里面，# 可以不必写show函数，可以直接显示出来%matplotlib inline 运用pandas里面的函数，去进行观测数据，并且开始着手数据的处理 12345train_data = pd.read_csv('data/train.csv')test_data = pd.read_csv('data/test.csv')sns.set_style('whitegrid')train_data.head() 123train_data.info()print("-" * 40)test_data.info() 12345678910111213141516171819202122232425262728293031323334&lt;class 'pandas.core.frame.DataFrame'&gt; RangeIndex: 891 entries, 0 to 890 Data columns (total 12 columns): PassengerId 891 non-null int64 Survived 891 non-null int64 Pclass 891 non-null int64 Name 891 non-null object Sex 891 non-null object Age 714 non-null float64 SibSp 891 non-null int64 Parch 891 non-null int64 Ticket 891 non-null object Fare 891 non-null float64 Cabin 204 non-null object Embarked 889 non-null object dtypes: float64(2), int64(5), object(5) memory usage: 83.6+ KB ---------------------------------------- &lt;class 'pandas.core.frame.DataFrame'&gt; RangeIndex: 418 entries, 0 to 417 Data columns (total 11 columns): PassengerId 418 non-null int64 Pclass 418 non-null int64 Name 418 non-null object Sex 418 non-null object Age 332 non-null float64 SibSp 418 non-null int64 Parch 418 non-null int64 Ticket 418 non-null object Fare 417 non-null float64 Cabin 91 non-null object Embarked 418 non-null object dtypes: float64(2), int64(4), object(5) memory usage: 36.0+ KB 从上面我们可以看出，Age、Cabin、Embarked、Fare几个特征存在缺失值。 绘制存活的比例： 下面先来一个可视化：1train_data['Survived'].value_counts().plot.pie(autopct = '%1.2f%%') 由上面这张图，我们可以得知 活下来的人与没有活下来的人总体比例，就开始对数据有一个整体的认知 数据处理接下来，我们就要开始准备数据的处理，一般数据存在的问题，要么就是离群点问题，要么就是缺失值问题，要么就是数据变换的问题。 数值变换变量转换的目的是将数据转换为适用于模型使用的数据，不同模型接受不同类型的数据，Scikit-learn要求数据都是数字型numeric，所以我们要将一些非数字型的原始数据转换为数字型numeric。 所有的数据可以分为两类： 定性(Quantitative)变量可以以某种方式排序，Age就是一个很好的列子。 定量(Qualitative)变量描述了物体的某一（不能被数学表示的）方面，Embarked就是一个例子。 针对上面不可以被数学数字表示的数据，下面采取： Dummy Variables就是类别变量或者二元变量，当qualitative variable是一些频繁出现的几个独立变量时，Dummy Variables比较适合使用。我们以Embarked为例，Embarked只包含三个值’S’,’C’,’Q’，我们可以使用下面的代码将其转换为dummies: 1234567embark_dummies = pd.get_dummies(train_data['Embarked'])train_data = train_data.join(embark_dummies)train_data.drop(['Embarked'], axis=1,inplace=True)embark_dummies = train_data[['S', 'C', 'Q']]embark_dummies.head() 其实上面的这种方法有点特别像RNN中词向量。给每一个词加上相应的特征，应用one-hot编码形式 Factorizingdummy不好处理Cabin（船舱号）这种标称属性，因为他出现的变量比较多。所以Pandas有一个方法叫做factorize()，它可以创建一些数字，来表示类别变量，对每一个类别映射一个ID，这种映射最后只生成一个特征，不像dummy那样生成多个特征。 12345678# Replace missing values with "U0"train_data['Cabin'][train_data.Cabin.isnull()] = 'U0'# create feature for the alphabetical part of the cabin numbertrain_data['CabinLetter'] = train_data['Cabin'].map( lambda x : re.compile("([a-zA-Z]+)").search(x).group())# convert the distinct cabin letters with incremental integer valuestrain_data['CabinLetter'] = pd.factorize(train_data['CabinLetter'])[0]train_data['CabinLetter'].head() 1234567891011121314151617181920 0 0 1 1 2 0 3 1 4 0 Name: CabinLetter, dtype: int64``` ##### ScalingScaling可以将一个很大范围的数值映射到一个很小的范围(通常是-1 - 1，或则是0 - 1)，很多情况下我们需要将数值做Scaling使其范围大小一样，否则大范围数值特征将会由更高的权重。比如：Age的范围可能只是0-100，而income的范围可能是0-10000000，在某些对数组大小敏感的模型中会影响其结果。下面对Age进行Scaling：```pythonfrom sklearn import preprocessingassert np.size(train_data['Age']) == 891# StandardScaler will subtract the mean from each value then scale to the unit variancescaler = preprocessing.StandardScaler()train_data['Age_scaled'] = scaler.fit_transform(train_data['Age'].values.reshape(-1, 1)) 1train_data['Age_scaled'].head() 1234560 -0.5584491 0.6067732 -0.2671443 0.3882934 0.388293Name: Age_scaled, dtype: float64 BinningBinning通过观察“邻居”(即周围的值)将连续数据离散化。存储的值被分布到一些“桶”或“箱“”中，就像直方图的bin将数据划分成几块一样。下面的代码对Fare进行Binning。 123# Divide all fares into quartilestrain_data['Fare_bin'] = pd.qcut(train_data['Fare'], 5)train_data['Fare_bin'].head() 12345670 (-0.001, 7.854]1 (39.688, 512.329]2 (7.854, 10.5]3 (39.688, 512.329]4 (7.854, 10.5]Name: Fare_bin, dtype: categoryCategories (5, interval[float64]): [(-0.001, 7.854] &lt; (7.854, 10.5] &lt; (10.5, 21.679] &lt; (21.679, 39.688] &lt; (39.688, 512.329]] 一般这里比较好的使用这个算法的位置是给范围值进行等级的划分，这样以来，然而就会有更好的结果 在将数据Bining化后，要么将数据factorize化，要么dummies化。 123456# factorizetrain_data['Fare_bin_id'] = pd.factorize(train_data['Fare_bin'])[0]# dummiesfare_bin_dummies_df = pd.get_dummies(train_data['Fare_bin']).rename(columns=lambda x: 'Fare_' + str(x))train_data = pd.concat([train_data, fare_bin_dummies_df], axis=1) 缺失值处理一些机器学习算法能够处理缺失值，比如神经网络，一些则不能。对于缺失值，一般有以下几种处理方法： 如果数据集很多，但有很少的缺失值，可以删掉带缺失值的行； 如果该属性相对学习来说不是很重要，可以对缺失值赋均值或者众数。比如在哪儿上船Embarked这一属性（共有三个上船地点），缺失俩值，可以用众数赋值 因为“Embarked”项的缺失值不多，所以这里我们以众数来填充： 1combined_train_test['Embarked'].fillna(combined_train_test['Embarked'].mode().iloc[0], inplace=True) 对于三种不同的港口，由上面介绍的数值转换，我们知道可以有两种特征处理方式：dummy和facrorizing。因为只有三个港口，所以我们可以直接用dummy来处理： 123456# 为了后面的特征分析，这里我们将 Embarked 特征进行facrorizingcombined_train_test['Embarked'] = pd.factorize(combined_train_test['Embarked'])[0]# 使用 pd.get_dummies 获取one-hot 编码emb_dummies_df = pd.get_dummies(combined_train_test['Embarked'], prefix=combined_train_test[['Embarked']].columns[0])combined_train_test = pd.concat([combined_train_test, emb_dummies_df], axis=1) 因为Age项的缺失值较多，所以不能直接填充age的众数或者平均数。 常见的有两种对年龄的填充方式：一种是根据Title中的称呼，如Mr，Master、Miss等称呼不同类别的人的平均年龄来填充；一种是综合几项如Sex、Title、Pclass等其他没有缺失值的项，使用机器学习算法来预测Age。 这里我们使用后者来处理。以Age为目标值，将Age完整的项作为训练集，将Age缺失的项作为测试集。 1234567missing_age_df = pd.DataFrame(combined_train_test[ ['Age', 'Embarked', 'Sex', 'Title', 'Name_length', 'Family_Size', 'Family_Size_Category','Fare', 'Fare_bin_id', 'Pclass']])missing_age_train = missing_age_df[missing_age_df['Age'].notnull()]missing_age_test = missing_age_df[missing_age_df['Age'].isnull()]missing_age_test.head() 建立Age的预测模型，我们可以多模型预测，然后再做模型的融合，提高预测的精度。 123456789101112131415161718192021222324252627282930313233343536373839404142from sklearn import ensemblefrom sklearn import model_selectionfrom sklearn.ensemble import GradientBoostingRegressorfrom sklearn.ensemble import RandomForestRegressordef fill_missing_age(missing_age_train, missing_age_test): missing_age_X_train = missing_age_train.drop(['Age'], axis=1) missing_age_Y_train = missing_age_train['Age'] missing_age_X_test = missing_age_test.drop(['Age'], axis=1) # model 1 gbm gbm_reg = GradientBoostingRegressor(random_state=42) gbm_reg_param_grid = &#123;'n_estimators': [2000], 'max_depth': [4], 'learning_rate': [0.01], 'max_features': [3]&#125; gbm_reg_grid = model_selection.GridSearchCV(gbm_reg, gbm_reg_param_grid, cv=10, n_jobs=25, verbose=1, scoring='neg_mean_squared_error') gbm_reg_grid.fit(missing_age_X_train, missing_age_Y_train) print('Age feature Best GB Params:' + str(gbm_reg_grid.best_params_)) print('Age feature Best GB Score:' + str(gbm_reg_grid.best_score_)) print('GB Train Error for "Age" Feature Regressor:' + str(gbm_reg_grid.score(missing_age_X_train, missing_age_Y_train))) missing_age_test.loc[:, 'Age_GB'] = gbm_reg_grid.predict(missing_age_X_test) print(missing_age_test['Age_GB'][:4]) # model 2 rf rf_reg = RandomForestRegressor() rf_reg_param_grid = &#123;'n_estimators': [200], 'max_depth': [5], 'random_state': [0]&#125; rf_reg_grid = model_selection.GridSearchCV(rf_reg, rf_reg_param_grid, cv=10, n_jobs=25, verbose=1, scoring='neg_mean_squared_error') rf_reg_grid.fit(missing_age_X_train, missing_age_Y_train) print('Age feature Best RF Params:' + str(rf_reg_grid.best_params_)) print('Age feature Best RF Score:' + str(rf_reg_grid.best_score_)) print('RF Train Error for "Age" Feature Regressor' + str(rf_reg_grid.score(missing_age_X_train, missing_age_Y_train))) missing_age_test.loc[:, 'Age_RF'] = rf_reg_grid.predict(missing_age_X_test) print(missing_age_test['Age_RF'][:4]) # two models merge print('shape1', missing_age_test['Age'].shape, missing_age_test[['Age_GB', 'Age_RF']].mode(axis=1).shape) # missing_age_test['Age'] = missing_age_test[['Age_GB', 'Age_LR']].mode(axis=1) missing_age_test.loc[:, 'Age'] = np.mean([missing_age_test['Age_GB'], missing_age_test['Age_RF']]) print(missing_age_test['Age'][:4]) missing_age_test.drop(['Age_GB', 'Age_RF'], axis=1, inplace=True) return missing_age_test 利用融合模型预测的结果填充Age的缺失值： 其实这个地方需要注意的，上面是将trainset与testset进行一个有效的拼接 1combined_train_test.loc[(combined_train_test.Age.isnull()), 'Age'] = fill_missing_age(missing_age_train, missing_age_test) 1234567891011121314151617181920212223242526272829303132Fitting 10 folds for each of 1 candidates, totalling 10 fits [Parallel(n_jobs=25)]: Done 5 out of 10 | elapsed: 3.9s remaining: 3.9s [Parallel(n_jobs=25)]: Done 10 out of 10 | elapsed: 6.9s finished Age feature Best GB Params:&#123;'n_estimators': 2000, 'learning_rate': 0.01, 'max_features': 3, 'max_depth': 4&#125; Age feature Best GB Score:-130.295677599 GB Train Error for "Age" Feature Regressor:-64.6566961723 5 35.773942 17 31.489153 19 34.113840 26 28.621281 Name: Age_GB, dtype: float64 Fitting 10 folds for each of 1 candidates, totalling 10 fits [Parallel(n_jobs=25)]: Done 5 out of 10 | elapsed: 6.2s remaining: 6.2s [Parallel(n_jobs=25)]: Done 10 out of 10 | elapsed: 10.7s finished Age feature Best RF Params:&#123;'n_estimators': 200, 'random_state': 0, 'max_depth': 5&#125; Age feature Best RF Score:-119.094956052 RF Train Error for "Age" Feature Regressor-96.0603148448 5 33.459421 17 33.076798 19 34.855942 26 28.146718 Name: Age_RF, dtype: float64 shape1 (263,) (263, 2) 5 30.000675 17 30.000675 19 30.000675 26 30.000675 Name: Age, dtype: float64 最后一项缺失值处理 因为Cabin项的缺失值确实太多了，我们很难对其进行分析，或者预测。所以这里我们可以直接将Cabin这一项特征去除。但通过上面的分析，可以知道，该特征信息的有无也与生存率有一定的关系，所以这里我们暂时保留该特征，并将其分为有和无两类。 12combined_train_test.loc[combined_train_test.Cabin.isnull(), 'Cabin'] = 'U0'combined_train_test['Cabin'] = combined_train_test['Cabin'].apply(lambda x: 0 if x == 'U0' else 1) 特征处理上面已经处理了一些数据，现在我需要增强一些特征，以便与后面特征的变化 Sex对Sex也进行one-hot编码，也就是dummy处理： 12345# 为了后面的特征分析，这里我们也将 Sex 特征进行facrorizingcombined_train_test['Sex'] = pd.factorize(combined_train_test['Sex'])[0]sex_dummies_df = pd.get_dummies(combined_train_test['Sex'], prefix=combined_train_test[['Sex']].columns[0])combined_train_test = pd.concat([combined_train_test, sex_dummies_df], axis=1) Name首先先从名字中提取各种称呼： 12# what is each person's title? combined_train_test['Title'] = combined_train_test['Name'].map(lambda x: re.compile(", (.*?)\.").findall(x)[0]) 将各式称呼进行统一化处理：123456789title_Dict = &#123;&#125;title_Dict.update(dict.fromkeys(['Capt', 'Col', 'Major', 'Dr', 'Rev'], 'Officer'))title_Dict.update(dict.fromkeys(['Don', 'Sir', 'the Countess', 'Dona', 'Lady'], 'Royalty'))title_Dict.update(dict.fromkeys(['Mme', 'Ms', 'Mrs'], 'Mrs'))title_Dict.update(dict.fromkeys(['Mlle', 'Miss'], 'Miss'))title_Dict.update(dict.fromkeys(['Mr'], 'Mr'))title_Dict.update(dict.fromkeys(['Master','Jonkheer'], 'Master'))combined_train_test['Title'] = combined_train_test['Title'].map(title_Dict) 使用dummy对不同的称呼进行分列： 12345# 为了后面的特征分析，这里我们也将 Title 特征进行facrorizingcombined_train_test['Title'] = pd.factorize(combined_train_test['Title'])[0]title_dummies_df = pd.get_dummies(combined_train_test['Title'], prefix=combined_train_test[['Title']].columns[0])combined_train_test = pd.concat([combined_train_test, title_dummies_df], axis=1) 下面开始就不准备贴代码了，可以去GitHub上面去看 Fare由前面分析可以知道，Fare项在测试数据中缺少一个值，所以需要对该值进行填充。 我们按照一二三等舱各自的均价来填充： 下面transform将函数np.mean应用到各个group中 通过对Ticket数据的分析，我们可以看到部分票号数据有重复，同时结合亲属人数及名字的数据，和票价船舱等级对比，我们可以知道购买的票中有家庭票和团体票，所以我们需要将团体票的票价分配到每个人的头上。 使用binning给票价分等级，对于5个等级的票价我们也可以继续使用dummy为票价等级分列。 Pclass这里是神来之笔，我看到别人在这个地方有出奇的特征增强方法： Pclass这一项，其实已经可以不用继续处理了，我们只需要将其转换为dummy形式即可。 但是为了更好的分析问题，我们这里假设对于不同等级的船舱，各船舱内部的票价也说明了各等级舱的位置，那么也就很有可能与逃生的顺序有关系。所以这里分出每等舱里的高价和低价位。 Parch and SibSp对于这两个参数，大佬们的处理就是 将这两个特征整合成一个特征，牛逼了大佬 特征间相关性分析我们挑选一些主要的特征，生成特征之间的关联图，查看特征与特征之间的相关性：将上述所有特征去看看相互之间的关系或者与结果之间的关系 123Correlation = pd.DataFrame(combined_train_test[ ['Embarked', 'Sex', 'Title', 'Name_length', 'Family_Size', 'Family_Size_Category','Fare', 'Fare_bin_id', 'Pclass', 'Pclass_Fare_Category', 'Age', 'Ticket_Letter', 'Cabin']]) 1234colormap = plt.cm.viridisplt.figure(figsize=(14,12))plt.title('Pearson Correlation of Features', y=1.05, size=15)sns.heatmap(Correlation.astype(float).corr(),linewidths=0.1,vmax=1.0, square=True, cmap=colormap, linecolor='white', annot=True) 特征之间的数据分布图 123g = sns.pairplot(combined_train_test[[u'Survived', u'Pclass', u'Sex', u'Age', u'Fare', u'Embarked', u'Family_Size', u'Title', u'Ticket_Letter']], hue='Survived', palette = 'seismic',size=1.2,diag_kind = 'kde',diag_kws=dict(shade=True),plot_kws=dict(s=10) )g.set(xticklabels=[]) 输入模型前的一些处理这里我们将Age和fare进行正则化： 12scale_age_fare = preprocessing.StandardScaler().fit(combined_train_test[['Age','Fare', 'Name_length']])combined_train_test[['Age','Fare', 'Name_length']] = scale_age_fare.transform(combined_train_test[['Age','Fare', 'Name_length']]) 丢弃掉一些无用的特征 对于上面的特征工程中，我们从一些原始的特征中提取出了很多要融合到模型中的特征，但是我们需要剔除那些原本的我们用不到的或者非数值特征。 首先对我们的数据先进行一下备份，以便后期的再次分析： 123combined_data_backup = combined_train_testcombined_train_test.drop(['PassengerId', 'Embarked', 'Sex', 'Name', 'Title', 'Fare_bin_id', 'Pclass_Fare_Category', 'Parch', 'SibSp', 'Family_Size_Category', 'Ticket'],axis=1,inplace=True) 将训练数据和测试数据分开： 12345678train_data = combined_train_test[:891]test_data = combined_train_test[891:]titanic_train_data_X = train_data.drop(['Survived'],axis=1)titanic_train_data_Y = train_data['Survived']titanic_test_data_X = test_data.drop(['Survived'],axis=1)titanic_train_data_X.shape 模型融合以及测试需要按照下面的这些步骤来进行： 利用不同的模型来对特征进行筛选，选出较为重要的特征：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586from sklearn.ensemble import RandomForestClassifierfrom sklearn.ensemble import AdaBoostClassifierfrom sklearn.ensemble import ExtraTreesClassifierfrom sklearn.ensemble import GradientBoostingClassifierfrom sklearn.tree import DecisionTreeClassifierdef get_top_n_features(titanic_train_data_X, titanic_train_data_Y, top_n_features): # random forest rf_est = RandomForestClassifier(random_state=0) rf_param_grid = &#123;'n_estimators': [500], 'min_samples_split': [2, 3], 'max_depth': [20]&#125; rf_grid = model_selection.GridSearchCV(rf_est, rf_param_grid, n_jobs=25, cv=10, verbose=1) rf_grid.fit(titanic_train_data_X, titanic_train_data_Y) print('Top N Features Best RF Params:' + str(rf_grid.best_params_)) print('Top N Features Best RF Score:' + str(rf_grid.best_score_)) print('Top N Features RF Train Score:' + str(rf_grid.score(titanic_train_data_X, titanic_train_data_Y))) feature_imp_sorted_rf = pd.DataFrame(&#123;'feature': list(titanic_train_data_X), 'importance': rf_grid.best_estimator_.feature_importances_&#125;).sort_values('importance', ascending=False) features_top_n_rf = feature_imp_sorted_rf.head(top_n_features)['feature'] print('Sample 10 Features from RF Classifier') print(str(features_top_n_rf[:10])) # AdaBoost ada_est =AdaBoostClassifier(random_state=0) ada_param_grid = &#123;'n_estimators': [500], 'learning_rate': [0.01, 0.1]&#125; ada_grid = model_selection.GridSearchCV(ada_est, ada_param_grid, n_jobs=25, cv=10, verbose=1) ada_grid.fit(titanic_train_data_X, titanic_train_data_Y) print('Top N Features Best Ada Params:' + str(ada_grid.best_params_)) print('Top N Features Best Ada Score:' + str(ada_grid.best_score_)) print('Top N Features Ada Train Score:' + str(ada_grid.score(titanic_train_data_X, titanic_train_data_Y))) feature_imp_sorted_ada = pd.DataFrame(&#123;'feature': list(titanic_train_data_X), 'importance': ada_grid.best_estimator_.feature_importances_&#125;).sort_values('importance', ascending=False) features_top_n_ada = feature_imp_sorted_ada.head(top_n_features)['feature'] print('Sample 10 Feature from Ada Classifier:') print(str(features_top_n_ada[:10])) # ExtraTree et_est = ExtraTreesClassifier(random_state=0) et_param_grid = &#123;'n_estimators': [500], 'min_samples_split': [3, 4], 'max_depth': [20]&#125; et_grid = model_selection.GridSearchCV(et_est, et_param_grid, n_jobs=25, cv=10, verbose=1) et_grid.fit(titanic_train_data_X, titanic_train_data_Y) print('Top N Features Best ET Params:' + str(et_grid.best_params_)) print('Top N Features Best ET Score:' + str(et_grid.best_score_)) print('Top N Features ET Train Score:' + str(et_grid.score(titanic_train_data_X, titanic_train_data_Y))) feature_imp_sorted_et = pd.DataFrame(&#123;'feature': list(titanic_train_data_X), 'importance': et_grid.best_estimator_.feature_importances_&#125;).sort_values('importance', ascending=False) features_top_n_et = feature_imp_sorted_et.head(top_n_features)['feature'] print('Sample 10 Features from ET Classifier:') print(str(features_top_n_et[:10])) # GradientBoosting gb_est =GradientBoostingClassifier(random_state=0) gb_param_grid = &#123;'n_estimators': [500], 'learning_rate': [0.01, 0.1], 'max_depth': [20]&#125; gb_grid = model_selection.GridSearchCV(gb_est, gb_param_grid, n_jobs=25, cv=10, verbose=1) gb_grid.fit(titanic_train_data_X, titanic_train_data_Y) print('Top N Features Best GB Params:' + str(gb_grid.best_params_)) print('Top N Features Best GB Score:' + str(gb_grid.best_score_)) print('Top N Features GB Train Score:' + str(gb_grid.score(titanic_train_data_X, titanic_train_data_Y))) feature_imp_sorted_gb = pd.DataFrame(&#123;'feature': list(titanic_train_data_X), 'importance': gb_grid.best_estimator_.feature_importances_&#125;).sort_values('importance', ascending=False) features_top_n_gb = feature_imp_sorted_gb.head(top_n_features)['feature'] print('Sample 10 Feature from GB Classifier:') print(str(features_top_n_gb[:10])) # DecisionTree dt_est = DecisionTreeClassifier(random_state=0) dt_param_grid = &#123;'min_samples_split': [2, 4], 'max_depth': [20]&#125; dt_grid = model_selection.GridSearchCV(dt_est, dt_param_grid, n_jobs=25, cv=10, verbose=1) dt_grid.fit(titanic_train_data_X, titanic_train_data_Y) print('Top N Features Best DT Params:' + str(dt_grid.best_params_)) print('Top N Features Best DT Score:' + str(dt_grid.best_score_)) print('Top N Features DT Train Score:' + str(dt_grid.score(titanic_train_data_X, titanic_train_data_Y))) feature_imp_sorted_dt = pd.DataFrame(&#123;'feature': list(titanic_train_data_X), 'importance': dt_grid.best_estimator_.feature_importances_&#125;).sort_values('importance', ascending=False) features_top_n_dt = feature_imp_sorted_dt.head(top_n_features)['feature'] print('Sample 10 Features from DT Classifier:') print(str(features_top_n_dt[:10])) # merge the three models features_top_n = pd.concat([features_top_n_rf, features_top_n_ada, features_top_n_et, features_top_n_gb, features_top_n_dt], ignore_index=True).drop_duplicates() features_importance = pd.concat([feature_imp_sorted_rf, feature_imp_sorted_ada, feature_imp_sorted_et, feature_imp_sorted_gb, feature_imp_sorted_dt],ignore_index=True) return features_top_n , features_importance 上面的代码不需要看着害怕，其实无非就是调用一些神奇的函数而已，上面的代码就是在 多个模型中去寻找重要的特征，并且进行排序，为后面模型训练作出贡献。 依据我们筛选出的特征构建训练集和测试集但如果在进行特征工程的过程中，产生了大量的特征，而特征与特征之间会存在一定的相关性。太多的特征一方面会影响模型训练的速度，另一方面也可能会使得模型过拟合。所以在特征太多的情况下，我们可以利用不同的模型对特征进行筛选，选取出我们想要的前n个特征。 1234feature_to_pick = 30feature_top_n, feature_importance = get_top_n_features(titanic_train_data_X, titanic_train_data_Y, feature_to_pick)titanic_train_data_X = pd.DataFrame(titanic_train_data_X[feature_top_n])titanic_test_data_X = pd.DataFrame(titanic_test_data_X[feature_top_n]) 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100Fitting 10 folds for each of 2 candidates, totalling 20 fits [Parallel(n_jobs=25)]: Done 13 out of 20 | elapsed: 13.7s remaining: 7.3s [Parallel(n_jobs=25)]: Done 20 out of 20 | elapsed: 19.2s finished Top N Features Best RF Params:&#123;'n_estimators': 500, 'min_samples_split': 3, 'max_depth': 20&#125; Top N Features Best RF Score:0.822671156004 Top N Features RF Train Score:0.979797979798 Sample 10 Features from RF Classifier 15 Name_length 0 Age 2 Fare 7 Sex_0 9 Title_0 8 Sex_1 27 Family_Size 3 Pclass 31 Ticket_Letter 11 Title_2 Name: feature, dtype: object Fitting 10 folds for each of 2 candidates, totalling 20 fits [Parallel(n_jobs=25)]: Done 13 out of 20 | elapsed: 10.3s remaining: 5.5s [Parallel(n_jobs=25)]: Done 20 out of 20 | elapsed: 14.9s finished Top N Features Best Ada Params:&#123;'n_estimators': 500, 'learning_rate': 0.01&#125; Top N Features Best Ada Score:0.81593714927 Top N Features Ada Train Score:0.820426487093 Sample 10 Feature from Ada Classifier: 9 Title_0 2 Fare 27 Family_Size 7 Sex_0 3 Pclass 28 Family_Size_Category_0 1 Cabin 8 Sex_1 15 Name_length 0 Age Name: feature, dtype: object Fitting 10 folds for each of 2 candidates, totalling 20 fits [Parallel(n_jobs=25)]: Done 13 out of 20 | elapsed: 9.8s remaining: 5.3s [Parallel(n_jobs=25)]: Done 20 out of 20 | elapsed: 14.2s finished Top N Features Best ET Params:&#123;'n_estimators': 500, 'min_samples_split': 4, 'max_depth': 20&#125; Top N Features Best ET Score:0.828282828283 Top N Features ET Train Score:0.971941638608 Sample 10 Features from ET Classifier: 9 Title_0 8 Sex_1 7 Sex_0 15 Name_length 0 Age 2 Fare 1 Cabin 31 Ticket_Letter 11 Title_2 10 Title_1 Name: feature, dtype: object Fitting 10 folds for each of 2 candidates, totalling 20 fits [Parallel(n_jobs=25)]: Done 13 out of 20 | elapsed: 25.9s remaining: 13.9s [Parallel(n_jobs=25)]: Done 20 out of 20 | elapsed: 27.9s finished Top N Features Best GB Params:&#123;'n_estimators': 500, 'learning_rate': 0.1, 'max_depth': 20&#125; Top N Features Best GB Score:0.789001122334 Top N Features GB Train Score:0.996632996633 Sample 10 Feature from GB Classifier: 0 Age 2 Fare 15 Name_length 31 Ticket_Letter 9 Title_0 27 Family_Size 23 Pclass_2 3 Pclass 18 Fare_2 14 Title_5 Name: feature, dtype: object Fitting 10 folds for each of 2 candidates, totalling 20 fits [Parallel(n_jobs=25)]: Done 13 out of 20 | elapsed: 6.3s remaining: 3.3s [Parallel(n_jobs=25)]: Done 20 out of 20 | elapsed: 9.6s finished Top N Features Best DT Params:&#123;'min_samples_split': 4, 'max_depth': 20&#125; Top N Features Best DT Score:0.784511784512 Top N Features DT Train Score:0.959595959596 Sample 10 Features from DT Classifier: 9 Title_0 0 Age 2 Fare 15 Name_length 27 Family_Size 14 Title_5 26 Pclass_5 3 Pclass 31 Ticket_Letter 23 Pclass_2 Name: feature, dtype: object 上面就是对之前的一个函数进行的一个调整 用视图可视化不同算法筛选的特征排序： 1234567891011121314151617181920212223242526272829rf_feature_imp = feature_importance[:10]Ada_feature_imp = feature_importance[32:32+10].reset_index(drop=True)# make importances relative to max importancerf_feature_importance = 100.0 * (rf_feature_imp['importance'] / rf_feature_imp['importance'].max())Ada_feature_importance = 100.0 * (Ada_feature_imp['importance'] / Ada_feature_imp['importance'].max())# Get the indexes of all features over the importance thresholdrf_important_idx = np.where(rf_feature_importance)[0]Ada_important_idx = np.where(Ada_feature_importance)[0]# Adapted from Gradient Boosting regressionpos = np.arange(rf_important_idx.shape[0]) + .5plt.figure(1, figsize = (18, 8))plt.subplot(121)plt.barh(pos, rf_feature_importance[rf_important_idx][::-1])plt.yticks(pos, rf_feature_imp['feature'][::-1])plt.xlabel('Relative Importance')plt.title('RandomForest Feature Importance')plt.subplot(122)plt.barh(pos, Ada_feature_importance[Ada_important_idx][::-1])plt.yticks(pos, Ada_feature_imp['feature'][::-1])plt.xlabel('Relative Importance')plt.title('AdaBoost Feature Importance')plt.show() 模型融合前面已经训练了多个模型，这个时候就可以直接展开融合了。 常见的模型融合方法有：Bagging、Boosting、Stacking、Blending 常见的相关介绍，直接去看笔记中 Stacking框架融合: 这里我们使用了两层的模型融合，Level 1使用了：RandomForest、AdaBoost、ExtraTrees、GBDT、DecisionTree、KNN、SVM ，一共7个模型，Level 2使用了XGBoost使用第一层预测的结果作为特征对最终的结果进行预测。 Stacking框架是堆叠使用基础分类器的预测作为对二级模型的训练的输入。 然而，我们不能简单地在全部训练数据上训练基本模型，产生预测，输出用于第二层的训练。如果我们在Train Data上训练，然后在Train Data上预测，就会造成标签泄露。为了避免标签泄露，我们需要对每个基学习器使用K-fold，将K个模型对Valid Set的预测结果拼起来，作为下一层学习器的输入。 所以这里我们建立输出K-fold预测的方法： 1234567891011121314151617181920212223242526from sklearn.model_selection import KFold# Some useful parameters which will come in handy later onntrain = titanic_train_data_X.shape[0]ntest = titanic_test_data_X.shape[0]SEED = 0 # for reproducibilityNFOLDS = 7 # set folds for out-of-fold predictionkf = KFold(n_splits = NFOLDS, random_state=SEED, shuffle=False)def get_out_fold(clf, x_train, y_train, x_test): oof_train = np.zeros((ntrain,)) oof_test = np.zeros((ntest,)) oof_test_skf = np.empty((NFOLDS, ntest)) for i, (train_index, test_index) in enumerate(kf.split(x_train)): x_tr = x_train[train_index] y_tr = y_train[train_index] x_te = x_train[test_index] clf.fit(x_tr, y_tr) oof_train[test_index] = clf.predict(x_te) oof_test_skf[i, :] = clf.predict(x_test) oof_test[:] = oof_test_skf.mean(axis=0) return oof_train.reshape(-1, 1), oof_test.reshape(-1, 1) 构建不同的基学习器，这里我们使用了RandomForest、AdaBoost、ExtraTrees、GBDT、DecisionTree、KNN、SVM 七个基学习器：（这里的模型可以使用如上面的GridSearch方法对模型的超参数进行搜索选择） 上面GridSearch就是对参数的搜索选择 1234567891011121314151617from sklearn.neighbors import KNeighborsClassifierfrom sklearn.svm import SVCrf = RandomForestClassifier(n_estimators=500, warm_start=True, max_features='sqrt',max_depth=6, min_samples_split=3, min_samples_leaf=2, n_jobs=-1, verbose=0)ada = AdaBoostClassifier(n_estimators=500, learning_rate=0.1)et = ExtraTreesClassifier(n_estimators=500, n_jobs=-1, max_depth=8, min_samples_leaf=2, verbose=0)gb = GradientBoostingClassifier(n_estimators=500, learning_rate=0.008, min_samples_split=3, min_samples_leaf=2, max_depth=5, verbose=0)dt = DecisionTreeClassifier(max_depth=8)knn = KNeighborsClassifier(n_neighbors = 2)svm = SVC(kernel='linear', C=0.025) 将pandas转换为arrays： 123x_train = titanic_train_data_X.values # Creates an array of the train datax_test = titanic_test_data_X.values # Creats an array of the test datay_train = titanic_train_data_Y.values 1234567rf_oof_train, rf_oof_test = get_out_fold(rf, x_train, y_train, x_test) # Random Forestada_oof_train, ada_oof_test = get_out_fold(ada, x_train, y_train, x_test) # AdaBoost et_oof_train, et_oof_test = get_out_fold(et, x_train, y_train, x_test) # Extra Treesgb_oof_train, gb_oof_test = get_out_fold(gb, x_train, y_train, x_test) # Gradient Boostdt_oof_train, dt_oof_test = get_out_fold(dt, x_train, y_train, x_test) # Decision Treeknn_oof_train, knn_oof_test = get_out_fold(knn, x_train, y_train, x_test) # KNeighborssvm_oof_train, svm_oof_test = get_out_fold(svm, x_train, y_train, x_test) # Support Vector 预测并提交文件。我们利用XGBoost，使用第一层预测的结果作为特征对最终的结果进行预测。 12345from xgboost import XGBClassifiergbm = XGBClassifier( n_estimators= 2000, max_depth= 4, min_child_weight= 2, gamma=0.9, subsample=0.8, colsample_bytree=0.8, objective= 'binary:logistic', nthread= -1, scale_pos_weight=1).fit(x_train, y_train)predictions = gbm.predict(x_test) 12StackingSubmission = pd.DataFrame(&#123;'PassengerId': PassengerId, 'Survived': predictions&#125;)StackingSubmission.to_csv('StackingSubmission.csv',index=False,sep=',') 最后的步骤就是验证了 验证：学习曲线在我们对数据不断地进行特征工程，产生的特征越来越多，用大量的特征对模型进行训练，会使我们的训练集拟合得越来越好，但同时也可能会逐渐丧失泛化能力，从而在测试数据上表现不佳，发生过拟合现象。 当然我们建立的模型可能不仅在预测集上表型不好，也很可能是因为在训练集上的表现就不佳，处于欠拟合状态。 所以我们通过学习曲线观察模型处于什么样的状态。从而决定对模型进行如何的操作。当然，我们把验证放到最后，并不是是这一步是在最后去做。对于我们的Stacking框架中第一层的各个基学习器我们都应该对其学习曲线进行观察，从而去更好地调节超参数，进而得到更好的最终结果。 123456789101112131415161718192021222324252627282930from sklearn.learning_curve import learning_curvedef plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=1, train_sizes=np.linspace(.1, 1.0, 5), verbose=0): plt.figure() plt.title(title) if ylim is not None: plt.ylim(*ylim) plt.xlabel("Training examples") plt.ylabel("Score") train_sizes, train_scores, test_scores = learning_curve( estimator, X, y, cv=cv, n_jobs=n_jobs, train_sizes=train_sizes) train_scores_mean = np.mean(train_scores, axis=1) train_scores_std = np.std(train_scores, axis=1) test_scores_mean = np.mean(test_scores, axis=1) test_scores_std = np.std(test_scores, axis=1) plt.grid() plt.fill_between(train_sizes, train_scores_mean - train_scores_std, train_scores_mean + train_scores_std, alpha=0.1, color="r") plt.fill_between(train_sizes, test_scores_mean - test_scores_std, test_scores_mean + test_scores_std, alpha=0.1, color="g") plt.plot(train_sizes, train_scores_mean, 'o-', color="r", label="Training score") plt.plot(train_sizes, test_scores_mean, 'o-', color="g", label="Cross-validation score") plt.legend(loc="best") return plt 逐一观察不同模型的学习曲线 12345678910111213141516171819202122232425262728X = x_trainY = y_train# RandomForestrf_parameters = &#123;'n_jobs': -1, 'n_estimators': 500, 'warm_start': True, 'max_depth': 6, 'min_samples_leaf': 2, 'max_features' : 'sqrt','verbose': 0&#125;# AdaBoostada_parameters = &#123;'n_estimators':500, 'learning_rate':0.1&#125;# ExtraTreeset_parameters = &#123;'n_jobs': -1, 'n_estimators':500, 'max_depth': 8, 'min_samples_leaf': 2, 'verbose': 0&#125;# GradientBoostinggb_parameters = &#123;'n_estimators': 500, 'max_depth': 5, 'min_samples_leaf': 2, 'verbose': 0&#125;# DecisionTreedt_parameters = &#123;'max_depth':8&#125;# KNeighborsknn_parameters = &#123;'n_neighbors':2&#125;# SVMsvm_parameters = &#123;'kernel':'linear', 'C':0.025&#125;# XGBgbm_parameters = &#123;'n_estimators': 2000, 'max_depth': 4, 'min_child_weight': 2, 'gamma':0.9, 'subsample':0.8, 'colsample_bytree':0.8, 'objective': 'binary:logistic', 'nthread':-1, 'scale_pos_weight':1&#125; 123title = "Learning Curves"plot_learning_curve(RandomForestClassifier(**rf_parameters), title, X, Y, cv=None, n_jobs=4, train_sizes=[50, 100, 150, 200, 250, 350, 400, 450, 500])plt.show() 提交结果终于到达了87左右了，后面还是可以尝试一下在模型融合这里慢慢加强。 但是 后面就是无尽无尽的调整参数的过程咯]]></content>
@@ -8,8 +21,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>Kaggle</tag>
         <tag>机器学习</tag>
+        <tag>Kaggle</tag>
       </tags>
   </entry>
   <entry>
@@ -20,8 +33,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>深度学习</tag>
+        <tag>机器学习</tag>
         <tag>神经网络</tag>
       </tags>
   </entry>
@@ -33,8 +46,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>深度学习</tag>
+        <tag>机器学习</tag>
         <tag>神经网络</tag>
       </tags>
   </entry>
@@ -46,8 +59,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>深度学习</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -623,64 +636,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款13：以对象管理资源]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90%2F</url>
-    <content type="text"><![CDATA[系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。 使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数） 获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。 需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。]]></content>
+    <title><![CDATA[条款12：复制对象时勿忘其每一个成分]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86%2F</url>
+    <content type="text"><![CDATA[这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。下面直接分为两个方面进行诠释： 类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。 一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图： 另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。 如果发现两个拷贝行为有类似的代码时，应该把这个相同的代码放到一个函数中区，然后由两个拷贝行为共同调用。]]></content>
       <categories>
         <category>C++</category>
       </categories>
       <tags>
         <tag>c++</tag>
         <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款05：了解 C++默默编写并调用了哪些函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3%20C%2B%2B%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。 千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而且此类问题会造成很多方面上的无法适应问题。 另外这里额外需要注意的是 C++11上增加的移动语义，只有在拥有了拷贝构造函数和拷贝赋值运算符之后，编译器才会自动生成移动构造函数，和移动赋值运算符。 最后这个条款需要注意的就是编译器自动生成的函数具有普遍性，所以就不具有特异性，一些特殊的操作在合成版本上面可能会出现大问题。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[STL的简单总结]]></title>
-    <url>%2F2018%2F12%2F01%2FSTL%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[补一个加快C++输入输出速度的方法： 花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。 字符串 string与字符数组 构造string的方法 操作string的方法 上面的成员函数有的说要返回，同时，有的也存在不返回值。 搜索string的方法 以上就是find函数的一些用法，在泛型算法一章，还会继续涉及到。题目返回的是下标 补充一下关于string中的比较函数一般在string中可以直接用运算符进行比较 int与string之间的转化 getline()的两种写法注意在cin&gt;&gt;t;必须要一个getchar()来吞掉其前面的回车符号。之后才能用getline()。 顺序容器 容器种类 vector&lt;vector&lt;int&gt; &gt;来表示二维数组。 容器基础操作补充一个assign的用法：允许从一个不同但相容的类型里面去赋值，或者从容器的一个子序列赋值。 还有第二个版本：接受一个整型值和一个元素值，用指定数目且具有相同给定元素替换容器中原有的元素： 再补充一个resize的用法： 需要记住有一些类型声明可以直接用auto。 初始化有两种一种直接初始化和拷贝初始化。 顺序容器添加元素上面已经列出了各种形式的插入。插入是在迭代器指向的元素之前插入。插入想要插入的元素前面，比如说push_back是插入到了尾后迭代器的前面。而返回的是新添加的第一个元素的迭代器，同样也可也==不返回==。 这里要注意的是push_front会改变整个容器的迭代器指向，而push_back不会。 访问元素 链表，单向链表，栈，队列都不支持随机访问，也就不支持下标访问了。 删除元素 删除的是迭代器指向的元素，返回的是删除元素的后迭代器也就是被删除的元素下一个元素的前面的迭代器，同样也可以不返回。 这里需要注意的就是删除一个元素之后，必定会改变原容器中迭代器的指向，所以务必小心（除了pop_back） 改变容器大小的操作 特殊的forward_list（单向链表） 由于迭代器的添加删除操作都涉及到了首前和尾后，所以对于单向链表来说这里添加了一个首前迭代器before_begin而对于单向链表的插入而言 是在元素的后面进行插入，删除也是一样，指向都是迭代器指向元素之后的元素。 关联容器 **关联容器里面的pair 关联容器的操作 关联容器的添加操作 一般都是直接用下标操作添加map里面的操作。at操作只能判断存不存在 关联容器的删除操作 关联容器的访问操作 上面关于排序的操作不适用于无序的关联容器。 当允许关键词重复的multimap中查找元素时，一般使用find函数与count函数同时进行。 算法大部分函数算法都放在&lt;algorithm&gt;的头文件里面了。还有一些数值算法是放在了&lt;numeric&gt;的头文件里面。 只读算法 accumulate 求和算法，接受三个参数，前面两个参数是累加范围，第三个是和的初值。equal 判断两个序列里面是否所有的值都相同。后面网上查找 有的再补充。find算法binary_search()二分查找函数find_end()最后一次出现算法find_first_of()第一次出现的算法find_if ()第三个参数就为自定义函数搜索lower_bound()第一个不小于的元素upper_bound()第一个大于的元素count（）算法 计算出现次数count_if（）函数自定义计数 写容器的算法 fill 填充算法 类似于memset函数前者在于可以赋值赋任何值，而后者理论上只能赋值0或者1或者0x3f3f3f3f。fill_n也是三个参数，第一个是开始点，第二个是赋值数目，第三个为赋值初始化。copy 拷贝算法，接收三个迭代器，前面两个表示输入范围，第三个为拷贝目标序列的起点。replace 替换算法，将目标序列里面的某些值更改成某些值，接受四个参数，前面两个是目标序列的范围，第三个是要搜索的值，第四个是要将搜索到的第三个的值更改后的值。remove 去除掉函数里面包括的参数的元素。remove_if 自定义。remove_copy 拷贝结果。swap（）交换两个对象的值。swap_range()交换两个序列的值。 重排容器的算法 其排序的算法中，定义的排序方式就在于自定义函数传入算法中。有三种自定义函数： 普通bool型自定义函数，比较排列顺序。 lambda 匿名小函数。 bind 函数 绑定谓词。灵活的应用自定义函数。 unique 将容器中所有重复的值全部排列到后面去，接受目标序列的迭代器范围，返回指向第一个重复元素的迭代器。sort 排序 本质上运用的是快速排序。stable_sort 本质上运动的是归并排序。stable_partition 前面进行排序后，把自定义排列的分割开来。reverse 倒排函数。reverse_copy 倒排函数。rotate 接受三个参数，前面两个是要往后面排的范围。 迭代器 插入迭代器back_inserter 类似于push_back的迭代器，创建并且使用front_inserter 创建并且使用一个push_front的迭代器inserter 创建一个普通插入的迭代器 流迭代器istream_iterator 输入迭代器 ostream_iterator 输出迭代器 反向迭代器reverse_iterator 移动迭代器后面复习到在总结 移动、拷贝、右值引用。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>数据结构</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款27：尽量少做转型动作]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE27%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%B0%91%E5%81%9A%E8%BD%AC%E5%9E%8B%E5%8A%A8%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[C++ 规则的设计目标之一就是，保证“类型错误” 绝不可能发生，但是在 C++的某些特殊的情形下面不得不去使用转型这一特性，而 C 语言的转型语句则类似于以下： 然而 C++提供四种新式的类型转换 注意 在真正进行类型转换的时候，我们不能仅仅认为编译器到最后仅仅只是更改一个文件名字，编译器改变的底层的编码，比如 int 转型到 double 之间底层描述是不一样的。 另外 C++中的一个特性使得多重继承的时候，一个对象含有多个地址。 所以需要注意的是以下几点，如果可以的话，尽量避免转型，特别是在注重代码中避免dynamic_cast. 如果有设计需要转型动作的话，去试试无需转型的替代设计。 如果转型是必要的，那么试着将其隐藏在某个函数背后。客户随后可以调用该函数，而不需要讲转型放进他们自己的代码中。 宁可使用 C++新式的转型，也不要使用旧式的转型，前者很容易识别出来，而且也有着不叫分们别类的职掌。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[数据结构相应总结]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%BA%94%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[栈 栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。 两种方法表示这种栈的实现 第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。 第二种就是直接用C++里面STL模板首先先定义一个stack&lt;int&gt; s 然后以下就是其的操作。 注意其不能使用push_back只能使用push 1234s.pop() 删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。s.push() 创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。s.top() 返回栈顶的元素，也就是刚刚进来的元素。s.bottom() 返回栈底的元素，也就是最后一个元素 队列适配器队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者自己定义一种排序方式，然后通过这种排序方式，再来出队操作。 与上面一样，先定义一个queue&lt;int&gt; q与priority_queue&lt;int&gt; q。 1234567q.pop() 按照先进先出的思想，删除首元素或者优先级最高的元素q.front() 返回首元素。q.back() 返回尾元素。以上两个是只适用于队列。q.top() 返回优先队列中优先级最高的元素。q.push()q.emplace() 加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。 这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造 123456789下面两种优先队列的定义是等价的priority_queue&lt;int&gt; q;priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格默认都是从小到大排序接受三个参数，第一个参数为数据类型，第二个参数为承载容器的类型，第三个就是自定义的比较函数了。可以使lamda匿名函数，也可以是function头文件里面的函数模板。 链表特点：自定义，不连续的。同时链表也是后面相应树形结构的基础实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了 动态数组这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。 树与二叉树一般的树 以上就是一般树的形态。下面则是关于树的基本用语。关于上面重要的概念就是结点和结点的度了。 二叉树二叉树的定义: 二叉树有五种基本形态： 二叉树的性质:上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。 满二叉树与完全二叉树前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。 二叉树的存储结构： 数组存储： 二叉链式存储（原理类似链表）：将链表内部的*next，变成了指向两边的子节点的指针。 三叉链式存储：比二叉链式结构多了一个回指向父节点的指针。 遍历二叉树的方法 先序遍历（根-&gt;左-&gt;右）： 代码: 12345678void PreOrderTraverse(BiTree *T)&#123; if(T != NULL)&#123; printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 图示： 最终结果就是==ABDGHCEIF==。 中序遍历（左-&gt;根-&gt;右)： 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void InOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 最终结果为==GDHBAEICF==。 后序遍历（左-&gt;右-&gt;根） 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void PostOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); printf("%c", T-&gt;data); &#125;&#125; 最终结果为==GHDBIEFCA==。 关于二叉树的建立代码：代码我等下自己写出来。 图图的定义 图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。 图的专业术语： 图-生成树 邻接矩阵的表示方法（数组）不带权值的表示方法 一般就是用二维数组来表示每一个结点之间的关系 关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -697,31 +661,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数论基础第一节]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E8%8A%82%2F</url>
-    <content type="text"><![CDATA[初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。 整除问题引申到同余问题 同余的性质 可以换算成以下式子：a=c(modb) 这里c为余数，而b为除数 同余的性质 自反性 a=a mod m 对称性 a=b mod m 等价于 b=a mod m 传递性 a=b mod m 与 b=c mod m 等价于 a=c mod m 线性合成 a=b mod m 与 c= mod m 等价于 a±c=b±d mod m 与 ac= bd mod m 消去公因子 ac=bc mod m &amp;&amp; gcd(c,m)=1 等价于 a=b mod m 素数筛 朴素筛 一般就是循环2~√n次 埃拉托斯特尼筛 循环次数 欧拉筛 相应代码如下：12 最大公约数以及最小公倍数 最大公约数 函数_gcd(a,b)而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c) 最小公倍数_lcm(a,b)=ab/_gcd(a,b) 扩展欧几里得 关于求解线性同余方程 关于求逆元 关于快速幂 费马小定理 另外 欧拉函数 欧拉函数定义 欧拉函数性质 求值公式 上述公式 可以用来： 求逆元 欧拉降幂公式 数论函数 中国剩余定理 解法]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>acm</tag>
-        <tag>数论</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款25：考虑写出一个不抛异常的 swap 函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE26%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%BB%B6%E5%90%8E%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E5%BC%8F%E5%87%BA%E7%8E%B0%E7%9A%84%E6%97%B6%E9%97%B4%2F</url>
-    <content type="text"><![CDATA[其实该条款总结下来就是再讲一个东西，而这个东西分成两点： 如果类的赋值成本低于一组构造和析构成本，那么将对象的定义定义到循环体外部去，尤其是在循环次数很多的情况下。否则就是将定义循环体内部中去。 尽可能延后变量定义式出现的时间，最好达到需要什么才去定义什么，这样做可以增加程序的清晰度并改善程序效率。另外最好在程序定义的时候就直接构造（初始化）。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[二分法思想]]></title>
     <url>%2F2018%2F12%2F01%2F%E4%BA%8C%E5%88%86%E6%B3%95%E6%80%9D%E6%83%B3%2F</url>
     <content type="text"><![CDATA[二分查找实现在单调有序的集合中查找元素，每次江集合分为左右两个部分，并且通过判断集合在哪个部分从而调整集合的上下界，重复知道找到目标元素为止。 举一个简单的例子，我要在1到100里面查找62，先拿62根这个其最中间的一个数进行比较。然后在一步一步的缩小集合的上下界，最后再来一步一步往里面缩 下面是C++STL里面二分查找的函数： binary_search 返回bool值,是否存在lower_bound 返回可插入的最小位置的迭代器 即返回第一个符合条件的元素位置upper_bound 返回可插入的最大位置的迭代器 即返回最后一个符合条件的元素位置 在二分查找里面最典型的题目就是二分逼近求方程式的根了。 代码如下123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;iomanip&gt;using namespace std;const double pre =1e-4;double x,y;double f(double x)&#123; return 8*pow(x,4)+7*pow(x,3)+2*pow(x,2)+3*x+6-y;&#125;int main()&#123; int t; cin&gt;&gt;t; while (t--)&#123; cin&gt;&gt;y; double x1=0,x2=100;//先把上下界在这里确定好 double mid=(x1+x2)/2; if (f(x1)*f(x2)&gt;0) cout&lt;&lt;"No solution!"&lt;&lt;endl; else &#123; while (x2-x1&gt;=pre)&#123;//这里必须写的是上下界线是多少， 不能写的是用于判断mid的条件。 if (f(x1)*f(mid)&lt;0)&#123; x2=mid; mid=(x1+x2)/2; &#125; else &#123; x1=mid; mid=(x1+x2)/2; &#125; &#125; cout&lt;&lt;fixed&lt;&lt;setprecision(4)&lt;&lt;mid&lt;&lt;endl; &#125; &#125;&#125; 上面就是我第二次出错的地方，判断二分循环逼近的的条件不应该看mid的取值，而是应该看得是区间上界减去区间下界的范围从而来限定。 此处关于三分法的求解：当需要求某凸性或凹形函数的极值，通过函数本身表达式并不容易求解时，就可以用三分法不断逼近求解。 三分法——求解凸性函数的极值问题http://hi.baidu.com/vfxupdpaipbcpuq/item/81b21d1910ea729c99ce33db 经典例题：侵略的奶牛： 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100005;int a[maxn],n,c;//此过程就是在判断奶牛之间的间隔为这个值合不合适bool cc(int d)&#123; int t=a[0],cnt=1; for (int i=1;i!=n;i++)&#123; if (a[i]-t&gt;=d)&#123; cnt++; t=a[i]; if (cnt&gt;=c) return true; &#125; &#125; return false;&#125;//此过程就是在收录每一个值，然后再分别进行判断int solve()&#123; int x=0,y=a[n-1]-a[0]; while (x&lt;=y)&#123; int mid=(x+y)/2; if (cc(mid)) x=mid+1; else y=mid-1; &#125; return x-1;&#125;//不过这种最大值最小值的题目需要多花时间想想。int main()&#123; while (cin&gt;&gt;n&gt;&gt;c)&#123; for (int i=0;i!=n;i++) cin&gt;&gt;a[i]; sort(a,a+n); cout&lt;&lt;solve()&lt;&lt;endl; &#125;&#125; ==下面则是其他地方关于二分的题目==基础版 POJ 3122 Pie 二分枚举区间是实数POJ 1064 Cable master 二分枚举区间是实数,注意精度POJ 3258 River Hopscotch 最大化最小值POJ 3273 Monthly Expense 最小化最大值LIGHTOJ 1076 Get the Containers 最小化最大值，。和上一个差不多LIGHTOJ 1307 Counting Triangles 进阶版 POJ 3579 二分搜索+二分查找POJ 3685 二分搜索+二分查找ZOJ 3278 也是两个二分嵌套LIGHTOJ 1048和LightOJ 1076一样，不过要输出一组解LIGHTOJ 1383 二分加贪心（区间）ZOJ 3665 某年区域赛题。，二分枚举ZOJ 3726 去年区域赛题，二分查找codeforces 382B 有意思的题codeforces 391D2 难，。。，，、 ==下面就是关于三分的题目== poj3301hdu4454hdu3714hdu2438]]></content>
@@ -735,9 +674,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
-    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
+    <title><![CDATA[一道有趣的题目——逆波兰计算器]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93%E6%9C%89%E8%B6%A3%E7%9A%84%E9%A2%98%E7%9B%AE%E2%80%94%E2%80%94%E9%80%86%E6%B3%A2%E5%85%B0%E8%AE%A1%E7%AE%97%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[题解首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。==注意以下几个地方== 注意输入cin&gt;&gt;t以后，需要用getchar()来清空上一个步骤留下来的回车符号 注意此处需要严格进行判断栈内是否为空。 这里是将乘除求模的运算放在最右边，这样就可以有优先级存在了 括号会提前进行一步运算，然后消除掉左括号，或者左边的所有运算式，进行一个结算。 map这里存在的意义就在于 为判断进行提供条件。 此道题目涉及字符串，栈，模拟的相应算法，需要有空的时候可以多看看。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;stack&gt;#include&lt;sstream&gt;#include&lt;map&gt;using namespace std;stack&lt;char&gt;ope;stack&lt;int&gt;num;string str;map&lt;char,int&gt;m;void init()&#123; m['+']=m['-']=1; m['*']=m['/']=m['%']=m['(']=m[')']=2; while(!num.empty()) num.pop(); while(!ope.empty()) ope.pop();&#125;//此处为基本的运算规模。void op1(int &amp;a,int &amp;b,const char &amp;c)&#123; if (c =='+') a += b; else if (c == '-') a=b-a; else if (c == '*') a*=b; else if (c == '/') a=b/a; else if (c == '%') a=b%a;&#125;//此处就是控制出栈的运算，一般就是括号内部的计算了。算出每一个括号内部的运算式。void op2()&#123; char ch = ope.top(); while (ch != '('&amp;&amp;!ope.empty())&#123; ope.pop(); int a = num.top(); num.pop(); int b = num.top(); num.pop(); op1(a,b,ch); num.push(a); if (!ope.empty()) ch = ope.top(); &#125;//这个下面要注意的判断条件中一定要加上判断是否为空。 if (!ope.empty()&amp;&amp;ope.top() =='(') ope.pop();&#125;int main()&#123; int t; cin&gt;&gt;t; getchar(); while (t--)&#123; getline(cin,str); stringstream s(str); init(); char tmp; while (s&gt;&gt;tmp)&#123; if(tmp&gt;='0'&amp;&amp;tmp&lt;='9')&#123; int x = 0; do&#123; if (m[tmp]) break; x *= 10; x += tmp - '0';//此处是将char转换成int &#125;while(s&gt;&gt;tmp); num.push(x); &#125; //注意这个地方的高明之处就在于碰见‘）’的返回，以及判断有没有‘（’， 比如连加的情况就把加减乘除的优先运算级给表示出来了。 //最后相当于将运算优先级高的全部放到了右边，然后有括号的就先解决括号， 及时左括号被提前弄没了也不要紧，存在有右括号就行，然后乘除永远放在加减的左边。 if (tmp==')') op2(); else if (m[tmp]==1)&#123; if (!ope.empty()&amp;&amp;ope.top()!='(') op2(); ope.push(tmp); &#125; else if (m[tmp]) ope.push(tmp); &#125; int ans = num.top(); num.pop(); while (!num.empty()&amp;&amp;!ope.empty())&#123; op1(ans,num.top(),ope.top()); ope.pop(); num.pop(); &#125; cout &lt;&lt; ans &lt;&lt; endl; &#125; return 0;&#125;]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -761,6 +700,44 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[数据结构相应总结]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%BA%94%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[栈 栈的概念此处只需要记住栈的思想最重要的就是先进后出思想，也就是最先进去的最后出来。 两种方法表示这种栈的实现 第一种则是 直接用c语言实现，采用一个一维数组来存储栈，用两个指针一个指向栈顶，另一个指向栈底。用top=bottom作为栈空的标记或者说是栈遍历完毕的标记。 第二种就是直接用C++里面STL模板首先先定义一个stack&lt;int&gt; s 然后以下就是其的操作。 注意其不能使用push_back只能使用push 1234s.pop() 删除栈顶元素，也就是出栈的作，把刚刚进来的元素出栈,不返回元素值。s.push() 创建一个新元素压入栈顶，可以通过拷贝，移动，甚至是构造而来。s.top() 返回栈顶的元素，也就是刚刚进来的元素。s.bottom() 返回栈底的元素，也就是最后一个元素 队列适配器队列这里分为两种一种是普通队列，还有一种是特殊排列好的优先队列，但是这二者的区别就在于，虽然都符合先进先出的思想，但是前者是不加任何排序的先进先出，而后者就是让代码编辑者自己定义一种排序方式，然后通过这种排序方式，再来出队操作。 与上面一样，先定义一个queue&lt;int&gt; q与priority_queue&lt;int&gt; q。 1234567q.pop() 按照先进先出的思想，删除首元素或者优先级最高的元素q.front() 返回首元素。q.back() 返回尾元素。以上两个是只适用于队列。q.top() 返回优先队列中优先级最高的元素。q.push()q.emplace() 加入元素到队尾，或者优先队列中一个恰当的位置，要么构造，要么拷贝。 这里需要提一下==优先队列的构造方法==以及==优先队列的特殊排序==应该怎么构造 123456789下面两种优先队列的定义是等价的priority_queue&lt;int&gt; q;priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;;//后面有一个空格默认都是从小到大排序接受三个参数，第一个参数为数据类型，第二个参数为承载容器的类型，第三个就是自定义的比较函数了。可以使lamda匿名函数，也可以是function头文件里面的函数模板。 链表特点：自定义，不连续的。同时链表也是后面相应树形结构的基础实际上就是把每一个不连续的内存空间连在一起，可以认为的控制进程这个需要自己改天把链表的遍历，删除，增加自己再写一遍，因为不是什么新东西，所以这里就不多说了 动态数组这里就是vector 存在的意义了 vector里面重要的概念 容量，长度。 树与二叉树一般的树 以上就是一般树的形态。下面则是关于树的基本用语。关于上面重要的概念就是结点和结点的度了。 二叉树二叉树的定义: 二叉树有五种基本形态： 二叉树的性质:上面所写到的==至多==都是由于将其当成了满二叉树来进行计算的。 满二叉树与完全二叉树前者全部都有子节点，后者基于深度为k的基础上，编号从1到n的结点一一对应。完全二叉树是满二叉树的一部分，而满二叉树是完全二叉树的特例。 二叉树的存储结构： 数组存储： 二叉链式存储（原理类似链表）：将链表内部的*next，变成了指向两边的子节点的指针。 三叉链式存储：比二叉链式结构多了一个回指向父节点的指针。 遍历二叉树的方法 先序遍历（根-&gt;左-&gt;右）： 代码: 12345678void PreOrderTraverse(BiTree *T)&#123; if(T != NULL)&#123; printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 图示： 最终结果就是==ABDGHCEIF==。 中序遍历（左-&gt;根-&gt;右)： 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void InOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); printf("%c", T-&gt;data); PreOrderTraverse(T-&gt;rchild); &#125;&#125; 最终结果为==GDHBAEICF==。 后序遍历（左-&gt;右-&gt;根） 若二叉树为空，则空操作返回，否则从根节点开始（注意不是先访问根节点），中序遍历根节点的左子树，然后是访问根节点，最后中序遍历右子树。 代码： 12345678void PostOrderTraverse(BiTree T)&#123; if(T != NULL)&#123; PreOrderTraverse(T-&gt;lchild); PreOrderTraverse(T-&gt;rchild); printf("%c", T-&gt;data); &#125;&#125; 最终结果为==GHDBIEFCA==。 关于二叉树的建立代码：代码我等下自己写出来。 图图的定义 图结构：是研究数据元素之间的多对多的关系。在这种结构中，任意两个元素之间可能存在关系。即结点之间的关系可以是任意的，图中任意元素之间都可能相关。 图的专业术语： 图-生成树 邻接矩阵的表示方法（数组）不带权值的表示方法 一般就是用二维数组来表示每一个结点之间的关系 关于图的遍历就最好用一个bool 类型的同二维数组 然后通过这个来标记哪些是否已经被遍历过得。]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[数论基础第一节]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E8%8A%82%2F</url>
+    <content type="text"><![CDATA[初等数论是用初等方法研究的数论，它的研究方法本质上说，就是利用整数环的整除性质，主要包括整除理论、同余理论、连分数理论。 整除问题引申到同余问题 同余的性质 可以换算成以下式子：a=c(modb) 这里c为余数，而b为除数 同余的性质 自反性 a=a mod m 对称性 a=b mod m 等价于 b=a mod m 传递性 a=b mod m 与 b=c mod m 等价于 a=c mod m 线性合成 a=b mod m 与 c= mod m 等价于 a±c=b±d mod m 与 ac= bd mod m 消去公因子 ac=bc mod m &amp;&amp; gcd(c,m)=1 等价于 a=b mod m 素数筛 朴素筛 一般就是循环2~√n次 埃拉托斯特尼筛 循环次数 欧拉筛 相应代码如下：12 最大公约数以及最小公倍数 最大公约数 函数_gcd(a,b)而多个数的最大公约数 就是 _gcd(a,b,c)=_gcd(gcd(a,b),c) 最小公倍数_lcm(a,b)=ab/_gcd(a,b) 扩展欧几里得 关于求解线性同余方程 关于求逆元 关于快速幂 费马小定理 另外 欧拉函数 欧拉函数定义 欧拉函数性质 求值公式 上述公式 可以用来： 求逆元 欧拉降幂公式 数论函数 中国剩余定理 解法]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>acm</tag>
+        <tag>数论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一道STL的题解题目，需要以后花时间理解题目意思]]></title>
+    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93STL%E7%9A%84%E9%A2%98%E8%A7%A3%E9%A2%98%E7%9B%AE%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BB%A5%E5%90%8E%E8%8A%B1%E6%97%B6%E9%97%B4%E7%90%86%E8%A7%A3%E9%A2%98%E7%9B%AE%E6%84%8F%E6%80%9D%2F</url>
+    <content type="text"><![CDATA[代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include&lt;iostream&gt;#include&lt;set&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;//#include&lt;function&gt;#define ll long longusing namespace std;const int fort = 1314;ll a[6];//这道题目就换一种思考方式，让基数分贝加上加数，这样一来，就会简化很多步骤int main()&#123; int t; cin&gt;&gt;t; while(t--)&#123; cin&gt;&gt;a[0]&gt;&gt;a[1]&gt;&gt;a[2]; a[3] = 5; a[4] = 2; a[5] = 0; sort(a, a + 6, [](const ll &amp;a,const ll &amp;b)&#123;return a&gt;b;&#125;); priority_queue&lt;ll, vector&lt;ll&gt;, greater&lt;ll&gt; &gt; pq; set&lt;ll&gt;s; set&lt;ll&gt;ans; pq.push(1); s.insert(1); for(int i = 0;;i++)&#123; ll x = pq.top(); pq.pop(); if(i)&#123; for(int k = 3;k &lt; 6;k++)&#123; ans.insert(x - a[k]); if(ans.size()==fort) break; &#125; if(ans.size()==fort)&#123; /*int ttt = 1; for(set&lt;ll&gt;::iterator it = ans.begin();it!=ans.end();it++) cout&lt;&lt;ttt++&lt;&lt;' '&lt;&lt;*it&lt;&lt;endl;*/ auto it = ans.rbegin(); cout&lt;&lt;*it&lt;&lt;endl; break; &#125; &#125; for(int j = 0;j&lt;3;j++)&#123; ll x2=x*a[j]; if(!s.count(x2))&#123; s.insert(x2); pq.push(x2); &#125; &#125; &#125; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[贪心算法]]></title>
     <url>%2F2018%2F12%2F01%2F%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%2F</url>
     <content type="text"><![CDATA[贪心算法定义贪心算法的本质目的也就在于对于一个问题来看，我可以用最简单的办法算出局部的解集，并且按照这个最简单的办法同样可以算出该问题的最终解决办法，即贪心算法。 三个经典的贪心算法问题 事件的序列问题： 遇到这样的题目，首先就是要想着能不能找到最长的子序列的前提，到底是按节目的开始时间进行排序，还是按照节目的结束时间进行排序。下面就是核心代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;#include&lt;algorithm&gt;using namespace std;const int maxn = 100+5;struct Show&#123; int beg; int en;&#125;show[maxn];int main()&#123; int n; while (cin&gt;&gt;n&amp;&amp;n!=0)&#123; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;show[i].beg&gt;&gt;show[i].en; &#125; stable_sort(show,show+n, [](const Show &amp;a, const Show &amp;b)&#123;return a.en&lt;b.en;&#125;); int cnt=1; for (int i=1,j=0;i&lt;n;i++)&#123; if (show[i].beg&gt;=show[j].en)&#123; cnt++; j=i; &#125; &#125; cout&lt;&lt;cnt&lt;&lt;endl; &#125;&#125; 此处的关键就是从第一个开始把结束时间最早的进行一个相对位置的排序，然后把第一个结束的与后面开始的时间进行挨个挨个的比较，最终得出的结果就是在这里。 区间覆盖问题下面就是这道题目的核心代码：123456789int greedy(vector&lt;int&gt; x,int k)&#123; int i,sum = 1,n=x.size(); sort(x.begin(),x.end()); int temp = x[0]; //区间的起始位置 for(i=1;i &lt; n; ++i) if(x[i] - temp &gt; k) &#123;sum++,temp=x[i]&#125;; return sum;&#125; 题目这里就是分别计数，用一个最简单的思维做出一整道题目的思路。 区间相交问题：其实就是跟第一道题目类似 算连续的序列 并且把总长度减去这些连续的序列之后得到的是剩余的区间，即得到题目答案。 ==以后若还有关于贪心类型的题目可以继续往上面加== 一下就是贪心的习题]]></content>
@@ -770,6 +747,44 @@
       <tags>
         <tag>acm</tag>
         <tag>贪心</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[STL的简单总结]]></title>
+    <url>%2F2018%2F12%2F01%2FSTL%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[补一个加快C++输入输出速度的方法： 花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。 字符串 string与字符数组 构造string的方法 操作string的方法 上面的成员函数有的说要返回，同时，有的也存在不返回值。 搜索string的方法 以上就是find函数的一些用法，在泛型算法一章，还会继续涉及到。题目返回的是下标 补充一下关于string中的比较函数一般在string中可以直接用运算符进行比较 int与string之间的转化 getline()的两种写法注意在cin&gt;&gt;t;必须要一个getchar()来吞掉其前面的回车符号。之后才能用getline()。 顺序容器 容器种类 vector&lt;vector&lt;int&gt; &gt;来表示二维数组。 容器基础操作补充一个assign的用法：允许从一个不同但相容的类型里面去赋值，或者从容器的一个子序列赋值。 还有第二个版本：接受一个整型值和一个元素值，用指定数目且具有相同给定元素替换容器中原有的元素： 再补充一个resize的用法： 需要记住有一些类型声明可以直接用auto。 初始化有两种一种直接初始化和拷贝初始化。 顺序容器添加元素上面已经列出了各种形式的插入。插入是在迭代器指向的元素之前插入。插入想要插入的元素前面，比如说push_back是插入到了尾后迭代器的前面。而返回的是新添加的第一个元素的迭代器，同样也可也==不返回==。 这里要注意的是push_front会改变整个容器的迭代器指向，而push_back不会。 访问元素 链表，单向链表，栈，队列都不支持随机访问，也就不支持下标访问了。 删除元素 删除的是迭代器指向的元素，返回的是删除元素的后迭代器也就是被删除的元素下一个元素的前面的迭代器，同样也可以不返回。 这里需要注意的就是删除一个元素之后，必定会改变原容器中迭代器的指向，所以务必小心（除了pop_back） 改变容器大小的操作 特殊的forward_list（单向链表） 由于迭代器的添加删除操作都涉及到了首前和尾后，所以对于单向链表来说这里添加了一个首前迭代器before_begin而对于单向链表的插入而言 是在元素的后面进行插入，删除也是一样，指向都是迭代器指向元素之后的元素。 关联容器 **关联容器里面的pair 关联容器的操作 关联容器的添加操作 一般都是直接用下标操作添加map里面的操作。at操作只能判断存不存在 关联容器的删除操作 关联容器的访问操作 上面关于排序的操作不适用于无序的关联容器。 当允许关键词重复的multimap中查找元素时，一般使用find函数与count函数同时进行。 算法大部分函数算法都放在&lt;algorithm&gt;的头文件里面了。还有一些数值算法是放在了&lt;numeric&gt;的头文件里面。 只读算法 accumulate 求和算法，接受三个参数，前面两个参数是累加范围，第三个是和的初值。equal 判断两个序列里面是否所有的值都相同。后面网上查找 有的再补充。find算法binary_search()二分查找函数find_end()最后一次出现算法find_first_of()第一次出现的算法find_if ()第三个参数就为自定义函数搜索lower_bound()第一个不小于的元素upper_bound()第一个大于的元素count（）算法 计算出现次数count_if（）函数自定义计数 写容器的算法 fill 填充算法 类似于memset函数前者在于可以赋值赋任何值，而后者理论上只能赋值0或者1或者0x3f3f3f3f。fill_n也是三个参数，第一个是开始点，第二个是赋值数目，第三个为赋值初始化。copy 拷贝算法，接收三个迭代器，前面两个表示输入范围，第三个为拷贝目标序列的起点。replace 替换算法，将目标序列里面的某些值更改成某些值，接受四个参数，前面两个是目标序列的范围，第三个是要搜索的值，第四个是要将搜索到的第三个的值更改后的值。remove 去除掉函数里面包括的参数的元素。remove_if 自定义。remove_copy 拷贝结果。swap（）交换两个对象的值。swap_range()交换两个序列的值。 重排容器的算法 其排序的算法中，定义的排序方式就在于自定义函数传入算法中。有三种自定义函数： 普通bool型自定义函数，比较排列顺序。 lambda 匿名小函数。 bind 函数 绑定谓词。灵活的应用自定义函数。 unique 将容器中所有重复的值全部排列到后面去，接受目标序列的迭代器范围，返回指向第一个重复元素的迭代器。sort 排序 本质上运用的是快速排序。stable_sort 本质上运动的是归并排序。stable_partition 前面进行排序后，把自定义排列的分割开来。reverse 倒排函数。reverse_copy 倒排函数。rotate 接受三个参数，前面两个是要往后面排的范围。 迭代器 插入迭代器back_inserter 类似于push_back的迭代器，创建并且使用front_inserter 创建并且使用一个push_front的迭代器inserter 创建一个普通插入的迭代器 流迭代器istream_iterator 输入迭代器 ostream_iterator 输出迭代器 反向迭代器reverse_iterator 移动迭代器后面复习到在总结 移动、拷贝、右值引用。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>数据结构</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[树相关题目]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款22：将成员变量声明为 private]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BA%20private%2F</url>
+    <content type="text"><![CDATA[这里就是要记住封装的好处 切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。 protected 并不比 public 更具有封装性]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
       </tags>
   </entry>
   <entry>
@@ -797,6 +812,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[条款03：尽可能使用 const]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8%20const%2F</url>
     <content type="text"><![CDATA[首先使用 const 可以防止后期莫名其妙的进行改变原有的意思，相当于一个约束语义，另外编译器不论什么时候都会强制施行这项约束。 const 在 C++ 11 中有底层和顶层之分，前者是作用于指针本身，指针不再改变指向对象，而顶层 const 则是指针所指向的对象则不能发生改变。 const 最具威力的用法实在面对函数声明时的用法，在一个函数的声明式里，const 可以和函数的返回值，各自的参数以及函数自身产生关联。 将引用参数设置成 const 好处是在后面写代码的过程中如果把==写成=，可以立马甄别出来。 const 成员函数存在的两个理由，一个使 class 的接口一目了然，因为知道了哪些可以被改动对象而哪些不可以被改动对象，第二则是基于代码编写的高效性而言，操作 const 对象成为可能，因为可以通过 const 成员函数返回 const 对象。 存在一种特殊情况，重载[ ]运算符的时候，如果成员函数是 const 那么其的返回值也必须是 const&amp;类型的。 如果对于const 成员函数，想要改变该对象的内部成员的话，但是又不想全部改变的话，可以在类中的数据成员定义中加上 mutable，来保证可以改变该函数，其存在的意义就在于保证了其他数据成员不能被 const 成员函数改变，但是该数据成员却可以。 7.当 const 和 non-const 成员函数有实质等价的实现时，令 non-const 版本调用 const 版本可避免代码重复。 这一点还不是特别了解，需要看到后面之后花点时间来看看这一点的内容。]]></content>
@@ -809,22 +836,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一道有趣的题目——逆波兰计算器]]></title>
-    <url>%2F2018%2F12%2F01%2F%E4%B8%80%E9%81%93%E6%9C%89%E8%B6%A3%E7%9A%84%E9%A2%98%E7%9B%AE%E2%80%94%E2%80%94%E9%80%86%E6%B3%A2%E5%85%B0%E8%AE%A1%E7%AE%97%E5%99%A8%2F</url>
-    <content type="text"><![CDATA[题解首先这道题毫无疑问是要用到stringstream流的。分别依次读取字符串，并且将其导入到char型的代码中去。比如说a+b可以变成ab+，这里最好运用到栈的知识，来控制出栈与进栈。==注意以下几个地方== 注意输入cin&gt;&gt;t以后，需要用getchar()来清空上一个步骤留下来的回车符号 注意此处需要严格进行判断栈内是否为空。 这里是将乘除求模的运算放在最右边，这样就可以有优先级存在了 括号会提前进行一步运算，然后消除掉左括号，或者左边的所有运算式，进行一个结算。 map这里存在的意义就在于 为判断进行提供条件。 此道题目涉及字符串，栈，模拟的相应算法，需要有空的时候可以多看看。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;iostream&gt;#include&lt;string&gt;#include&lt;algorithm&gt;#include&lt;stack&gt;#include&lt;sstream&gt;#include&lt;map&gt;using namespace std;stack&lt;char&gt;ope;stack&lt;int&gt;num;string str;map&lt;char,int&gt;m;void init()&#123; m['+']=m['-']=1; m['*']=m['/']=m['%']=m['(']=m[')']=2; while(!num.empty()) num.pop(); while(!ope.empty()) ope.pop();&#125;//此处为基本的运算规模。void op1(int &amp;a,int &amp;b,const char &amp;c)&#123; if (c =='+') a += b; else if (c == '-') a=b-a; else if (c == '*') a*=b; else if (c == '/') a=b/a; else if (c == '%') a=b%a;&#125;//此处就是控制出栈的运算，一般就是括号内部的计算了。算出每一个括号内部的运算式。void op2()&#123; char ch = ope.top(); while (ch != '('&amp;&amp;!ope.empty())&#123; ope.pop(); int a = num.top(); num.pop(); int b = num.top(); num.pop(); op1(a,b,ch); num.push(a); if (!ope.empty()) ch = ope.top(); &#125;//这个下面要注意的判断条件中一定要加上判断是否为空。 if (!ope.empty()&amp;&amp;ope.top() =='(') ope.pop();&#125;int main()&#123; int t; cin&gt;&gt;t; getchar(); while (t--)&#123; getline(cin,str); stringstream s(str); init(); char tmp; while (s&gt;&gt;tmp)&#123; if(tmp&gt;='0'&amp;&amp;tmp&lt;='9')&#123; int x = 0; do&#123; if (m[tmp]) break; x *= 10; x += tmp - '0';//此处是将char转换成int &#125;while(s&gt;&gt;tmp); num.push(x); &#125; //注意这个地方的高明之处就在于碰见‘）’的返回，以及判断有没有‘（’， 比如连加的情况就把加减乘除的优先运算级给表示出来了。 //最后相当于将运算优先级高的全部放到了右边，然后有括号的就先解决括号， 及时左括号被提前弄没了也不要紧，存在有右括号就行，然后乘除永远放在加减的左边。 if (tmp==')') op2(); else if (m[tmp]==1)&#123; if (!ope.empty()&amp;&amp;ope.top()!='(') op2(); ope.push(tmp); &#125; else if (m[tmp]) ope.push(tmp); &#125; int ans = num.top(); num.pop(); while (!num.empty()&amp;&amp;!ope.empty())&#123; op1(ans,num.top(),ope.top()); ope.pop(); num.pop(); &#125; cout &lt;&lt; ans &lt;&lt; endl; &#125; return 0;&#125;]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款04：确定对象被使用前已先被初始化]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%85%88%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[在 C 语言中对象的初始化可能会变得异常容易，但是在 C++中某些语境下进行对象可能不会存在自动的初始化过程，也许会在使用 C part of C++ 会自动有一个初始化过程，但是在其他部分下面的 C++就不能保证初始化过程了。 特别是在类的过程中，初始化的过程一般直接交给构造函数，初始化的过程并不等同于赋值，所以在写类的构造函数的时候，尽量不要在函数体里面写赋值给私有成员的语句，可以直接在列表上面直接写初始化的。 对于拥有多个构造函数，且每个构造函数具有自己的成员初值列，如果这些类存在许多成员变量或者基类的话，多种成员初始列表就会导致不受欢迎的重复，那么这个时候可以遗漏一些“赋值跟初始化过程差不读的成员变量”，改用他们的赋值操作，并且把这些操作放置在 private 中。 C++有着十分固定的成员初始化过程，基类的初始化会早于派生类，而类的成员变量总是以其声明的次序被初始化。 关于类的静态成员的初始化 一般在类内部进行声明，然后再类的外部进行定义，赋值，其的声明周期一般是从程序开始到程序结束。 构造函数初始化的次序非常重要，举个例子就是初始化的时候必须要为数组指定大小，所以指定大小的变量必须具有先值 对于不同人在不同时间下不同的源码文件建立起来，其的初始化相对次序并没有明确定义，所以解决办法就是将一个对象搬到自己的专属函数里面去，然后声明成静态成员，并且返回一个引用即可，后面用户直接调用这些函数，就可以无视初始化的次序问题了。具体可以看书里面P32面的相关代码。 最后总结一句为了免除“跨编译单元之初始化次序”问题，一般用 local static 对象替换 non-local static 对象。]]></content>
+    <title><![CDATA[条款05：了解 C++默默编写并调用了哪些函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3%20C%2B%2B%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。 千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而且此类问题会造成很多方面上的无法适应问题。 另外这里额外需要注意的是 C++11上增加的移动语义，只有在拥有了拷贝构造函数和拷贝赋值运算符之后，编译器才会自动生成移动构造函数，和移动赋值运算符。 最后这个条款需要注意的就是编译器自动生成的函数具有普遍性，所以就不具有特异性，一些特殊的操作在合成版本上面可能会出现大问题。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -858,18 +872,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款08：别让异常逃离析构函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE08%EF%BC%9A%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[其实这一项条款没有领悟的很深刻，可以理解成不要再析构函数里面写捕获异常之类的代码。因为某些时候，如果在析构函数里面抓获异常导致程序终止的话，那么就可能造成对象不能完全被销毁 析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常的话，析构函数应该做的应该是捕捉任何异常，然后吞下他们（不传播）或者结束程序。 如果对象需要对摸个操作函数运行期间抛出的异常做出反应，那么 class 应该提供一个普通函数（不应该在析构函数里面）执行该任务。但是该析构函数里面仍然要进行双保险的析构过程，可以在类的内部定义里面加上一个 bool 变量来判断到底有没有运行析构行为，相当于一般写程序的一个 flag。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[条款09：绝不在构造和析构的过程中调用 virtual 函数]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8%20virtual%20%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。 基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那么这种办法一定行不通。 相同的道理同上，在基类析构函数发生的过程中，同样将其他的派生类视作未定义。 如果将构造函数或者析构函数调用的函数设立成纯虚函数的话，那么当纯虚函数被调用的时候，大多数执行系统会直接终止程序，唯一避免的此问题的做法就是确定构造和析构期间没有调用虚函数。 唯一的替代方案是不设置虚函数，比如在构造一个派生类对象的时候，需要直接调用基类函数的构造函数，然后再完成派生类的构造，而此时最好是将派生类里面一个作用于构造函数的一个成员函数定义成静态函数，这样的话就能在程序刚开始就存在该函数了。 由第四点换句话说，你无法使用虚函数直接从基函数向下调用，但是在基类函数中可以由派生类将信息传递到基类从而进行有效调用。]]></content>
@@ -879,6 +881,19 @@
       <tags>
         <tag>c++</tag>
         <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[关于STL里面函数简单的应用]]></title>
+    <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[代码如下：1234567891011121314151617181920212223#include&lt;iostream&gt;#include&lt;set&gt;using namespace std;int main()&#123; int n,t; cin&gt;&gt;n; set&lt;int&gt;s; s.insert(0); for (int i =0;i!=n;i++)&#123; cin&gt;&gt;t; //这道题目的主要做法是记住几个upper_bound 的STL函数 if(t &lt; *s.rbegin()) &#123; s.erase(*(s.upper_bound(t))); &#125; s.insert(t); &#125; cout &lt;&lt; s.size() - 1; return 0;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>acm</tag>
+        <tag>c++</tag>
+        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
@@ -906,34 +921,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款12：复制对象时勿忘其每一个成分]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86%2F</url>
-    <content type="text"><![CDATA[这个条款而言，是无论类发生什么样的内部变化，都必须重写类的管理行为。下面直接分为两个方面进行诠释： 类的内部增加或者减少数据成员，如果未重新编写构造函数的话，那么编译器也不会提醒，这样就会造成不太被需要的局部拷贝。 一旦发生继承，如果还是按照以前的方法仅仅是对函数内部的所有数据成员进行拷贝的是不对的，因为派生类不仅仅是包含着派生类的部分，还仍然包含着基类的部分，所以需要调用基类的拷贝行为，如下图： 另外拷贝构造函数定义内部是不能直接调用赋值运算符，反之亦然，前者就相当于对一个尚未构造好的对象进行赋值，而后者就相当于对一个已经构造对象再进行重新构造。所以千万不要这么做。 如果发现两个拷贝行为有类似的代码时，应该把这个相同的代码放到一个函数中区，然后由两个拷贝行为共同调用。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[关于STL里面函数简单的应用]]></title>
-    <url>%2F2018%2F12%2F01%2F%E5%85%B3%E4%BA%8ESTL%E9%87%8C%E9%9D%A2%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%BA%94%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[代码如下：1234567891011121314151617181920212223#include&lt;iostream&gt;#include&lt;set&gt;using namespace std;int main()&#123; int n,t; cin&gt;&gt;n; set&lt;int&gt;s; s.insert(0); for (int i =0;i!=n;i++)&#123; cin&gt;&gt;t; //这道题目的主要做法是记住几个upper_bound 的STL函数 if(t &lt; *s.rbegin()) &#123; s.erase(*(s.upper_bound(t))); &#125; s.insert(t); &#125; cout &lt;&lt; s.size() - 1; return 0;&#125;]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>acm</tag>
-        <tag>c++</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[条款14：在资源管理类中小心拷贝行为]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83%E6%8B%B7%E8%B4%9D%E8%A1%8C%E4%B8%BA%2F</url>
-    <content type="text"><![CDATA[一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略 禁止复制 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。 对底层数据的共享控制 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是释放内存、销毁对象。 转移底部资源的拥有权 移动操作，C++11 右值引用的移动过程。 复制分为浅层复制以及深层复制 前者是复制其的指针或者引用，达到共享资源的目的，这个时候使用 share_ptr 来进行控制，后者赋值的是全部内存，最好是用 unique_ptr 来保管，但是复制操作得把每一个对象所指向的对象进行拷贝之后，放进 unique_ptr 中进行管理。]]></content>
+    <title><![CDATA[条款08：别让异常逃离析构函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE08%EF%BC%9A%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[其实这一项条款没有领悟的很深刻，可以理解成不要再析构函数里面写捕获异常之类的代码。因为某些时候，如果在析构函数里面抓获异常导致程序终止的话，那么就可能造成对象不能完全被销毁 析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常的话，析构函数应该做的应该是捕捉任何异常，然后吞下他们（不传播）或者结束程序。 如果对象需要对摸个操作函数运行期间抛出的异常做出反应，那么 class 应该提供一个普通函数（不应该在析构函数里面）执行该任务。但是该析构函数里面仍然要进行双保险的析构过程，可以在类的内部定义里面加上一个 bool 变量来判断到底有没有运行析构行为，相当于一般写程序的一个 flag。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -946,6 +936,30 @@
     <title><![CDATA[条款15：在资源管理类中提供对原始资源的访问]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE%2F</url>
     <content type="text"><![CDATA[一般使用了智能指针之后就不会在建议使用内置指针，以免发生错乱，但是就是有一些类需要在使用智能指针的过程中需要返回内置指针来完成某些函数的参数传递过程，但是需要注意的一点就是 在使用内置指针的过程中 千万不需要 delete，直接让智能指针进行删除操作。 另外除了返回内置指针这种方式来进行对原始资源的访问，还有一种方法就是重载隐式转换运算符，来完成类到资源的转换，但是这样做会加大错误的可能性，因为某些不可控的隐式类型发生转换。 上述的第一种办法属于显示转换，直接使用 get 获得资源，而下面的那种是隐式转换类型，前者比较安全，后者比较方便。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款13：以对象管理资源]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90%2F</url>
+    <content type="text"><![CDATA[系统资源的管理规则就是，一旦使用完毕，那么就一定要归还给系统，免得造成内存泄漏的问题，而 C++中需要自己去管理内存，那么为了防止在对象销毁以及内存释放之间发生异常，以及某些其他原因，一种新的基于对象的资源管理办法就应运而生。 使用智能指针， C++11之后智能指针分为三种一种是 share_ptr 指针 智能型的应用计数，共享底层数据。weak_ptr 依附于 share_ptr 作为一种核查类指针存在，最后就是 unique_ptr 指针，仅仅只是为了对象的析构函数自动销毁，上述两种主要的智能指针可以定义自己的删除器（析构函数） 获得资源后立刻放到管理对象中，其所代表的观念就是 “资源取得的时机，就是直接初始化的时机”。 需要注意的就是智能指针默认的删除器是不能删除固定的连续内存空间，意思就是说，需要自定义的删除器才能完成 delete[]。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款14：在资源管理类中小心拷贝行为]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83%E6%8B%B7%E8%B4%9D%E8%A1%8C%E4%B8%BA%2F</url>
+    <content type="text"><![CDATA[一般在自定义类中会遇到多种多样的拷贝行为，所以一般会采取下面的一些策略 禁止复制 向前面条款06一样，有多种办法，一般对于那些逻辑上拷贝不合理的函数。 对底层数据的共享控制 那么此处这就需要使用智能指针 share_ptr，或者自定义引用计数。并且拥有自定义的删除器，因为某些类的删除操作并不一定是释放内存、销毁对象。 转移底部资源的拥有权 移动操作，C++11 右值引用的移动过程。 复制分为浅层复制以及深层复制 前者是复制其的指针或者引用，达到共享资源的目的，这个时候使用 share_ptr 来进行控制，后者赋值的是全部内存，最好是用 unique_ptr 来保管，但是复制操作得把每一个对象所指向的对象进行拷贝之后，放进 unique_ptr 中进行管理。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -1027,9 +1041,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款22：将成员变量声明为 private]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BA%20private%2F</url>
-    <content type="text"><![CDATA[这里就是要记住封装的好处 切记要将成员变量声明为 private 。这样可以减少改动成员之后的破坏性，可细微划分访问控制、允诺约束条件获得保证，并且提供 class 作者以充分实现弹性。 protected 并不比 public 更具有封装性]]></content>
+    <title><![CDATA[条款23：宁以非成员友元函数代替成员函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE23%EF%BC%9A%E5%AE%81%E4%BB%A5%E9%9D%9E%E6%88%90%E5%91%98%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0%E4%BB%A3%E6%9B%BF%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[同样还是为了封装 宁可拿非成员非友元函数来代替成员函数，这样做可以增加封装性，和包裹弹性，以及机能扩充性。]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -1051,18 +1065,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[条款23：宁以非成员友元函数代替成员函数]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE23%EF%BC%9A%E5%AE%81%E4%BB%A5%E9%9D%9E%E6%88%90%E5%91%98%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0%E4%BB%A3%E6%9B%BF%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[同样还是为了封装 宁可拿非成员非友元函数来代替成员函数，这样做可以增加封装性，和包裹弹性，以及机能扩充性。]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>effective C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[条款25：考虑写出一个不抛异常的swap函数]]></title>
     <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE25%EF%BC%9A%E8%80%83%E8%99%91%E5%86%99%E5%87%BA%E4%B8%80%E4%B8%AA%E4%B8%8D%E6%8A%9B%E5%BC%82%E5%B8%B8%E7%9A%84swap%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[所谓 swap 两对象值，意思就是将两个对象的值彼此赋予对方，缺省的情况下 swap 的动作可以由标准库程序提供的 swap来完成。 其中有一个最主要的方法就是，以指针指向一个对象，内含真正的数据“ 即”pimpl 手法”所以一般对于一个对象而言，直接交换里面的指针对象即可。就如同以下的写法： 以上就是该对象的特化版本。这同时也是一个模板类的偏特化的例子。 如果想特化一个函数模板的话，通常的做法就是添加一个重载版本。 但是这种特化存在问题： 我们可以全特化 std 内的模板，但是不可以添加新的模板到 std 里面去，因为 std 的内容完全由 C++标准委员会决定的。 有的时候不能直接访问私有成员，因为封装层面的相关权限缺失。 解决的办法很简单，声明一个非成员版本的 swap 函数，然后让他调用其的成员函数，而不是将那个不是成员函数的 swap 声明为 std：：中的特化版本或者是重载版本。下面就是相关步骤： 提供一个 public swap 成员函数，让它高效地置换你的类型的两个对象（注意这个地方时高效的置换），但是这个函数不应该抛出异常。 在你的类或者模板所在的命名空间内，提供一个非成员函数的 swap，并且另其调用 swap 成员函数。 如果你正在编写一个 class 而不是一个模板类的时候，为你的类特化std：：swap。并令其调用你的 swap 成员函数。 最后，在调用奇函数的时候，请确定包含一个 using 生命是，以便于让 std：：swap 在你的函数内曝光可见，直接赤裸裸的调用 swap。]]></content>
@@ -1075,16 +1077,27 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[树相关题目]]></title>
-    <url>%2F2018%2F12%2F01%2F%E6%A0%91%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[复原二叉树 题解此道题目就是要注意先序排序与中序排序，一个是根左右，一个是左根右，先序排序的第一个为根，利用递推关系输出每一个根（由于其的递推出口并没有等于号，意思就是说这里同样输出叶子节点） 代码如下： 123456789101112131415161718192021222324252627282930313233343536373839#include&lt;iostream&gt;#include&lt;string&gt;using namespace std;string pre;string in;void post(int root,int start,int end)&#123; //递归打印这棵树的后序，递归出口为 start &gt; end //注意这里不带等于号的原因就是要把叶子节点一样给输出来 if(start&gt;end) return; int i=start;//i为 root所代表的值在中序中的下标 while(i&lt;end&amp;&amp;in[i]!=pre[root]) i++; int cnt=i-start;//左子树结点个数 //由于是先序排序，顺序永远都是根左右， post(root+1,start,i-1); //左节点 因为是后序排序，先把左节点先弄出顺序，在左节点内部在来后序排序，直到两边左边节点大于右边节点 post(root+1+cnt,i+1,end); cout&lt;&lt;pre[root];&#125;int main()&#123; while(cin&gt;&gt;pre&gt;&gt;in)&#123; int len=pre.length(); post(0,0,len-1); cout&lt;&lt;endl; &#125; return 0;&#125; 关于树的一个简单DFS运用 题解 简单的dfs运用 可以模拟树的组成，但是特别耗时间，只用用相应的搜索方法来做才容易一点，这道题有必要再做一遍。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;#include&lt;string&gt;using namespace std;const int maxn = 1e5+5;//此处实际上是充分利用了vector的特性//如果此处是二维数组的话，那么一定会浪费许多没必要的空间开支//所以用一个vector的数组，每个vector存储其对应的祖先//而一共有题目给出数量的vectorvector&lt;int&gt;people[maxn];char sex[maxn*2];int ans;int top;int que[maxn];//这里e的值只是用来判断到底是该植入值还是该判断值//换算到这个题目中的意思就是前面一个人不需要看起祖先只需要输入其祖先就行了//后面一个人则需要做的是根据已有的对方祖先进行判断void dfs(int x,int s,int e)&#123; if (s&gt;=5) return ; if (e==0)&#123; for (int i=0;i!=top;i++)&#123; if (x==que[i])&#123; ans=1; return; &#125; &#125; &#125; else que[top++]=x; for (int i=0;i!=people[x].size();i++) dfs(people[x][i],s+1,e); return;&#125;//上面的递归搜索可以用来因为是从底层向上面进行搜索//由于孩子祖先有两个所以上面搜索方式每一个孩子的祖先作为单独的节点再次进行搜索，直到递推出口为止int main()&#123; int n; cin&gt;&gt;n; char ch; int x,fa,ma; for (int i=0;i!=n;i++)&#123; cin&gt;&gt;x; getchar(); cin&gt;&gt;sex[x]; cin&gt;&gt;fa&gt;&gt;ma; if (fa!=-1) people[x].push_back(fa); if (ma!=-1) people[x].push_back(ma); sex[fa]='M'; sex[ma]='F'; &#125; int k; cin&gt;&gt;k; for (int i=0;i!=k;i++)&#123; cin&gt;&gt;fa&gt;&gt;ma; ans=0; if (sex[fa]==sex[ma]) cout&lt;&lt;"Never Mind"&lt;&lt;endl; else&#123; top=0; dfs(fa,0,1); dfs(ma,0,0); if (ans) cout&lt;&lt;"No"&lt;&lt;endl; else cout&lt;&lt;"Yes"&lt;&lt;endl; &#125; &#125;&#125;]]></content>
+    <title><![CDATA[条款25：考虑写出一个不抛异常的 swap 函数]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE26%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%BB%B6%E5%90%8E%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E5%BC%8F%E5%87%BA%E7%8E%B0%E7%9A%84%E6%97%B6%E9%97%B4%2F</url>
+    <content type="text"><![CDATA[其实该条款总结下来就是再讲一个东西，而这个东西分成两点： 如果类的赋值成本低于一组构造和析构成本，那么将对象的定义定义到循环体外部去，尤其是在循环次数很多的情况下。否则就是将定义循环体内部中去。 尽可能延后变量定义式出现的时间，最好达到需要什么才去定义什么，这样做可以增加程序的清晰度并改善程序效率。另外最好在程序定义的时候就直接构造（初始化）。]]></content>
       <categories>
-        <category>算法</category>
+        <category>C++</category>
       </categories>
       <tags>
-        <tag>acm</tag>
         <tag>c++</tag>
-        <tag>树</tag>
+        <tag>effective C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[条款27：尽量少做转型动作]]></title>
+    <url>%2F2018%2F12%2F01%2F%E6%9D%A1%E6%AC%BE27%EF%BC%9A%E5%B0%BD%E9%87%8F%E5%B0%91%E5%81%9A%E8%BD%AC%E5%9E%8B%E5%8A%A8%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[C++ 规则的设计目标之一就是，保证“类型错误” 绝不可能发生，但是在 C++的某些特殊的情形下面不得不去使用转型这一特性，而 C 语言的转型语句则类似于以下： 然而 C++提供四种新式的类型转换 注意 在真正进行类型转换的时候，我们不能仅仅认为编译器到最后仅仅只是更改一个文件名字，编译器改变的底层的编码，比如 int 转型到 double 之间底层描述是不一样的。 另外 C++中的一个特性使得多重继承的时候，一个对象含有多个地址。 所以需要注意的是以下几点，如果可以的话，尽量避免转型，特别是在注重代码中避免dynamic_cast. 如果有设计需要转型动作的话，去试试无需转型的替代设计。 如果转型是必要的，那么试着将其隐藏在某个函数背后。客户随后可以调用该函数，而不需要讲转型放进他们自己的代码中。 宁可使用 C++新式的转型，也不要使用旧式的转型，前者很容易识别出来，而且也有着不叫分们别类的职掌。]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>effective C++</tag>
       </tags>
   </entry>
   <entry>
