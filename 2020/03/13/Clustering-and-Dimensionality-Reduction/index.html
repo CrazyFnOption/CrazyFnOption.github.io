@@ -134,7 +134,7 @@
 <meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/10.png">
 <meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/11.png">
 <meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/12.png">
-<meta property="og:updated_time" content="2020-03-13T10:02:22.256Z">
+<meta property="og:updated_time" content="2020-03-13T10:05:44.004Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Clustering and Dimensionality Reduction">
 <meta name="twitter:description" content="Clustering终于步入到了，非监督学习，前面所涉及到的课程，全部都是监督学习。 所谓监督学习与非监督学习之间的区别，最简单的区别就是前者有标签值，后者没有标签值。 就像下面两副图片  二者的区别就一目了然 课上，就直接将这群没有标签值的数据 叫做 cluster。 意思是每一个数据都是没有差别，其举的例子，在应用上有 市场分管，社交网络，天文学，还有很多。 但是，每一个数据本身的特征会使有相">
@@ -401,7 +401,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2020-03-13T18:02:22+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2020-03-13T18:05:44+08:00">
                 2020-03-13
               </time>
             
@@ -521,7 +521,7 @@
 <h3 id="K-mean的优化方式"><a href="#K-mean的优化方式" class="headerlink" title="K-mean的优化方式"></a>K-mean的优化方式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Randomly initialize K cluster centroids mu(<span class="number">1</span>), mu(<span class="number">2</span>), ..., mu(K)</span><br><span class="line">Repeat:</span><br><span class="line">   <span class="keyword">for</span> i = <span class="number">1</span> to m:</span><br><span class="line">      c(i):= index (<span class="keyword">from</span> <span class="number">1</span> to K) of cluster centroid closest to x(i)</span><br><span class="line">   <span class="keyword">for</span> k = <span class="number">1</span> to K:</span><br><span class="line">      mu(k):= average (mean) of points assigned to cluster k</span><br></pre></td></tr></table></figure>
 <p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/8.png" alt=""></p>
 <p>算法分为两个步骤，第一个for循环是赋值步骤，即：对于每一个样例i，计算其应该属于的类。第二个for循环是聚类中心的移动，即：对于每一个类 K重新计算该类的质心。<br>在K-means算法中的变量在上面已经被标明。</p>
-<p>回顾刚才给出的，k-mean均值迭代算法，我们知道，第一个循环是用于减小  引起的代价，而第二个循环则是用于减小  引起代价。迭代的过程一定会减小代价函数，要不然就是出现了错误。</p>
+<p>回顾刚才给出的，k-mean均值迭代算法，我们知道，第一个循环是用于减小 ${c}^{(i)}$ 引起的代价，而第二个循环则是用于减小  引起代价。迭代的过程一定会减小代价函数，要不然就是出现了错误。</p>
 <h3 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h3><p>在运行K-均值算法的之前，我们首先要随机初始化所有的聚类中心点，下面介绍怎样做：</p>
 <ul>
 <li><p>我们应该选择 K &lt; m，即聚类中心点的个数要小于所有训练集实例的数量</p>
