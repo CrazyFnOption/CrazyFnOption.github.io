@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="2abIo_A5nMhdTOncpCpNSXNLFkH93A_Xns3iOs7LWKI">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="WwJNi7FIvf">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习,非监督学习,维度下降,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Bean" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7c502428"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+<meta name="description" content="Clustering终于步入到了，非监督学习，前面所涉及到的课程，全部都是监督学习。 所谓监督学习与非监督学习之间的区别，最简单的区别就是前者有标签值，后者没有标签值。 就像下面两副图片  二者的区别就一目了然 课上，就直接将这群没有标签值的数据 叫做 cluster。 意思是每一个数据都是没有差别，其举的例子，在应用上有 市场分管，社交网络，天文学，还有很多。 但是，每一个数据本身的特征会使有相">
+<meta name="keywords" content="机器学习,非监督学习,维度下降">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clustering and Dimensionality Reduction">
+<meta property="og:url" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/index.html">
+<meta property="og:site_name" content="Magical Bean">
+<meta property="og:description" content="Clustering终于步入到了，非监督学习，前面所涉及到的课程，全部都是监督学习。 所谓监督学习与非监督学习之间的区别，最简单的区别就是前者有标签值，后者没有标签值。 就像下面两副图片  二者的区别就一目了然 课上，就直接将这群没有标签值的数据 叫做 cluster。 意思是每一个数据都是没有差别，其举的例子，在应用上有 市场分管，社交网络，天文学，还有很多。 但是，每一个数据本身的特征会使有相">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/1.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/2.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/3.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/4.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/5.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/6.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/7.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/8.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/9.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/10.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/11.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/12.png">
+<meta property="og:updated_time" content="2020-03-13T10:02:22.256Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Clustering and Dimensionality Reduction">
+<meta name="twitter:description" content="Clustering终于步入到了，非监督学习，前面所涉及到的课程，全部都是监督学习。 所谓监督学习与非监督学习之间的区别，最简单的区别就是前者有标签值，后者没有标签值。 就像下面两副图片  二者的区别就一目了然 课上，就直接将这群没有标签值的数据 叫做 cluster。 意思是每一个数据都是没有差别，其举的例子，在应用上有 市场分管，社交网络，天文学，还有很多。 但是，每一个数据本身的特征会使有相">
+<meta name="twitter:image" content="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/">
+
+
+
+
+
+  <title>Clustering and Dimensionality Reduction | Magical Bean</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Bean</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Clustering and Dimensionality Reduction</h2>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-13T16:57:52+08:00">
+                2020-03-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-03-13T18:02:22+08:00">
+                2020-03-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Clustering"><a href="#Clustering" class="headerlink" title="Clustering"></a>Clustering</h2><p>终于步入到了，非监督学习，前面所涉及到的课程，全部都是监督学习。</p>
+<p>所谓监督学习与非监督学习之间的区别，最简单的区别就是前者有标签值，后者没有标签值。</p>
+<p>就像下面两副图片<br><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/1.png" alt=""></p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/2.png" alt=""></p>
+<p>二者的区别就一目了然</p>
+<p>课上，就直接将这群没有标签值的数据 叫做 cluster。 意思是每一个数据都是没有差别，其举的例子，在应用上有 市场分管，社交网络，天文学，还有很多。</p>
+<p>但是，每一个数据本身的特征会使有相近特征的人互相靠近，举个例子，社交网络上，你加的好友，大多数是你的亲人，你的现实生活中的朋友，这些都是你现实中的社交网络</p>
+<p>那么，如何将给定的数据进行一个有效的分类呢？</p>
+<p>这个时候就引出了 K-means算法</p>
+<p>通过给出的一大堆数据点，随机选取标签点，然后根据与标签的相对距离，来完成一个近似的分类过程</p>
+<p>这里给出三张图片来完成这样一个过程：</p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/3.png" alt=""></p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/4.png" alt=""></p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/5.png" alt=""></p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/6.png" alt=""></p>
+<p>在这个算法里，输入的是 K个族群分布标签，和训练集</p>
+<p>下面就是这个算法的全过程了</p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/7.png" alt=""></p>
+<p>翻译成中文的意思</p>
+<ol>
+<li><p>随机选取K个标签数据</p>
+</li>
+<li><p>然后再去遍历每一个数据，计算与哪一个标签值是最近的，并且将其归类</p>
+</li>
+<li><p>归类结束之后，计算每一群的均值，并且试图将其最小化</p>
+</li>
+</ol>
+<p>一直重复2，3，一直到mean值最小为止</p>
+<p>其的应用就主要体现在了 衣服的选择上</p>
+<p>人类去选择衣服，根据身高体重划分衣服为 S，M，L码</p>
+<h3 id="K-mean的优化方式"><a href="#K-mean的优化方式" class="headerlink" title="K-mean的优化方式"></a>K-mean的优化方式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Randomly initialize K cluster centroids mu(<span class="number">1</span>), mu(<span class="number">2</span>), ..., mu(K)</span><br><span class="line">Repeat:</span><br><span class="line">   <span class="keyword">for</span> i = <span class="number">1</span> to m:</span><br><span class="line">      c(i):= index (<span class="keyword">from</span> <span class="number">1</span> to K) of cluster centroid closest to x(i)</span><br><span class="line">   <span class="keyword">for</span> k = <span class="number">1</span> to K:</span><br><span class="line">      mu(k):= average (mean) of points assigned to cluster k</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/8.png" alt=""></p>
+<p>算法分为两个步骤，第一个for循环是赋值步骤，即：对于每一个样例i，计算其应该属于的类。第二个for循环是聚类中心的移动，即：对于每一个类 K重新计算该类的质心。<br>在K-means算法中的变量在上面已经被标明。</p>
+<p>回顾刚才给出的，k-mean均值迭代算法，我们知道，第一个循环是用于减小  引起的代价，而第二个循环则是用于减小  引起代价。迭代的过程一定会减小代价函数，要不然就是出现了错误。</p>
+<h3 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h3><p>在运行K-均值算法的之前，我们首先要随机初始化所有的聚类中心点，下面介绍怎样做：</p>
+<ul>
+<li><p>我们应该选择 K &lt; m，即聚类中心点的个数要小于所有训练集实例的数量</p>
+</li>
+<li><p>随机选择 K 个训练实例。</p>
+</li>
+<li><p>令 K 个聚类中心分别与这 K个训练实例相等</p>
+</li>
+</ul>
+<p>K-均值的一个问题在于它有可能会停留在<strong>一个局部最小值处</strong>，而这取决于初始化的情况。为了解决这个问题，我们通常需要多次运行K-均值算法，每一次都重新进行随机初始化，最后再比较多次运行K-均值的结果，选择代价函数最小的结果。这种方法在K较小的时候（2—10）还是可行的，但是K如果较大，这么做也可能不会有明显地改善。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> to <span class="number">100</span>:</span><br><span class="line">   randomly initialize k-means</span><br><span class="line">   run k-means to get <span class="string">'c'</span> <span class="keyword">and</span> <span class="string">'m'</span></span><br><span class="line">   compute the cost function (distortion) J(c,m)</span><br><span class="line">pick the clustering that gave us the lowest cost</span><br></pre></td></tr></table></figure>
+<h3 id="选择聚类数"><a href="#选择聚类数" class="headerlink" title="选择聚类数"></a>选择聚类数</h3><p>K的选择往往是任意的或者说是模糊不清的，通常是需要根据不同的问题人工进行选择的。选择的时候我们需要思考运用K-均值算法聚类的动机是什么，然后选择能最好服务于该目的标聚类数。</p>
+<p>一般都是什么问题，就需要去怎么考虑的选择聚类数</p>
+<p>当人们在讨论，选择聚类数目的方法时，有一个可能会谈及的方法叫作“肘部法则”。将代价J和聚类K画在图中。代价函数会随着K的增加而降低然后趋于平缓，我们要做的就是找到J开始趋于平缓时的K。然而很多时候，曲线经常是很平缓的，这时的肘部就很不明显。（note：J一般都是随着K的增加而降低，但如果K出现了错误的局部最优则会导致不一样的结果）。</p>
+<p>这个地方需要去注意的是： 等到cost函数值稳定了之后再记入相关的函数中：</p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/9.png" alt=""></p>
+<h2 id="Dimensionality-Reduction"><a href="#Dimensionality-Reduction" class="headerlink" title="Dimensionality Reduction"></a>Dimensionality Reduction</h2><h3 id="使用降维的动机"><a href="#使用降维的动机" class="headerlink" title="使用降维的动机"></a>使用降维的动机</h3><p>有几个不同的的原因使你可能想要做降维。一是数据压缩，如果我们有大量多余的数据时，我们可能想降低特征的维度，为此可以找到两个高度相关的特征，将其画出图像然后做一条直线来同时描述这两个特征。二是数据可视化，因为数据超过三维就很难可视化了，因此有时候需要将维度下降到3或者以下来达到可视化的目的。</p>
+<h3 id="主成分分析问题"><a href="#主成分分析问题" class="headerlink" title="主成分分析问题"></a>主成分分析问题</h3><p>主成分分析(PCA)是最常见的降维算法。其定义是想把数据从n维降到k维（k小于n），就在这个空间里面找k个单位向量来表示数据，使得数据点投影到这个面上的误差最小。如下例子：2到1和3到2：</p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/10.png" alt=""></p>
+<p>在二维变成一维的时候</p>
+<p>虽然同是一条直线拟合，但PCA和线性回归是不同的：</p>
+<ul>
+<li><p>计算loss的方式有所不同</p>
+</li>
+<li><p>PCA没有标签Y（非监督）</p>
+</li>
+</ul>
+<h3 id="PCA算法"><a href="#PCA算法" class="headerlink" title="PCA算法"></a>PCA算法</h3><p>PCA 减少 n 维到 k 维：</p>
+<ol>
+<li><p>均值归一化。我们需要计算出所有特征的均值，然后令x_j=x_j-μ_j。如果特征是在不同的数量级上，我们还需要将其除以标准差$σ^2$。</p>
+</li>
+<li><p>计算协方差矩阵（covariance matrix）$Σ ：\sum=\frac {1}{m}\sum^{n}_{i=1}\left( x^{(i)}\right) \left( x^{(i)}\right) ^{T}$</p>
+</li>
+<li><p>计算协方差矩阵Σ的特征向量（eigenvectors）<br>在 Octave 里我们可以利用奇异值分解（singular value decomposition）来求解，[U, S, V]= svd(sigma)。<br>$\Sigma=\frac {1}{m}\sum^{n}_{i=1}\left( x^{(i)}\right) \left( x^{(i)}\right) ^{T}$</p>
+</li>
+</ol>
+<p>对于一个 n×n 维度的矩阵，上式中的 U 是一个具有与数据之间最小投射误差的方向向量构成的矩阵。如果我们希望将数据从 n 维降至 k 维，我们只需要从U中选取前k个向量，获得一个n×k维度的矩阵，我们$U_{reduce}$用表示，然后通过如下计算获得要求的新特征向量</p>
+<p>$z^{(i)}=U^{T}_{reduce}*x^{(i)}$</p>
+<p>其中x是n×1维的，因此结果为 k×1 维度。我们不对方差特征进行处理。</p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/11.png" alt=""></p>
+<h3 id="选择主成分的数量"><a href="#选择主成分的数量" class="headerlink" title="选择主成分的数量"></a>选择主成分的数量</h3><p>在PCA算法中我们把n维特征变量降维到k维特征变量。这个数字k也被称作主成分的数量或者说是我们保留的主成分的数量。我们先来思考两个值：</p>
+<ul>
+<li><p>PCA所做的是尽量最小化平均平方映射误差(Average Squared Projection Error)。</p>
+</li>
+<li><p>我还要定义一下数据的总变差(Total Variation)。它的意思是 “平均来看我的训练样本距离零向量多远？</p>
+</li>
+</ul>
+<p>我们把两个数的比值作为衡量PCA算法的有效性</p>
+<p>定义一个阈值然后实验k，看看那个最小的k合适。计算步骤如</p>
+<p><img src="/2020/03/13/Clustering-and-Dimensionality-Reduction/12.png" alt=""></p>
+<p>这里有个技巧：svd函数会返回一个对角矩阵S，他的元素可以很快的计算这个阈值。</p>
+<h3 id="主成分分析法的应用建议"><a href="#主成分分析法的应用建议" class="headerlink" title="主成分分析法的应用建议"></a>主成分分析法的应用建议</h3><p>PCA算法主要有以下用途：</p>
+<ul>
+<li><p>压缩：</p>
+<ul>
+<li><p>减少内存和磁盘的占用</p>
+</li>
+<li><p>提升算法的速度</p>
+</li>
+</ul>
+</li>
+<li><p>可视化：</p>
+<ul>
+<li>降维到二维或者三维</li>
+</ul>
+</li>
+</ul>
+<p>有些人觉的PCA也可以用来防止过拟合，但是这是不对的。<strong>应该用正则化</strong>。正则化使用y标签最小化损失函数，使用了y标签信息。而PCA只单纯的看x的分部就删除了一些特征，损失率很多信息。另一个常见的错误是，默认地将主要成分分析作为学习过程中的一部分，这虽然很多时候有效果，最好还是从所有原始特征开始，只在有必要的时候（<strong>算法运行太慢或者占用太多内存</strong>）才考虑采用主要成分分析。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/03/13/Clustering-and-Dimensionality-Reduction/">Clustering and Dimensionality Reduction</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
+  <p><span>发布时间:</span>2020年03月13日 - 16:03</p>
+  <p><span>最后更新:</span>2020年03月13日 - 18:03</p>
+  <p><span>原始链接:</span><a href="/2020/03/13/Clustering-and-Dimensionality-Reduction/" title="Clustering and Dimensionality Reduction">http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.cn/2020/03/13/Clustering-and-Dimensionality-Reduction/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+
+		
+	</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+            <a href="/tags/非监督学习/" rel="tag"><i class="fa fa-tag"></i> 非监督学习</a>
+          
+            <a href="/tags/维度下降/" rel="tag"><i class="fa fa-tag"></i> 维度下降</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/13/Support-Vector-Machines/" rel="next" title="Support Vector Machines">
+                <i class="fa fa-chevron-left"></i> Support Vector Machines
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+
+  
+</div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/good.jpg" alt="五光君">
+            
+              <p class="site-author-name" itemprop="name">五光君</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CrazyFnOption" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wsx1128@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="V2EX" target="_blank">V2EX</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+
+
+
+
+    <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=590262&auto=1&height=66"></iframe>
+</div>
+		
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Clustering"><span class="nav-number">1.</span> <span class="nav-text">Clustering</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#K-mean的优化方式"><span class="nav-number">1.1.</span> <span class="nav-text">K-mean的优化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机初始化"><span class="nav-number">1.2.</span> <span class="nav-text">随机初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择聚类数"><span class="nav-number">1.3.</span> <span class="nav-text">选择聚类数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dimensionality-Reduction"><span class="nav-number">2.</span> <span class="nav-text">Dimensionality Reduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用降维的动机"><span class="nav-number">2.1.</span> <span class="nav-text">使用降维的动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主成分分析问题"><span class="nav-number">2.2.</span> <span class="nav-text">主成分分析问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA算法"><span class="nav-number">2.3.</span> <span class="nav-text">PCA算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择主成分的数量"><span class="nav-number">2.4.</span> <span class="nav-text">选择主成分的数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主成分分析法的应用建议"><span class="nav-number">2.5.</span> <span class="nav-text">主成分分析法的应用建议</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+	
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五光君</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">128.3k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+         
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+        <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+    
+<!-- END LOCAL --> 
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1584089872000', 
+            owner: 'CrazyFnOption',
+            repo: 'CrazyFnOption.github.io',
+            
+            oauth: {
+            
+            
+                client_secret: 'f921e00ac2d457990b50d105821daaa5ef9592ff',
+            
+                client_id: 'f295998f9beac5637d34'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+
+	
+  
+
+
+</body>
+</html>
