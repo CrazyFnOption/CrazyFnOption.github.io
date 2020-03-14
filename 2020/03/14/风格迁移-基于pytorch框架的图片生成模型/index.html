@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="2abIo_A5nMhdTOncpCpNSXNLFkH93A_Xns3iOs7LWKI">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="WwJNi7FIvf">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习,Pytorch,风格迁移,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Bean" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7c502428"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+<meta name="description" content="介绍所谓风格迁移，实际上就是利用算法学习著名画作的风格，然后把这种风格应用到另外一张图片上的技术。著名的国像处理应用Prisma是利用风格迁移技术，将普通的照片自动转换成具有艺术家风格的图片。 首先 我们需要弄清楚的是关于图像的风格迁移，有两种形式（算法）： 一种是通过从0开始模仿风格图片，类似于GAN的生成方式，生成，这样每一张照片都需要重新去训练生成，比较麻烦，且花费的时间会非常长，优点是生成">
+<meta name="keywords" content="深度学习,Pytorch,风格迁移">
+<meta property="og:type" content="article">
+<meta property="og:title" content="风格迁移---基于pytorch框架的图片生成模型">
+<meta property="og:url" content="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/index.html">
+<meta property="og:site_name" content="Magical Bean">
+<meta property="og:description" content="介绍所谓风格迁移，实际上就是利用算法学习著名画作的风格，然后把这种风格应用到另外一张图片上的技术。著名的国像处理应用Prisma是利用风格迁移技术，将普通的照片自动转换成具有艺术家风格的图片。 首先 我们需要弄清楚的是关于图像的风格迁移，有两种形式（算法）： 一种是通过从0开始模仿风格图片，类似于GAN的生成方式，生成，这样每一张照片都需要重新去训练生成，比较麻烦，且花费的时间会非常长，优点是生成">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/1.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/2.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/3.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/4.png">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/5.png">
+<meta property="og:updated_time" content="2020-03-14T17:49:08.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="风格迁移---基于pytorch框架的图片生成模型">
+<meta name="twitter:description" content="介绍所谓风格迁移，实际上就是利用算法学习著名画作的风格，然后把这种风格应用到另外一张图片上的技术。著名的国像处理应用Prisma是利用风格迁移技术，将普通的照片自动转换成具有艺术家风格的图片。 首先 我们需要弄清楚的是关于图像的风格迁移，有两种形式（算法）： 一种是通过从0开始模仿风格图片，类似于GAN的生成方式，生成，这样每一张照片都需要重新去训练生成，比较麻烦，且花费的时间会非常长，优点是生成">
+<meta name="twitter:image" content="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/">
+
+
+
+
+
+  <title>风格迁移---基于pytorch框架的图片生成模型 | Magical Bean</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Bean</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">风格迁移---基于pytorch框架的图片生成模型</h2>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-14T20:55:08+08:00">
+                2020-03-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-03-15T01:49:08+08:00">
+                2020-03-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  5.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>所谓风格迁移，实际上就是利用算法学习著名画作的风格，然后把这种风格应用到另外一张图片上的技术。著名的国像处理应用Prisma是利用风格迁移技术，将普通的照片自动转换成具有艺术家风格的图片。</p>
+<p>首先 我们需要弄清楚的是关于图像的风格迁移，有两种形式（算法）：</p>
+<p>一种是通过从0开始模仿风格图片，类似于GAN的生成方式，生成，这样每一张照片都需要重新去训练生成，比较麻烦，且花费的时间会非常长，优点是生成的效果会更好。</p>
+<p>但是另一种则是将风格图片与特征图片进行一个建模，一个同类型的风格图片便可以快速迁移。这里则主要是讲究第二种方法。</p>
+<h2 id="图像风格迁移的原理："><a href="#图像风格迁移的原理：" class="headerlink" title="图像风格迁移的原理："></a>图像风格迁移的原理：</h2><h3 id="原始风格迁移原理："><a href="#原始风格迁移原理：" class="headerlink" title="原始风格迁移原理："></a>原始风格迁移原理：</h3><p>首先先来将以下VGGNet结构，这个模型的结构：前面是卷积层从图像中提取特征，而后面的全链接层把图片的“特征”转换成类别概率，其中VGGNet中的浅层（如conv1_1，conv1_2），提取的特征往往是比较简单的（如检测点、线、亮度），VGGNet中的深层（如conv5_1、conv5_2），提取的特征往往是比较复杂（如有无人脸或某种特定物体）</p>
+<p>VGGNet的本意是输入图像，提取特征，并输出图像类别。图像风格迁移正好与其相反，输入特征，输出对应这种特征的图片，如下图所示：</p>
+<p><img src="/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/1.png" alt=""></p>
+<p>具体来说，风格迁移使用卷积层的中间特征还原出对应这种特征的原始图像。先选取衣服原始图像，经过VGGNet计算后得到各种卷积层特征。接下来，根据这些卷积层的特征，还原出对应这种特征的原始图像。图像b、c 、d 、e 、f 分别为使用卷积层conv1_2、conv2_2 、conv3 _2 、conv4_2 、conv5_2 的还原图像。可以发现：浅层的还原效果往往比较好，卷积特征基本保留了所高原始图像中形状、位置、颜色、纹理等信息； 深层对应的还原图像丢失了部分颜色和纹理信息，但大体保留原始图像中物体的形状和位置。</p>
+<p>还原图像的方法是梯度下降法。设原始图像为p，期望还原的图像为x，使用卷积是第l层，原始图像p在第l层的特征为$p^l_{ij}$, i表示卷积的第i个通道，j表示卷积的第j个位置。通常卷积的第i个通道，j表示卷积的第j个位置。通常卷积的特征是三维的，三维的坐标对应（通道，高，宽）此处不考虑具体的高和宽，只考虑位置j，相当于把卷积“压扁”了。比如一个10x10x32的卷积特征，对应1⩽i⩽32,1⩽j⩽100。 对于生成图像$\vec x$, 同样定义它在$l$层的卷积特征为$F^l_{ij}$。</p>
+<p>有了上面这些符号后，可以写出“内容损失”（Content Loss）。 内容损失$L_{content}(\vec p, \vec x,l) = \frac{1}{2} \sum_{ij}(F_{ij}^l - P_{ij}^l)^2$ </p>
+<p>$L_{content}(\vec p, \vec x,l)$ 描述了原始图像$\vec p$ 和生成图像$\vec x$在内容上面的差异。内容损失越小，说明他们的内容越接近；内容损失越大，说明他们的内容差距也越大。先使用原始图像$\vec p$计算出它的卷积特征 $P_{ij}^l $同时随机初始化$\vec x$。接着以内容损失$L_{content}(\vec p, \vec x,l)$ 为优化目标，通过梯度下降法逐步改变$\vec x$, 进过一定的步数后，得到的$\vec x$是希望的还原图像了。在这个过程中，内容损失$L_{content}(\vec p, \vec x,l)$应该是越来越小了。</p>
+<p>除了还原图像原本的“内容”之外，另一方面，还希望还原图像的“风格”。那么图像的“风格”应该用什么来表示呢？一种方法是使用图像的卷积层特征的Gram矩阵。</p>
+<p>Gram矩阵是关于一组向量的内积的对称矩阵，例如，向量组$\vec x_1, \vec x_2, …, \vec x_n$的Gram矩阵是：</p>
+<p><img src="/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/2.png" alt=""></p>
+<p>通常取内积为欧几里得空间上的标准内积， 即$(\vec x_i, \vec x_j) = \vec x_i^T \vec x_j$</p>
+<p>设卷积层的输出为$F_{ij}^l $，那么这个卷积特征对应的Gram矩阵的第i行第j个元素定义为 $G_{ij}^l = \sum_k F_{ik}^lF^l_{jk} $ 设在第i层中，卷积特征的通道数为$N_l$，卷积的高、宽成绩数为$M_l$ 那么$F^l_{ij} $ 满足 $1 \leq i \leq N_l , 1 \leq i \leq M_l $。G实际上向量组$F_1^l,F_2^l,…,F_i^l,…F_{N_i}^l的Gran$矩阵，其中$F_i^l = (F^l{i1},F_{i2}^l, …,F^l_{ij},…,F^l_{iM_l})$</p>
+<p>此处数学符号特较多，因此再举一个例子来加深读者对此Gram矩阵的理解。假设某一层输出的卷积特征为10x10x32，即它是一个宽、高均为10，通道数为32的张量。$F_{l}^1$表示第一个通道的特征，它是一个100维的向量。$F_l^2$表示第二个通道的特征，他同样是一个100维的向量，它对应的Gram矩阵G是</p>
+<p><img src="/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/3.png" alt=""></p>
+<p>Gram矩阵可以在一定程度上反映原始图像的“风格”。仿照“内容损失”，还可以定义一个“风格损失”（Style Loss）。设原始图像为 $ \vec a $ ，要还原的的风格图像是$ \vec x $ ,先计算出原始图像某一层的卷积的Gram矩阵为 $ A^l $ ， 要还原的图像经过$ \vec x $ 经过同样的计算的到对应卷积层的Gram矩阵是$ G^l $ ，所以这里的风格损失就定义为</p>
+<p>$ L_{style}(\vec p, \vec x, l)= \frac{1}{4N^2_lM^2_l}\sum_{ij}(A^l_{ij}-G^l_{ij})^2 $</p>
+<p>根据上述的这个公式就得出来了这些东西，另外总结一下，目前为止介绍了两个内容</p>
+<ul>
+<li><p>利用内容损失还原图像内容</p>
+</li>
+<li><p>利用风格损失还原图像风格</p>
+</li>
+</ul>
+<p>那么，可不可以将内容损失和风格损失组合起来，在还原一张图像的同事还原里一张图像的风格呢？答案是肯定的，这是图像风格迁移的基本算法。</p>
+<p>设原始的内容图像为$ \vec p $， 原始的风格图像为$ \vec a $， 待生成的图像为$ \vec x $。 希望$ \vec x $ 可以爆出保持内容图像$ \vec p $的内容，同时具有风格图像的风格，所以定义下来总的损失函数为：</p>
+<p>$ L_{total}(\vec p, \vec a, \vec x) = \alpha L_{content}(\vec p, \vec x) + \beta L_{style}(\vec a, \vec x) \\<br>其中 \alpha 和 \beta 都是平衡损失中的超参数，\\如果 \alpha偏大，那么还原的图像会更接近\vec a 的风格,另外一点其次。\\<br>所以这个使用两个超参数进行平反而是一件好事情。<br>$</p>
+<h3 id="快速图像风格迁移的原理"><a href="#快速图像风格迁移的原理" class="headerlink" title="快速图像风格迁移的原理"></a>快速图像风格迁移的原理</h3><p>本篇的代码讲的就是快速风格迁移的原理</p>
+<p>原始图像会用一个损失函数来衡量其是否成功的组合了风格图像和内容图像，依次梯度下降达到最小，从而在这种优化下速度导致了很慢。</p>
+<p>而快速图像风格迁移的办法是：不使用优化的办法来足部迭代生成$ \vec x $，而是使用一个神经网络直接生成 。对应的网络结构就像下面这张图</p>
+<p><strong>这里忍不住吐槽一句 花书的作者牛逼！！！！！ 我的偶像！！！！</strong></p>
+<p><img src="/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/4.png" alt=""></p>
+<p>整个系统由两个神经网络组成，它们在图中由连个虚线框分别标出。左边的是图像生成网络，右边是损失网络。损失网络实际上是VGGNet，这与原始的风格迁移是一致的。同1.1节一样，利用损失网络来定义内容损失、风格损失。这个损失用来训练图像生成网络。图像生成网络的职责是生成某一种风格的图像，它的输入是一个图像，输出同样是一个图像。由于生成图像只需要在生成网络中计算一遍，所以速度比原始图像风格迁移快很多。</p>
+<p>接下来同样用数据证明相应的合理性，下面这一段全部摘自论文和大佬们对论文的理解</p>
+<p>$同样使用数学符号严格地阐述上面的过程：设输入的图像为\vec x,经过图像生成网络为\vec y \\ 而\vec y 在内容上应该与原始的内容图像 \vec y_c接近。因此可以利用损失网络可以直接用上面内容损失函数来定义，内容损失使用的是VGG-16的relu3_3层输出的特征，对应图中的 l_{feat}^{\Phi,relu3_3}。另一方面，我们还希望\vec y 具有目标风格的，因此在这个基础上又再次定义一个风格损失函数。定义风格损失时用了VGG-16的四个relu1_2，relu2_2，relu3_3，relu4_3，对应图中的l_{feat}^{\Phi,relu1_2}，l_{feat}^{\Phi,relu2_2}，l_{feat}^{\Phi,relu3_3}，l_{feat}^{\Phi,relu4_3}<br>$</p>
+<p>利用总损失可以训练图像生成网络。训练完成后直接使用图像生成网络生成图像。值得一提的是，在整个训练过程中，一般只是固定使用一种风格。<br>所以经常应用快速迁移的多个模版。</p>
+<h2 id="Pytorch-实现快速风格迁移"><a href="#Pytorch-实现快速风格迁移" class="headerlink" title="Pytorch 实现快速风格迁移"></a>Pytorch 实现快速风格迁移</h2><p>由于这次的模型定义的比较复杂，所以还是由工具包的定义开始。</p>
+<h3 id="工具包"><a href="#工具包" class="headerlink" title="工具包"></a>工具包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> torchvision <span class="keyword">as</span> tv</span><br><span class="line"><span class="keyword">import</span> visdom</span><br><span class="line"></span><br><span class="line"><span class="comment">## 下面是业界经过数次实践得出的 对于图片最好的归一化参数</span></span><br><span class="line">IMAGENET_MEAN = [<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>]</span><br><span class="line">IMAGENET_STD = [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个地方仍需要花时间去弄懂，后面有时间去读一下相关论文</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gram_matrix</span><span class="params">(y)</span>:</span></span><br><span class="line">    (b, ch, h, w) = y.size()</span><br><span class="line">    features = y.view(b, ch, w * h)</span><br><span class="line">    features_t = features.transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">    gram = features.bmm(features_t) / (ch * h * w)</span><br><span class="line">    <span class="keyword">return</span> gram</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_style_data</span><span class="params">(path)</span>:</span></span><br><span class="line">    style_transform = tv.transforms.Compose([</span><br><span class="line">        tv.transforms.ToTensor(),</span><br><span class="line">        tv.transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),</span><br><span class="line">    ])</span><br><span class="line">    style_image = tv.datasets.folder.default_loader(path)</span><br><span class="line">    style_tensor = style_transform(style_image)</span><br><span class="line">    <span class="keyword">return</span> style_tensor.unsqueeze(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## 还没有弄清楚这个函数到底是用来干什么的</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalize_batch</span><span class="params">(batch)</span>:</span></span><br><span class="line">    mean = batch.data.new(IMAGENET_MEAN).view(<span class="number">1</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    std = batch.data.new(IMAGENET_STD).view(<span class="number">1</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    mean = (mean.expand_as(batch.data))</span><br><span class="line">    std = (std.expand_as(batch.data))</span><br><span class="line">    <span class="keyword">return</span> (batch / <span class="number">255.0</span> - mean) / std</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Visualizer</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, env=<span class="string">'default'</span>, **kwargs)</span>:</span></span><br><span class="line">        self.vis = visdom.Visdom(env=env, use_incoming_socket=<span class="keyword">False</span>, **kwargs)</span><br><span class="line">        self.index = &#123;&#125;</span><br><span class="line">        self.log_text = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reinit</span><span class="params">(self, env=<span class="string">'default'</span>, **kwargs)</span>:</span></span><br><span class="line">        self.vis = visdom.Visdom(env=env, use_incoming_socket= <span class="keyword">False</span>, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">plot_many</span><span class="params">(self, d)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">            self.plot(k, v)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">img_many</span><span class="params">(self, d)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">            self.img(k, v)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">plot</span><span class="params">(self, name, y)</span>:</span></span><br><span class="line">        x = self.index.get(name, <span class="number">0</span>)</span><br><span class="line">        self.vis.line(Y=np.array([y]), X=np.array([x]),</span><br><span class="line">                      win=name,</span><br><span class="line">                      opts=dict(title=name),</span><br><span class="line">                      update=<span class="keyword">None</span> <span class="keyword">if</span> x == <span class="number">0</span> <span class="keyword">else</span> <span class="string">'append'</span></span><br><span class="line">                      )</span><br><span class="line">        self.index[name] = x + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">img</span><span class="params">(self, name, img_)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> len(img_.size()) &lt; <span class="number">3</span>:</span><br><span class="line">            img_ = img_.cpu().unsqueeze(<span class="number">0</span>)</span><br><span class="line">        self.vis.image(img_.cpu(),</span><br><span class="line">                       win=name,</span><br><span class="line">                       opts=dict(title=name)</span><br><span class="line">                       )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">img_grid_many</span><span class="params">(self, d)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">            self.img_grid(k, v)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">img_grid</span><span class="params">(self, name, input_3d)</span>:</span></span><br><span class="line">        self.img(name, tv.utils.make_grid(</span><br><span class="line">            input_3d.cpu()[<span class="number">0</span>].unsqueeze(<span class="number">1</span>).clamp(max=<span class="number">1</span>, min=<span class="number">0</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(self, info, win=<span class="string">'log_text'</span>)</span>:</span></span><br><span class="line">        self.log_text += (<span class="string">'[&#123;time&#125;] &#123;info&#125; &lt;br&gt;'</span>.format(</span><br><span class="line">            time=time.strftime(<span class="string">'%m%d_%H%M%S'</span>),</span><br><span class="line">            info=info))</span><br><span class="line">        self.vis.text(self.log_text, win=win)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getattr__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> getattr(self.vis, name)</span><br></pre></td></tr></table></figure>
+<p>上面的这个工具包里面包含了一个visdom的封装类，以及两个函数<br>需要注意三点</p>
+<ul>
+<li><p>业界统一规范的 使用的归一化参数，固定下来了，没有什么特殊的需求，就不要去轻易的更改</p>
+</li>
+<li><p>计算风格参数的矩阵，中 两个操作 如果是多维度矩阵需要转制，那么就去使用transpose， 如果是多维度矩阵相乘，那么就使用 bmm来保证第一个batch_size不变化</p>
+</li>
+<li><p>normalize_batch函数没有弄的太清楚，计算风格系数的矩阵需要去看一下论文。</p>
+</li>
+</ul>
+<p>接下来就来敲定复杂的模型了，使用了一部分的预训练模型。</p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><h4 id="VGG-16"><a href="#VGG-16" class="headerlink" title="VGG-16"></a>VGG-16</h4><p>首先 风格迁移的模型有两个，前面是生成图像的模型，后面则是提取特征，并且计算损失的模型，这里先从后面计算损失的模型VGG-16来看</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torchvision.models <span class="keyword">import</span> vgg16</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vgg16</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Vgg16,self).__init__()</span><br><span class="line">        feature = list(vgg16(pretrained=<span class="keyword">True</span>).features)[:<span class="number">23</span>]</span><br><span class="line">        self.features = nn.ModuleList(feature).eval()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        result = []</span><br><span class="line">        <span class="keyword">for</span> ii, model <span class="keyword">in</span> enumerate(self.features):</span><br><span class="line">            x = model(x)</span><br><span class="line">            <span class="keyword">if</span> ii <span class="keyword">in</span> [<span class="number">3</span>, <span class="number">8</span>, <span class="number">15</span>, <span class="number">22</span>]:</span><br><span class="line">                result.append(x)</span><br><span class="line">        Resultset = namedtuple(<span class="string">"VggOutputs"</span>,[<span class="string">'relu1_2'</span>, <span class="string">'relu2_2'</span>, <span class="string">'relu3_3'</span>, <span class="string">'relu4_3'</span>])</span><br><span class="line">        <span class="keyword">return</span> Resultset(*result)</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是三个地方，忍不住吐槽一句，python真的是博大精深，总是有一些稀奇古怪的用法让你欲罢不能。</p>
+<ul>
+<li><p>由于这里计算损失仅仅只是用到四个特征量，所以就没必要全部计算，直接提取前23层就可以了，而且基本上只要3，8，15，22层，直接在前向传播的函数中去提取即可</p>
+</li>
+<li><p>另外如果真的要提取前面的层数的花，直接用nn.Seqential()是不行的，所以需要用list拿出相应的层数，并且最后转换成ModuleList放到模型中去。</p>
+</li>
+<li><p>namedtuple 我的理解就是直接封装成一个有名字的元祖，后面之所以要将result变成*加进去的原因就是将result这个list变成可变参数移到里面去。</p>
+</li>
+</ul>
+<p>接下来便是第二个模型</p>
+<h4 id="TransformerNet"><a href="#TransformerNet" class="headerlink" title="TransformerNet"></a>TransformerNet</h4><p>这个模型可是相当的复杂咯，我这里贴一张图，诠释一切：</p>
+<p><img src="/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/5.png" alt=""></p>
+<p>分为三层，具体为什么要著有构造，那就是 大佬花了很多时间一点一点去研究得来的，</p>
+<p><strong>花书大佬牛逼</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch <span class="keyword">as</span> t</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConvLayer</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, in_channels, out_channels, kernel_size, stride)</span>:</span></span><br><span class="line">        super(ConvLayer, self).__init__()</span><br><span class="line">        reflection_padding = int(np.floor(kernel_size / <span class="number">2</span>))</span><br><span class="line">        self.reflection_pad = nn.ReflectionPad2d(reflection_padding)</span><br><span class="line">        self.conv2d = nn.Conv2d(in_channels, out_channels, kernel_size, stride)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        out = self.reflection_pad(x)</span><br><span class="line">        out = self.conv2d(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResidualBlock</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, channels)</span>:</span></span><br><span class="line">        super(ResidualBlock, self).__init__()</span><br><span class="line">        self.conv1 = ConvLayer(channels, channels, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>)</span><br><span class="line">        self.in1 = nn.InstanceNorm2d(channels, affine=<span class="keyword">True</span>,track_running_stats=<span class="keyword">True</span>)</span><br><span class="line">        self.conv2 = ConvLayer(channels, channels, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>)</span><br><span class="line">        self.in2 = nn.InstanceNorm2d(channels, affine=<span class="keyword">True</span>,track_running_stats=<span class="keyword">True</span>)</span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        residual = x</span><br><span class="line">        out = self.relu(self.in1(self.conv1(x)))</span><br><span class="line">        out = self.in2(self.conv2(out))</span><br><span class="line">        out = out + residual</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpsampleConvLayer</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, in_channels, out_channels, kernel_size, stride, upsample=None)</span>:</span></span><br><span class="line">        super(UpsampleConvLayer, self).__init__()</span><br><span class="line">        self.upsample = upsample</span><br><span class="line">        reflection_padding = int(np.floor(kernel_size / <span class="number">2</span>))</span><br><span class="line">        self.reflection_pad = nn.ReflectionPad2d(reflection_padding)</span><br><span class="line">        self.conv2d = nn.Conv2d(in_channels, out_channels, kernel_size, stride)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x_in = x</span><br><span class="line">        <span class="keyword">if</span> self.upsample:</span><br><span class="line">            x_in = t.nn.functional.interpolate(x_in, scale_factor=self.upsample)</span><br><span class="line">        out = self.reflection_pad(x_in)</span><br><span class="line">        out = self.conv2d(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TransformerNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(TransformerNet, self).__init__()</span><br><span class="line">        self.initial_layers = nn.Sequential(</span><br><span class="line">            ConvLayer(<span class="number">3</span>, <span class="number">32</span>, kernel_size=<span class="number">9</span>, stride=<span class="number">1</span>),</span><br><span class="line">            nn.InstanceNorm2d(<span class="number">32</span>, affine=<span class="keyword">True</span>,track_running_stats=<span class="keyword">True</span>),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            ConvLayer(<span class="number">32</span>, <span class="number">64</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">            nn.InstanceNorm2d(<span class="number">64</span>, affine=<span class="keyword">True</span>,track_running_stats=<span class="keyword">True</span>),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            ConvLayer(<span class="number">64</span>, <span class="number">128</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">            nn.InstanceNorm2d(<span class="number">128</span>, affine=<span class="keyword">True</span>,track_running_stats=<span class="keyword">True</span>),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>)</span><br><span class="line">        )</span><br><span class="line">        self.res_layers = nn.Sequential(</span><br><span class="line">            ResidualBlock(<span class="number">128</span>),</span><br><span class="line">            ResidualBlock(<span class="number">128</span>),</span><br><span class="line">            ResidualBlock(<span class="number">128</span>),</span><br><span class="line">            ResidualBlock(<span class="number">128</span>),</span><br><span class="line">            ResidualBlock(<span class="number">128</span>)</span><br><span class="line">        )</span><br><span class="line">        self.upsample_layers = nn.Sequential(</span><br><span class="line">            UpsampleConvLayer(<span class="number">128</span>, <span class="number">64</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>),</span><br><span class="line">            nn.InstanceNorm2d(<span class="number">64</span>, affine=<span class="keyword">True</span>,track_running_stats=<span class="keyword">True</span>),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            UpsampleConvLayer(<span class="number">64</span>, <span class="number">32</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>),</span><br><span class="line">            nn.InstanceNorm2d(<span class="number">32</span>, affine=<span class="keyword">True</span>,track_running_stats=<span class="keyword">True</span>),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>),</span><br><span class="line">            ConvLayer(<span class="number">32</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = self.initial_layers(x)</span><br><span class="line">        x = self.res_layers(x)</span><br><span class="line">        x = self.upsample_layers(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p>上面模型建立的图片，我还是找个时间去拜读一下原来的论文吧</p>
+<p>这里也有四个点需要去注意的</p>
+<ul>
+<li><p>ReflectionPad2d这是一种更高级的padding方式，不像之前的padding是直接加0，这个会在内部进行优化。</p>
+</li>
+<li><p>这里用到了残切块的方式，防止过深的网络结构梯度消失，</p>
+</li>
+<li><p>这个地方运用到了InstanceNorm2d这种归一化方式，这里特意上网查询了一下 BN，LN，IN，GN从学术化上解释差异：</p>
+<ul>
+<li><p>BatchNorm：batch方向做归一化，算NHW的均值，对小batchsize效果不好；BN主要缺点是对batchsize的大小比较敏感，由于每次计算均值和方差是在一个batch上，所以如果batchsize太小，则计算的均值、方差不足以代表整个数据分布</p>
+<ul>
+<li><p>num_features： 来自期望输入的特征数，该期望输入的大小为’batch_size x num_features [x width]’</p>
+</li>
+<li><p>eps： 为保证数值稳定性（分母不能趋近或取0）,给分母加上的值。默认为1e-5。</p>
+</li>
+<li><p>momentum： 动态均值和动态方差所使用的动量。默认为0.1。</p>
+</li>
+<li><p>affine： 布尔值，当设为true，给该层添加可学习的仿射变换参数。</p>
+</li>
+<li><p>track_running_stats：布尔值，当设为true，记录训练过程中的均值和方差；</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* LayerNorm：channel方向做归一化，算CHW的均值，主要对RNN作用明显；
+    * normalized_shape： 输入尺寸
+        [∗×normalized_shape[0]×normalized_shape[1]×…×normalized_shape[−1]]
+
+    * eps： 为保证数值稳定性（分母不能趋近或取0）,给分母加上的值。默认为1e-5。
+
+    * elementwise_affine： 布尔值，当设为true，给该层添加可学习的仿射变换参数。
+
+* InstanceNorm：一个channel内做归一化，算H * W的均值，用在风格化迁移；因为在图像风格化中，生成结果主要依赖于某个图像实例，所以对整个batch归一化不适合图像风格化中，因而对HW做归一化。可以加速模型收敛，并且保持每个图像实例之间的独立。
+
+    * num_features： 来自期望输入的特征数，该期望输入的大小为’batch_size x num_features [x width]’
+
+    * eps： 为保证数值稳定性（分母不能趋近或取0）,给分母加上的值。默认为1e-5。
+
+    * momentum： 动态均值和动态方差所使用的动量。默认为0.1。
+
+    * affine： 布尔值，当设为true，给该层添加可学习的仿射变换参数。
+
+    * track_running_stats：布尔值，当设为true，记录训练过程中的均值和方差；
+
+* GroupNorm：将channel方向分group，然后每个group内做归一化，算(C//G)HW的均值；这样与batchsize无关，不受其约束。
+    * num_groups：需要划分为的groups
+
+    * num_features： 来自期望输入的特征数，该期望输入的大小为’batch_size x * num_features [x width]’
+
+    * eps： 为保证数值稳定性（分母不能趋近或取0）,给分母加上的值。默认为1e-5。
+
+    * momentum： 动态均值和动态方差所使用的动量。默认为0.1。
+
+    * affine： 布尔值，当设为true，给该层添加可学习的仿射变换参数。
+
+
+* SwitchableNorm是将BN、LN、IN结合，赋予权重，让网络自己去学习归一化层应该使用什么方法。
+
+个人感觉最后一种归一化的方法好牛逼啊。
+</code></pre><ul>
+<li>t.nn.functional.interpolate 这个函数就是用来上采样，虽然我还不懂什么是上采样 大意就是这个函数是用来上采样或下采样，可以给定size或者scale_factor来进行上下采样。同时支持3D、4D、5D的张量输入。插值算法可选，最近邻、线性、双线性等等。</li>
+</ul>
+<p>这里模型已经建立完毕了，接下来就是去关注 主模块和配置函数了，看看这个模型怎么去使用</p>
+<h3 id="主模块"><a href="#主模块" class="headerlink" title="主模块"></a>主模块</h3><p>直接贴出代码咯<br><strong>配置类：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span><span class="params">(object)</span>:</span></span><br><span class="line">    use_gpu = <span class="keyword">False</span></span><br><span class="line">    model_path = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    image_size = <span class="number">256</span></span><br><span class="line">    batch_size = <span class="number">8</span></span><br><span class="line">    data_root = <span class="string">'data/'</span></span><br><span class="line">    num_works = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    lr = <span class="number">1e-3</span></span><br><span class="line">    max_epoch = <span class="number">2</span></span><br><span class="line">    content_weight = <span class="number">1e5</span></span><br><span class="line">    style_weight = <span class="number">1e10</span></span><br><span class="line"></span><br><span class="line">    style_path = <span class="string">'style.png'</span></span><br><span class="line">    env = <span class="string">'neural-style'</span></span><br><span class="line">    plot_every = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">    debug_file = <span class="string">'/tmp/debug'</span></span><br><span class="line"></span><br><span class="line">    content_path = <span class="string">'input.png'</span></span><br><span class="line">    result_path = <span class="string">'output.png'</span></span><br></pre></td></tr></table></figure>
+<p><strong>主模块：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fire</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> ipdb</span><br><span class="line"><span class="keyword">import</span> torchnet <span class="keyword">as</span> tnt</span><br><span class="line"><span class="keyword">import</span> utils</span><br><span class="line"><span class="keyword">import</span> torch <span class="keyword">as</span> t</span><br><span class="line"><span class="keyword">import</span> torchvision <span class="keyword">as</span> tv</span><br><span class="line"><span class="keyword">from</span> config <span class="keyword">import</span> Config</span><br><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"><span class="keyword">from</span> models.transformer_net <span class="keyword">import</span> TransformerNet</span><br><span class="line"><span class="keyword">from</span> models.vgg16 <span class="keyword">import</span> Vgg16</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    opt = Config()</span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> kwargs.items():</span><br><span class="line">        setattr(opt, k, v)</span><br><span class="line"></span><br><span class="line">    device = t.device(<span class="string">'cuda'</span>) <span class="keyword">if</span> opt.use_gpu <span class="keyword">else</span> t.device(<span class="string">'cpu'</span>)</span><br><span class="line">    vis = utils.Visualizer(opt.env)</span><br><span class="line"></span><br><span class="line">    transforms = tv.transforms.Compose([</span><br><span class="line">        tv.transforms.Resize(opt.image_size),</span><br><span class="line">        tv.transforms.CenterCrop(opt.image_size),</span><br><span class="line">        tv.transforms.ToTensor(),</span><br><span class="line">        tv.transforms.Lambda(<span class="keyword">lambda</span> x: x * <span class="number">255</span>)</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">    dataset = tv.datasets.ImageFolder(opt.data_root, transforms)</span><br><span class="line">    dataloader = data.DataLoader(dataset, opt.batch_size, num_workers=opt.num_works)</span><br><span class="line"></span><br><span class="line">    transformer = TransformerNet()</span><br><span class="line">    <span class="keyword">if</span> opt.model_path:</span><br><span class="line">        transformer.load_state_dict(t.load(opt.model_path, map_location=<span class="keyword">lambda</span> storage, loc: storage))</span><br><span class="line">    transformer.to(device)</span><br><span class="line"></span><br><span class="line">    vgg = Vgg16.eval()</span><br><span class="line">    vgg.to(device)</span><br><span class="line"></span><br><span class="line">    <span class="comment">## 这里是为了保护Vgg里面的参数不要去变动， 直接将里面的参数改成不能反向传播</span></span><br><span class="line">    <span class="keyword">for</span> param <span class="keyword">in</span> vgg.parameters():</span><br><span class="line">        param.requires_grad = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    optimizer = t.optim.Adam(transformer.parameters(), opt.lr)</span><br><span class="line"></span><br><span class="line">    style = utils.get_style_data(opt.style_path)</span><br><span class="line">    vis.img(<span class="string">'style'</span>, (style.data[<span class="number">0</span>] * <span class="number">0.225</span> + <span class="number">0.45</span>).clamp(min=<span class="number">0</span>, max=<span class="number">1</span>))</span><br><span class="line">    style = style.to(device)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> t.no_grad():</span><br><span class="line">        feature_style = vgg(style)</span><br><span class="line">        gram_style = list(utils.gram_matrix(y) <span class="keyword">for</span> y <span class="keyword">in</span> feature_style)</span><br><span class="line"></span><br><span class="line">    style_meter = tnt.meter.AverageValueMeter()</span><br><span class="line">    content_meter = tnt.meter.AverageValueMeter()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(opt.max_epoch):</span><br><span class="line">        content_meter.reset()</span><br><span class="line">        style_meter.reset()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> ii, (x, _) <span class="keyword">in</span> tqdm.tqdm(enumerate(dataloader)):</span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            x = x.to(device)</span><br><span class="line">            y = transforms(x)</span><br><span class="line">            y = utils.normalize_batch(y)</span><br><span class="line">            x = utils.normalize_batch(x)</span><br><span class="line"></span><br><span class="line">            <span class="comment">## 这个地方得在仔细敲定一下，没有弄清楚这个features_y的结构</span></span><br><span class="line">            features_y = vgg(y)</span><br><span class="line">            features_x = vgg(x)</span><br><span class="line">            content_loss = opt.content_weight * F.mse_loss(features_y.relu2_2, features_x.relu2_2)</span><br><span class="line"></span><br><span class="line">            style_loss = <span class="number">0.</span></span><br><span class="line">            <span class="keyword">for</span> ft_y, gm_s <span class="keyword">in</span> zip(features_y, gram_style):</span><br><span class="line">                gram_y = utils.gram_matrix(ft_y)</span><br><span class="line">                style_loss += F.mse_loss(gram_y, gm_s.expand_as(gram_y))</span><br><span class="line">            style_loss *= opt.style_weight</span><br><span class="line"></span><br><span class="line">            total_loss = content_loss + style_loss</span><br><span class="line">            total_loss.backward()</span><br><span class="line">            optimizer.step()</span><br><span class="line"></span><br><span class="line">            content_meter.add(content_loss.item())</span><br><span class="line">            style_meter.add(style_loss.item())</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (ii + <span class="number">1</span>) % opt.plot_every == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> os.path.exists(opt.debug_file):</span><br><span class="line">                    ipdb.set_trace()</span><br><span class="line"></span><br><span class="line">                vis.plot(<span class="string">'content_loss'</span>, content_meter.value()[<span class="number">0</span>])</span><br><span class="line">                vis.plot(<span class="string">'style_loss'</span>, style_meter.value()[<span class="number">0</span>])</span><br><span class="line">                vis.img(<span class="string">'output'</span>, (y.data.cpu()[<span class="number">0</span>] * <span class="number">0.225</span> + <span class="number">0.45</span>).clamp(min=<span class="number">0</span>, max=<span class="number">1</span>))</span><br><span class="line">                vis.img(<span class="string">'input'</span>, (x.data.cpu()[<span class="number">0</span>] * <span class="number">0.225</span> + <span class="number">0.45</span>).clamp(min=<span class="number">0</span>, max=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">        vis.save([opt.env])</span><br><span class="line">        t.save(transformer.state_dict(), <span class="string">'checkpoints/%s_style.pth'</span> % epoch)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stylize</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    opt = Config()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> kwargs.items():</span><br><span class="line">        setattr(opt, k, v)</span><br><span class="line">    device = t.device(<span class="string">'cuda'</span>) <span class="keyword">if</span> opt.use_gpu <span class="keyword">else</span> t.device(<span class="string">'cpu'</span>)</span><br><span class="line"></span><br><span class="line">    content_image = tv.datasets.folder.default_loader(opt.content_path)</span><br><span class="line">    content_transform = tv.transforms.Compose([</span><br><span class="line">        tv.transforms.ToTensor(),</span><br><span class="line">        tv.transforms.Lambda(<span class="keyword">lambda</span> x: x * <span class="number">255</span>)</span><br><span class="line">    ])</span><br><span class="line">    content_image = content_transform(content_image)</span><br><span class="line">    content_image = content_image.unsqueeze(<span class="number">0</span>).to(device).detach()</span><br><span class="line"></span><br><span class="line">    style_model = TransformerNet().eval()</span><br><span class="line">    style_model.load_state_dict(t.load(opt.model_path, map_location=<span class="keyword">lambda</span> _s, _: _s))</span><br><span class="line">    style_model.to(device)</span><br><span class="line"></span><br><span class="line">    output = style_model(content_image)</span><br><span class="line">    output_data = output.cpu().data[<span class="number">0</span>]</span><br><span class="line">    tv.utils.save_image((output_data / <span class="number">255</span>).clamp(max=<span class="number">1</span>, min=<span class="number">0</span>), opt.result_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    fire.Fire()</span><br></pre></td></tr></table></figure>
+<p>注意五点：</p>
+<ul>
+<li><p>保护VGG-16里面的预选参数不去改变，需要将其里面的所有参数的requires_grad设置成False，并且在提取data数据的是时候，直接将里面所有的数据像素乘以255倍</p>
+</li>
+<li><p>另外在展示图片的时候，将风格图片style.data[0] * 0.225 + 0.45).clamp(min=0, max=1)， 这个地方没怎么看懂，有会的大佬可以交流一下，以后找个时间去弄懂</p>
+</li>
+<li><p>在计算风格特征的时候，为什么不能够直接用detach（），而这里是直接将Vgg-16里面参数设置成不可以no_grad（）</p>
+</li>
+<li><p>Vgg-16只是提取特征的网络，首先先用transnet跑出来比较，并且将图片的通道数进行一个有效的归一化？这个需要去好好想想</p>
+</li>
+<li><p>另外 将特征提取出来之后，与风格图片相比的就是 风格loss，与内容相比的就是内容loss，关于风格系数这里 涉及到很多数学知识，我需要后期去弄清楚。</p>
+</li>
+</ul>
+<p>最后总结一下 几个问题要弄清楚，</p>
+<ol>
+<li><p>为什么要对照片*255，最后输出的时候再去255</p>
+</li>
+<li><p>为什么再训练过程中，对图片有一个* 0.225 + 0.45).clamp(min=0, max=1)的操作</p>
+</li>
+<li><p>为什么 要在转换函数之后，对愿图片和转换图片进行一个通道数的归一化？？？ 不知道是不是通道数</p>
+</li>
+<li><p>风格系数的公式以及计算风格特征的损失函数需要去查看相关论文。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/">风格迁移---基于pytorch框架的图片生成模型</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
+  <p><span>发布时间:</span>2020年03月14日 - 20:03</p>
+  <p><span>最后更新:</span>2020年03月15日 - 01:03</p>
+  <p><span>原始链接:</span><a href="/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/" title="风格迁移---基于pytorch框架的图片生成模型">http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.cn/2020/03/14/风格迁移-基于pytorch框架的图片生成模型/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+
+		
+	</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+          
+            <a href="/tags/Pytorch/" rel="tag"><i class="fa fa-tag"></i> Pytorch</a>
+          
+            <a href="/tags/风格迁移/" rel="tag"><i class="fa fa-tag"></i> 风格迁移</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/" rel="next" title="GAN对抗网络生成动漫图像---基于pytorch框架的小应用">
+                <i class="fa fa-chevron-left"></i> GAN对抗网络生成动漫图像---基于pytorch框架的小应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+
+  
+</div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/good.jpg" alt="五光君">
+            
+              <p class="site-author-name" itemprop="name">五光君</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CrazyFnOption" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wsx1128@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="V2EX" target="_blank">V2EX</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+
+
+
+
+    <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=590262&auto=1&height=66"></iframe>
+</div>
+		
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像风格迁移的原理："><span class="nav-number">2.</span> <span class="nav-text">图像风格迁移的原理：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原始风格迁移原理："><span class="nav-number">2.1.</span> <span class="nav-text">原始风格迁移原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速图像风格迁移的原理"><span class="nav-number">2.2.</span> <span class="nav-text">快速图像风格迁移的原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pytorch-实现快速风格迁移"><span class="nav-number">3.</span> <span class="nav-text">Pytorch 实现快速风格迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具包"><span class="nav-number">3.1.</span> <span class="nav-text">工具包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">3.2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#VGG-16"><span class="nav-number">3.2.1.</span> <span class="nav-text">VGG-16</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TransformerNet"><span class="nav-number">3.2.2.</span> <span class="nav-text">TransformerNet</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主模块"><span class="nav-number">3.3.</span> <span class="nav-text">主模块</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+	
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五光君</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">143.2k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+         
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+        <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+    
+<!-- END LOCAL --> 
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1584190508000', 
+            owner: 'CrazyFnOption',
+            repo: 'CrazyFnOption.github.io',
+            
+            oauth: {
+            
+            
+                client_secret: 'f921e00ac2d457990b50d105821daaa5ef9592ff',
+            
+                client_id: 'f295998f9beac5637d34'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+
+	
+  
+
+
+</body>
+</html>
