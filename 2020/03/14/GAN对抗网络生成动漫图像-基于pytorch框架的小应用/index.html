@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="2abIo_A5nMhdTOncpCpNSXNLFkH93A_Xns3iOs7LWKI">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="WwJNi7FIvf">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="对抗网络GAN,深度学习,Pytorch,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Bean" type="application/atom+xml">
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7c502428"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+<meta name="description" content="介绍这是在pytorch教程上面一个简单的应用，利用对抗网络生成图像生成动漫图像 该类网络 分成两个结构模型： 捕获数据分布的生成模型G，和估计样本来自训练数据的概率的判别模型D G的训练就是将D的错误最大化，GAN主要针对的是生成类的模型 目前，深度学习的领域的图像生成、风格迁移，图像变化，图像描述，无监督学习，甚至强化学习领域都能看到GAN的影子。 目前深度学习领域可以分为两大类： 其一是检测">
+<meta name="keywords" content="对抗网络GAN,深度学习,Pytorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAN对抗网络生成动漫图像---基于pytorch框架的小应用">
+<meta property="og:url" content="http://wsx1128.cn/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/index.html">
+<meta property="og:site_name" content="Magical Bean">
+<meta property="og:description" content="介绍这是在pytorch教程上面一个简单的应用，利用对抗网络生成图像生成动漫图像 该类网络 分成两个结构模型： 捕获数据分布的生成模型G，和估计样本来自训练数据的概率的判别模型D G的训练就是将D的错误最大化，GAN主要针对的是生成类的模型 目前，深度学习的领域的图像生成、风格迁移，图像变化，图像描述，无监督学习，甚至强化学习领域都能看到GAN的影子。 目前深度学习领域可以分为两大类： 其一是检测">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wsx1128.cn/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/1.png">
+<meta property="og:updated_time" content="2020-03-14T11:47:35.888Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GAN对抗网络生成动漫图像---基于pytorch框架的小应用">
+<meta name="twitter:description" content="介绍这是在pytorch教程上面一个简单的应用，利用对抗网络生成图像生成动漫图像 该类网络 分成两个结构模型： 捕获数据分布的生成模型G，和估计样本来自训练数据的概率的判别模型D G的训练就是将D的错误最大化，GAN主要针对的是生成类的模型 目前，深度学习的领域的图像生成、风格迁移，图像变化，图像描述，无监督学习，甚至强化学习领域都能看到GAN的影子。 目前深度学习领域可以分为两大类： 其一是检测">
+<meta name="twitter:image" content="http://wsx1128.cn/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wsx1128.cn/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/">
+
+
+
+
+
+  <title>GAN对抗网络生成动漫图像---基于pytorch框架的小应用 | Magical Bean</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Bean</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">GAN对抗网络生成动漫图像---基于pytorch框架的小应用</h2>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-14T18:16:09+08:00">
+                2020-03-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-03-14T19:47:35+08:00">
+                2020-03-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>这是在pytorch教程上面一个简单的应用，利用对抗网络生成图像生成动漫图像</p>
+<p>该类网络 分成两个结构模型： 捕获数据分布的生成模型G，和估计样本来自训练数据的概率的判别模型D</p>
+<p>G的训练就是将D的错误最大化，GAN主要针对的是生成类的模型</p>
+<p>目前，深度学习的领域的图像生成、风格迁移，图像变化，图像描述，无监督学习，甚至强化学习领域都能看到GAN的影子。</p>
+<p>目前深度学习领域可以分为两大类：</p>
+<p>其一是检测识别，比如图像分类，目标识别，此类模型主要有VGG，GoogLenet，Residual net等，几乎所有的网络都是基于识别的</p>
+<p>其二是图像生成，即解决如何从一些数据里生成图像，生成类模型主要有深度信念网络DBN，变分zibianmaqiVAE。而某种程度上，GAN的生成能力远超过DBN、VAE。经过改进后的GAN足以生成以假乱真的图像。</p>
+<p>机器学习的模型大体可分为两类：生成模型（Generative model）和判别模型（Discriminative model）。</p>
+<p>判别模型需要输入变量，通过某种模型来预测。</p>
+<p>生成模型是给定某种隐含信息，来随机产生观测数据。</p>
+<h3 id="GAN原理"><a href="#GAN原理" class="headerlink" title="GAN原理"></a>GAN原理</h3><p>GAN基本原理：以生成图片为例。假设我们有两个网络：G(Generator)和D(Discriminator)。他们的功能分别为：</p>
+<p>G：一个生成图片的网络，它接收一个随机噪声z，通过这个噪声生成图片，记做G(z)；</p>
+<p>D：一个判别网络，判别一张图片是不是“真实的”。它的输入参数是x，x代表一张图片，输出D(x)代表x为真实图片的概率。</p>
+<p>如果为1，就带包100%是真实的图片，而输出为0，就代表不可能是真实图片。</p>
+<p>在训练过程中，生成网络G的目标就是尽量生成真实的图片去欺骗判别网络D，而D的目标就是尽量把G生成的图片和真实的图片分别开来。这样，G和D构成了一个动态的“博弈”。</p>
+<p>理想状态下，G可以生成足以“以假乱真”的图片G(z)。 对D来说。它难以判定G生成的图片究竟是不是真实的。这样我们的目的就达到了</p>
+<p>这样我们就可以得到一个生成式的模型，可以用它来生成图片</p>
+<p><img src="/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/1.png" alt=""></p>
+<p>其中G为生成模型，D为判别模型。</p>
+<p>GAN的大概流程是：G以随机噪声作为输入，生成一张图像G(z)，暂且不管生成质量多好，然后D以G(z)和真实图像x作为输入，对G(z)和x做一个二分类，检测谁是真实图像，谁是生成的假图像。</p>
+<p>举一个最简单的例子</p>
+<p>A为卖假钞的团队  B为抓假钞的警察</p>
+<p>A最先开始没有经验，所以一开始做出来的假钞很没有水准，而B一开始也没有能力辨别假钞，所以一开始对A制造出来的假钞没有太大敌意，全盘接受。</p>
+<p>于是B开始慢慢学习，久而久之发现不太对劲，于是开始钻研假钞。最后发现，A团队研制假钞，所以开始追杀A。</p>
+<p>这个时候A发现自己的假钞被识别出来了，于是加大研究力度，研究出了更不容易被发现的假钞<br>然后B也被绕进去了，于是也开始研究反假钞…</p>
+<p>于是就一直这样重复进行博弈，最后我们得到的训练模型是 一个可以完美生成“真的”假钞的技术</p>
+<p><strong>以上只是举个小小的例子，帮助理解GAN，我坚决拥护中国共产党</strong></p>
+<p>下面 回到本次小应用上面，</p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>这里也是同样存在两个模型，</p>
+<ul>
+<li><p>一个模型用来接受一个随机的一维噪音维度，并且生成一系列动漫头像。</p>
+</li>
+<li><p>一个是用来接受动漫头像，并且用于判断其是否是真正的动漫头像。</p>
+</li>
+</ul>
+<p>接下来，请看模型的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net_G</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, opt)</span>:</span></span><br><span class="line">        super(Net_G,self).__init__()</span><br><span class="line"></span><br><span class="line">        ngf = opt.ngf <span class="comment"># 卷积层中间用来描述给予图像的特征</span></span><br><span class="line"></span><br><span class="line">        self.net = nn.Sequential(</span><br><span class="line">            <span class="comment"># 100 * 1 * 1 -&gt; (ngf * 8) * 4 * 4</span></span><br><span class="line">            nn.ConvTranspose2d(opt.nc, ngf*<span class="number">8</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">0</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.BatchNorm2d(ngf * <span class="number">8</span>),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># (ngf * 8) * 4 * 4 -&gt; (ngf * 4) * 8 * 8</span></span><br><span class="line">            nn.ConvTranspose2d(ngf*<span class="number">8</span>, ngf*<span class="number">4</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.BatchNorm2d(ngf * <span class="number">4</span>),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># (ngf * 4) * 8 * 8 -&gt; (ngf * 2) * 16 * 16</span></span><br><span class="line">            nn.ConvTranspose2d(ngf*<span class="number">4</span>, ngf*<span class="number">2</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.BatchNorm2d(ngf*<span class="number">2</span>),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># (ngf * 2) * 16 * 16 -&gt; ngf * 32 * 32</span></span><br><span class="line">            nn.ConvTranspose2d(ngf*<span class="number">2</span>, ngf, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.BatchNorm2d(ngf),</span><br><span class="line">            nn.ReLU(<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># ngf * 32 * 32 -&gt; 3 * 96 * 96</span></span><br><span class="line">            nn.ConvTranspose2d(ngf, <span class="number">3</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.Tanh()</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.net(x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net_D</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, opt)</span>:</span></span><br><span class="line">        super(Net_D,self).__init__()</span><br><span class="line">        ndf = opt.ndf</span><br><span class="line"></span><br><span class="line">        self.net = nn.Sequential(</span><br><span class="line">            <span class="comment"># 3 * 96 * 96 -&gt; ndf * 32 * 32</span></span><br><span class="line">            nn.Conv2d(<span class="number">3</span>, ndf, <span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.BatchNorm2d(ndf),</span><br><span class="line">            nn.LeakyReLU(<span class="number">0.2</span>,<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># ndf * 32 * 32 -&gt; (ndf * 2) * 16 * 16</span></span><br><span class="line">            nn.Conv2d(ndf, ndf*<span class="number">2</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.BatchNorm2d(ndf*<span class="number">2</span>),</span><br><span class="line">            nn.LeakyReLU(<span class="number">0.2</span>,<span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># (ndf * 2) * 16 * 16 -&gt; (ndf * 4) * 8 * 8</span></span><br><span class="line">            nn.Conv2d(ndf*<span class="number">2</span>, ndf*<span class="number">4</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.BatchNorm2d(ndf*<span class="number">4</span>),</span><br><span class="line">            nn.LeakyReLU(<span class="number">0.2</span>, <span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># (ndf * 4) * 8 * 8 -&gt; (ndf*8) * 4 * 4</span></span><br><span class="line">            nn.Conv2d(ndf*<span class="number">4</span>, ndf*<span class="number">8</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.BatchNorm2d(ndf*<span class="number">8</span>),</span><br><span class="line">            nn.LeakyReLU(<span class="number">0.2</span>, <span class="keyword">True</span>),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># (ndf*8) * 4 * 4 -&gt; 100 * 1 * 1,</span></span><br><span class="line">            nn.Conv2d(ndf*<span class="number">8</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">0</span>, bias=<span class="keyword">False</span>),</span><br><span class="line">            nn.Sigmoid()</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.net(x).view(<span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+<p>上面这段代码需要注意四点</p>
+<ul>
+<li><p>仔细看网络其实是对称的，并且图片的维度应该是 m <em> nc </em> n * n, nc表示通道数，n表示图片尺寸</p>
+</li>
+<li><p>Conv2d 卷积层是一个将图片变成特征的过程，而ConvTranspose2d则是将特征变成图片的过程，参数都是类似的过程，另外计算公式正好就是恰恰相反 (fs - kerner_size + 2*padding) / stride 后者的公式就是将其倒过来就可以</p>
+</li>
+<li><p>不需要bias的原因是因为在BatchNorm2d中已经进行了参数归一化的过程</p>
+</li>
+</ul>
+<p>模型有了，接下来就是处理数据图片</p>
+<h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><p>这里就不像之前一样专门封装一个数据集，上次封装数据集，是因为在取出数据的时候，需要对标签值，进行一个处理，（也就是对Y值进行一个处理），而这次全部都是图片数据，且不需要做一些额外的处理，所以直接使用即可</p>
+<p>这里直接使用的是ImageFolder类，帮助处理相关图片文件夹群</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">transforms = tv.transforms.Compose([</span><br><span class="line">        tv.transforms.Resize(opt.image_size),</span><br><span class="line">        tv.transforms.CenterCrop(opt.image_size),</span><br><span class="line">        tv.transforms.ToTensor(),</span><br><span class="line">        tv.transforms.Normalize((<span class="number">0.5</span>,<span class="number">0.5</span>,<span class="number">0.5</span>),(<span class="number">0.5</span>,<span class="number">0.5</span>,<span class="number">0.5</span>))</span><br><span class="line">    ])</span><br><span class="line">    dataset = tv.datasets.ImageFolder(opt.data_path,transform=transforms)</span><br><span class="line">    dataloader = DataLoader(dataset,</span><br><span class="line">                            opt.batch_size,</span><br><span class="line">                            shuffle=<span class="keyword">True</span>,</span><br><span class="line">                            num_workers=opt.num_works,</span><br><span class="line">                            drop_last=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="主模块"><a href="#主模块" class="headerlink" title="主模块"></a>主模块</h3><p>前面都算是简单的环节，其实主要困难在配置函数和主类中</p>
+<p>接下里请看代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span><span class="params">(object)</span>:</span></span><br><span class="line">    data_path = <span class="string">'data/'</span></span><br><span class="line">    num_works = <span class="number">4</span></span><br><span class="line">    image_size = <span class="number">96</span></span><br><span class="line">    batch_size = <span class="number">256</span></span><br><span class="line">    max_epoch = <span class="number">200</span></span><br><span class="line">    lr1 = <span class="number">2e-4</span></span><br><span class="line">    lr2 = <span class="number">2e-4</span></span><br><span class="line">    beta1 = <span class="number">0.5</span></span><br><span class="line">    gpu = <span class="keyword">False</span></span><br><span class="line">    nc = <span class="number">100</span></span><br><span class="line">    ngf = <span class="number">64</span></span><br><span class="line">    ndf = <span class="number">64</span></span><br><span class="line"></span><br><span class="line">    save_path = <span class="string">'imgs/'</span></span><br><span class="line">    vis = <span class="keyword">True</span></span><br><span class="line">    env=<span class="string">'GAN'</span></span><br><span class="line">    plot_every = <span class="number">20</span></span><br><span class="line"></span><br><span class="line">    debug_file = <span class="string">'/tmp/debug'</span></span><br><span class="line">    d_every = <span class="number">1</span></span><br><span class="line">    g_every = <span class="number">5</span></span><br><span class="line">    save_every = <span class="number">10</span></span><br><span class="line">    netd_path = <span class="keyword">None</span></span><br><span class="line">    netg_path = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    gen_img = <span class="string">'result.png'</span></span><br><span class="line">    gen_num = <span class="number">64</span></span><br><span class="line">    gen_search_num = <span class="number">512</span></span><br><span class="line">    gen_mean = <span class="number">0</span></span><br><span class="line">    gen_std = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">opt = Config()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> fire</span><br><span class="line"><span class="keyword">import</span> ipdb</span><br><span class="line"><span class="keyword">import</span> visdom</span><br><span class="line"><span class="keyword">import</span> torch <span class="keyword">as</span> t</span><br><span class="line"><span class="keyword">import</span> torchvision <span class="keyword">as</span> tv</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable <span class="keyword">as</span> V</span><br><span class="line"><span class="keyword">from</span> models <span class="keyword">import</span> Net_G,Net_D</span><br><span class="line"><span class="keyword">from</span> config <span class="keyword">import</span> opt</span><br><span class="line"><span class="keyword">from</span> visualize <span class="keyword">import</span> Visualize</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="keyword">from</span> torchnet.meter <span class="keyword">import</span> AverageValueMeter</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> vis, fix_fake_img</span><br><span class="line">    <span class="keyword">for</span> k_,v_ <span class="keyword">in</span> kwargs.items():</span><br><span class="line">        setattr(opt, k_, v_)</span><br><span class="line">    device = t.device(<span class="string">'cuda'</span>) <span class="keyword">if</span> opt.gpu <span class="keyword">else</span> t.device(<span class="string">'cpu'</span>)</span><br><span class="line"></span><br><span class="line">    vv = visdom.Visdom(env=<span class="string">'image'</span>)</span><br><span class="line">    print(opt.netd_path)</span><br><span class="line">    print(opt.netg_path)</span><br><span class="line">    <span class="keyword">if</span> opt.vis:</span><br><span class="line">        <span class="keyword">from</span> visualize <span class="keyword">import</span> Visualize</span><br><span class="line">        vis = Visualize(opt.env)</span><br><span class="line"></span><br><span class="line">    transforms = tv.transforms.Compose([</span><br><span class="line">        tv.transforms.Resize(opt.image_size),</span><br><span class="line">        tv.transforms.CenterCrop(opt.image_size),</span><br><span class="line">        tv.transforms.ToTensor(),</span><br><span class="line">        tv.transforms.Normalize((<span class="number">0.5</span>,<span class="number">0.5</span>,<span class="number">0.5</span>),(<span class="number">0.5</span>,<span class="number">0.5</span>,<span class="number">0.5</span>))</span><br><span class="line">    ])</span><br><span class="line">    dataset = tv.datasets.ImageFolder(opt.data_path,transform=transforms)</span><br><span class="line">    dataloader = DataLoader(dataset,</span><br><span class="line">                            opt.batch_size,</span><br><span class="line">                            shuffle=<span class="keyword">True</span>,</span><br><span class="line">                            num_workers=opt.num_works,</span><br><span class="line">                            drop_last=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    net_g,net_d = Net_G(opt),Net_D(opt)</span><br><span class="line">    <span class="keyword">if</span> opt.netd_path:</span><br><span class="line">        net_d.load_state_dict(t.load(opt.netd_path, map_location=<span class="keyword">lambda</span> storage, loc: storage))</span><br><span class="line">    <span class="keyword">if</span> opt.netg_path:</span><br><span class="line">        net_g.load_state_dict(t.load(opt.netg_path, map_location=<span class="keyword">lambda</span> storage, loc:storage))</span><br><span class="line"></span><br><span class="line">    net_g.to(device)</span><br><span class="line">    net_d.to(device)</span><br><span class="line"></span><br><span class="line">    optimizer_g = t.optim.Adam(net_g.parameters(), opt.lr1, betas=(opt.beta1, <span class="number">0.999</span>))</span><br><span class="line">    optimizer_d = t.optim.Adam(net_d.parameters(), opt.lr2, betas=(opt.beta1, <span class="number">0.999</span>))</span><br><span class="line"></span><br><span class="line">    criterion = t.nn.BCELoss().to(device)</span><br><span class="line"></span><br><span class="line">    true_labels = V(t.ones(opt.batch_size).to(device))</span><br><span class="line">    fake_labels = V(t.zeros(opt.batch_size).to(device))</span><br><span class="line">    noises = V(t.randn(opt.batch_size, opt.nc, <span class="number">1</span>, <span class="number">1</span>).to(device))</span><br><span class="line">    fix_noises = V(t.randn(opt.batch_size, opt.nc, <span class="number">1</span>, <span class="number">1</span>).to(device))</span><br><span class="line"></span><br><span class="line">    error_d_meter = AverageValueMeter()</span><br><span class="line">    error_g_meter = AverageValueMeter()</span><br><span class="line"></span><br><span class="line">    epochs = range(opt.max_epoch)</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> epochs:</span><br><span class="line">        <span class="keyword">for</span> ii, (img,_) <span class="keyword">in</span> tqdm.tqdm(enumerate(dataloader)):</span><br><span class="line">            real_img = img.to(device)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ii % opt.d_every == <span class="number">0</span>:</span><br><span class="line">                optimizer_d.zero_grad()</span><br><span class="line">                output = net_d(real_img)</span><br><span class="line">                error_d_real = criterion(output,true_labels)</span><br><span class="line">                error_d_real.backward()</span><br><span class="line"></span><br><span class="line">                noises.data.copy_(t.randn(opt.batch_size, opt.nc, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">                fake_img = net_g(noises).detach()</span><br><span class="line">                output = net_d(fake_img)</span><br><span class="line">                error_d_fake = criterion(output, fake_labels)</span><br><span class="line">                error_d_fake.backward()</span><br><span class="line">                optimizer_d.step()</span><br><span class="line">                error_d = error_d_fake + error_d_real</span><br><span class="line">                error_d_meter.add(error_d.item())</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ii % opt.g_every == <span class="number">0</span>:</span><br><span class="line">                optimizer_g.zero_grad()</span><br><span class="line">                noises.data.copy_(t.randn(opt.batch_size, opt.nc, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">                fake_img = net_g(noises)</span><br><span class="line">                output = net_d(fake_img)</span><br><span class="line">                error_g = criterion(output, true_labels)</span><br><span class="line">                error_g.backward()</span><br><span class="line">                optimizer_g.step()</span><br><span class="line">                error_g_meter.add(error_g.item())</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> opt.vis <span class="keyword">and</span> ii % opt.plot_every == opt.plot_every - <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">if</span> os.path.exists(opt.debug_file):</span><br><span class="line">                    ipdb.set_trace()</span><br><span class="line">                fix_fake_img = net_g(fix_noises)</span><br><span class="line">                <span class="comment"># vis.img('fixfake',fix_fake_img.detach().data.cpu().numpy()[:64] * 0.5 + 0.5)</span></span><br><span class="line">                <span class="comment"># vis.img('real', (real_img.cpu().numpy()[:64] * 0.5 + 0.5))</span></span><br><span class="line">                vv.images(fix_fake_img.detach().cpu().numpy()[:<span class="number">64</span>] * <span class="number">0.5</span> + <span class="number">0.5</span>, win=<span class="string">'fixfake'</span>)</span><br><span class="line">                vv.images(real_img.data.cpu().numpy()[:<span class="number">64</span>] * <span class="number">0.5</span> + <span class="number">0.5</span>, win=<span class="string">'real'</span>)</span><br><span class="line"></span><br><span class="line">                vis.plot(<span class="string">'errord'</span>, error_d_meter.value()[<span class="number">0</span>])</span><br><span class="line">                vis.plot(<span class="string">'errorg'</span>, error_g_meter.value()[<span class="number">0</span>])</span><br><span class="line">            print(<span class="string">"current epoch: %d"</span> % epoch)</span><br><span class="line">        <span class="keyword">if</span> (epoch + <span class="number">1</span>) % opt.save_every == <span class="number">0</span>:</span><br><span class="line">            tv.utils.save_image(fix_fake_img.data[:<span class="number">64</span>], <span class="string">'%s/%s.png'</span> %(opt.save_path, epoch)</span><br><span class="line">                                , normalize=<span class="keyword">True</span>,range=(<span class="number">-1</span>,<span class="number">1</span>))</span><br><span class="line">            t.save(net_g.state_dict(),<span class="string">'checkpoints/netg_%s.pth'</span> % epoch)</span><br><span class="line">            t.save(net_d.state_dict(),<span class="string">'checkpoints/netd_%s.pth'</span> % epoch)</span><br><span class="line">            error_g_meter.reset()</span><br><span class="line">            error_d_meter.reset()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> k,v <span class="keyword">in</span> kwargs.items():</span><br><span class="line">        setattr(opt, k, v)</span><br><span class="line"></span><br><span class="line">    device = t.device(<span class="string">'cuda'</span>) <span class="keyword">if</span> opt.gpu <span class="keyword">else</span> t.device(<span class="string">'cpu'</span>)</span><br><span class="line">    net_g,net_d = Net_G(opt).eval(),Net_D(opt).eval()</span><br><span class="line">    noises = t.randn(opt.gen_search_num, opt.nc, <span class="number">1</span>, <span class="number">1</span>).normal_(opt.gen_mean, opt.gen_std)</span><br><span class="line">    noises = noises.to(device)</span><br><span class="line"></span><br><span class="line">    net_g.load_state_dict(t.load(opt.netg_path, map_location=<span class="keyword">lambda</span> storage,loc:storage))</span><br><span class="line">    net_d.load_state_dict(t.load(opt.netd_path, map_location=<span class="keyword">lambda</span> storage,loc:storage))</span><br><span class="line">    net_g.to(device)</span><br><span class="line">    net_d.to(device)</span><br><span class="line"></span><br><span class="line">    fake_img = net_g(noises)</span><br><span class="line">    scores = net_d(fake_img).detach()</span><br><span class="line"></span><br><span class="line">    indexs = scores.topk(opt.gen_num)[<span class="number">1</span>]</span><br><span class="line">    result = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ii <span class="keyword">in</span> indexs:</span><br><span class="line">        result.append(fake_img.data[ii])</span><br><span class="line"></span><br><span class="line">    tv.utils.save_image(t.stack(result), opt.gen_num, normalize=<span class="keyword">True</span>, range=(<span class="number">-1</span>,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    fire.Fire()</span><br></pre></td></tr></table></figure>
+<p>关于这个主模块中，同样也有五点需要注意</p>
+<ul>
+<li><p>关于Adam优化器中的beta1 最好为0.8到0.9 而beta2最好为0.999， 而在这里前者用的是0.5，可能是研究出来的结果</p>
+</li>
+<li><p>这里需要几个标签来辅助训练，真标签与假标签，真标签用来与判定模型训练绑定，而假标签需要与生成模型训练绑定，然后在需要两个随机生成的噪声维度，一个是每次都需要去变化，另一个是不用变化，并且时时可视化生成器生成的最终效果的。</p>
+</li>
+<li><p>训练过程就是分为两个流程：训练判别模型和训练生成模型</p>
+<ul>
+<li><p>将真照片放到判别模型中，并且让结果与真标签对比的得到loss，而在此过程中同时还需要将生成器生成的假图片同样放到判别模型中去判假（与假标签进行联动），在词过程中得到两种loss，相加为判别器的loss</p>
+</li>
+<li><p>将随机噪音输入到生成模型中，并且让其对比训练，以得到假意乱真的图片</p>
+</li>
+</ul>
+</li>
+<li><p>在训练的过程中，使用了detach函数，因为A模型的输出做为了B模型的输入，因为不想反向传播甚至梯度下降的时候影响到A模型，所以这里就直接将A模型直接分离。</p>
+</li>
+<li><p>在生成函数中 用生成模型生成的图片，交给判定模型去判别，并且选出近似度最高的几个图形，并且输出。 其实说白了，判别模型在生成图片的时候不会给予直接或者间接的帮助，只能够在最后判定的过程中选出最相像的模型。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/">GAN对抗网络生成动漫图像---基于pytorch框架的小应用</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 五光君 的个人博客">五光君</a></p>
+  <p><span>发布时间:</span>2020年03月14日 - 18:03</p>
+  <p><span>最后更新:</span>2020年03月14日 - 19:03</p>
+  <p><span>原始链接:</span><a href="/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/" title="GAN对抗网络生成动漫图像---基于pytorch框架的小应用">http://wsx1128.cn/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wsx1128.cn/2020/03/14/GAN对抗网络生成动漫图像-基于pytorch框架的小应用/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+
+		
+	</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="五光君 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="五光君 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/对抗网络GAN/" rel="tag"><i class="fa fa-tag"></i> 对抗网络GAN</a>
+          
+            <a href="/tags/深度学习/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+          
+            <a href="/tags/Pytorch/" rel="tag"><i class="fa fa-tag"></i> Pytorch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/14/Anomaly-detection-and-Recommender-Systems/" rel="next" title="Anomaly detection and Recommender Systems">
+                <i class="fa fa-chevron-left"></i> Anomaly detection and Recommender Systems
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+
+  
+</div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/good.jpg" alt="五光君">
+            
+              <p class="site-author-name" itemprop="name">五光君</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CrazyFnOption" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wsx1128@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="V2EX" target="_blank">V2EX</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+
+
+
+
+    <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=590262&auto=1&height=66"></iframe>
+</div>
+		
+
+
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GAN原理"><span class="nav-number">2.</span> <span class="nav-text">GAN原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">3.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据"><span class="nav-number">4.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主模块"><span class="nav-number">5.</span> <span class="nav-text">主模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+	
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五光君</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">137.5k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+         
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+        <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+    
+<!-- END LOCAL --> 
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: '1584180969000', 
+            owner: 'CrazyFnOption',
+            repo: 'CrazyFnOption.github.io',
+            
+            oauth: {
+            
+            
+                client_secret: 'f921e00ac2d457990b50d105821daaa5ef9592ff',
+            
+                client_id: 'f295998f9beac5637d34'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+
+	
+  
+
+
+</body>
+</html>

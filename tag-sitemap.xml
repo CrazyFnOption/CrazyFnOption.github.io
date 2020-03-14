@@ -409,20 +409,6 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.cn/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
-        <lastmod>2020-03-13T19:20:04.319Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://wsx1128.cn/tags/Pytorch/</loc>
-        <lastmod>2020-03-13T19:20:04.319Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://wsx1128.cn/tags/%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/</loc>
         <lastmod>2020-03-13T19:20:04.319Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -439,6 +425,27 @@
     <url>
         <loc>http://wsx1128.cn/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</loc>
         <lastmod>2020-03-14T09:46:48.119Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.cn/tags/%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9CGAN/</loc>
+        <lastmod>2020-03-14T11:47:35.888Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.cn/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+        <lastmod>2020-03-14T11:47:35.888Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.cn/tags/Pytorch/</loc>
+        <lastmod>2020-03-14T11:47:35.888Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
