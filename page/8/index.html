@@ -341,7 +341,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/STL的简单总结/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -360,7 +360,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/STL的简单总结/" itemprop="url">STL的简单总结</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" itemprop="url">条款05：了解 C++默默编写并调用了哪些函数</a></h2>
         
 
         <div class="post-meta">
@@ -389,7 +389,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:05+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:27+08:00">
                 2019-02-24
               </time>
             
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  279
                 </span>
               
 
@@ -455,7 +455,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  1
                 </span>
               
             </div>
@@ -478,21 +478,13 @@
       
         
           
-          补一个加快C++输入输出速度的方法：
-花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。
-字符串 string与字符数组
-构造string的方法
+          几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。
 
-操作string的方法
-
-
-上面的成员函数有的说要返回，同时，有的也存在不返回值。
-
-搜索
+千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/STL的简单总结/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -755,7 +747,7 @@ const 最
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款01：视 C++ 为一个语言联邦/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -774,7 +766,7 @@ const 最
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款01：视 C++ 为一个语言联邦/" itemprop="url">条款01：视 C++ 为一个语言联邦</a></h2>
+                <a class="post-title-link" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/" itemprop="url">关于组合数学，两道思维题目，这里贴两道题目</a></h2>
         
 
         <div class="post-meta">
@@ -803,7 +795,7 @@ const 最
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:29+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:09+08:00">
                 2019-02-24
               </time>
             
@@ -822,8 +814,8 @@ const 最
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -853,7 +845,7 @@ const 最
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  399
+                  816
                 </span>
               
 
@@ -869,7 +861,7 @@ const 最
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  4
                 </span>
               
             </div>
@@ -892,15 +884,14 @@ const 最
       
         
           
-          现在发展的C++已经是一个多重泛型编程语言。
+          第一道 简单的排列组合：
+题解如下：
 
-一个同时支持过程形式、支持面向对象形式、函数形式、泛型形式、元编程形式的语言，这些能力和弹性使 C++成为了一个无可匹敌的工具。对待其的方式最简单的方法是将其看做是一个由相关语言组成的一个联邦而不是某个次语言。
-
-C 说到底 C++ 仍然是 C 的一个
+题目大致可以理解为4堆牌a,b,c,d，每次从一堆牌里拿出牌顶的一张牌，问共有多少种拿法。其实我们可以一堆一堆的分析，假设只有一堆a时只有1种拿法，那两堆a,b时我们可以认为是从a个牌中插入b张牌，用数学表达式就是==C(b,a+b)==;那么三堆的话我们可以
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款01：视 C++ 为一个语言联邦/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/关于组合数学，两道思维题目，这里贴两道题目/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1160,7 +1151,7 @@ C 说到底 C++ 仍然是 C 的一个
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/STL的简单总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1179,7 +1170,7 @@ C 说到底 C++ 仍然是 C 的一个
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/" itemprop="url">条款05：了解 C++默默编写并调用了哪些函数</a></h2>
+                <a class="post-title-link" href="/2018/12/01/STL的简单总结/" itemprop="url">STL的简单总结</a></h2>
         
 
         <div class="post-meta">
@@ -1208,7 +1199,7 @@ C 说到底 C++ 仍然是 C 的一个
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:27+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:05+08:00">
                 2019-02-24
               </time>
             
@@ -1258,7 +1249,217 @@ C 说到底 C++ 仍然是 C 的一个
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  279
+                  1.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          补一个加快C++输入输出速度的方法：
+花上一天的时间来总结 C++ primer 里面的算法以及容器这一章，多余的用法可以上网去查找当做是相应的扩展。
+字符串 string与字符数组
+构造string的方法
+
+操作string的方法
+
+
+上面的成员函数有的说要返回，同时，有的也存在不返回值。
+
+搜索
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/01/STL的简单总结/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+		
+	</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+
+<div>
+  
+</div>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款01：视 C++ 为一个语言联邦/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="五光君">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/good.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Bean">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/条款01：视 C++ 为一个语言联邦/" itemprop="url">条款01：视 C++ 为一个语言联邦</a></h2>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:29+08:00">
+                2019-02-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  399
                 </span>
               
 
@@ -1297,13 +1498,15 @@ C 说到底 C++ 仍然是 C 的一个
       
         
           
-          几乎每一个 class 都会用一个或多个构造函数，一个析构函数，一个拷贝重载运算符，有些是系统自动生成的合成版本，有些是需要自定义的版本，所以这一条款的目的是为了探寻哪些是需要自己去写，哪一些是需要系统自身合成的。
+          现在发展的C++已经是一个多重泛型编程语言。
 
-千万不要写完构造函数或者拷贝构造函数或者是析构函数之后不去定义，那么会造成问题，而
+一个同时支持过程形式、支持面向对象形式、函数形式、泛型形式、元编程形式的语言，这些能力和弹性使 C++成为了一个无可匹敌的工具。对待其的方式最简单的方法是将其看做是一个由相关语言组成的一个联邦而不是某个次语言。
+
+C 说到底 C++ 仍然是 C 的一个
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款05：了解 C++默默编写并调用了哪些函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款01：视 C++ 为一个语言联邦/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1564,7 +1767,7 @@ C 说到底 C++ 仍然是 C 的一个
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款07：为多态基类声明 virtual 析构函数/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1583,7 +1786,7 @@ C 说到底 C++ 仍然是 C 的一个
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/" itemprop="url">条款07：为多态基类声明 virtual 析构函数</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" itemprop="url">条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</a></h2>
         
 
         <div class="post-meta">
@@ -1612,7 +1815,7 @@ C 说到底 C++ 仍然是 C 的一个
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:25+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:26+08:00">
                 2019-02-24
               </time>
             
@@ -1662,7 +1865,7 @@ C 说到底 C++ 仍然是 C 的一个
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  457
+                  241
                 </span>
               
 
@@ -1701,12 +1904,12 @@ C 说到底 C++ 仍然是 C 的一个
       
         
           
-          在进行基类与派生类之间动态绑定的时候，如果发生对象销毁调用的析构函数不是虚函数的话，那么就会造成析构销毁部分的现象。
-C++明确指出，当 derived class 对象经由一个 base class指针被删除，而该 base class 带着一个不是虚函数的析构函数的话，其结果往往都是自定义的，就
+          有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。
+把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款07：为多态基类声明 virtual 析构函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1967,7 +2170,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/">
+    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款10：令 operator= 返回一个 自身的返回/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="五光君">
@@ -1986,7 +2189,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/" itemprop="url">条款06：若不想使用编译器自动生成的函数，就应该明确拒绝</a></h2>
+                <a class="post-title-link" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/" itemprop="url">条款10：令 operator= 返回一个 自身的返回</a></h2>
         
 
         <div class="post-meta">
@@ -2015,7 +2218,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:26+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:23+08:00">
                 2019-02-24
               </time>
             
@@ -2065,7 +2268,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  241
+                  103
                 </span>
               
 
@@ -2104,213 +2307,12 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
       
         
           
-          有的时候鉴于某些情况，比如智能指针中 unique_str 和 io 库对象无法发生拷贝和赋值，是因为明确在类的内部进行了拒绝操作，所以无法拷贝与赋值，这一个条款就来讲解有哪些方法可以用来拒绝。
-把自己不想要的函数，但是系统默认又会生成的函数放到私有成员中，这种方法很简便，但是有一个缺点就是在类的内
-          ...
+          一般重载赋值运算符号的时候一般都会返回一个自身的引用，这样可以更方面操作自身，如果仅仅只是返回一个拷贝的对象的话，那么将会在连续使用运算符的时候发生错误，而且在一些较大的类型的话，可能速度会慢些，所以一般返回自身的引用。
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款06：若不想使用编译器自动生成的函数，就应该明确拒绝/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-		
-	</div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-
-<div>
-  
-</div>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wsx1128.cn/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="五光君">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/good.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Bean">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/" itemprop="url">条款09：绝不在构造和析构的过程中调用 virtual 函数</a></h2>
-        
-
-        <div class="post-meta">
-		
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-01T23:26:24+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2019-02-24T00:42:24+08:00">
-                2019-02-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  430
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          绝对不要在构造函数和析构函数期间调用虚函数，因为这样调用的结果不会带来预想的结果。
-基类构造函数的时候，虚函数是不会下降到派生类中，原因就是在基类开始构造函数的时候，该类的类型是基类，而不是派生类，简单来说，如果想在构造函数的过程中，直接使用基类的虚函数来折射到派生类，从而帮助派生类完成构造的话，那
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/01/条款09：绝不在构造和析构的过程中调用 virtual 函数/#more" rel="contents">
+            <a class="btn" href="/2018/12/01/条款10：令 operator= 返回一个 自身的返回/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2408,7 +2410,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">107</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2430,7 +2432,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -2540,7 +2542,7 @@ C++明确指出，当 derived class 对象经由一个 base class指针被删除
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">154.9k</span>
+    <span title="Site words total count">158.6k</span>
   
 </div>
 
