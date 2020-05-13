@@ -444,22 +444,29 @@
     </url>
 
     <url>
-        <loc>http://wsx1128.cn/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+        <loc>http://wsx1128.cn/tags/RNN/</loc>
         <lastmod>2020-03-15T14:54:01.320Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://wsx1128.cn/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+        <lastmod>2020-03-15T17:06:13.934Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://wsx1128.cn/tags/Pytorch/</loc>
-        <lastmod>2020-03-15T14:54:01.320Z</lastmod>
+        <lastmod>2020-03-15T17:06:13.934Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://wsx1128.cn/tags/RNN/</loc>
-        <lastmod>2020-03-15T14:54:01.320Z</lastmod>
+        <loc>http://wsx1128.cn/tags/%E5%9B%BE%E5%83%8F%E6%8F%8F%E8%BF%B0/</loc>
+        <lastmod>2020-03-15T17:06:13.934Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
