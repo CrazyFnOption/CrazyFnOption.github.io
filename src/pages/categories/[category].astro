@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, collectCategories } from '../../lib/posts';
+import { postPath } from '../../site.config';
+import { formatDate } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts(false);
+  const categories = collectCategories(posts);
+  return categories.map(([name]) => ({
+    params: { category: name },
+    props: {
+      name,
+      posts: posts.filter((p) => p.data.categories.includes(name)),
+    },
+  }));
+}
+
+const { name, posts } = Astro.props;
+---
+
+<BaseLayout title={`分类：${name}`}>
+  <h1 class="page-title">{name}</h1>
+
+  <ul class="archive-list">
+    {
+      posts.map((post) => (
+        <li>
+          <time datetime={formatDate(post.data.date)}>
+            {formatDate(post.data.date)}
+          </time>
+          <a href={postPath(post.data.date, post.data.slug)}>{post.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

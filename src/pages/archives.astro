@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPosts, groupByYear, formatDate } from '../lib/posts';
+import { postPath } from '../site.config';
+
+// 归档页同样不含归档文章（措辞有点绕，但语义如此：archived 的不进 archives）
+const posts = await getPosts(false);
+const years = groupByYear(posts);
+---
+
+<BaseLayout title="归档">
+  <h1 class="page-title">归档</h1>
+
+  {
+    years.map(([year, list]) => (
+      <>
+        <h2 class="archive-year">
+          {year} 年 <span style="font-size:13px;font-weight:400;color:#999">
+            （{list.length} 篇）
+          </span>
+        </h2>
+        <ul class="archive-list">
+          {list.map((post) => (
+            <li>
+              <time datetime={formatDate(post.data.date)}>
+                {String(post.data.date.getMonth() + 1).padStart(2, '0')}-
+                {String(post.data.date.getDate()).padStart(2, '0')}
+              </time>
+              <a href={postPath(post.data.date, post.data.slug)}>
+                {post.data.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  }
+</BaseLayout>

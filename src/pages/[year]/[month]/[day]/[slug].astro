@@ -1,0 +1,125 @@
+---
+import { render } from 'astro:content';
+// 从 src/pages/[year]/[month]/[day]/ 回到 src/ 要上跳 4 层
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { getPosts, formatDate, type Post } from '../../../../lib/posts';
+
+interface Props {
+  post: Post;
+  prev: Post | null;
+  next: Post | null;
+}
+
+/**
+ * 文章路由 —— 产出 /<年>/<月>/<日>/<slug>/，与旧 Hexo 站逐字一致。
+ *
+ * ⚠️ 这里**必须包含归档文章**（getPosts(true)）：归档只是不在列表里出现，
+ * 直链仍然要能打开，否则旧外链会 404。
+ */
+export async function getStaticPaths() {
+  const posts = await getPosts(true); // 含归档
+  const visible = await getPosts(false); // 不含归档，用于上下篇导航
+
+  return posts.map((post) => {
+    const d = post.data.date;
+    const idx = visible.findIndex((p) => p.id === post.id);
+    return {
+      params: {
+        year: String(d.getFullYear()),
+        month: String(d.getMonth() + 1).padStart(2, '0'),
+        day: String(d.getDate()).padStart(2, '0'),
+        slug: post.data.slug,
+      },
+      props: {
+        post,
+        // visible 按日期倒序：索引小的更新，故「上一篇」是 idx-1
+        prev: idx > 0 ? visible[idx - 1] : null,
+        next: idx >= 0 && idx < visible.length - 1 ? visible[idx + 1] : null,
+      },
+    };
+  });
+}
+
+const { post, prev, next } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={data.title}>
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">{data.title}</h1>
+      <div class="post-meta">
+        <span>{formatDate(data.date)}</span>
+        {
+          data.categories.length > 0 && (
+            <span>
+              <a href={`/categories/${encodeURIComponent(data.categories[0])}/`}>
+                {data.categories[0]}
+              </a>
+            </span>
+          )
+        }
+      </div>
+    </header>
+
+    {
+      data.archived && (
+        <div class="archive-notice">
+          这篇文章已归档 —— 内容保留、直链可访问，但不再出现在首页列表与归档页中。
+        </div>
+      )
+    }
+
+    <div class="post-body">
+      <Content />
+    </div>
+
+    {
+      data.tags.length > 0 && (
+        <div class="post-tags">
+          {data.tags.map((tag) => (
+            <a href={`/tags/${encodeURIComponent(tag)}/`}>#{tag}</a>
+          ))}
+        </div>
+      )
+    }
+
+    <nav class="post-nav">
+      <div class="post-nav__item post-nav__item--prev">
+        {
+          prev && (
+            <>
+              <span class="post-nav__label">上一篇</span>
+              <a href={`/${prev.data.date.getFullYear()}/${String(
+                prev.data.date.getMonth() + 1,
+              ).padStart(2, '0')}/${String(prev.data.date.getDate()).padStart(
+                2,
+                '0',
+              )}/${prev.data.slug}/`}>
+                {prev.data.title}
+              </a>
+            </>
+          )
+        }
+      </div>
+      <div class="post-nav__item post-nav__item--next">
+        {
+          next && (
+            <>
+              <span class="post-nav__label">下一篇</span>
+              <a href={`/${next.data.date.getFullYear()}/${String(
+                next.data.date.getMonth() + 1,
+              ).padStart(2, '0')}/${String(next.data.date.getDate()).padStart(
+                2,
+                '0',
+              )}/${next.data.slug}/`}>
+                {next.data.title}
+              </a>
+            </>
+          )
+        }
+      </div>
+    </nav>
+  </article>
+</BaseLayout>

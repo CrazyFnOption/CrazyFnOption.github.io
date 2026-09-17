@@ -1,0 +1,35 @@
+---
+import type { Post } from '../lib/posts';
+import { excerptOf, formatDate } from '../lib/posts';
+import { postPath } from '../site.config';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const href = postPath(data.date, data.slug);
+---
+
+<li class="post-list__item">
+  <h2 class="post-list__title">
+    <a href={href}>{data.title}</a>
+  </h2>
+
+  <div class="post-meta">
+    <span>{formatDate(data.date)}</span>
+    {
+      data.categories.length > 0 && (
+        <span>
+          <a href={`/categories/${encodeURIComponent(data.categories[0])}/`}>
+            {data.categories[0]}
+          </a>
+        </span>
+      )
+    }
+  </div>
+
+  <p class="post-list__excerpt">{excerptOf(post)}</p>
+  <a class="post-list__more" href={href}>阅读全文 »</a>
+</li>

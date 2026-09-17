@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, collectTags, formatDate } from '../../lib/posts';
+import { postPath } from '../../site.config';
+
+export async function getStaticPaths() {
+  const posts = await getPosts(false);
+  const tags = collectTags(posts);
+  return tags.map(([tag]) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts.filter((p) => p.data.tags.includes(tag)),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`标签：${tag}`}>
+  <h1 class="page-title">#{tag}</h1>
+
+  <ul class="archive-list">
+    {
+      posts.map((post) => (
+        <li>
+          <time datetime={formatDate(post.data.date)}>
+            {formatDate(post.data.date).slice(5)}
+          </time>
+          <a href={postPath(post.data.date, post.data.slug)}>{post.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

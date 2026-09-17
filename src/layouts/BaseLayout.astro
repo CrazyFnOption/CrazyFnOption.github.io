@@ -1,0 +1,96 @@
+---
+import { SITE } from '../site.config';
+import Sidebar from '../components/Sidebar.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE.description } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+
+// 当前路径，用于给菜单项加高亮
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href.replace(/\.xml$/, ''));
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.author} />
+    <link rel="canonical" href={canonical} />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE.title}
+      href={new URL('/rss.xml', SITE.url).href}
+    />
+
+    <!-- 图标：Font Awesome（旧站菜单与社交链接用的就是它） -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css"
+    />
+
+    <!--
+      字体：旧站用 Lato。本地无 Lato 时回落到 PingFang SC / 微软雅黑，
+      与旧站 css/main.css 的字体栈保持一致。
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="page">
+      <!-- 左侧：头部（标题 + 横向菜单）+ 正文 -->
+      <div class="page__main">
+        <header class="site-header">
+          <a class="site-title" href="/">{SITE.title}</a>
+
+          <nav class="site-nav">
+            {
+              SITE.menu.map((item) => (
+                <a
+                  class:list={['site-nav__item', { 'is-active': isActive(item.href) }]}
+                  href={item.href}
+                >
+                  <i class:list={['fa', item.icon]} aria-hidden="true" />
+                  <span>{item.label}</span>
+                </a>
+              ))
+            }
+          </nav>
+        </header>
+
+        <main class="site-content">
+          <slot />
+        </main>
+
+        <footer class="site-footer">
+          <p>
+            &copy; {new Date().getFullYear()} {SITE.author} · Powered by
+            <a href="https://astro.build">Astro</a> · 迁移自 Hexo / NexT
+          </p>
+        </footer>
+      </div>
+
+      <!-- 右侧：深色侧栏（与旧站一致） -->
+      <aside class="page__sidebar">
+        <Sidebar />
+      </aside>
+    </div>
+  </body>
+</html>

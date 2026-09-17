@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, collectCategories } from '../../lib/posts';
+
+const categories = collectCategories(await getPosts(false));
+---
+
+<BaseLayout title="分类">
+  <h1 class="page-title">分类</h1>
+
+  <div class="tag-cloud">
+    {
+      categories.map(([name, count]) => (
+        <a href={`/categories/${encodeURIComponent(name)}/`}>
+          {name}
+          <span class="tag-cloud__count">{count}</span>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>

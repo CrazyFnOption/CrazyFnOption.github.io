@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostListItem from '../../components/PostListItem.astro';
+import { getPosts } from '../../lib/posts';
+import { POSTS_PER_PAGE } from '../../site.config';
+
+/**
+ * 分页第 2 页起。URL 用 /page/2/，与旧站 NexT 的分页结构一致。
+ * 第 1 页由 src/pages/index.astro 处理。
+ */
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => {
+    const page = i + 2;
+    return {
+      params: { page: String(page) },
+      props: {
+        page,
+        totalPages,
+        posts: posts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE),
+      },
+    };
+  });
+}
+
+const { page, totalPages, posts } = Astro.props;
+---
+
+<BaseLayout title={`第 ${page} 页`}>
+  <ul class="post-list">
+    {posts.map((post) => <PostListItem post={post} />)}
+  </ul>
+
+  <nav class="pagination">
+    <a href="/">1</a>
+    {
+      Array.from({ length: totalPages - 1 }, (_, i) => {
+        const n = i + 2;
+        return n === page ? (
+          <span class="is-current">{n}</span>
+        ) : (
+          <a href={`/page/${n}/`}>{n}</a>
+        );
+      })
+    }
+  </nav>
+</BaseLayout>

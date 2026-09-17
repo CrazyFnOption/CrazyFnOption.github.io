@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, collectTags } from '../../lib/posts';
+
+const tags = collectTags(await getPosts(false));
+---
+
+<BaseLayout title="标签">
+  <h1 class="page-title">标签</h1>
+
+  <div class="tag-cloud">
+    {
+      tags.map(([tag, count]) => (
+        <a href={`/tags/${encodeURIComponent(tag)}/`}>
+          {tag}
+          <span class="tag-cloud__count">{count}</span>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>

@@ -1,0 +1,23 @@
+{
+  "name": "crazyfnoption-blog",
+  "description": "王舒啸的个人博客 —— Hexo/NexT 迁移至 Astro",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/fix-encoded-dirs.mjs",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.3"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}
