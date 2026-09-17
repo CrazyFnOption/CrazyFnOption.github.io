@@ -9,31 +9,33 @@ const years = groupByYear(posts);
 ---
 
 <BaseLayout title="归档">
-  <h1 class="page-title">
-    归档 <span class="page-title__sub">{posts.length} 篇</span>
-  </h1>
+  <div class="page-panel">
+    <h1 class="page-title">
+      归档 <span class="page-title__sub">{posts.length} 篇</span>
+    </h1>
 
-  {
-    years.map(([year, list]) => (
-      <>
-        <h2 class="archive-year">
-          {year}
-          <span class="archive-year__count">{list.length} 篇</span>
-        </h2>
-        <ul class="archive-list">
-          {list.map((post) => (
-            <li>
-              <time datetime={formatDate(post.data.date)}>
-                {String(post.data.date.getMonth() + 1).padStart(2, '0')}-
-                {String(post.data.date.getDate()).padStart(2, '0')}
-              </time>
-              <a href={postPath(post.data.date, post.data.slug)}>
-                {post.data.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </>
-    ))
-  }
+    {
+      years.map(([year, list]) => (
+        <>
+          <h2 class="archive-year">
+            {year}
+            <span class="archive-year__count">{list.length} 篇</span>
+          </h2>
+          <ul class="archive-list">
+            {list.map((post) => (
+              <li>
+                <time datetime={formatDate(post.data.date)}>
+                  {String(post.data.date.getMonth() + 1).padStart(2, '0')}-
+                  {String(post.data.date.getDate()).padStart(2, '0')}
+                </time>
+                <a href={postPath(post.data.date, post.data.slug)}>
+                  {post.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ))
+    }
+  </div>
 </BaseLayout>

@@ -22,14 +22,20 @@ export const SITE = {
   /** 部署地址；sitemap 与 RSS 依赖它，必须与 GitHub Pages 实际地址一致 */
   url: 'https://crazyfnoption.github.io',
 
-  /** 顶部横向菜单（旧站菜单顺序：Home / About / Tags / Categories / Archives / Sitemap） */
+  /**
+   * 顶部导航。**刻意只留 4 项**。
+   *
+   * 为什么砍掉两项（2026-09-17 结构调整）：
+   *  - `Sitemap` —— 那是给爬虫的 XML，人点进去是一坨原始 XML，不该出现在给人看的导航里
+   *  - `Categories` —— 与 `Tags` 严重重叠（分类仅 6 个、标签 67 个，算法/java/C 两边都有），
+   *    两个平级入口让人不知道该点哪个。页面本身保留（`/categories/` 仍可访问，
+   *    从标签页与文章元信息进入），只是不占导航位。
+   */
   menu: [
-    { label: 'Home', href: '/', icon: 'fa-home' },
-    { label: 'About', href: '/about/', icon: 'fa-user' },
-    { label: 'Tags', href: '/tags/', icon: 'fa-tags' },
-    { label: 'Categories', href: '/categories/', icon: 'fa-th' },
-    { label: 'Archives', href: '/archives/', icon: 'fa-archive' },
-    { label: 'Sitemap', href: '/sitemap-index.xml', icon: 'fa-sitemap' },
+    { label: '首页', href: '/', icon: 'fa-home' },
+    { label: '归档', href: '/archives/', icon: 'fa-archive' },
+    { label: '标签', href: '/tags/', icon: 'fa-tags' },
+    { label: '关于', href: '/about/', icon: 'fa-user-o' },
   ],
 
   /** 社交链接。侧栏渲染为图标按钮，label 同时作为 title 与无障碍标签 */

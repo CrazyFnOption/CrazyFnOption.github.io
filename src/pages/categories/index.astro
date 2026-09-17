@@ -12,18 +12,28 @@ function tierOf(count: number): string {
 ---
 
 <BaseLayout title="分类">
-  <h1 class="page-title">
-    分类 <span class="page-title__sub">{categories.length} 个</span>
-  </h1>
+  <div class="page-panel">
+    <h1 class="page-title">
+      分类 <span class="page-title__sub">{categories.length} 组</span>
+    </h1>
 
-  <div class="tag-cloud">
-    {
-      categories.map(([name, count]) => (
-        <a class={tierOf(count)} href={`/categories/${encodeURIComponent(name)}/`}>
-          {name}
-          <span class="tag-cloud__count">{count}</span>
-        </a>
-      ))
-    }
+    <p class="page-panel__lead">
+      分类粒度比标签粗，用于把文章归入几个大方向。
+    </p>
+
+    <div class="tag-cloud">
+      {
+        categories.map(([name, count]) => (
+          <a class={tierOf(count)} href={`/categories/${encodeURIComponent(name)}/`}>
+            {name}
+            <span class="tag-cloud__count">{count}</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="page-panel__foot">
+      想按更细的主题找文章，看<a href="/tags/">标签</a>页。
+    </p>
   </div>
 </BaseLayout>

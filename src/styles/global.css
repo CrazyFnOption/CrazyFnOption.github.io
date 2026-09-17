@@ -138,6 +138,12 @@ img {
   min-width: 0;
   display: flex;
   flex-direction: column;
+  /*
+   * 让主列至少撑满一屏，页脚才不会被顶到半空中。
+   * 没有这一条，短页面（分类/标签）的页脚会紧贴内容浮在中间，
+   * 下面留一大片空白，看起来像渲染坏了。
+   */
+  min-height: 100vh;
 }
 
 .page__sidebar {
@@ -288,6 +294,108 @@ img {
     overflow-x: auto;
     flex-wrap: nowrap;
   }
+}
+
+/* ================================================================
+   页面容器
+   ----------------------------------------------------------------
+   统一各内页的视觉容器：归档 / 标签 / 分类 / 关于 / 文章 都套同一层
+   「面板」，参数与首页卡片完全一致（同边框、同圆角、同阴影）。
+   之前这些页面是裸文本、首页是卡片，一个站里两套容器规则，最伤统一感。
+   ================================================================ */
+
+.page-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 32px 36px;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+@media (max-width: 640px) {
+  .page-panel {
+    padding: 20px 18px;
+  }
+}
+
+/* 面板内的页标题：与首页卡片标题同一视觉重量 */
+.page-panel .page-title {
+  margin-top: 0;
+}
+
+.page-panel > :last-child {
+  margin-bottom: 0;
+}
+
+/* 面板顶部的引导语（如分类页「分类粒度比标签粗…」） */
+.page-panel__lead {
+  margin: 0 0 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* 面板底部的补充指引（如标签页「也可以按分类浏览」） */
+.page-panel__foot {
+  margin: 24px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.page-panel__foot a,
+.page-panel__lead a {
+  color: var(--link);
+}
+
+/* 关于页 */
+.about-lead {
+  font-size: 17px;
+  color: var(--text-strong);
+}
+
+.about-body h2 {
+  margin-top: 1.8em;
+}
+
+.about-body ul {
+  padding-left: 1.4em;
+}
+
+.about-body li {
+  margin-bottom: 0.5em;
+}
+
+/* ================================================================
+   面包屑
+   ================================================================ */
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.breadcrumb__sep {
+  opacity: 0.5;
+}
+
+.breadcrumb__current {
+  color: var(--text);
 }
 
 /* ================================================================
@@ -1017,6 +1125,15 @@ img {
   color: var(--accent);
 }
 
+.site-footer__links {
+  margin: 6px 0 0;
+}
+
+.site-footer__sep {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+
 @media (max-width: 640px) {
   .site-footer {
     padding: 20px 18px 32px;
@@ -1200,5 +1317,82 @@ img {
   .search-dialog__close {
     top: calc(4vh - 44px);
     right: 10px;
+  }
+}
+
+/* ================================================================
+   404
+   ================================================================ */
+
+.notfound {
+  text-align: center;
+  padding: 56px 36px;
+}
+
+.notfound__code {
+  margin: 0;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.notfound__title {
+  margin: 12px 0 12px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.notfound__desc {
+  max-width: 500px;
+  margin: 0 auto 26px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.notfound__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+/* 复用 .icon-btn 的方框感，但 404 里要装文字，得放开尺寸 */
+.notfound__links .icon-btn {
+  width: auto;
+  height: auto;
+  padding: 8px 18px;
+  font-size: 14px;
+}
+
+.notfound__recent {
+  max-width: 460px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.notfound__recent-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* 深色下 icon-btn 作文字按钮时对比度偏低，补一点 */
+[data-theme='dark'] .notfound__links .icon-btn {
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .notfound {
+    padding: 36px 20px;
+  }
+  .notfound__code {
+    font-size: 48px;
   }
 }

@@ -1,34 +1,75 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../site.config';
+import { getPosts, collectCategories, collectTags } from '../lib/posts';
+
+const all = await getPosts(true);
+const visible = await getPosts(false);
+const categories = collectCategories(all);
+const tags = collectTags(all);
+
+const firstYear = all.length
+  ? Math.min(...all.map((p) => p.data.date.getFullYear()))
+  : new Date().getFullYear();
 ---
 
 <BaseLayout title="关于">
-  <h1 class="page-title">关于</h1>
+  <div class="page-panel">
+    <h1 class="page-title">关于</h1>
 
-  <div class="post-body">
-    <p>
-      这里是 <strong>{SITE.author}</strong> 的个人博客。建于 2015 年，
-      用来记录算法、机器学习、读书与成长。
-    </p>
+    <div class="post-body about-body">
+      <p class="about-lead">
+        我是 <strong>{SITE.author}</strong>。这里是我的个人博客 ——
+        一个用来把学过的东西写下来的地方。
+      </p>
 
-    <p>
-      站点原用 Hexo + NexT 搭建，2021 年后停更。2026 年迁移至
-      <strong>Astro</strong> —— 文章全部以纯 Markdown 保存，
-      与渲染框架解耦，日后更换技术栈可直接搬走。
-    </p>
+      <p>
+        从 {firstYear} 年写到现在，内容集中在<strong>算法与数据结构</strong>、
+        <strong>机器学习与深度学习</strong>，以及一些<strong>读书与生活记录</strong>。
+        多数文章是学习笔记，写得不算精致，但都是当时真实的思考过程。
+      </p>
 
-    <h2>关于旧文</h2>
-    <p>
-      2015–2020 年的 108 篇文章已全部保留。其中 Effective C++ 条款笔记系列
-      共 27 篇因内容较薄（多为读书摘要）作了<strong>归档</strong>处理 ——
-      文章未删除、直链仍可访问，只是不再出现在首页与归档页。
-    </p>
+      <h2>这里有什么</h2>
+      <ul>
+        <li>
+          <strong>{visible.length} 篇文章</strong>，分布在
+          {categories.length} 个分类、{tags.length} 个标签里
+        </li>
+        <li>
+          可以按<a href="/archives/">归档</a>按时间浏览，或按
+          <a href="/tags/">标签</a>找特定主题
+        </li>
+        <li>
+          想追更新可以订阅 <a href="/rss.xml">RSS</a>（推全文，不必跳回站内）
+        </li>
+      </ul>
 
-    <h2>联系方式</h2>
-    <p>
-      本站源码与内容托管在
-      <a href="https://github.com/CrazyFnOption">GitHub</a>。
-    </p>
+      <h2>关于旧文</h2>
+      <p>
+        {firstYear}–2020 年的文章在 2026 年做了一次迁移，全部保留。其中
+        <strong>Effective C++ 条款笔记共 27 篇</strong>因内容较薄（多为读书摘要、
+        同质化较重）作了<strong>归档</strong>处理 ——
+        <strong>文章没有删除</strong>，直链仍可打开，只是不再出现在首页与归档页。
+      </p>
+
+      <h2>关于这个站点</h2>
+      <p>
+        站点最初用 Hexo + NexT 搭建，停更数年后于 2026 年重建为
+        <strong>Astro</strong>。文章全部以纯 Markdown 保存，与渲染框架解耦 ——
+        日后更换技术栈，内容可以直接搬走。
+      </p>
+
+      <h2>联系</h2>
+      <ul>
+        <li>
+          GitHub：<a href="https://github.com/CrazyFnOption" target="_blank" rel="noopener"
+            >github.com/CrazyFnOption</a
+          >
+        </li>
+        <li>
+          邮箱：<a href="mailto:wsx1128@outlook.com">wsx1128@outlook.com</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </BaseLayout>

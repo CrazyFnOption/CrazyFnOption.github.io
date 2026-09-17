@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPosts } from '../lib/posts';
+import { postPath } from '../site.config';
+
+// 顺手给出最近的文章，比一个光秃秃的「找不到」有用
+const recent = (await getPosts(false)).slice(0, 5);
+---
+
+<BaseLayout title="页面不存在">
+  <div class="page-panel notfound">
+    <p class="notfound__code">404</p>
+    <h1 class="notfound__title">这个页面不存在</h1>
+    <p class="notfound__desc">
+      地址可能输错了，或者这篇文章已经不在了。也可能是本站迁移时漏掉了某个链接 ——
+      若你是从别处点进来的，欢迎<a href="mailto:wsx1128@outlook.com">告诉我</a>。
+    </p>
+
+    <div class="notfound__links">
+      <a class="icon-btn" href="/">回到首页</a>
+      <a class="icon-btn" href="/archives/">浏览归档</a>
+      <a class="icon-btn" href="/tags/">按标签找</a>
+    </div>
+
+    <div class="notfound__recent">
+      <p class="notfound__recent-title">最近更新</p>
+      <ul class="archive-list">
+        {
+          recent.map((post) => (
+            <li>
+              <time datetime={post.data.date.toISOString().slice(0, 10)}>
+                {post.data.date.toISOString().slice(0, 10)}
+              </time>
+              <a href={postPath(post.data.date, post.data.slug)}>{post.data.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

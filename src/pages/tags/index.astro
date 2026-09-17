@@ -16,18 +16,24 @@ function tierOf(count: number): string {
 ---
 
 <BaseLayout title="标签">
-  <h1 class="page-title">
-    标签 <span class="page-title__sub">{tags.length} 个</span>
-  </h1>
+  <div class="page-panel">
+    <h1 class="page-title">
+      标签 <span class="page-title__sub">{tags.length} 个</span>
+    </h1>
 
-  <div class="tag-cloud">
-    {
-      tags.map(([tag, count]) => (
-        <a class={tierOf(count)} href={`/tags/${encodeURIComponent(tag)}/`}>
-          {tag}
-          <span class="tag-cloud__count">{count}</span>
-        </a>
-      ))
-    }
+    <div class="tag-cloud">
+      {
+        tags.map(([tag, count]) => (
+          <a class={tierOf(count)} href={`/tags/${encodeURIComponent(tag)}/`}>
+            {tag}
+            <span class="tag-cloud__count">{count}</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="page-panel__foot">
+      也可以按<a href="/categories/">分类</a>浏览 —— 分类粒度更粗，共 6 组。
+    </p>
   </div>
 </BaseLayout>
