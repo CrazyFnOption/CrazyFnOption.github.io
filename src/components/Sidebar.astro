@@ -2,48 +2,53 @@
 import { SITE } from '../site.config';
 import { getPosts, collectCategories, collectTags } from '../lib/posts';
 
-// 统计数字按旧站口径：**含归档文章**（旧站显示 108 posts / 6 categories / 67 tags）
+// 统计口径与旧站一致：**含归档文章**（旧站显示 108 posts / 6 categories / 67 tags）
 const posts = await getPosts(true);
 const stats = [
-  { count: posts.length, label: 'posts' },
-  { count: collectCategories(posts).length, label: 'categories' },
-  { count: collectTags(posts).length, label: 'tags' },
+  { count: posts.length, label: '文章', href: '/archives/' },
+  { count: collectCategories(posts).length, label: '分类', href: '/categories/' },
+  { count: collectTags(posts).length, label: '标签', href: '/tags/' },
 ];
 ---
 
 <div class="sidebar">
-  <div class="sidebar__author">
-    <img class="sidebar__avatar" src={SITE.avatar} alt={SITE.author} width="110" height="110" />
-    <p class="sidebar__name">{SITE.author}</p>
-  </div>
+  <img
+    class="sidebar__avatar"
+    src={SITE.avatar}
+    alt={SITE.author}
+    width="96"
+    height="96"
+    loading="lazy"
+  />
+  <p class="sidebar__name">{SITE.author}</p>
+  <p class="sidebar__bio">{SITE.bio}</p>
 
   <div class="sidebar__stats">
     {
       stats.map((s) => (
-        <div class="sidebar__stat">
+        <a class="sidebar__stat" href={s.href}>
           <span class="sidebar__stat-count">{s.count}</span>
           <span class="sidebar__stat-label">{s.label}</span>
-        </div>
-      ))
-    }
-  </div>
-
-  <a class="sidebar__rss" href="/rss.xml">
-    <span class="sidebar__rss-icon"></span> RSS
-  </a>
-
-  <div class="sidebar__social">
-    {
-      SITE.social.map((s) => (
-        <a href={s.href} target="_blank" rel="noopener">
-          {s.label}
         </a>
       ))
     }
   </div>
 
-  <div class="sidebar__links">
-    <p class="sidebar__links-title">Links</p>
+  <div class="sidebar__section">
+    <p class="sidebar__section-title">联系</p>
+    <div class="sidebar__social">
+      {
+        SITE.social.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener" title={s.label} aria-label={s.label}>
+            <i class:list={['fa', s.icon]} aria-hidden="true" />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="sidebar__section sidebar__links">
+    <p class="sidebar__section-title">推荐</p>
     {
       SITE.links.map((l) => (
         <a href={l.href} target="_blank" rel="noopener">

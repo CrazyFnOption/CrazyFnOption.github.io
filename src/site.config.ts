@@ -13,6 +13,12 @@ export const SITE = {
   /** 头像，取自旧站 /images/good.jpg */
   avatar: '/images/good.jpg',
 
+  /** 侧栏一句话简介 */
+  bio: '记录算法、机器学习与读书',
+
+  /** 社交分享时的默认卡片图 */
+  ogImage: '/images/good.jpg',
+
   /** 部署地址；sitemap 与 RSS 依赖它，必须与 GitHub Pages 实际地址一致 */
   url: 'https://crazyfnoption.github.io',
 
@@ -26,10 +32,11 @@ export const SITE = {
     { label: 'Sitemap', href: '/sitemap-index.xml', icon: 'fa-sitemap' },
   ],
 
-  /** 社交链接（旧站：GitHub + E-Mail） */
+  /** 社交链接。侧栏渲染为图标按钮，label 同时作为 title 与无障碍标签 */
   social: [
     { label: 'GitHub', href: 'https://github.com/CrazyFnOption', icon: 'fa-github' },
     { label: 'E-Mail', href: 'mailto:wsx1128@outlook.com', icon: 'fa-envelope' },
+    { label: 'RSS', href: '/rss.xml', icon: 'fa-rss' },
   ],
 
   /**

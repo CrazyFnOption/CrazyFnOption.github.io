@@ -2,7 +2,16 @@
 import { render } from 'astro:content';
 // 从 src/pages/[year]/[month]/[day]/ 回到 src/ 要上跳 4 层
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import { getPosts, formatDate, type Post } from '../../../../lib/posts';
+import Toc from '../../../../components/Toc.astro';
+import {
+  getPosts,
+  formatDate,
+  buildToc,
+  wordCount,
+  readingTime,
+  formatCount,
+  type Post,
+} from '../../../../lib/posts';
 
 interface Props {
   post: Post;
@@ -42,84 +51,217 @@ export async function getStaticPaths() {
 
 const { post, prev, next } = Astro.props;
 const { data } = post;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const toc = buildToc(headings);
+const words = wordCount(post);
+const minutes = readingTime(post);
+
+const hrefOf = (p: Post) => {
+  const d = p.data.date;
+  return `/${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(
+    d.getDate(),
+  ).padStart(2, '0')}/${p.data.slug}/`;
+};
 ---
 
-<BaseLayout title={data.title}>
-  <article>
-    <header class="post-header">
-      <h1 class="post-title">{data.title}</h1>
-      <div class="post-meta">
-        <span>{formatDate(data.date)}</span>
-        {
-          data.categories.length > 0 && (
-            <span>
-              <a href={`/categories/${encodeURIComponent(data.categories[0])}/`}>
-                {data.categories[0]}
-              </a>
-            </span>
-          )
-        }
-      </div>
-    </header>
-
-    {
-      data.archived && (
-        <div class="archive-notice">
-          这篇文章已归档 —— 内容保留、直链可访问，但不再出现在首页列表与归档页中。
+<BaseLayout
+  title={data.title}
+  description={post.data.description}
+  type="article"
+  publishedTime={data.date.toISOString()}
+  tags={data.tags}
+>
+  <div class="post-layout">
+    <article>
+      <header class="post-header">
+        <h1 class="post-title">{data.title}</h1>
+        <div class="post-meta">
+          <span class="post-meta__item">
+            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+            {formatDate(data.date)}
+          </span>
+          {
+            data.categories.length > 0 && (
+              <span class="post-meta__item">
+                <i class="fa fa-folder-o" aria-hidden="true"></i>
+                <a href={`/categories/${encodeURIComponent(data.categories[0])}/`}>
+                  {data.categories[0]}
+                </a>
+              </span>
+            )
+          }
+          <span class="post-meta__item">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            {formatCount(words)} 字
+          </span>
+          <span class="post-meta__item">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            约 {minutes} 分钟
+          </span>
         </div>
-      )
-    }
+      </header>
 
-    <div class="post-body">
-      <Content />
-    </div>
+      {
+        data.archived && (
+          <div class="archive-notice">
+            这篇文章已归档 —— 内容保留、直链可访问，但不再出现在首页列表与归档页中。
+          </div>
+        )
+      }
 
-    {
-      data.tags.length > 0 && (
-        <div class="post-tags">
-          {data.tags.map((tag) => (
-            <a href={`/tags/${encodeURIComponent(tag)}/`}>#{tag}</a>
-          ))}
-        </div>
-      )
-    }
+      {/* 窄屏目录：收在正文前，宽屏由右侧栏承担 */}
+      <Toc items={toc} variant="inline" />
 
-    <nav class="post-nav">
-      <div class="post-nav__item post-nav__item--prev">
+      {/*
+        data-pagefind-body：告诉 Pagefind 只索引正文。
+        一旦站内有元素标了这个属性，Pagefind 就只索引这些区域，
+        导航、侧栏、页脚不会被搜出来。
+      */}
+      <div class="post-body" data-pagefind-body>
+        <Content />
+      </div>
+
+      {
+        data.tags.length > 0 && (
+          <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true" style="color:var(--text-muted)" />
+            {data.tags.map((tag) => (
+              <a href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>
+            ))}
+          </div>
+        )
+      }
+
+      <nav class="post-nav">
         {
-          prev && (
-            <>
-              <span class="post-nav__label">上一篇</span>
-              <a href={`/${prev.data.date.getFullYear()}/${String(
-                prev.data.date.getMonth() + 1,
-              ).padStart(2, '0')}/${String(prev.data.date.getDate()).padStart(
-                2,
-                '0',
-              )}/${prev.data.slug}/`}>
-                {prev.data.title}
-              </a>
-            </>
+          prev ? (
+            <a class="post-nav__item post-nav__item--prev" href={hrefOf(prev)}>
+              <span class="post-nav__label">
+                <i class="fa fa-arrow-left" aria-hidden="true" /> 上一篇
+              </span>
+              <span class="post-nav__title">{prev.data.title}</span>
+            </a>
+          ) : (
+            <span class="post-nav__item post-nav__item--empty" />
           )
         }
-      </div>
-      <div class="post-nav__item post-nav__item--next">
         {
-          next && (
-            <>
-              <span class="post-nav__label">下一篇</span>
-              <a href={`/${next.data.date.getFullYear()}/${String(
-                next.data.date.getMonth() + 1,
-              ).padStart(2, '0')}/${String(next.data.date.getDate()).padStart(
-                2,
-                '0',
-              )}/${next.data.slug}/`}>
-                {next.data.title}
-              </a>
-            </>
+          next ? (
+            <a class="post-nav__item post-nav__item--next" href={hrefOf(next)}>
+              <span class="post-nav__label">
+                下一篇 <i class="fa fa-arrow-right" aria-hidden="true" />
+              </span>
+              <span class="post-nav__title">{next.data.title}</span>
+            </a>
+          ) : (
+            <span class="post-nav__item post-nav__item--empty" />
           )
         }
-      </div>
-    </nav>
-  </article>
+      </nav>
+    </article>
+
+    {/* 宽屏右侧粘性目录 */}
+    <Toc items={toc} variant="side" />
+  </div>
 </BaseLayout>
+
+<script>
+  // ---------------- 代码块：包一层容器，加语言标签与复制按钮 ----------------
+  document.querySelectorAll('.post-body pre').forEach((pre) => {
+    // 已有容器就跳过（避免重复包裹）
+    if (pre.parentElement?.classList.contains('code-block')) return;
+
+    const code = pre.querySelector('code');
+    // Astro 用 data-language 标注高亮语言
+    const lang =
+      code?.getAttribute('data-language') ||
+      pre.getAttribute('data-language') ||
+      '';
+
+    const wrap = document.createElement('div');
+    wrap.className = 'code-block';
+
+    const bar = document.createElement('div');
+    bar.className = 'code-block__bar';
+
+    const label = document.createElement('span');
+    label.textContent = lang || 'text';
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'code-block__copy';
+    btn.innerHTML = '<i class="fa fa-clipboard" aria-hidden="true"></i> 复制';
+
+    btn.addEventListener('click', async () => {
+      const text = code?.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // 非 HTTPS 或权限被拒时的兜底
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      btn.classList.add('is-done');
+      btn.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i> 已复制';
+      setTimeout(() => {
+        btn.classList.remove('is-done');
+        btn.innerHTML = '<i class="fa fa-clipboard" aria-hidden="true"></i> 复制';
+      }, 1800);
+    });
+
+    bar.append(label, btn);
+    pre.parentNode?.insertBefore(wrap, pre);
+    wrap.append(bar, pre);
+  });
+
+  // ---------------- 图片：懒加载 ----------------
+  document.querySelectorAll('.post-body img').forEach((img) => {
+    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+    if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+  });
+
+  // ---------------- 目录：滚动时高亮当前章节 ----------------
+  const links = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'),
+  );
+  if (links.length) {
+    // 宽屏右侧栏与窄屏内联目录各渲染一份，链接是重复的 —— 按 id 去重
+    const seen = new Set<string>();
+    const targets: HTMLElement[] = [];
+    for (const a of links) {
+      const id = decodeURIComponent(a.hash.slice(1));
+      if (seen.has(id)) continue;
+      const el = document.getElementById(id);
+      if (el) {
+        seen.add(id);
+        targets.push(el);
+      }
+    }
+
+    const mark = () => {
+      // 取「已滚过、且离顶部最近」的标题
+      let active: HTMLElement | undefined = targets[0];
+      for (const t of targets) {
+        if (t.getBoundingClientRect().top <= 120) active = t;
+        else break;
+      }
+      if (!active) return;
+
+      links.forEach((a) => {
+        // ⚠️ a.hash 是**百分号编码**的（中文标题会编成 %E6%95%B0…），
+        // 必须解码后再和元素 id 比。直接比字符串永远不相等 —— 踩过。
+        const id = decodeURIComponent(a.hash.slice(1));
+        a.classList.toggle('is-active', id === active!.id);
+      });
+    };
+
+    window.addEventListener('scroll', mark, { passive: true });
+    mark();
+  }
+</script>

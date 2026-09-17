@@ -3,15 +3,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPosts, collectCategories } from '../../lib/posts';
 
 const categories = collectCategories(await getPosts(false));
+
+function tierOf(count: number): string {
+  if (count >= 20) return 'tag-cloud--hot';
+  if (count >= 8) return 'tag-cloud--warm';
+  return 'tag-cloud--cool';
+}
 ---
 
 <BaseLayout title="分类">
-  <h1 class="page-title">分类</h1>
+  <h1 class="page-title">
+    分类 <span class="page-title__sub">{categories.length} 个</span>
+  </h1>
 
   <div class="tag-cloud">
     {
       categories.map(([name, count]) => (
-        <a href={`/categories/${encodeURIComponent(name)}/`}>
+        <a class={tierOf(count)} href={`/categories/${encodeURIComponent(name)}/`}>
           {name}
           <span class="tag-cloud__count">{count}</span>
         </a>

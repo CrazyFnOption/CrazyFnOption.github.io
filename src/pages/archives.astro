@@ -9,15 +9,16 @@ const years = groupByYear(posts);
 ---
 
 <BaseLayout title="归档">
-  <h1 class="page-title">归档</h1>
+  <h1 class="page-title">
+    归档 <span class="page-title__sub">{posts.length} 篇</span>
+  </h1>
 
   {
     years.map(([year, list]) => (
       <>
         <h2 class="archive-year">
-          {year} 年 <span style="font-size:13px;font-weight:400;color:#999">
-            （{list.length} 篇）
-          </span>
+          {year}
+          <span class="archive-year__count">{list.length} 篇</span>
         </h2>
         <ul class="archive-list">
           {list.map((post) => (

@@ -1,6 +1,6 @@
 ---
 import type { Post } from '../lib/posts';
-import { excerptOf, formatDate } from '../lib/posts';
+import { excerptOf, formatDate, readingTime } from '../lib/posts';
 import { postPath } from '../site.config';
 
 interface Props {
@@ -18,18 +18,26 @@ const href = postPath(data.date, data.slug);
   </h2>
 
   <div class="post-meta">
-    <span>{formatDate(data.date)}</span>
+    <span class="post-meta__item">
+      <i class="fa fa-calendar-o" aria-hidden="true"></i>
+      {formatDate(data.date)}
+    </span>
     {
       data.categories.length > 0 && (
-        <span>
+        <span class="post-meta__item">
+          <i class="fa fa-folder-o" aria-hidden="true"></i>
           <a href={`/categories/${encodeURIComponent(data.categories[0])}/`}>
             {data.categories[0]}
           </a>
         </span>
       )
     }
+    <span class="post-meta__item">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      约 {readingTime(post)} 分钟
+    </span>
   </div>
 
-  <p class="post-list__excerpt">{excerptOf(post)}</p>
-  <a class="post-list__more" href={href}>阅读全文 »</a>
+  <p class="post-list__excerpt">{excerptOf(post, 120)}</p>
+  <a class="post-list__more" href={href}>阅读全文 →</a>
 </li>

@@ -6,13 +6,25 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  /** 文章页传入，用于 OG 卡片标注类型 */
+  type?: 'website' | 'article';
+  /** 文章页传入，用于 OG 卡片 */
+  publishedTime?: string;
+  tags?: string[];
 }
 
-const { title, description = SITE.description } = Astro.props;
+const {
+  title,
+  description = SITE.description,
+  type = 'website',
+  publishedTime,
+  tags = [],
+} = Astro.props;
+
 const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = new URL(SITE.ogImage, SITE.url).href;
 
-// 当前路径，用于给菜单项加高亮
 const path = Astro.url.pathname;
 const isActive = (href: string) =>
   href === '/' ? path === '/' : path.startsWith(href.replace(/\.xml$/, ''));
@@ -28,6 +40,44 @@ const isActive = (href: string) =>
     <meta name="author" content={SITE.author} />
     <link rel="canonical" href={canonical} />
 
+    <!--
+      主题预处理：**必须内联且放在最前**。
+      若放到 body 末尾或用外链脚本，暗色模式下会先闪一下白屏（FOUC）。
+    -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = saved || (prefersDark ? 'dark' : 'light');
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          /* localStorage 不可用时退回亮色，不阻塞渲染 */
+        }
+      })();
+    </script>
+
+    <!-- 社交卡片：分享到微信 / Twitter / 飞书时能出预览 -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:image" content={ogImage} />
+    {
+      publishedTime && (
+        <meta property="article:published_time" content={publishedTime} />
+      )
+    }
+    {tags.map((t) => <meta property="article:tag" content={t} />)}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -35,16 +85,13 @@ const isActive = (href: string) =>
       href={new URL('/rss.xml', SITE.url).href}
     />
 
-    <!-- 图标：Font Awesome（旧站菜单与社交链接用的就是它） -->
+    <!-- 图标：Font Awesome（菜单与社交链接用） -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css"
     />
 
-    <!--
-      字体：旧站用 Lato。本地无 Lato 时回落到 PingFang SC / 微软雅黑，
-      与旧站 css/main.css 的字体栈保持一致。
-    -->
+    <!-- 字体：旧站用 Lato；中文回落到 PingFang SC / 微软雅黑 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,7 +102,6 @@ const isActive = (href: string) =>
 
   <body>
     <div class="page">
-      <!-- 左侧：头部（标题 + 横向菜单）+ 正文 -->
       <div class="page__main">
         <header class="site-header">
           <a class="site-title" href="/">{SITE.title}</a>
@@ -73,6 +119,28 @@ const isActive = (href: string) =>
               ))
             }
           </nav>
+
+          <div class="site-actions">
+            <button
+              class="icon-btn"
+              id="search-open"
+              type="button"
+              aria-label="搜索"
+              title="搜索（按 / 或 Ctrl+K）"
+            >
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+
+            <button
+              class="icon-btn"
+              id="theme-toggle"
+              type="button"
+              aria-label="切换主题"
+              title="切换亮色 / 暗色"
+            >
+              <i class="fa fa-moon-o" aria-hidden="true"></i>
+            </button>
+          </div>
         </header>
 
         <main class="site-content">
@@ -87,10 +155,163 @@ const isActive = (href: string) =>
         </footer>
       </div>
 
-      <!-- 右侧：深色侧栏（与旧站一致） -->
       <aside class="page__sidebar">
         <Sidebar />
       </aside>
     </div>
+
+    <!-- 回到顶部 -->
+    <button class="to-top" id="to-top" type="button" aria-label="回到顶部">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- 搜索弹层（内容由 Pagefind 在客户端注入） -->
+    <div class="search-dialog" id="search-dialog" role="dialog" aria-modal="true">
+      <button
+        class="icon-btn search-dialog__close"
+        id="search-close"
+        type="button"
+        aria-label="关闭搜索"
+      >
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+      <div class="search-dialog__panel">
+        <div id="search"></div>
+      </div>
+    </div>
+
+    <script>
+      // ---------------- 主题切换 ----------------
+      const root = document.documentElement;
+      const themeBtn = document.getElementById('theme-toggle');
+      const icon = themeBtn?.querySelector('i');
+
+      function paintIcon() {
+        if (!icon) return;
+        const dark = root.dataset.theme === 'dark';
+        icon.className = dark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+      }
+      paintIcon();
+
+      themeBtn?.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem('theme', next);
+        } catch (e) {
+          /* 忽略：隐私模式下写不了 localStorage */
+        }
+        paintIcon();
+      });
+
+      // ---------------- 回到顶部 ----------------
+      const toTop = document.getElementById('to-top');
+      const onScroll = () => {
+        toTop?.classList.toggle('is-visible', window.scrollY > 400);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      toTop?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // ---------------- 搜索 ----------------
+      const dialog = document.getElementById('search-dialog');
+      let searchLoaded = false;
+
+      /** 注入经典脚本并等待加载完成 */
+      function loadScript(src: string) {
+        return new Promise<void>((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = src;
+          s.onload = () => resolve();
+          s.onerror = () => reject(new Error(`加载失败: ${src}`));
+          document.head.appendChild(s);
+        });
+      }
+
+      /** 注入样式表（已存在则跳过） */
+      function loadStyle(href: string) {
+        return new Promise<void>((resolve) => {
+          if (document.querySelector(`link[href="${href}"]`)) return resolve();
+          const l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.href = href;
+          l.onload = () => resolve();
+          l.onerror = () => resolve(); // 样式失败不影响功能
+          document.head.appendChild(l);
+        });
+      }
+
+      async function openSearch() {
+        dialog?.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+
+        // Pagefind 只在第一次打开时加载，避免每个页面都拉一堆资源
+        if (!searchLoaded) {
+          searchLoaded = true;
+          try {
+            // ⚠️ Pagefind 1.x 的 pagefind-ui.js 是 **IIFE**，末尾执行
+            // `window.PagefindUI = ...`，**不是 ES 模块**（文件里一个 export 都没有）。
+            // 用 import() 会拿到空对象。必须用 <script> 标签加载经典脚本。
+            await loadScript('/pagefind/pagefind-ui.js');
+            await loadStyle('/pagefind/pagefind-ui.css');
+
+            const PF = (window as any).PagefindUI;
+            if (!PF) throw new Error('PagefindUI 未挂载到 window');
+
+            new PF({
+              element: '#search',
+              showSubResults: true,
+              showImages: false,
+              translations: {
+                placeholder: '搜索文章…',
+                zero_results: '没有找到「[SEARCH_TERM]」',
+                many_results: '找到 [COUNT] 条结果',
+                one_result: '找到 1 条结果',
+                clear_search: '清空',
+                load_more: '加载更多结果',
+              },
+            });
+          } catch (e) {
+            // 本地 dev 或未建索引时 Pagefind 不存在，降级为提示
+            const box = document.getElementById('search');
+            if (box) {
+              box.innerHTML =
+                '<p style="padding:24px;color:#8b949e;font-size:14px">' +
+                '搜索索引尚未生成（本地 dev 模式下正常，构建后可用）。</p>';
+            }
+          }
+        }
+        document.querySelector<HTMLInputElement>('.pagefind-ui__search-input')?.focus();
+      }
+
+      function closeSearch() {
+        dialog?.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      document.getElementById('search-open')?.addEventListener('click', openSearch);
+      document.getElementById('search-close')?.addEventListener('click', closeSearch);
+
+      // 点遮罩关闭
+      dialog?.addEventListener('click', (e) => {
+        if (e.target === dialog) closeSearch();
+      });
+
+      // 快捷键：/ 或 Ctrl/Cmd+K 打开，Esc 关闭
+      document.addEventListener('keydown', (e) => {
+        const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(
+          (e.target as HTMLElement)?.tagName ?? '',
+        );
+        if (e.key === 'Escape') closeSearch();
+        if (typing) return;
+        if (e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) {
+          e.preventDefault();
+          openSearch();
+        }
+      });
+    </script>
   </body>
 </html>

@@ -68,3 +68,49 @@ export function formatDate(d: Date): string {
   const day = String(d.getDate()).padStart(2, '0');
   return `${y}-${m}-${day}`;
 }
+
+/** 把正文里的非内容部分（代码块、图片、链接语法）剥掉 */
+function plainText(body: string): string {
+  return (body ?? '')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/[#>*`_~|-]/g, ' ');
+}
+
+/**
+ * 字数统计。
+ *
+ * 中文按**字符**计，英文按**单词**计 —— 直接用 `split(/\s+/)` 会把一整段中文
+ * 当成一个「词」，数字会小得离谱。这是中文博客字数统计最常见的错误。
+ */
+export function wordCount(post: Post): number {
+  const text = plainText(post.body);
+  const cjk = (text.match(/[一-龥぀-ヿ]/g) ?? []).length;
+  const words = (text.replace(/[一-龥぀-ヿ]/g, ' ').match(/[A-Za-z0-9]+/g) ?? [])
+    .length;
+  return cjk + words;
+}
+
+/** 阅读时长（分钟）。中文阅读速度按 350 字/分钟估算。 */
+export function readingTime(post: Post): number {
+  return Math.max(1, Math.round(wordCount(post) / 350));
+}
+
+/** 字数展示：超过 1000 用 k */
+export function formatCount(n: number): string {
+  return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
+}
+
+/** 从渲染后的标题列表生成目录树（最多两级，避免目录过长） */
+export interface TocItem {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+export function buildToc(headings: Array<{ depth: number; slug: string; text: string }>): TocItem[] {
+  return headings
+    .filter((h) => h.depth >= 2 && h.depth <= 4)
+    .map((h) => ({ depth: h.depth, slug: h.slug, text: h.text }));
+}

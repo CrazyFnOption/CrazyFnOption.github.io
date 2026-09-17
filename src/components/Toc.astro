@@ -1,0 +1,33 @@
+---
+import type { TocItem } from '../lib/posts';
+
+interface Props {
+  items: TocItem[];
+  /** inline 变体用于窄屏（收成正文顶部的可折叠块） */
+  variant?: 'side' | 'inline';
+}
+
+const { items, variant = 'side' } = Astro.props;
+---
+
+{
+  items.length > 2 && (
+    <nav
+      class:list={['toc', variant === 'inline' && 'toc--inline']}
+      aria-label="文章目录"
+    >
+      <div class="toc__inner">
+        <p class="toc__title">目录</p>
+        <ul>
+          {items.map((h) => (
+            <li class={`toc__lvl-${h.depth}`}>
+              <a href={`#${h.slug}`} data-toc-link>
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  )
+}

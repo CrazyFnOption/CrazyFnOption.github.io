@@ -3,15 +3,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPosts, collectTags } from '../../lib/posts';
 
 const tags = collectTags(await getPosts(false));
+
+/**
+ * 按文章数分档，避免 67 个等大色块糊成「标签墙」。
+ * 分档阈值按实际分布定：Top 档是算法(35)/java(24)/acm(15) 这类高频标签。
+ */
+function tierOf(count: number): string {
+  if (count >= 12) return 'tag-cloud--hot';
+  if (count >= 4) return 'tag-cloud--warm';
+  return 'tag-cloud--cool';
+}
 ---
 
 <BaseLayout title="标签">
-  <h1 class="page-title">标签</h1>
+  <h1 class="page-title">
+    标签 <span class="page-title__sub">{tags.length} 个</span>
+  </h1>
 
   <div class="tag-cloud">
     {
       tags.map(([tag, count]) => (
-        <a href={`/tags/${encodeURIComponent(tag)}/`}>
+        <a class={tierOf(count)} href={`/tags/${encodeURIComponent(tag)}/`}>
           {tag}
           <span class="tag-cloud__count">{count}</span>
         </a>
