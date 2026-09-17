@@ -78,27 +78,85 @@ scripts/
 
 ---
 
-## 写新文章
+## 日常使用（写文章 / 改简介 / 发布）
 
-在 `src/content/posts/` 下建 `.md` 文件，frontmatter 必填 `title`、`date`、`slug`：
+### 写一篇新文章
+
+```bash
+npm run new "文章标题"
+npm run new "文章标题" -- --category 随笔 --tags 读书,随想
+```
+
+会在 `src/content/posts/` 下生成 frontmatter 正确的骨架，直接编辑正文即可。
+
+可选参数：`--category <分类>`、`--tags a,b,c`、`--slug <自定义>`、`--date <YYYY-MM-DD>`、`--archived`。
+
+> 命令会自动清洗文件名里的 `#`、空格、全角冒号等字符（这些会导致构建读不到文件），
+> 但 **frontmatter 里的 `slug` 保持原样** —— 它决定文章 URL，不能随便动。
+
+### 本地预览
+
+```bash
+npm run dev          # http://localhost:4321，改完自动刷新
+```
+
+> 注意：`npm run preview` 用的是 Astro 自带的简易静态服务器，**不解码中文 URL**，
+> 中文标题的文章会 404。那**不是站点坏了**，别被误导。
+
+### 发布
+
+```bash
+npm run publish -- "新增文章：XXX"
+```
+
+会**先本地构建校验**（frontmatter 写错会在这里被拦住，而不是推上去让 Actions 失败），
+再提交推送。Actions 自动部署，约 1-2 分钟上线。
+
+### 改简介 / 站点信息
+
+都在 **`src/site.config.ts`** 一个文件里：
+
+| 想改什么 | 改哪一行 |
+|---|---|
+| 侧栏那行简介 | `bio:` |
+| 站点标题（左上角） | `title:` |
+| SEO 描述 | `description:` |
+| 作者名 | `author:` |
+| 头像 | `avatar:`（换 `public/images/` 下的图） |
+| 导航菜单 | `menu:` —— **当前刻意只留 4 项**，加减前先看下面的说明 |
+| 社交链接 | `social:` |
+| 友情链接 | `links:` |
+
+### frontmatter 字段
 
 ```markdown
 ---
-title: "文章标题"
-date: 2026-09-18
-slug: "my-new-post"
-categories: ["随笔"]
-tags: ["标签A", "标签B"]
-archived: false
+title: "文章标题"          # 必填
+date: 2026-09-18           # 必填
+slug: "my-new-post"        # 必填，决定 URL，尽量别用中文标点
+categories: ["随笔"]        # 可选
+tags: ["标签A", "标签B"]     # 可选
+archived: false            # 可选，true 则不进列表但直链可访
+description: "摘要"         # 可选，缺省时自动截取正文
 ---
-
-正文……
 ```
 
-`archived: true` 的文章**不出现在首页列表、归档页和 sitemap**，但直链仍可访问。
-旧站的 27 篇 Effective C++ 条款笔记就是这样处理的（内容薄、同质化重）。
+**`title` / `date` / `slug` 是必填的** —— 缺了会让 schema 校验失败、构建直接报错。
+用 `npm run new` 生成就不会漏。
+
+`archived: true` 的文章不出现在首页、归档页和 sitemap，但直链仍可访问。
+旧站的 27 篇 Effective C++ 条款笔记就是这样处理的。
 
 图片放 `public/` 下，用根路径引用：`![说明](/images/foo.png)`。
+
+### ⚠️ 改导航前必读
+
+导航**刻意只有 4 项**（首页 / 归档 / 标签 / 关于），这是有意的设计决定：
+
+- `Sitemap` 是给爬虫的 XML，在页脚，不要放回导航
+- `Categories` 与 `Tags` 内容严重重叠（分类 6 组、标签 67 个），页面保留但**不占导航位**
+- 首页没有 H1（只有卡片列表）是**有意为之** —— 它和内页共用同一套容器语言，
+  差异读起来是设计而非遗漏，**别给它加标题**
 
 ---
 

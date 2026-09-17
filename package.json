@@ -10,7 +10,9 @@
     "dev": "astro dev",
     "build": "astro build && node scripts/fix-encoded-dirs.mjs && pagefind --site dist",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "new": "node scripts/new-post.mjs",
+    "publish": "node scripts/publish.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
