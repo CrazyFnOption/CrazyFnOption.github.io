@@ -1,0 +1,39 @@
+---
+import Toc from './Toc.astro';
+import Sidebar from './Sidebar.astro';
+import type { TocItem } from '../lib/posts';
+interface Props { items: TocItem[]; }
+const { items } = Astro.props;
+---
+{items.length > 2 ? (
+  <div class="reading-sidebar">
+    <div class="reading-sidebar__tabs" role="tablist" aria-label="阅读侧栏">
+      <button id="toc-tab" type="button" role="tab" aria-selected="true" aria-controls="toc-panel" data-rail-tab>文章目录</button>
+      <button id="author-tab" type="button" role="tab" aria-selected="false" aria-controls="author-panel" tabindex="-1" data-rail-tab>关于作者</button>
+    </div>
+    <div id="toc-panel" role="tabpanel" aria-labelledby="toc-tab"><Toc items={items} /></div>
+    <div id="author-panel" role="tabpanel" aria-labelledby="author-tab" hidden><Sidebar /></div>
+  </div>
+) : <Sidebar />}
+<script>
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-rail-tab]'));
+  function selectTab(tab: HTMLButtonElement) {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute('aria-selected', String(active));
+      item.tabIndex = active ? 0 : -1;
+      const panel = document.getElementById(item.getAttribute('aria-controls')!);
+      if (panel) panel.hidden = !active;
+    });
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectTab(tab));
+    tab.addEventListener('keydown', (event) => {
+      const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+      if (!keys.includes(event.key)) return;
+      event.preventDefault();
+      const next = event.key === 'Home' ? tabs[0] : event.key === 'End' ? tabs.at(-1)! : tabs[(index + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      selectTab(next); next.focus();
+    });
+  });
+</script>

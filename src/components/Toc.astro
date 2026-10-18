@@ -10,24 +10,14 @@ interface Props {
 const { items, variant = 'side' } = Astro.props;
 ---
 
-{
-  items.length > 2 && (
-    <nav
-      class:list={['toc', variant === 'inline' && 'toc--inline']}
-      aria-label="文章目录"
-    >
-      <div class="toc__inner">
-        <p class="toc__title">目录</p>
-        <ul>
-          {items.map((h) => (
-            <li class={`toc__lvl-${h.depth}`}>
-              <a href={`#${h.slug}`} data-toc-link>
-                {h.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
-  )
-}
+{items.length > 2 && (variant === 'inline' ? (
+  <details class="toc toc--inline">
+    <summary>文章目录 <span>{items.length} 节</span></summary>
+    <nav aria-label="文章目录"><ul>{items.map((h) => <li class={`toc__lvl-${h.depth}`}><a href={`#${h.slug}`} data-toc-link>{h.text}</a></li>)}</ul></nav>
+  </details>
+) : (
+  <nav class="toc" aria-label="文章目录">
+    <p class="toc__title">本页内容</p>
+    <ul>{items.map((h) => <li class={`toc__lvl-${h.depth}`}><a href={`#${h.slug}`} data-toc-link>{h.text}</a></li>)}</ul>
+  </nav>
+))}

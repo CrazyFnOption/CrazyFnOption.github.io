@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import type { Post } from '../lib/posts';
 import { excerptOf, formatDate, readingTime } from '../lib/posts';
 import { postPath } from '../site.config';
@@ -19,13 +20,13 @@ const href = postPath(data.date, data.slug);
 
   <div class="post-meta">
     <span class="post-meta__item">
-      <i class="fa fa-calendar-o" aria-hidden="true"></i>
+      <Icon name="fa-calendar-o" />
       {formatDate(data.date)}
     </span>
     {
       data.categories.length > 0 && (
         <span class="post-meta__item">
-          <i class="fa fa-folder-o" aria-hidden="true"></i>
+          <Icon name="fa-folder-o" />
           <a href={`/categories/${encodeURIComponent(data.categories[0])}/`}>
             {data.categories[0]}
           </a>
@@ -33,7 +34,7 @@ const href = postPath(data.date, data.slug);
       )
     }
     <span class="post-meta__item">
-      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <Icon name="fa-clock-o" />
       约 {readingTime(post)} 分钟
     </span>
   </div>

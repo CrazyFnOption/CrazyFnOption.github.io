@@ -1,6 +1,7 @@
 ---
 import { SITE } from '../site.config';
 import { getPosts, collectCategories, collectTags } from '../lib/posts';
+import Icon from './Icon.astro';
 
 // 统计口径与旧站一致：**含归档文章**（旧站显示 108 posts / 6 categories / 67 tags）
 const posts = await getPosts(true);
@@ -40,7 +41,7 @@ const stats = [
       {
         SITE.social.map((s) => (
           <a href={s.href} target="_blank" rel="noopener" title={s.label} aria-label={s.label}>
-            <i class:list={['fa', s.icon]} aria-hidden="true" />
+            <Icon name={s.icon} /><span>{s.label}</span>
           </a>
         ))
       }

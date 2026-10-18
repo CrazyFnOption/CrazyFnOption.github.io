@@ -1,0 +1,22 @@
+---
+interface Props { name: string; class?: string; }
+const { name, class: className = '' } = Astro.props;
+const paths: Record<string, string> = {
+  search: 'm21 21-4.4-4.4 M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+  moon: 'M20.9 13a9 9 0 1 1-9.9-9.9 7 7 0 0 0 9.9 9.9Z',
+  sun: 'M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8 M12 2v2 M12 20v2 M2 12h2 M20 12h2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M19.1 4.9l-1.4 1.4 M6.3 17.7l-1.4 1.4',
+  close: 'm6 6 12 12 M18 6 6 18',
+  'arrow-up': 'm5 12 7-7 7 7 M12 5v14',
+  'arrow-left': 'm12 5-7 7 7 7 M5 12h14',
+  'arrow-right': 'm12 5 7 7-7 7 M5 12h14',
+  'fa-calendar-o': 'M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z',
+  'fa-folder-o': 'M3 7V4h6l2 3h10v13H3V7Z',
+  'fa-clock-o': 'M12 8v4l3 2 M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0',
+  'fa-file-text-o': 'M14 2H4v20h16V8l-6-6Z M14 2v6h6 M8 13h8 M8 17h6',
+  'fa-tags': 'M3 3h7l11 11-7 7L3 10V3Z M7 7h.01',
+  'fa-github': 'm8 7-5 5 5 5 M16 7l5 5-5 5 M14 4l-4 16',
+  'fa-envelope': 'M3 5h18v14H3V5Z m0 1 9 7 9-7',
+  'fa-rss': 'M4 4a16 16 0 0 1 16 16 M4 11a9 9 0 0 1 9 9 M4 19h.01',
+};
+---
+<svg class:list={['icon', className]} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={paths[name] || paths.search} /></svg>

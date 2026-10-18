@@ -1,6 +1,7 @@
 ---
 import { SITE } from '../site.config';
 import Sidebar from '../components/Sidebar.astro';
+import Icon from '../components/Icon.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -24,6 +25,7 @@ const {
 const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const ogImage = new URL(SITE.ogImage, SITE.url).href;
+const hasReadingSidebar = Astro.slots.has('sidebar');
 
 const path = Astro.url.pathname;
 const isActive = (href: string) =>
@@ -51,7 +53,7 @@ const isActive = (href: string) =>
           var prefersDark =
             window.matchMedia &&
             window.matchMedia('(prefers-color-scheme: dark)').matches;
-          var theme = saved || (prefersDark ? 'dark' : 'light');
+          var theme = saved === 'light' || saved === 'dark' ? saved : (prefersDark ? 'dark' : 'light');
           document.documentElement.dataset.theme = theme;
         } catch (e) {
           /* localStorage 不可用时退回亮色，不阻塞渲染 */
@@ -85,35 +87,22 @@ const isActive = (href: string) =>
       href={new URL('/rss.xml', SITE.url).href}
     />
 
-    <!-- 图标：Font Awesome（菜单与社交链接用） -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css"
-    />
-
-    <!-- 字体：旧站用 Lato；中文回落到 PingFang SC / 微软雅黑 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
 
   <body>
-    <div class="page">
-      <div class="page__main">
+    <a class="skip-link" href="#main-content">跳到正文</a>
         <header class="site-header">
-          <a class="site-title" href="/">{SITE.title}</a>
+          <div class="site-header__inner">
+          <a class="site-title" href="/">{SITE.title}<span>NOTES ON CODE &amp; LIFE</span></a>
 
-          <nav class="site-nav">
+          <nav class="site-nav" aria-label="主导航">
             {
               SITE.menu.map((item) => (
                 <a
                   class:list={['site-nav__item', { 'is-active': isActive(item.href) }]}
                   href={item.href}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
                 >
-                  <i class:list={['fa', item.icon]} aria-hidden="true" />
                   <span>{item.label}</span>
                 </a>
               ))
@@ -127,8 +116,10 @@ const isActive = (href: string) =>
               type="button"
               aria-label="搜索"
               title="搜索（按 / 或 Ctrl+K）"
+              aria-haspopup="dialog"
+              aria-controls="search-dialog"
             >
-              <i class="fa fa-search" aria-hidden="true"></i>
+              <Icon name="search" />
             </button>
 
             <button
@@ -138,12 +129,15 @@ const isActive = (href: string) =>
               aria-label="切换主题"
               title="切换亮色 / 暗色"
             >
-              <i class="fa fa-moon-o" aria-hidden="true"></i>
+              <Icon name="moon" class="theme-moon" /><Icon name="sun" class="theme-sun" />
             </button>
+          </div>
           </div>
         </header>
 
-        <main class="site-content">
+    <div class:list={['page', { 'page--article': hasReadingSidebar }]}>
+      <div class="page__main">
+        <main class="site-content" id="main-content" tabindex="-1">
           <slot />
         </main>
 
@@ -167,26 +161,29 @@ const isActive = (href: string) =>
       </div>
 
       <aside class="page__sidebar">
-        <Sidebar />
+        <slot name="sidebar"><Sidebar /></slot>
       </aside>
     </div>
 
     <!-- 回到顶部 -->
     <button class="to-top" id="to-top" type="button" aria-label="回到顶部">
-      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+      <Icon name="arrow-up" />
     </button>
 
     <!-- 搜索弹层（内容由 Pagefind 在客户端注入） -->
-    <div class="search-dialog" id="search-dialog" role="dialog" aria-modal="true">
+    <div class="search-dialog" id="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-heading" aria-hidden="true" inert>
+      <div class="search-dialog__panel">
+      <div class="search-dialog__header">
+      <h2 id="search-heading">搜索文章</h2>
       <button
         class="icon-btn search-dialog__close"
         id="search-close"
         type="button"
         aria-label="关闭搜索"
       >
-        <i class="fa fa-times" aria-hidden="true"></i>
+        <Icon name="close" />
       </button>
-      <div class="search-dialog__panel">
+      </div>
         <div id="search"></div>
       </div>
     </div>
@@ -195,12 +192,10 @@ const isActive = (href: string) =>
       // ---------------- 主题切换 ----------------
       const root = document.documentElement;
       const themeBtn = document.getElementById('theme-toggle');
-      const icon = themeBtn?.querySelector('i');
-
       function paintIcon() {
-        if (!icon) return;
         const dark = root.dataset.theme === 'dark';
-        icon.className = dark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+        themeBtn?.setAttribute('aria-label', dark ? '切换到亮色主题' : '切换到暗色主题');
+        themeBtn?.setAttribute('title', dark ? '切换到亮色主题' : '切换到暗色主题');
       }
       paintIcon();
 
@@ -224,12 +219,20 @@ const isActive = (href: string) =>
       onScroll();
 
       toTop?.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
       });
 
       // ---------------- 搜索 ----------------
-      const dialog = document.getElementById('search-dialog');
+      const dialog = document.getElementById('search-dialog')!;
+      const searchClose = document.getElementById('search-close')!;
+      const searchOpen = document.getElementById('search-open')!;
+      const main = document.querySelector<HTMLElement>('.page')!;
+      const header = document.querySelector<HTMLElement>('.site-header')!;
+      const previousInert = new Map<HTMLElement, boolean>();
+      let previousFocus: HTMLElement | null = null;
+      let previousOverflow = '';
       let searchLoaded = false;
+      let searchLoading: Promise<void> | null = null;
 
       /** 注入经典脚本并等待加载完成 */
       function loadScript(src: string) {
@@ -256,12 +259,19 @@ const isActive = (href: string) =>
       }
 
       async function openSearch() {
-        dialog?.classList.add('is-open');
+        if (dialog.classList.contains('is-open')) return;
+        previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : searchOpen;
+        previousOverflow = document.body.style.overflow;
+        dialog.inert = false;
+        dialog.setAttribute('aria-hidden', 'false');
+        dialog.classList.add('is-open');
+        [main, header, toTop].forEach((el) => { if (el) { previousInert.set(el, el.inert); el.inert = true; } });
         document.body.style.overflow = 'hidden';
+        searchClose.focus();
 
         // Pagefind 只在第一次打开时加载，避免每个页面都拉一堆资源
-        if (!searchLoaded) {
-          searchLoaded = true;
+        if (!searchLoaded && !searchLoading) {
+          searchLoading = (async () => {
           try {
             // ⚠️ Pagefind 1.x 的 pagefind-ui.js 是 **IIFE**，末尾执行
             // `window.PagefindUI = ...`，**不是 ES 模块**（文件里一个 export 都没有）。
@@ -271,6 +281,7 @@ const isActive = (href: string) =>
 
             const PF = (window as any).PagefindUI;
             if (!PF) throw new Error('PagefindUI 未挂载到 window');
+            document.getElementById('search')?.replaceChildren();
 
             new PF({
               element: '#search',
@@ -285,23 +296,40 @@ const isActive = (href: string) =>
                 load_more: '加载更多结果',
               },
             });
+            searchLoaded = true;
           } catch (e) {
             // 本地 dev 或未建索引时 Pagefind 不存在，降级为提示
             const box = document.getElementById('search');
             if (box) {
               box.innerHTML =
-                '<p style="padding:24px;color:#8b949e;font-size:14px">' +
-                '搜索索引尚未生成（本地 dev 模式下正常，构建后可用）。</p>';
+                '<p class="search-message" role="status">搜索暂不可用，请稍后重试，或从归档页浏览文章。</p>';
             }
           }
+          })();
         }
-        document.querySelector<HTMLInputElement>('.pagefind-ui__search-input')?.focus();
+        await searchLoading;
+        searchLoading = null;
+        if (dialog.classList.contains('is-open')) document.querySelector<HTMLInputElement>('.pagefind-ui__search-input')?.focus();
       }
 
       function closeSearch() {
-        dialog?.classList.remove('is-open');
-        document.body.style.overflow = '';
+        if (!dialog.classList.contains('is-open')) return;
+        dialog.classList.remove('is-open');
+        dialog.setAttribute('aria-hidden', 'true');
+        dialog.inert = true;
+        previousInert.forEach((value, el) => { el.inert = value; });
+        previousInert.clear();
+        document.body.style.overflow = previousOverflow;
+        previousFocus?.focus();
       }
+
+      dialog.addEventListener('keydown', (event) => {
+        if (event.key !== 'Tab') return;
+        const focusable = Array.from(dialog.querySelectorAll<HTMLElement>('button, input, a[href], [tabindex="0"]')).filter(el => el.getClientRects().length && !el.matches(':disabled'));
+        const first = focusable[0], last = focusable.at(-1);
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      });
 
       document.getElementById('search-open')?.addEventListener('click', openSearch);
       document.getElementById('search-close')?.addEventListener('click', closeSearch);
@@ -315,7 +343,7 @@ const isActive = (href: string) =>
       document.addEventListener('keydown', (e) => {
         const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(
           (e.target as HTMLElement)?.tagName ?? '',
-        );
+        ) || (e.target instanceof HTMLElement && e.target.isContentEditable);
         if (e.key === 'Escape') closeSearch();
         if (typing) return;
         if (e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) {

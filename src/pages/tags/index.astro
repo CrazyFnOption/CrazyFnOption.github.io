@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getPosts, collectTags } from '../../lib/posts';
+import { getPosts, collectTags, collectCategories } from '../../lib/posts';
 
 const tags = collectTags(await getPosts(false));
+const categoryCount = collectCategories(await getPosts(false)).length;
 
 /**
  * 按文章数分档，避免 67 个等大色块糊成「标签墙」。
@@ -33,7 +34,7 @@ function tierOf(count: number): string {
     </div>
 
     <p class="page-panel__foot">
-      也可以按<a href="/categories/">分类</a>浏览 —— 分类粒度更粗，共 6 组。
+      也可以按<a href="/categories/">分类</a>浏览 —— 分类粒度更粗，共 {categoryCount} 组。
     </p>
   </div>
 </BaseLayout>

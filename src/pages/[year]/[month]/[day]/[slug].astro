@@ -1,8 +1,10 @@
 ---
+import Icon from '../../../../components/Icon.astro';
 import { render } from 'astro:content';
 // 从 src/pages/[year]/[month]/[day]/ 回到 src/ 要上跳 4 层
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Toc from '../../../../components/Toc.astro';
+import ReadingSidebar from '../../../../components/ReadingSidebar.astro';
 import {
   getPosts,
   formatDate,
@@ -71,6 +73,7 @@ const hrefOf = (p: Post) => {
   publishedTime={data.date.toISOString()}
   tags={data.tags}
 >
+  <ReadingSidebar slot="sidebar" items={toc} />
   <div class="post-layout">
     <article class="page-panel">
       {/* 面包屑：让读者知道自己在哪一层，也提供回退路径 */}
@@ -78,31 +81,29 @@ const hrefOf = (p: Post) => {
         <a href="/">首页</a>
         <span class="breadcrumb__sep">/</span>
         <a href="/archives/">归档</a>
-        <span class="breadcrumb__sep">/</span>
         {
           data.categories.length > 0 ? (
             <>
+              <span class="breadcrumb__sep">/</span>
               <a href={`/categories/${encodeURIComponent(data.categories[0])}/`}>
                 {data.categories[0]}
               </a>
-              <span class="breadcrumb__sep">/</span>
             </>
           ) : null
         }
-        <span class="breadcrumb__current">{data.title}</span>
       </nav>
 
       <header class="post-header">
         <h1 class="post-title">{data.title}</h1>
         <div class="post-meta">
           <span class="post-meta__item">
-            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+            <Icon name="fa-calendar-o" />
             {formatDate(data.date)}
           </span>
           {
             data.categories.length > 0 && (
               <span class="post-meta__item">
-                <i class="fa fa-folder-o" aria-hidden="true"></i>
+                <Icon name="fa-folder-o" />
                 <a href={`/categories/${encodeURIComponent(data.categories[0])}/`}>
                   {data.categories[0]}
                 </a>
@@ -110,11 +111,11 @@ const hrefOf = (p: Post) => {
             )
           }
           <span class="post-meta__item">
-            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            <Icon name="fa-file-text-o" />
             {formatCount(words)} 字
           </span>
           <span class="post-meta__item">
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            <Icon name="fa-clock-o" />
             约 {minutes} 分钟
           </span>
         </div>
@@ -143,7 +144,7 @@ const hrefOf = (p: Post) => {
       {
         data.tags.length > 0 && (
           <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true" style="color:var(--text-muted)" />
+            <Icon name="fa-tags" />
             {data.tags.map((tag) => (
               <a href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>
             ))}
@@ -156,7 +157,7 @@ const hrefOf = (p: Post) => {
           prev ? (
             <a class="post-nav__item post-nav__item--prev" href={hrefOf(prev)}>
               <span class="post-nav__label">
-                <i class="fa fa-arrow-left" aria-hidden="true" /> 上一篇
+                <Icon name="arrow-left" /> 上一篇
               </span>
               <span class="post-nav__title">{prev.data.title}</span>
             </a>
@@ -168,7 +169,7 @@ const hrefOf = (p: Post) => {
           next ? (
             <a class="post-nav__item post-nav__item--next" href={hrefOf(next)}>
               <span class="post-nav__label">
-                下一篇 <i class="fa fa-arrow-right" aria-hidden="true" />
+                下一篇 <Icon name="arrow-right" />
               </span>
               <span class="post-nav__title">{next.data.title}</span>
             </a>
@@ -179,8 +180,7 @@ const hrefOf = (p: Post) => {
       </nav>
     </article>
 
-    {/* 宽屏右侧粘性目录 */}
-    <Toc items={toc} variant="side" />
+
   </div>
 </BaseLayout>
 
@@ -209,12 +209,15 @@ const hrefOf = (p: Post) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'code-block__copy';
-    btn.innerHTML = '<i class="fa fa-clipboard" aria-hidden="true"></i> 复制';
+    btn.setAttribute('aria-live', 'polite');
+    btn.textContent = '复制代码';
 
     btn.addEventListener('click', async () => {
       const text = code?.textContent ?? '';
+      let copied = false;
       try {
         await navigator.clipboard.writeText(text);
+        copied = true;
       } catch {
         // 非 HTTPS 或权限被拒时的兜底
         const ta = document.createElement('textarea');
@@ -223,14 +226,15 @@ const hrefOf = (p: Post) => {
         ta.style.opacity = '0';
         document.body.appendChild(ta);
         ta.select();
-        document.execCommand('copy');
+        copied = document.execCommand('copy');
         ta.remove();
+        btn.focus();
       }
-      btn.classList.add('is-done');
-      btn.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i> 已复制';
+      btn.classList.toggle('is-done', copied);
+      btn.textContent = copied ? '已复制' : '复制失败，请手动选择';
       setTimeout(() => {
         btn.classList.remove('is-done');
-        btn.innerHTML = '<i class="fa fa-clipboard" aria-hidden="true"></i> 复制';
+        btn.textContent = '复制代码';
       }, 1800);
     });
 
@@ -266,8 +270,9 @@ const hrefOf = (p: Post) => {
     const mark = () => {
       // 取「已滚过、且离顶部最近」的标题
       let active: HTMLElement | undefined = targets[0];
+      const offset = (document.querySelector('.site-header')?.getBoundingClientRect().height ?? 104) + 40;
       for (const t of targets) {
-        if (t.getBoundingClientRect().top <= 120) active = t;
+        if (t.getBoundingClientRect().top <= offset) active = t;
         else break;
       }
       if (!active) return;
@@ -277,10 +282,31 @@ const hrefOf = (p: Post) => {
         // 必须解码后再和元素 id 比。直接比字符串永远不相等 —— 踩过。
         const id = decodeURIComponent(a.hash.slice(1));
         a.classList.toggle('is-active', id === active!.id);
+        if (id === active!.id) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
       });
     };
 
-    window.addEventListener('scroll', mark, { passive: true });
+    let scheduled = false;
+    window.addEventListener('scroll', () => {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(() => { mark(); scheduled = false; });
+    }, { passive: true });
+    window.addEventListener('resize', mark);
     mark();
+    links.forEach(a => a.addEventListener('click', (event) => {
+      const target = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+      if (!target) return;
+      event.preventDefault();
+      const details = a.closest('details');
+      if (details) details.open = false;
+      history.pushState(null, '', a.hash);
+      // 先移出已折叠目录的焦点，避免浏览器把滚动恢复到目录位置。
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ block: 'start', behavior: 'instant' });
+      mark();
+    }));
   }
 </script>
