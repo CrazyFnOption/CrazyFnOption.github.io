@@ -12,9 +12,9 @@ const { items } = Astro.props;
       <button id="author-tab" type="button" role="tab" aria-selected="false" aria-controls="author-panel" tabindex="-1" data-rail-tab>关于作者</button>
     </div>
     <div id="toc-panel" role="tabpanel" aria-labelledby="toc-tab"><Toc items={items} /></div>
-    <div id="author-panel" role="tabpanel" aria-labelledby="author-tab" hidden><Sidebar /></div>
+    <div id="author-panel" role="tabpanel" aria-labelledby="author-tab" hidden><Sidebar showLinks={false} /></div>
   </div>
-) : <Sidebar />}
+) : <Sidebar showLinks={false} />}
 <script>
   const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-rail-tab]'));
   function selectTab(tab: HTMLButtonElement) {

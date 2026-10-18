@@ -3,59 +3,49 @@ import { SITE } from '../site.config';
 import { getPosts, collectCategories, collectTags } from '../lib/posts';
 import Icon from './Icon.astro';
 
-// 统计口径与旧站一致：**含归档文章**（旧站显示 108 posts / 6 categories / 67 tags）
+interface Props { showLinks?: boolean; }
+const { showLinks = true } = Astro.props;
+// 沿用旧站统计口径：包含归档文章。
 const posts = await getPosts(true);
 const stats = [
   { count: posts.length, label: '文章', href: '/archives/' },
   { count: collectCategories(posts).length, label: '分类', href: '/categories/' },
   { count: collectTags(posts).length, label: '标签', href: '/tags/' },
 ];
+const socialLabel = (label: string) => label === 'E-Mail' ? '邮箱' : label === 'RSS' ? 'RSS 订阅' : label;
 ---
 
 <div class="sidebar">
-  <img
-    class="sidebar__avatar"
-    src={SITE.avatar}
-    alt={SITE.author}
-    width="96"
-    height="96"
-    loading="lazy"
-  />
-  <p class="sidebar__name">{SITE.author}</p>
-  <p class="sidebar__bio">{SITE.bio}</p>
-
-  <div class="sidebar__stats">
-    {
-      stats.map((s) => (
-        <a class="sidebar__stat" href={s.href}>
-          <span class="sidebar__stat-count">{s.count}</span>
-          <span class="sidebar__stat-label">{s.label}</span>
-        </a>
-      ))
-    }
-  </div>
-
-  <div class="sidebar__section">
-    <p class="sidebar__section-title">联系</p>
-    <div class="sidebar__social">
-      {
-        SITE.social.map((s) => (
-          <a href={s.href} target="_blank" rel="noopener" title={s.label} aria-label={s.label}>
-            <Icon name={s.icon} /><span>{s.label}</span>
-          </a>
-        ))
-      }
+  <section class="sidebar__author" aria-label="作者简介">
+    <div class="sidebar__identity">
+      <img class="sidebar__avatar" src={SITE.avatar} alt={SITE.author} width="56" height="56" loading="lazy" />
+      <div>
+        <p class="sidebar__name">{SITE.author}</p>
+        <a class="sidebar__about" href="/about/">关于我 <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
-  </div>
-
-  <div class="sidebar__section sidebar__links">
-    <p class="sidebar__section-title">推荐</p>
-    {
-      SITE.links.map((l) => (
-        <a href={l.href} target="_blank" rel="noopener">
-          {l.label}
+    <p class="sidebar__bio">{SITE.bio}</p>
+    <nav class="sidebar__social" aria-label="联系与订阅">
+      {SITE.social.map((s) => (
+        <a href={s.href} target={s.href.startsWith('https://') ? '_blank' : undefined} rel={s.href.startsWith('https://') ? 'noopener' : undefined}>
+          <Icon name={s.icon} /><span>{socialLabel(s.label)}</span>
         </a>
-      ))
-    }
-  </div>
+      ))}
+    </nav>
+    <nav class="sidebar__stats" aria-label="站点统计（含归档文章）">
+      {stats.map((s) => (
+        <a class="sidebar__stat" href={s.href}>
+          <span class="sidebar__stat-count">{s.count}</span><span>{s.label}</span>
+        </a>
+      ))}
+    </nav>
+  </section>
+  {showLinks && (
+    <nav class="sidebar__links" aria-label="友情链接">
+      <p class="sidebar__section-title">友情链接</p>
+      <div>{SITE.links.map((l) => (
+        <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
+      ))}</div>
+    </nav>
+  )}
 </div>

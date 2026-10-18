@@ -27,7 +27,7 @@ export async function getStaticPaths() {
 const { page, totalPages, posts } = Astro.props;
 ---
 
-<BaseLayout title={`第 ${page} 页`}>
+<BaseLayout title={`第 ${page} 页`} showSidebarLinks={false}>
   <ul class="post-list">
     {posts.map((post) => <PostListItem post={post} />)}
   </ul>

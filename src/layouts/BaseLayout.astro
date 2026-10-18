@@ -12,6 +12,7 @@ interface Props {
   /** 文章页传入，用于 OG 卡片 */
   publishedTime?: string;
   tags?: string[];
+  showSidebarLinks?: boolean;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   type = 'website',
   publishedTime,
   tags = [],
+  showSidebarLinks = true,
 } = Astro.props;
 
 const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
@@ -161,7 +163,7 @@ const isActive = (href: string) =>
       </div>
 
       <aside class="page__sidebar">
-        <slot name="sidebar"><Sidebar /></slot>
+        <slot name="sidebar"><Sidebar showLinks={showSidebarLinks} /></slot>
       </aside>
     </div>
 

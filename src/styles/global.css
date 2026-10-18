@@ -160,21 +160,24 @@ img { max-width: 100%; height: auto; }
 .post-nav__item:hover .post-nav__title { color: var(--accent); }
 .archive-notice { border-left: 2px solid var(--accent); padding: 10px 16px; margin-bottom: 28px; background: var(--bg-soft); color: var(--text-muted); font-size: 13px; }
 /* 作者与站点入口 */
-.sidebar { padding: 4px 0 24px; font-size: 14px; }
-.sidebar__avatar { display: block; width: 62px; height: 62px; object-fit: cover; border: 1px solid var(--border); border-radius: 50%; margin: 0 0 18px; }
-.sidebar__name { font: 500 23px/1.5 var(--font-serif); margin: 0 0 7px; color: var(--text-strong); }
-.sidebar__bio { margin: 0 0 24px; color: var(--text-muted); font-size: 13px; }
-.sidebar__stats { display: flex; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); gap: 14px; padding: 17px 0; }
-.sidebar__stat { flex: 1; display: flex; flex-direction: column; gap: 2px; color: var(--text-muted); }
-.sidebar__stat:hover { color: var(--accent); text-decoration: none; }
-.sidebar__stat-count { font-size: 19px; font-variant-numeric: tabular-nums; color: var(--text-strong); }
-.sidebar__stat-label { font-size: 11px; }
-.sidebar__section { margin-top: 24px; }
-.sidebar__section-title { font-size: 11px; color: var(--text-muted); margin: 0 0 12px; letter-spacing: 1px; }
-.sidebar__social { display: flex; flex-wrap: wrap; gap: 12px 18px; }
-.sidebar__social a { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-muted); }
-.sidebar__social .icon { width: 15px; height: 15px; }
-.sidebar__links a { display: inline-block; font-size: 12px; color: var(--text-muted); margin: 0 15px 8px 0; }
+.sidebar { padding: 4px 0 24px; font-size: 14px; text-align: left; }
+.sidebar__identity { display: flex; align-items: center; gap: 14px; }
+.sidebar__identity > div { min-width: 0; }
+.sidebar__avatar { display: block; flex: 0 0 56px; width: 56px; height: 56px; object-fit: cover; border: 1px solid var(--border); border-radius: 50%; }
+.sidebar__name { font: 500 22px/1.4 var(--font-serif); margin: 0 0 3px; color: var(--text-strong); overflow-wrap: anywhere; }
+.sidebar__about { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; line-height: 1.6; color: var(--text-muted); }
+.sidebar__bio { margin: 18px 0 14px; color: var(--text); font-size: 14px; line-height: 1.9; }
+.sidebar__social { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.sidebar__social a { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; font-size: 13px; color: var(--text-muted); white-space: nowrap; }
+.sidebar__social .icon { width: 14px; height: 14px; }
+.sidebar__stats { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin-top: 14px; }
+.sidebar__stat { display: inline-flex; align-items: baseline; gap: 4px; padding: 4px 0; font-size: 12px; line-height: 1.8; color: var(--text-muted); white-space: nowrap; }
+.sidebar__stat-count { font-variant-numeric: tabular-nums; }
+.sidebar__links { border-top: 1px solid var(--border); margin-top: 26px; padding-top: 20px; }
+.sidebar__section-title { font-size: 12px; color: var(--text-muted); margin: 0 0 9px; letter-spacing: 1px; }
+.sidebar__links > div { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.sidebar__links a { display: inline-flex; align-items: center; min-height: 32px; font-size: 13px; color: var(--text-muted); }
+.sidebar a:hover { color: var(--accent); }
 /* 归档、标签与分页 */
 .page-title { font: 500 34px/1.5 var(--font-serif); color: var(--text-strong); margin: 0 0 28px; }
 .page-title__sub { font: 13px var(--font-sans); color: var(--text-muted); margin-left: 12px; }
