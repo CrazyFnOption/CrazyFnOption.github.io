@@ -12,6 +12,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "new": "node scripts/new-post.mjs",
+    "publish:prepare": "node scripts/publish-prepare.mjs",
     "publish": "node scripts/publish.mjs"
   },
   "dependencies": {
